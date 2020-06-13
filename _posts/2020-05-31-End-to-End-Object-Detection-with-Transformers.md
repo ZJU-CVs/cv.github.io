@@ -61,13 +61,13 @@ tags:
 > $$
 >   \mathcal{L}_{\text {match }}\left(y_{i}, \hat{y}_{\sigma(i)}\right)=-\mathbb{1}_\left\{c_{i} \neq \varnothing\right\} \hat{p}_{\sigma(i)}\left(c_{i}\right)+\mathbb{1}_{\left\{c_{i} \neq \varnothing\right\}} \mathcal{L}_{\mathrm{box}}\left(b_{i}, \hat{b}_{\sigma(i)}\right)
 > $$
->   
+> 
 > > 其中，$c_i$是目标类别标签，$b_i$是向量代表真值BBox中心点坐标及其宽高
->   
+> 
 > > 寻找 matching 的过程类似于匹配 proposal 或者 anchors 机制，主要区别是需要找一个one to one matching，而不需要重复
+> 
 >   
->   
->   
+> 
 > - Hungarian loss
 >
 >   > $$
@@ -102,7 +102,7 @@ tags:
 
 **Backbone**
 
-> 输入的初始图像$x_{img}\in \mathcal{R}^{3\times\H_0\times W_0}$，常规的CNNbackbone生成较低分辨率的激活图$f\in\mathcal{R}^{C\times H\times W}$，设$C=2048，W,H=H_0/32,W_0/32$
+> 输入的初始图像$x_{img}\in \mathcal{R}^{3\times H_0\times W_0}$，常规的CNNbackbone生成较低分辨率的激活图$f\in\mathcal{R}^{C\times H\times W}$，设$C=2048，W,H=H_0/32,W_0/32$
 
 **Transformer encoder**
 
