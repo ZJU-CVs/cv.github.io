@@ -95,17 +95,12 @@ tags:
 >
 > 
 
-#### 
 
 ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/15.png)
 
 
 
 #### 3. Conclusion
-
-
-
-#### 4. Conclusion
 
 - 所提出的动态卷积在深度可分离卷积的基础上构建，与常规的动态卷积相比，减少了参数量
 - 将所提的Dynamic convolution 代替transformer中的self-attention，效果更好（实验表明）
