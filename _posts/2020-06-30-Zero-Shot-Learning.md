@@ -220,6 +220,44 @@ Transductive setting 通过seen class和unseen class的少量样本，得到clas
 
 (1) [Learning to Compare: RelationNetwork for Few-Shot Learning](https://arxiv.org/pdf/1711.06025.pdf)
 
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/15.png" alt="img" style="zoom:50%;" />
+>
+> 上述网络模型可应用于few-shot learning和zero-shot learning，整体架构由embedding module和relation module组成。embedding module用于产生query image和training image，relation module用于对query image和training image进行比较
+>
+> - **few-shot learning**
+>
+>   > - 存在三个数据集：training set，support set，testing set。如果support set中包含C个不同的类，并且每个类中包含K个标签的样本时，此时few-shot问题为C-way K-shot问题（k=1时为one-shot，k=0时为zero-shot）
+>   >
+>   > - **训练时：**
+>   >   - 每一轮迭代时随机从训练集training set中挑出C个类，每个类包含K个样本，来构成sample set $S=\{(x_i,y_i)\}$，然后从剩下的部分中也挑出C个类，构成query set Q=$\{(x_j,y_j\}$
+>   >   - $x_i$和$x_j$通过embedding module $f_{\phi}$产生两个feature map $f_{\phi}(x_i)$和$f_{\phi}(x_j)$，然后结合起来$C(f_{\phi}(x_i),f_{\phi}(x_j))$得到$F_c$
+>   >   - $F_c$输入relation module $g_{\phi}$，并产生一个(0,1)之间的系数，**用来表征$x_i$和$x_j$之间的相似度**
+>   > - **测试时：**
+>   >   - support set作为对比学习的样例，拥有和测试集一样的标签
+>   >   - 通过将support set与testing set做对比来实现对测试数据的识别
+>
+> - **zero-shot learning**
+>
+>   > 
+
+
+
+补充
+
+> <ICLR-2018>Few-Shot Learning with Graph Neural Networks
+>
+> <BigData-2017>One-shot Learning for Fine-grained Relation Extraction via ConvolutionalSiamese Neural Network
+>
+> <NIPS-2016>Matching Networks for One Shot Learning
+>
+> <NIPS-2017>Prototypical Networks for Few-hot Learning
+>
+> <ICLR-2017>Optimization as a model for few-shot learning
+>
+> <ICML-2016>Meta-learningwith Memory-augmented Neural Networks
+
+
+
 #### Datasets
 
 > （1）**Animal with Attributes（AwA）**官网：[Animals with Attributes](https://link.zhihu.com/?target=https%3A//cvml.ist.ac.at/AwA/)
