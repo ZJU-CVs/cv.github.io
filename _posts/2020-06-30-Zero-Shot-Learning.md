@@ -239,6 +239,12 @@ Transductive setting 通过seen class和unseen class的少量样本，得到clas
 > - **zero-shot learning**
 >
 >   > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/16.png" alt="img" style="zoom:50%;" />
+>   >
+>   > 
+>   > $$
+>   > r_{i, j}=g_{\phi}\left(\mathcal{C}\left(f_{\varphi_{1}}\left(v_{c}\right), f_{\varphi_{2}}\left(x_{j}\right)\right)\right), \quad i=1,2, \ldots, C
+>   > $$
+>   > 
 
 
 
