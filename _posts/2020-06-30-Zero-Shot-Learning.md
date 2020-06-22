@@ -46,6 +46,12 @@ tags:
 > - CIII (Class-Inductive Instance-Inductive setting): 只使用训练实例和seen标签集合来训练模型
 > - CTII (Class-Transductive Instance-Inductive setting): 使用训练实例和seen标签集合，外加unseen标签集合来训练模型
 > - CTIT(Class-Transductive Instance-Inductive setting): 使用训练实例和seen标签集合，外加unseen标签集合，对应未标注的测试集合来训练模型
+>
+> 
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/10.png" alt="img" style="zoom:50%;" />
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/14.jpg" alt="img" style="zoom:50%;" />
 
 
 
