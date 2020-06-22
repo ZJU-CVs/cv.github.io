@@ -50,8 +50,6 @@ tags:
 > 
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/10.png" alt="img" style="zoom:50%;" />
->
-> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/14.jpg" alt="img" style="zoom:50%;" />
 
 
 
@@ -122,8 +120,6 @@ ZSL算法框架主要分为三个部分：
 
 #### Methods 
 
-(更新中 ...)
-
 ref: [A survey of zero-shot learning: Settings, methods, and applications](https://dl.acm.org/doi/pdf/10.1145/3293318)
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/9.png" alt="img" style="zoom:50%;" />
@@ -132,7 +128,7 @@ ref: [A survey of zero-shot learning: Settings, methods, and applications](https
 
 https://zhuanlan.zhihu.com/p/111602525
 
-##### Based on Attribute Description
+##### Based on Attribute Description (Inductive Setting)
 
 (1) [Learning To Detect Unseen Object Classes by Between-Class Attribute Transfer](https://ieeexplore.ieee.org/document/5206594)
 
@@ -163,7 +159,7 @@ https://zhuanlan.zhihu.com/p/111602525
 
 
 
-##### Based on Embedding Resprentation
+##### Based on Embedding Resprentation (Inductive Setting)
 
 (1) [DeViSE: A Deep Visual-Semantic Embedding Model](http://papers.nips.cc/paper/5204-devise-a-deep-visual-semantic-embedding-model.pdf)
 
@@ -173,7 +169,9 @@ https://zhuanlan.zhihu.com/p/111602525
 > - 将两个向量映射到同一维度的空间，进行相似度计算
 > - 测试时，可根据语义之间的相似性进行图像分类
 
-##### Based on Knowledge Graph
+
+
+##### Based on Knowledge Graph (Inductive Setting)
 
 (1) [Zero-shot Recognition via Semantic Embeddings and Knowledge Graphs](https://arxiv.org/pdf/1803.08035.pdf)
 
@@ -200,6 +198,8 @@ https://zhuanlan.zhihu.com/p/111602525
 
 对每个实体的特征进行提取的同时，保留实体之间的语义结构关系
 
+
+
 补充：
 
 > <IJCAI-2018>Fine-grained Image Classification by Visual-Semantic Embedding
@@ -210,7 +210,15 @@ https://zhuanlan.zhihu.com/p/111602525
 
 
 
+##### Based on Few-shot Learning (Transductive Setting)
 
+Transductive setting 通过seen class和unseen class的少量样本，得到class之间的关系，常用few-shot learning（FSL）
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/14.jpg" alt="img" style="zoom:50%;" />
+
+
+
+[Learning to Compare: RelationNetwork for Few-Shot Learning](https://arxiv.org/pdf/1711.06025.pdf)
 
 #### Datasets
 
