@@ -218,7 +218,7 @@ Transductive setting 通过seen class和unseen class的少量样本，得到clas
 
 
 
-[Learning to Compare: RelationNetwork for Few-Shot Learning](https://arxiv.org/pdf/1711.06025.pdf)
+(1) [Learning to Compare: RelationNetwork for Few-Shot Learning](https://arxiv.org/pdf/1711.06025.pdf)
 
 #### Datasets
 
