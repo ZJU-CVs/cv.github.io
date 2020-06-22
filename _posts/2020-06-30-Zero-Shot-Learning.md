@@ -231,13 +231,15 @@ Transductive setting 通过seen class和unseen class的少量样本，得到clas
 >   > - **训练时：**
 >   >   - 每一轮迭代时随机从训练集training set中挑出C个类，每个类包含K个样本，来构成sample set $S=\{(x_i,y_i)\}$，然后从剩下的部分中也挑出C个类，构成query set Q=$\{(x_j,y_j\}$
 >   >   - $x_i$和$x_j$通过embedding module $f_{\phi}$产生两个feature map $f_{\phi}(x_i)$和$f_{\phi}(x_j)$，然后结合起来$C(f_{\phi}(x_i),f_{\phi}(x_j))$得到$F_c$
->   >   - $F_c$输入relation module $g_{\phi}$，并产生一个(0,1)之间的系数，**用来表征$x_i$和$x_j$之间的相似度**
+>   >   - $F_c$输入relation module $g_{\phi}$，并产生一个(0,1)之间的系数，**用来表征$x_i$和$x_j$之间的相似度** $$r_{i, j}=g_{\phi}\left(\mathcal{C}\left(f_{\varphi}\left(x_{i}\right), f_{\varphi}\left(x_{j}\right)\right)\right)$$
 >   > - **测试时：**
 >   >   - support set作为对比学习的样例，拥有和测试集一样的标签
 >   >   - 通过将support set与testing set做对比来实现对测试数据的识别
 >
 > - **zero-shot learning**
 >
+>   > 零样本学习不给样本，而是给出一个代表某一类物体语义的嵌入向量。通过利用这个嵌入向量来对物体进行分类
+>   >
 >   > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/16.png" alt="img" style="zoom:50%;" />
 >   >
 >   > 
