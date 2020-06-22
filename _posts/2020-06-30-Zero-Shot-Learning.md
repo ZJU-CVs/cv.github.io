@@ -182,7 +182,7 @@ https://zhuanlan.zhihu.com/p/111602525
 > - 模型训练时，GCN中seen class节点由来自backbone输入的图片特征向量作为监督信号（绿色节点）训练GCN模型的参数
 >
 >   - GCN的输入是n个类别(包括seen class和unseen class)的语义向量$$\mathcal{X}=\left\{x_{i}\right\}_{i=1}^{n}$$，输出是每个类别的分类器参数$$\mathcal{W}=\left\{w_{i}\right\}_{i=1}^{n}$$，GCN每个节点的输出维度$D$和CNN输出的特征维度相等
->   - 训练时$$\frac{1}{m} \sum_{i=1}^{m} L_{\mathrm{mse}}\left(\hat{w}_{i}, w_{i}\right)$$
+>   - 训练时同构seen类的监督学习来更新整个GCN，$$\frac{1}{m} \sum_{i=1}^{m} L_{\mathrm{mse}}\left(\hat{w}_{i}, w_{i}\right)$$
 >
 > - 模型测试时，gcn中的unseen class节点输出对应的权重向量，同时，与CNN输出的图片特征向量做点乘，得到分类结果
 >
