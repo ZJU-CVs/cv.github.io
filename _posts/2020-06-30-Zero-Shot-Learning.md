@@ -24,7 +24,7 @@ tags:
 
 
 
-##### **定义**
+##### ZSL定义
 
 (1) 零样本学习：准确预测unseen的类别
 
@@ -48,6 +48,29 @@ tags:
 > - CTIT(Class-Transductive Instance-Inductive setting): 使用训练实例和seen标签集合，外加unseen标签集合，对应未标注的测试集合来训练模型
 
 
+
+#### Related Works
+
+ZSL算法框架主要分为三个部分：
+
+> (1) 样本数据特征空间X的学习（如利用深度网络backbone提取图片特征）
+>
+> (2) 构建语义空间A中class的描述，即构建seen class和unseen class之间的潜在语义关系
+>
+> (3) 特征空间X和语义空间A之间的映射
+
+
+
+- *其中，图像特征空间的表示学习可以利用大型数据集训练下的分类模型进行迁移作为特征提取器*
+
+- *语义空间A的构建主要有以下几种方式：*
+
+  > - attribute description: 数据集中的每个class都附加了一可描述的attributes
+  >
+  > - embedding表示：每个class可作为词获取语义向量
+  > - Knowledge Graph/Knowledge Base：每个class可对应KG/KB中的一个实体
+
+  
 
 #### Problems
 
@@ -140,13 +163,27 @@ https://zhuanlan.zhihu.com/p/111602525
 
 ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/11.png)
 
-
+> - 数据集中每个class/label可作为一个词在语义空间进行embedding表示(如使用预训练skip-gram模型得到有关class的language feature vector，同时利用预训练的CNN-based模型提取图片的visual feature vector)
+> - 将两个向量映射到同一维度的空间，进行相似度计算
+> - 测试时，可根据语义之间的相似性进行图像分类
 
 ##### Based on Knowledge Graph
 
 (1) [Zero-shot Recognition via Semantic Embeddings and Knowledge Graphs](https://arxiv.org/pdf/1803.08035.pdf)
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/12.jpg" alt="img" style="zoom:80%;" />
+
+> - 模型分为两个独立的部分
+>
+> - 首先使用CNN-based方法将输入图像抽取特征向量
+>
+> - 其次，将数据集中每个class作为graph中的一个节点，并对其做embedding表示并输入GCN(即输入为由N个k维节点组成的N*k特征矩阵，通过GCN每一层之间信息的传递和计算，为每个节点输入一组D维的权重向量)
+>
+> - 模型训练时，GCN中seen class节点由来自backbone输入的图片特征向量作为监督信号（绿色节点）训练GCN模型的参数
+>
+> - 模型测试时，gcn中的unseen class节点输出对应的权重向量，同时，与CNN输出的图片特征向量做点乘，得到分类结果
+>
+>   注：GCN通过可表示ImageNet class之间结构的WordNet知识库得到
 
 (2) [Rethinking Knowledge Graph Propagation for Zero-Shot Learning](https://arxiv.org/pdf/1805.11724v1.pdf)
 
