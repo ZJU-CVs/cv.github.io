@@ -253,20 +253,19 @@ tags:
 >   \arg \min _{\mathbf{w}} l(\mathbf{W} \mathbf{X}, \mathbf{K})+\gamma g(\mathbf{W})
 >   $$
 >   
->
-> - 提取$\mathcal{X}_s$的底层class-level流型，并生成和$\mathcal{X}_s$同构的$\tilde{\mathcal{K}}_s$
->
->   > 对于每个类嵌入$k^i_s$，我们从$\mathcal{K}$中找到它的m个最近邻，然后将这些图像的平均值作为类级原型，即
+>- 提取$\mathcal{X}_s$的底层class-level流型，并生成和$\mathcal{X}_s$同构的$\tilde{\mathcal{K}}_s$
+> 
+>  > 对于每个类嵌入$k^i_s$，我们从$\mathcal{K}$中找到它的m个最近邻，然后将这些图像的平均值作为类级原型，即
 >   >
 >   > $\tilde{k}^i_s$。和$\mathcal{K}_s$相比，$\tilde{\mathcal{K}}_s=\{\tilde{k}^i_s\}^k_{i=1}$在语义上与$\mathcal{X}$更一致
->
-> - 将$\mathcal{X}_s$和$\tilde{K}_s$进行迭代对齐得到$\tilde{f}_s$，并优化$\tilde{K}_s$使其与$X_s$在语义上更加一致
->
+> 
+>- 将$\mathcal{X}_s$和$\tilde{K}_s$进行迭代对齐得到$\tilde{f}_s$，并优化$\tilde{K}_s$使其与$X_s$在语义上更加一致
 > 
 >
-> **测试阶段：**
->
-> > 将$f_s,\tilde{f}_s,\tilde{\mathcal{K}}_s,\mathcal{K}_s$和$\mathcal{K}_u$作为输入，对于$n_t$个测试实例$X_u \in R^{d\times n_t}$，首先预测它们的语义表示$f_s(X_u)$，然后直接构建$\tilde{\mathcal{K}}_s$，最后，对于每个测试实例$x_j$，得到对应的标签$y_j=\arg \max_c d\left(\tilde{f}_{s}\left(\mathbf{x}_{j}\right), \tilde{\mathbf{k}}_{c}\right)$，其中$\tilde{\mathbf{k}}_{c}\in\tilde{\mathcal{K}}_{u}$ in **ZSR**；$\tilde{\mathbf{k}}_{c}\in\{\tilde{\mathcal{K}}_s \cup\tilde{\mathcal{K}}_{u}\}$ in **gZSR**.
+> 
+>**测试阶段：**
+> 
+>> 将$f_s,\tilde{f}_s,\tilde{\mathcal{K}}_s,\mathcal{K}_s$和$\mathcal{K}_u$作为输入，对于$n_t$个测试实例$X_u \in R^{d\times n_t}$，首先预测它们的语义表示$f_s(X_u)$，然后直接构建$\tilde{\mathcal{K}}_s$，最后，对于每个测试实例$x_j$，得到对应的标签$y_j=\arg \max_c d\left(\tilde{f}_{s}\left(\mathbf{x}_{j}\right), \tilde{\mathbf{k}}_{c}\right)$，其中$\tilde{\mathbf{k}}_{c}\in\tilde{\mathcal{K}}_{u}$ in **ZSR**；$\tilde{\mathbf{k}}_{c}\in\{\tilde{\mathcal{K}}_s \cup\tilde{\mathcal{K}}_{u}\}$ in **gZSR**.
 
 
 
@@ -333,7 +332,31 @@ tags:
 
 [Learning a Deep Embedding Model for Zero-Shot Learning](https://arxiv.org/pdf/1611.05088)
 
+> 提出一种端对端的深度模型来完成Zero-shot learning，将视觉特征空间作为嵌入空间(embedding space)要比语义空间作为嵌入空间的效果好的多。所提模型能够很好地解决hubness problem，如下图所示，$S$表示语义空间，$V$表示视觉特征空间，当将语义特征映射到视觉特征空间中时，hubness problem
+>
+> 
+>
+> **优势：**
+>
+> > - 能够更好地学习一个嵌入空间
+> > - 为基于神经网络的联合嵌入模型提供了灵活性，能够解决多种迁移性问题
+> > - 可以很自然地对多模态的数据进行fusing
+>
+> 
+>
+> **模型思想：**
+>
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/27.png" alt="img" style="zoom:50%;" />
+>
+> > 语义表示单元(Semantic Representation Unit)可以利用三个结构进行代替，分别是单模态形式、多模态形式和RNN词嵌入形式
+> >
+> > - 输入图片通过深度CNN进行特征提取
+> >
+> > $$
+> > \mathcal{L}\left(\mathbf{W}_{1}, \mathbf{W}_{2}\right)=\frac{1}{N} \sum_{i=1}^{N}\left\|\phi\left(\mathbf{I}_{i}\right)-f_{1}\left(\mathbf{W}_{2} f_{1}\left(\mathbf{W}_{1} \mathbf{y}_{i}^{u}\right)\right)\right\|^{2}+\lambda\left(\left\|\mathbf{W}_{1}\right\|^{2}+\left\|\mathbf{W}_{2}\right\|^{2}\right)
+> > $$
+> >
+> > > 其中$y$表示语义输入，$I$表示输入图片，$W_1$和$W_2$分别为全连接层的权重，$f_1$表示ReLU
 >
 > 
 
