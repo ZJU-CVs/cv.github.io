@@ -10,11 +10,34 @@ tags:
     - Record
 ---
 
+参考：https://zhuanlan.zhihu.com/p/61305815
+
+​           https://zhuanlan.zhihu.com/p/111602525
+
+更新中 ...
 
 
-#### Learning To Detect Unseen Object Classes by Between-Class Attribute Transfer (对属性进行学习)
+
+
+
+- A.2 (投影矩阵的直接求解法)
+- C.5 (属性的建模&局部部位建模)
+- D.2 (网络对seen类别的bias问题)
+- D.3 (网络对seen类别的bias问题)
+- E.1 (引入生成网络)
+- E.6 (引入生成网络)
+- E.8 (引入生成网络)
+- F.2 (不同于GAN和VAE的生成思想)
+
+
+
+### 对属性进行学习
+
+##### Learning To Detect Unseen Object Classes by Between-Class Attribute Transfer
 
 [Learning To Detect Unseen Object Classes by Between-Class Attribute Transfer](https://ieeexplore.ieee.org/document/5206594)
+
+`早期的ZSL利用two-stage方法，首先对输入图像进行属性预测，然后通过搜索获得最相似属性集的类别来推断其图像类别标签，如DAP和IAP。`
 
 > 零样本问题的**开创性文章**，主要提出了直接属性预测(direct attribute prediction)和间接属性预测(indirect attribute prediction)
 >
@@ -66,13 +89,15 @@ tags:
 1. 对属性进行预测不是ZSL任务的直接目标，而是间接地解决问题，可能会导致：模型对属性预测是最优的，但对类别的预测未必是最优的
 2. 无法利用unseen类的样本提供的先验知识，如使用seen和unseen节点之间的语义关系来利用先验知识
 3. 无法利用新的样本(之前的训练样本中不存在的类别)逐步改善分类器的功能，即无法进行增量学习
-4. 无法利用属性间的关系等额外信息，因为每个分类器只是针对一个属性进行学习的
+4. 属性之间相互独立，无法利用属性间的关系等额外信息，因为每个分类器只是针对一个属性进行学习的
 5. 无法利用其他的辅助信息，例如词向量、语义等级层次等其他对类别的描述信息源
 ```
 
 
 
-#### Label-Embedding for Attribute-Based Classification
+### 学习从视觉特征空间到语义空间的线性映射
+
+##### Label-Embedding for Attribute-Based Classification
 
 [Label-Embedding for Attribute-Based Classification](https://ieeexplore.ieee.org/document/6618955)
 
@@ -80,37 +105,71 @@ tags:
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/24.png" alt="img" style="zoom:50%;" />
 >
+> **算法思想：**
+>
 > > - 首先，通过网络提取出图像特征$\theta: \mathcal{X} \rightarrow \tilde{\mathcal{X}}$，标签$\mathcal{Y}$也嵌入一个属性空间$\varphi: \mathcal{Y} \rightarrow \tilde{\mathcal{Y}}$
 > >
 > > - 定义$f(x;w)$为预测函数，$f(x;w)=\arg \max _{y \in \mathcal{Y}} F(x, y ; w)$
 > >
 > > - 引入一个评分函数，来衡量视觉特征空间$x$嵌入语义空间的兼容度(compatibility)
 > >   $$
-> >   F(x, y ; W)=\theta(x)' W \varphi(y)
+> >   F(x, y ; W)=\theta(x) W \varphi(y)
 > >   $$
 > >
 > > - 当给定一个需要预测类别的数据$x$时，预测函数$f$所做的是从所有类别$y$中，找到一个类别$y$使得$F(x,y;w)$的值最大
 > >
 > > - 算法的核心思想是**让错误分类的得分尽可能比正确分类的得分小**
+>
+> **损失函数：**
+>
+> > 每个训练数据以$(x_n,y_n)$的形式存在，其中$x_n$是对象，$y_n$是对应的标签。损失函数借鉴了WSABIE和结构化的SVM损失函数
+> > > $$
+>  > > \frac{1}{N} \sum_{n=1}^{N} \max _{y \in \mathcal{Y}} \ell\left(x_{n}, y_{n}, y\right)+\frac{\mu}{2}\left\|\Phi-\Phi^{\Lambda}\right\|^{2}
+>  > > $$
+> > >
+> > > $$
+> > > \ell\left(x_{n}, y_{n}, y\right)=\Delta\left(y_{n}, y\right)+F\left(x_{n}, y ; W\right)-F\left(x_{n}, y_{n} ; W\right)
+> > > $$
+> > >
+> > > - $\Delta: Y \times Y \rightarrow R$度量的是真实标签为$y_n$和预测值$y$之间的损失
+> > > - 参数$\Phi$为一定维度随机初始化的参数，$\Phi^{\Lambda}$是关于标签的先验知识
+> > > - 对于每个样本，计算对应每个类别的得分，然后从其他所有不是正确类别的得分中找出最大的得分；逐样本累加后即得到损失函数的值，然后利用SGD等方法对参数进行更新
 > >
-> > - 损失函数
-> >
-> >   > 每个训练数据以$(x_n,y_n)$的形式存在，其中$x_n$是对象，$y_n$是对应的标签
-> >   > $$
-> >   > \frac{1}{N} \sum_{n=1}^{N} \max _{y \in \mathcal{Y}} \ell\left(x_{n}, y_{n}, y\right)+\frac{\mu}{2}\left\|\Phi-\Phi^{\Lambda}\right\|^{2}
-> >   > $$
-> >   >
-> >   > $$
-> >   > \ell\left(x_{n}, y_{n}, y\right)=\Delta\left(y_{n}, y\right)+F\left(x_{n}, y ; W\right)-F\left(x_{n}, y_{n} ; W\right)
-> >   > $$
-> >   >
-> >   > - $\Delta: Y \times Y \rightarrow R$度量的是真实标签为$y_n$和预测值$y$之间的损失
-> >   > - 对于每个样本，计算对应每个类别的得分，然后从其他所有不是正确类别的得分中找出最大的得分；逐样本累加后即得到损失函数的值，然后利用SGD等方法对参数进行更新
-> >   > - 参数$\Phi$为一定维度随机初始化的参数，在使用SGD等方法进行参数更新的时候，为了使该损失函数的值尽可能小，需要$\Phi$尽可能接近$\Phi^{\Lambda}$，同时也利用了训练样本中存在的部分信息，从而使得模型达到可以逐步利用新的训练样本的信息来改善模型，实现增量学习
+>
+> 
+>
+> **ALE模型优点：**
+>
+> > - 增加了可学习的语义空间，可以使用额外的增量信息。并且这种可学习的语义空间，很容易引入其他的辅助信息源，例如词向量、等级标签嵌入（HLE）
+> > - loss函数中的兼容度评判函数直接与类别相关，即直接对类别进行预测。由于类别会用属性得来的语义向量表示，使得属性间是有联系的而不是单独训练预测属性最优
+> > - 增量学习：在使用SGD等方法进行参数更新的时候，为了使该损失函数的值尽可能小，需要$\Phi$尽可能接近$\Phi^{\Lambda}$，同时也利用了训练样本中存在的部分信息，从而使得模型达到可以逐步利用新的训练样本的信息来改善模型
 
 
 
-#### An embarrassingly simple approach to zero-shot learning
+##### DeViSE: A Deep Visual-Semantic Embedding Model
+
+[DeViSE: A Deep Visual-Semantic Embedding Model]((http://papers.nips.cc/paper/5204-devise-a-deep-visual-semantic-embedding-model.pdf))
+
+> - 模型结合了传统视觉神经网络和词向量(word2vec)处理中的skip-gram，分别预训练一个视觉神经网络 (Visual Model Pre-training)和词向量网络 (Language Model Pre-training)，再结合两个网络进行训练
+>
+>   - 数据集中每个class/label可作为一个词在语义空间进行embedding表示(如使用预训练skip-gram模型得到有关class的language feature vector）
+>   - 利用预训练的CNN-based模型提取图片的visual feature vector
+>   - 将两个向量映射到同一维度的空间（两个向量维度一致），进行相似度计算
+>
+> - Loss function (采用hinge rank loss)
+>   $$
+>   loss(image,label)=\sum_{j \neq label} \max \left[0, margin-\text t_{label } M \vec{v}(image)+\vec{t}_{j} M \vec{v}(image)\right.
+>   $$
+>
+>   > $t_{label}$表示label的vector，$v_{image}$表示image的vector，$M$表示linear transformation，margin为超参数
+>
+> - 测试时，可根据语义之间的相似性进行图像分类
+>
+> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/11.png)
+
+
+
+##### An embarrassingly simple approach to zero-shot learning
 
 [An embarrassingly simple approach to zero-shot learning](http://proceedings.mlr.press/v37/romera-paredes15.pdf)
 
@@ -120,25 +179,68 @@ tags:
 >
 > 第二层对属性和类之间的关系建模，并使用类的指定属性signatures进行固定。
 
-> - 在训练阶段，对于$z$类，每个有一个signature由$a$个属性组成，可以把这些signatures 表示为一个矩阵$S\in [0,1]^{a\times z}$，从而在属性和类之间提供soft link
+> - 在训练阶段，对于$z$类，每个有一个signature由$a$个属性组成，可以把这些signatures 表示为一个矩阵$S\in [0,1]^{a\times z}$，语义向量维度为$a$，类别数目为$z$，从而在属性和类之间提供soft link
 >
 > - 用$X\in R^{d\times m}$表示训练阶段的实例，其中$d$是数据的维度，$m$是实例数。使用$Y\in \{-1,1\}^{m\times z}$表示属于任一$z$类的每个训练实例的groud truth
 >
-> - 优化目标：
+> - 优化目标：学习一个线性转换$W$，将视觉向量直接投影出类别概率
 >   $$
 >   \underset{W \in \mathbb{R}^{d \times z}}{\operatorname{minimise}} L\left(X^{\top} W, Y\right)+\Omega(W)
 >   $$
 >   
 >
->   - $W=VS$，使用signatures 矩阵$S$和训练实例的学习矩阵$V$，从特征空间映射到属性空间
->
+>   - $W=VS$，signatures 矩阵$S$和训练实例的学习矩阵$V$，从特征空间映射到属性空间
+> - $\Omega(W)$是正则项
+>   
+>   > 由于需要利用属性标签，将知识转移到unseen，因此将$W$替换成$W=VS$，其中$S$是语义向量，$V\in d\times a$是需要学习的转换矩阵。因此损失函数转化为$$\underset{V \in \mathbb{R}^{d \times a}}{\operatorname{minimise}} L\left(X^{\top} VS, Y\right)+\Omega(V)$$。
+>   
 > - 在推理阶段，使用矩阵$V$，加上不可见类$S'\in [0,1]^{a\times z'}$的label，得到最终的线性模型$W'$，对于新的实例$x$，可以得到预测值$$\underset{i}{\operatorname{argmax}} x^{\top} V S_{i}^{\prime}$$
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/17.png" alt="img" style="zoom:50%;" />
 
 
 
-#### Transductive Multi-View Zero-Shot Learning
+##### Semantic Autoencoder for Zero-Shot Learning
+
+[Semantic Autoencoder for Zero-Shot Learning](https://arxiv.org/pdf/1704.08345.pdf)
+
+>> - 现有的零样本学习主要学习从特征空间到语义嵌入空间的映射函数，然而这种映射函数只关心被训练类的语义表示或分类。当应用于测试数据时，因为没有训练数据，往往会出现领域漂移问题。
+>>
+>> 
+>>
+>> **模型思想：**
+>>
+>> - 使用自编码器对原始样本进行编码，如下图所示，$X$为样本，$S$为自编码器的隐层，$\hat X$为隐层重建的$X$的表示
+>>
+>> - 与普通自编码器的隐层不同，隐层S为属性层，是原样本$X$的抽象语义特征表示
+>>
+>> - 具体实现：对投影矩阵$W$施加了重构约束，认为$W$可以将视觉向量$X$投影到语义空间$S=WX$，也应该可以将投影后的向量重构回视觉向量$W^*WX=X$
+>>
+>>   > - 设输入层到隐层的映射为$W$，隐层到输出层的映射为$W^*$，$W$和$W^*$是对称的，即$W^* = W^T$。期望输入和输出尽可能相似，目标函数为$$\min _{\mathbf{w}, \mathbf{w}^{*}}\left\|\mathbf{X}-\mathbf{W}^{*} \mathbf{W} \mathbf{X}\right\|_{F}^{2}$$
+>>   > - 期望中间隐层S具有抽象的语义，能表示样本属性或者类别标签，所以加入约束，使自编码器成为监督学习的问题。$$\min _{\mathbf{W}, \mathbf{W}^{*}}\left\|\mathbf{X}-\mathbf{W}^{*} \mathbf{W} \mathbf{X}\right\|_{F}^{2} \text { s.t. } \mathbf{W X}=\mathbf{S}$$
+>>
+>>   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/8.png" alt="img" style="zoom:50%;" />
+>
+
+
+
+##### Latent embeddings for zero-shot classiﬁcation
+
+[Latent embeddings for zero-shot classiﬁcation]()
+
+> 学习一个线性模型的集合，使每个样本对象可以从中选择一个适合的线性映射，模型思想与ALE相似
+>
+> - 兼容度评判函数为：$$F(\mathbf{x}, \mathbf{y})=\max _{1 \leq i \leq K} \tilde{\mathbf{w}}_{i}^{\top}(\mathbf{x} \otimes \mathbf{y})=\max _{1 \leq i \leq K}x^T W_i y $$
+>
+>   > $K \geq 2, \tilde{\mathbf{w}}_{i} \in \mathbb{R}^{d x d_{y}}$是模型其中一个线性模型的参数
+>   >
+>   > 隐变量$i$用来选择线性模型
+
+
+
+#### 将语义特征映射到视觉特征空间的深度嵌入模型
+
+##### Transductive Multi-View Zero-Shot Learning
 
 [Transductive Multi-View Zero-Shot Learning](http://arxiv.org/abs/1501.04560)
 
@@ -163,54 +265,7 @@ tags:
 
 
 
-#### Semantic Autoencoder for Zero-Shot Learning
-
-[Semantic Autoencoder for Zero-Shot Learning](https://arxiv.org/pdf/1704.08345.pdf)
-
->> - 现有的零样本学习主要学习从特征空间到语义嵌入空间的映射函数，然而这种映射函数只关心被训练类的语义表示或分类。当应用于测试数据时，因为没有训练数据，往往会出现领域漂移问题。
->>
->> 
->>
->> **模型思想：**
->>
->> - 使用自编码器对原始样本进行编码，如下图所示，X为样本，S为自编码器的隐层，$\hat X$为隐层重建的$X$的表示
->>
->> - 与普通自编码器的隐层不同，隐层S为属性层，是原样本$X$的抽象语义特征表示
->>
->> - 具体实现：
->>
->>   > - 设输入层到隐层的映射为W，隐层到输出层的映射为$W^*$，$W$和$W^*$是对称的，即$W^* = W^T$。期望输入和输出尽可能相似，目标函数为$$\min _{\mathbf{w}, \mathbf{w}^{*}}\left\|\mathbf{X}-\mathbf{W}^{*} \mathbf{W} \mathbf{X}\right\|_{F}^{2}$$
->>   > - 期望中间隐层S具有抽象的语义，能表示样本属性或者类别标签，所以加入约束，使自编码器成为监督学习的问题。$$\min _{\mathbf{W}, \mathbf{W}^{*}}\left\|\mathbf{X}-\mathbf{W}^{*} \mathbf{W} \mathbf{X}\right\|_{F}^{2} \text { s.t. } \mathbf{W X}=\mathbf{S}$$
->>
->>   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/8.png" alt="img" style="zoom:50%;" />
->
-
-
-
-#### DeViSE: A Deep Visual-Semantic Embedding Model
-
-[DeViSE: A Deep Visual-Semantic Embedding Model]((http://papers.nips.cc/paper/5204-devise-a-deep-visual-semantic-embedding-model.pdf))
-
-> - 模型结合了传统视觉神经网络和词向量(word2vec)处理中的skip-gram，分别预训练一个视觉神经网络 (Visual Model Pre-training)和词向量网络 (Language Model Pre-training)，再结合两个网络进行训练
->
->   - 数据集中每个class/label可作为一个词在语义空间进行embedding表示(如使用预训练skip-gram模型得到有关class的language feature vector）
->   - 利用预训练的CNN-based模型提取图片的visual feature vector
->   - 将两个向量映射到同一维度的空间（两个向量维度一致），进行相似度计算
->
-> - Loss function (采用hinge rank loss)
->   $$
->   loss(image,label)=\sum_{j \neq label} \max \left[0, margin-\text t_{label } M \vec{v}(image)+\vec{t}_{j} M \vec{v}(image)\right.
->   $$
->
->   > $t_{label}$表示label的vector，$v_{image}$表示image的vector，$M$表示linear transformation，margin为超参数
->
-> - 测试时，可根据语义之间的相似性进行图像分类
->
-> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/11.png)
-
-
-
-#### Zero-shot recognition using dual visual-semantic mapping paths
+##### Zero-shot recognition using dual visual-semantic mapping paths
 
 [Zero-shot recognition using dual visual-semantic mapping paths](https://arxiv.org/pdf/1703.05002.pdf)
 
@@ -269,7 +324,9 @@ tags:
 
 
 
-#### Feature Generating Networks for Zero-Shot Learning
+
+
+##### Feature Generating Networks for Zero-Shot Learning
 
 [Feature Generating Networks for Zero-Shot Learning](http://openaccess.thecvf.com/content_cvpr_2018/papers/Xian_Feature_Generating_Networks_CVPR_2018_paper.pdf)
 
@@ -328,11 +385,11 @@ tags:
 
 
 
-#### Learning a Deep Embedding Model for Zero-Shot Learning
+##### Learning a Deep Embedding Model for Zero-Shot Learning
 
 [Learning a Deep Embedding Model for Zero-Shot Learning](https://arxiv.org/pdf/1611.05088)
 
-> 提出一种端对端的深度模型来完成Zero-shot learning，将视觉特征空间作为嵌入空间(embedding space)要比语义空间作为嵌入空间的效果好的多。所提模型能够很好地解决hubness problem，如下图所示，$S$表示语义空间，$V$表示视觉特征空间，当将语义特征映射到视觉特征空间中时，hubness problem
+> 提出一种端对端的深度模型来完成Zero-shot learning，将视觉特征空间作为嵌入空间(embedding space)要比语义空间作为嵌入空间的效果好的多。所提模型能够很好地解决hubness problem，如下图所示，$S$表示语义空间，$V$表示视觉特征空间，当将语义特征映射到视觉特征空间(S->V)中时，hubness problem不会加重，但当映射为视觉特征空间到语义空间(V->S)，hubness会加重，feature点之间变更稠密
 >
 > 
 >
@@ -348,9 +405,9 @@ tags:
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/27.png" alt="img" style="zoom:50%;" />
 >
-> > 语义表示单元(Semantic Representation Unit)可以利用三个结构进行代替，分别是单模态形式、多模态形式和RNN词嵌入形式
-> >
 > > - 输入图片通过深度CNN进行特征提取
+> > - 语义表示单元(Semantic Representation Unit)可以利用三个结构进行代替，分别是单模态形式、多模态形式和RNN词嵌入形式
+> > - FC-ReLU作为投影矩阵
 > >
 > > $$
 > > \mathcal{L}\left(\mathbf{W}_{1}, \mathbf{W}_{2}\right)=\frac{1}{N} \sum_{i=1}^{N}\left\|\phi\left(\mathbf{I}_{i}\right)-f_{1}\left(\mathbf{W}_{2} f_{1}\left(\mathbf{W}_{1} \mathbf{y}_{i}^{u}\right)\right)\right\|^{2}+\lambda\left(\left\|\mathbf{W}_{1}\right\|^{2}+\left\|\mathbf{W}_{2}\right\|^{2}\right)
@@ -362,7 +419,9 @@ tags:
 
 
 
-#### Rethinking Knowledge Graph Propagation for Zero-Shot Learning
+#### 将语义空间和视觉特征空间嵌入到第三方公共空间
+
+##### Rethinking Knowledge Graph Propagation for Zero-Shot Learning
 
 [Rethinking Knowledge Graph Propagation for Zero-Shot Learning](https://arxiv.org/pdf/1805.11724.pdf)
 
@@ -400,3 +459,102 @@ tags:
 > > - 训练DGP来预测最后一层的预训练CNN参数
 > > - 使用DGP预测的参数并固定，使用交叉熵损失调整特征提取部分的参数(对于seen classes)，使CNN特征适应于新得到的分类器
 
+
+
+#### 生成方法
+
+##### Transferable Contrastive Network for Generalized Zero-Shot Learning
+
+[Transferable Contrastive Network for Generalized Zero-Shot Learning]()
+
+> - 提出一种可迁移的对比网络（Transferable Contrastive Network, TCN），通过自动学习图像与类别语义的对比机制来实现图像分类。
+>
+> - TCN在学习的过程中主动利用类别之间的相似性实现已知类到新类的知识迁移。因此，TCN可以有效地缓解模型的域偏移问题。
+
+
+
+##### Discriminative Learning of Latent Features for Zero-Shot Recognition
+
+[Discriminative Learning of Latent Features for Zero-Shot Recognition](https://arxiv.org/pdf/1803.06731)
+
+> 
+
+
+
+##### Attribute Attention for Semantic Disambiguation in Zero-Shot Learning
+
+[Attribute Attention for Semantic Disambiguation in Zero-Shot Learning]()
+
+> 
+
+
+
+##### Marginalized Latent Semantic Encoder for Zero-Shot Learning
+
+[Marginalized Latent Semantic Encoder for Zero-Shot Learning]()
+
+> 
+
+
+
+##### Task-Driven Modular Networks for Zero-Shot Compositional Learning
+
+[Task-Driven Modular Networks for Zero-Shot Compositional Learning]()
+
+> 
+
+
+
+##### Attentive Region Embedding Network for Zero-shot Learning
+
+[Attentive Region Embedding Network for Zero-shot Learning]()
+
+> 
+
+
+
+##### Generalized Zero-Shot Recognition based on Visually Semantic Embedding
+
+[Generalized Zero-Shot Recognition based on Visually Semantic Embedding]()
+
+> 
+
+
+
+##### Transductive Unbiased Embedding for Zero-Shot Learning
+
+[Transductive Unbiased Embedding for Zero-Shot Learning]()
+
+> 
+
+
+
+##### Zero-Shot Visual Recognition using Semantics-Preserving Adversarial Embedding Networks
+
+[Zero-Shot Visual Recognition using Semantics-Preserving Adversarial Embedding Networks]()
+
+> 
+
+
+
+##### Hierarchical Disentanglement of Discriminative Latent Features for Zero-shot Learning
+
+[Hierarchical Disentanglement of Discriminative Latent Features for Zero-shot Learning]()
+
+> 
+
+
+
+##### Generative Dual Adversarial Network for Generalized Zero-shot Learning
+
+[Generative Dual Adversarial Network for Generalized Zero-shot Learning]()
+
+> 
+
+
+
+##### Semantically Aligned Bias Reducing Zero Shot Learning
+
+[Semantically Aligned Bias Reducing Zero Shot Learning]()
+
+> 
