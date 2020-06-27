@@ -18,19 +18,6 @@ tags:
 
 
 
-
-
-- A.2 (投影矩阵的直接求解法)
-- C.5 (属性的建模&局部部位建模)
-- D.2 (网络对seen类别的bias问题)
-- D.3 (网络对seen类别的bias问题)
-- E.1 (引入生成网络)
-- E.6 (引入生成网络)
-- E.8 (引入生成网络)
-- F.2 (不同于GAN和VAE的生成思想)
-
-
-
 ### 对属性进行学习
 
 ##### Learning To Detect Unseen Object Classes by Between-Class Attribute Transfer
@@ -235,6 +222,23 @@ tags:
 >   > $K \geq 2, \tilde{\mathbf{w}}_{i} \in \mathbb{R}^{d x d_{y}}$是模型其中一个线性模型的参数
 >   >
 >   > 隐变量$i$用来选择线性模型
+>
+> - 损失函数
+>
+>   > $$
+>   > \frac{1}{N} \sum_{n=1}^{|\mathcal{T}|} L\left(\mathbf{x}_{n}, \mathbf{y}_{n}\right)\\L\left(\mathbf{x}_{n}, \mathbf{y}_{n}\right)=\sum_{\mathbf{y} \in \mathcal{Y}} \max \left\{0, \Delta\left(\mathbf{y}_{n}, \mathbf{y}\right)+F\left(\mathbf{x}_{n}, \mathbf{y}\right)-F\left(\mathbf{x}_{n}, \mathbf{y}_{n}\right)\right\}
+>   > $$
+>   >
+>   > - 如果$y_n\neq y$，$\Delta\left(\mathbf{y}_{n}, \mathbf{y}\right)=1$，否则为0
+>   > - 损失函数训练模型使图像嵌入和正确标签类别嵌入之间有更高的兼容性
+>
+> - SGD优化算法
+>
+>   > 由于分段模型不是连续凸函数，用普通的SGD优化会有难度，因此基于模型提出了优化的SGD算法
+>   >
+>   > 
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/29.png" alt="img" style="zoom:50%;" />
 
 
 
