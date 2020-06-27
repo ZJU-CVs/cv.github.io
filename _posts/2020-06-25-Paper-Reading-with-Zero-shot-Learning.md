@@ -236,13 +236,72 @@ tags:
 >
 >   > 由于分段模型不是连续凸函数，用普通的SGD优化会有难度，因此基于模型提出了优化的SGD算法
 >   >
->   > 
+>   > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/30.png" alt="img" style="zoom:50%;" />
+>   >
+>   > - 首先对每个样本$(x_n,y_n)$，随机选择一个与$y_n$不同的$y$
+>   > - 如果选择的$y$的兼容度与真实标签$y_n$对应的兼容度的差距小于设定的margin，则需要更新映射矩阵$W$
+>   > - 如果需要更新模型，则：
+>   >   - 找到一个$W_i$能够使得对于$y$来说评分最高
+>   >   - 找到一个$W_j$能够使得对于$y_n$来说评分最高
+>   >   - 如果两个矩阵相同，则更新权重
+>   >   - 如果两个矩阵不同，则更新各自选择的线性映射矩阵
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/29.png" alt="img" style="zoom:50%;" />
+>
+> **模型优势：**
+>
+> > - 模型由更强的表达能力
+> >
+> > - 由于拥有多个W，可以自适应地适应不同类型的样本，并且每个W 会有不同的关注点
 
 
 
 #### 将语义特征映射到视觉特征空间的深度嵌入模型
+
+##### Semantically Consistent Regularization for Zero-Shot Recognition
+
+[Semantically Consistent Regularization for Zero-Shot Recognition](https://arxiv.org/pdf/1704.03039.pdf)
+
+> 
+
+##### Learning a Deep Embedding Model for Zero-Shot Learning
+
+[Learning a Deep Embedding Model for Zero-Shot Learning](https://arxiv.org/pdf/1611.05088)
+
+> 提出一种端对端的深度模型来完成Zero-shot learning，将视觉特征空间作为嵌入空间(embedding space)要比语义空间作为嵌入空间的效果好的多。所提模型能够很好地解决hubness problem，如下图所示，$S$表示语义空间，$V$表示视觉特征空间，当将语义特征映射到视觉特征空间(S->V)中时，hubness problem不会加重，但当映射为视觉特征空间到语义空间(V->S)，hubness会加重，feature点之间变更稠密
+>
+> 
+>
+> **优势：**
+>
+> > - 能够更好地学习一个嵌入空间
+> > - 为基于神经网络的联合嵌入模型提供了灵活性，能够解决多种迁移性问题
+> > - 可以很自然地对多模态的数据进行fusing
+>
+> 
+>
+> **模型思想：**
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/27.png" alt="img" style="zoom:50%;" />
+>
+> > - 输入图片通过深度CNN进行特征提取
+> > - 语义表示单元(Semantic Representation Unit)可以利用三个结构进行代替，分别是单模态形式、多模态形式和RNN词嵌入形式
+> > - FC-ReLU作为投影矩阵
+> >
+> > $$
+> > \mathcal{L}\left(\mathbf{W}_{1}, \mathbf{W}_{2}\right)=\frac{1}{N} \sum_{i=1}^{N}\left\|\phi\left(\mathbf{I}_{i}\right)-f_{1}\left(\mathbf{W}_{2} f_{1}\left(\mathbf{W}_{1} \mathbf{y}_{i}^{u}\right)\right)\right\|^{2}+\lambda\left(\left\|\mathbf{W}_{1}\right\|^{2}+\left\|\mathbf{W}_{2}\right\|^{2}\right)
+> > $$
+> >
+> > > 其中$y$表示语义输入，$I$表示输入图片，$W_1$和$W_2$分别为全连接层的权重，$f_1$表示ReLU
+>
+
+
+
+##### Progressive Ensemble Networks for Zero-Shot Recognition
+
+[Progressive Ensemble Networks for Zero-Shot Recognition](https://arxiv.org/pdf/1805.07473.pdf)
+
+> 
 
 ##### Transductive Multi-View Zero-Shot Learning
 
@@ -330,6 +389,134 @@ tags:
 
 
 
+
+
+#### 将语义空间和视觉特征空间嵌入到第三方公共空间
+
+##### Zero-shot learning via semantic similarity embedding
+
+[Zero-shot learning via semantic similarity embedding]()(https://arxiv.org/pdf/1509.04767v2.pdf)
+
+> 定义：
+>
+> > 源域：每个类的语义描述
+> >
+> > 目标域：视觉图像特征$(x_n,y_n)$
+>
+> 
+
+##### Rethinking Knowledge Graph Propagation for Zero-Shot Learning
+
+[Rethinking Knowledge Graph Propagation for Zero-Shot Learning](https://arxiv.org/pdf/1805.11724.pdf)
+
+> 使用$\mathcal{C}$表示所有类的集合，$\mathcal{C}_{te}$和$\mathcal{C}_tr$分别为测试集和训练集中的类别，要求$$\mathcal{C}_{t e} \cap \mathcal{C}_{t r}=\emptyset$$。使用$S$维的语义表征向量$z\in R^S$表示所有的类别，$\mathcal{D}_{tr}=\{\left(\vec{X}_{i}, c_{i}\right), i=1, \ldots, N\}$表示训练集中的样本（图像及标签）
+>
+> **模型思想：**
+>
+> 使用标签的word embedding以及知识图谱来对未知的类进行预测
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/25.png" alt="img" style="zoom:50%;" />
+>
+> DGP中考虑了所有的seen和unseen特征，使用词嵌入向量的方式，通过预测一组新的参数来拓展CNN，使得这组参数能够适应unseen classes的分类
+>
+> > - 在训练过程中，DGP使用一种半监督的方法来监督CNN最后一层的参数，即能够利用知识图谱提供的类别的语义描述之间关系的信息来拓展原有的CNN分类器，使其适应unseen的类
+> > - 具体来说，给定一个由$N$个节点的图，每个节点使用$S$维输入特征表示，则$X\in R^{N\times S}$就表示特征矩阵。每个节点表示一个不同的类，类之间的链接使用对称的邻接矩阵表示$A\in R^{N\times N}$，其中包括自环
+> > - 图的传播法则表示为：$$H^{(l+1)}=\sigma\left(D^{-1} A H^{(l)} \Theta^{(l)}\right)$$，其中$H^{(l)}$表示第$l$层的激活结果，$\Theta^{(l)}\in R^{S\times F}$表示第$l$层的可学习参数
+> > - 通过优化$$\mathcal{L}=\frac{1}{2 M} \sum_{i=1}^{M} \sum_{j=1}^{P}\left(W_{i, j}-\tilde{W}_{i, j}\right)^{2}$$来训练GCN预测参数的能力，其中$M$表示训练时的类别数目，$P$表示权重向量的维度，Ground turth的权重$w$通过抽取预训练的CNN分类器得到。
+>
+> 
+>
+> **距离加权框架**
+>
+> > 为了使得DGP能够更好地衡量不同邻节点之间的权重关系，提出了新的加权计算框架，通过节点之间距离来计算权重
+> >
+> > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/26.png" alt="img" style="zoom:50%;" />
+> >
+> > **带权重的传播公式：**
+> > $$
+> > H=\sigma\left(\sum_{k=0}^{K} \alpha_{k}^{a} D_{k}^{a^{-1}} A_{k}^{a} \sigma\left(\sum_{k=0}^{K} \alpha_{k}^{d} D_{k}^{d^{-1}} A_{k}^{d} X \Theta_{d}\right) \Theta_{a}\right)
+> > $$
+> > 
+>
+> **训练步骤：**
+>
+> > - 训练DGP来预测最后一层的预训练CNN参数
+> > - 使用DGP预测的参数并固定，使用交叉熵损失调整特征提取部分的参数(对于seen classes)，使CNN特征适应于新得到的分类器
+
+
+
+
+
+#### 属性建模/局部部位建模的方法
+
+##### Discriminative Learning of Latent Features for Zero-Shot Recognition
+
+[Discriminative Learning of Latent Features for Zero-Shot Recognition](https://arxiv.org/pdf/1803.06731)
+
+> 
+
+
+
+##### Transferable Contrastive Network for Generalized Zero-Shot Learning
+
+[Transferable Contrastive Network for Generalized Zero-Shot Learning]()
+
+> - 提出一种可迁移的对比网络（Transferable Contrastive Network, TCN），通过自动学习图像与类别语义的对比机制来实现图像分类。
+>
+> - TCN在学习的过程中主动利用类别之间的相似性实现已知类到新类的知识迁移。因此，TCN可以有效地缓解模型的域偏移问题。
+
+
+
+##### Attribute Attention for Semantic Disambiguation in Zero-Shot Learning
+
+[Attribute Attention for Semantic Disambiguation in Zero-Shot Learning]()
+
+> 
+
+
+
+##### Marginalized Latent Semantic Encoder for Zero-Shot Learning
+
+[Marginalized Latent Semantic Encoder for Zero-Shot Learning]()
+
+> 
+
+
+
+##### Task-Driven Modular Networks for Zero-Shot Compositional Learning
+
+[Task-Driven Modular Networks for Zero-Shot Compositional Learning]()
+
+> 
+
+
+
+##### Attentive Region Embedding Network for Zero-shot Learning
+
+[Attentive Region Embedding Network for Zero-shot Learning]()
+
+> 
+
+
+
+##### Generalized Zero-Shot Recognition based on Visually Semantic Embedding
+
+[Generalized Zero-Shot Recognition based on Visually Semantic Embedding]()
+
+> 
+
+
+
+#### 引入生成网络的方法
+
+##### Generative Dual Adversarial Network for Generalized Zero-shot Learning
+
+[Generative Dual Adversarial Network for Generalized Zero-shot Learning](https://arxiv.org/pdf/1811.04857v1.pdf)
+
+> 
+
+
+
 ##### Feature Generating Networks for Zero-Shot Learning
 
 [Feature Generating Networks for Zero-Shot Learning](http://openaccess.thecvf.com/content_cvpr_2018/papers/Xian_Feature_Generating_Networks_CVPR_2018_paper.pdf)
@@ -389,141 +576,33 @@ tags:
 
 
 
-##### Learning a Deep Embedding Model for Zero-Shot Learning
+##### Semantically Aligned Bias Reducing Zero Shot Learning
 
-[Learning a Deep Embedding Model for Zero-Shot Learning](https://arxiv.org/pdf/1611.05088)
-
-> 提出一种端对端的深度模型来完成Zero-shot learning，将视觉特征空间作为嵌入空间(embedding space)要比语义空间作为嵌入空间的效果好的多。所提模型能够很好地解决hubness problem，如下图所示，$S$表示语义空间，$V$表示视觉特征空间，当将语义特征映射到视觉特征空间(S->V)中时，hubness problem不会加重，但当映射为视觉特征空间到语义空间(V->S)，hubness会加重，feature点之间变更稠密
->
-> 
->
-> **优势：**
->
-> > - 能够更好地学习一个嵌入空间
-> > - 为基于神经网络的联合嵌入模型提供了灵活性，能够解决多种迁移性问题
-> > - 可以很自然地对多模态的数据进行fusing
->
-> 
->
-> **模型思想：**
->
-> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/27.png" alt="img" style="zoom:50%;" />
->
-> > - 输入图片通过深度CNN进行特征提取
-> > - 语义表示单元(Semantic Representation Unit)可以利用三个结构进行代替，分别是单模态形式、多模态形式和RNN词嵌入形式
-> > - FC-ReLU作为投影矩阵
-> >
-> > $$
-> > \mathcal{L}\left(\mathbf{W}_{1}, \mathbf{W}_{2}\right)=\frac{1}{N} \sum_{i=1}^{N}\left\|\phi\left(\mathbf{I}_{i}\right)-f_{1}\left(\mathbf{W}_{2} f_{1}\left(\mathbf{W}_{1} \mathbf{y}_{i}^{u}\right)\right)\right\|^{2}+\lambda\left(\left\|\mathbf{W}_{1}\right\|^{2}+\left\|\mathbf{W}_{2}\right\|^{2}\right)
-> > $$
-> >
-> > > 其中$y$表示语义输入，$I$表示输入图片，$W_1$和$W_2$分别为全连接层的权重，$f_1$表示ReLU
->
-> 
-
-
-
-#### 将语义空间和视觉特征空间嵌入到第三方公共空间
-
-##### Rethinking Knowledge Graph Propagation for Zero-Shot Learning
-
-[Rethinking Knowledge Graph Propagation for Zero-Shot Learning](https://arxiv.org/pdf/1805.11724.pdf)
-
-> 使用$\mathcal{C}$表示所有类的集合，$\mathcal{C}_{te}$和$\mathcal{C}_tr$分别为测试集和训练集中的类别，要求$$\mathcal{C}_{t e} \cap \mathcal{C}_{t r}=\emptyset$$。使用$S$维的语义表征向量$z\in R^S$表示所有的类别，$\mathcal{D}_{tr}=\{\left(\vec{X}_{i}, c_{i}\right), i=1, \ldots, N\}$表示训练集中的样本（图像及标签）
->
-> **模型思想：**
->
-> 使用标签的word embedding以及知识图谱来对未知的类进行预测
->
-> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/25.png" alt="img" style="zoom:50%;" />
->
-> DGP中考虑了所有的seen和unseen特征，使用词嵌入向量的方式，通过预测一组新的参数来拓展CNN，使得这组参数能够适应unseen classes的分类
->
-> > - 在训练过程中，DGP使用一种半监督的方法来监督CNN最后一层的参数，即能够利用知识图谱提供的类别的语义描述之间关系的信息来拓展原有的CNN分类器，使其适应unseen的类
-> > - 具体来说，给定一个由$N$个节点的图，每个节点使用$S$维输入特征表示，则$X\in R^{N\times S}$就表示特征矩阵。每个节点表示一个不同的类，类之间的链接使用对称的邻接矩阵表示$A\in R^{N\times N}$，其中包括自环
-> > - 图的传播法则表示为：$$H^{(l+1)}=\sigma\left(D^{-1} A H^{(l)} \Theta^{(l)}\right)$$，其中$H^{(l)}$表示第$l$层的激活结果，$\Theta^{(l)}\in R^{S\times F}$表示第$l$层的可学习参数
-> > - 通过优化$$\mathcal{L}=\frac{1}{2 M} \sum_{i=1}^{M} \sum_{j=1}^{P}\left(W_{i, j}-\tilde{W}_{i, j}\right)^{2}$$来训练GCN预测参数的能力，其中$M$表示训练时的类别数目，$P$表示权重向量的维度，Ground turth的权重$w$通过抽取预训练的CNN分类器得到。
->
-> 
->
-> **距离加权框架**
->
-> > 为了使得DGP能够更好地衡量不同邻节点之间的权重关系，提出了新的加权计算框架，通过节点之间距离来计算权重
-> >
-> > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/26.png" alt="img" style="zoom:50%;" />
-> >
-> > **带权重的传播公式：**
-> > $$
-> > H=\sigma\left(\sum_{k=0}^{K} \alpha_{k}^{a} D_{k}^{a^{-1}} A_{k}^{a} \sigma\left(\sum_{k=0}^{K} \alpha_{k}^{d} D_{k}^{d^{-1}} A_{k}^{d} X \Theta_{d}\right) \Theta_{a}\right)
-> > $$
-> > 
->
-> **训练步骤：**
->
-> > - 训练DGP来预测最后一层的预训练CNN参数
-> > - 使用DGP预测的参数并固定，使用交叉熵损失调整特征提取部分的参数(对于seen classes)，使CNN特征适应于新得到的分类器
-
-
-
-#### 生成方法
-
-##### Transferable Contrastive Network for Generalized Zero-Shot Learning
-
-[Transferable Contrastive Network for Generalized Zero-Shot Learning]()
-
-> - 提出一种可迁移的对比网络（Transferable Contrastive Network, TCN），通过自动学习图像与类别语义的对比机制来实现图像分类。
->
-> - TCN在学习的过程中主动利用类别之间的相似性实现已知类到新类的知识迁移。因此，TCN可以有效地缓解模型的域偏移问题。
-
-
-
-##### Discriminative Learning of Latent Features for Zero-Shot Recognition
-
-[Discriminative Learning of Latent Features for Zero-Shot Recognition](https://arxiv.org/pdf/1803.06731)
+[Semantically Aligned Bias Reducing Zero Shot Learning]()
 
 > 
 
 
 
-##### Attribute Attention for Semantic Disambiguation in Zero-Shot Learning
+##### Leveraging the Invariant Side of Generative Zero-Shot Learning
 
-[Attribute Attention for Semantic Disambiguation in Zero-Shot Learning]()
-
-> 
-
-
-
-##### Marginalized Latent Semantic Encoder for Zero-Shot Learning
-
-[Marginalized Latent Semantic Encoder for Zero-Shot Learning]()
+[Leveraging the Invariant Side of Generative Zero-Shot Learning](https://arxiv.org/pdf/1904.04092v1.pdf)
 
 > 
 
 
 
-##### Task-Driven Modular Networks for Zero-Shot Compositional Learning
+##### Creativity Inspired Zero-Shot Learning
 
-[Task-Driven Modular Networks for Zero-Shot Compositional Learning]()
-
-> 
-
-
-
-##### Attentive Region Embedding Network for Zero-shot Learning
-
-[Attentive Region Embedding Network for Zero-shot Learning]()
+[Creativity Inspired Zero-Shot Learning]()
 
 > 
 
 
 
-##### Generalized Zero-Shot Recognition based on Visually Semantic Embedding
-
-[Generalized Zero-Shot Recognition based on Visually Semantic Embedding]()
-
-> 
 
 
+#### 网络对seen类别的bias问题的方法
 
 ##### Transductive Unbiased Embedding for Zero-Shot Learning
 
@@ -549,16 +628,4 @@ tags:
 
 
 
-##### Generative Dual Adversarial Network for Generalized Zero-shot Learning
 
-[Generative Dual Adversarial Network for Generalized Zero-shot Learning]()
-
-> 
-
-
-
-##### Semantically Aligned Bias Reducing Zero Shot Learning
-
-[Semantically Aligned Bias Reducing Zero Shot Learning]()
-
-> 
