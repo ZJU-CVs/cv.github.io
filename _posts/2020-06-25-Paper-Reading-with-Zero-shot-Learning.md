@@ -321,7 +321,7 @@ tags:
 
 [Semantically Consistent Regularization for Zero-Shot Recognition](https://arxiv.org/pdf/1704.03039.pdf)
 
-> 
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/35.png" alt="img" style="zoom:50%;" />
 
 
 
