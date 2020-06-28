@@ -256,78 +256,6 @@ tags:
 
 
 
-#### 将语义特征映射到视觉特征空间的深度嵌入模型
-
-##### Semantically Consistent Regularization for Zero-Shot Recognition
-
-[Semantically Consistent Regularization for Zero-Shot Recognition](https://arxiv.org/pdf/1704.03039.pdf)
-
-> 
-
-##### Learning a Deep Embedding Model for Zero-Shot Learning
-
-[Learning a Deep Embedding Model for Zero-Shot Learning](https://arxiv.org/pdf/1611.05088)
-
-> 提出一种端对端的深度模型来完成Zero-shot learning，将视觉特征空间作为嵌入空间(embedding space)要比语义空间作为嵌入空间的效果好的多。所提模型能够很好地解决hubness problem，如下图所示，$S$表示语义空间，$V$表示视觉特征空间，当将语义特征映射到视觉特征空间(S->V)中时，hubness problem不会加重，但当映射为视觉特征空间到语义空间(V->S)，hubness会加重，feature点之间变更稠密
->
-> 
->
-> **优势：**
->
-> > - 能够更好地学习一个嵌入空间
-> > - 为基于神经网络的联合嵌入模型提供了灵活性，能够解决多种迁移性问题
-> > - 可以很自然地对多模态的数据进行fusing
->
-> 
->
-> **模型思想：**
->
-> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/27.png" alt="img" style="zoom:50%;" />
->
-> > - 输入图片通过深度CNN进行特征提取
-> > - 语义表示单元(Semantic Representation Unit)可以利用三个结构进行代替，分别是单模态形式、多模态形式和RNN词嵌入形式
-> > - FC-ReLU作为投影矩阵
-> >
-> > $$
-> > \mathcal{L}\left(\mathbf{W}_{1}, \mathbf{W}_{2}\right)=\frac{1}{N} \sum_{i=1}^{N}\left\|\phi\left(\mathbf{I}_{i}\right)-f_{1}\left(\mathbf{W}_{2} f_{1}\left(\mathbf{W}_{1} \mathbf{y}_{i}^{u}\right)\right)\right\|^{2}+\lambda\left(\left\|\mathbf{W}_{1}\right\|^{2}+\left\|\mathbf{W}_{2}\right\|^{2}\right)
-> > $$
-> >
-> > > 其中$y$表示语义输入，$I$表示输入图片，$W_1$和$W_2$分别为全连接层的权重，$f_1$表示ReLU
->
-
-
-
-##### Progressive Ensemble Networks for Zero-Shot Recognition
-
-[Progressive Ensemble Networks for Zero-Shot Recognition](https://arxiv.org/pdf/1805.07473.pdf)
-
-> 
-
-##### Transductive Multi-View Zero-Shot Learning
-
-[Transductive Multi-View Zero-Shot Learning](http://arxiv.org/abs/1501.04560)
-
-> - 大多数现有的ZSL都是通过在带注释的训练集和不带注释测试集之间共享的中间层语义表示来转移学习。由于从低维特征空间到高维语义表示空间的映射是从辅助数据集(训练集)学习而来的，在进行应用时没有对目标数据集进行自适应，会产生**领域漂移**(domain shift)
->
-> - 对于传统ZSL，一个类只有一个标签，然而同一类中不同个体之间的差异往往是巨大的，即在给定语义表示的情况下，通常只有一个原型可用于零样本学习，即**原型稀疏性**问题。每个类一个原型不足以表示类内部的可变性或帮助消除类间相重叠特征所带来的歧义，导致较大的类内差异和类间相似性。
->
->   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/18.png" alt="img" style="zoom:50%;" />
->
-> - 对于**领域漂移**(domain shift) 提出了一个新的框架transductive multi-view embedding (直推式多视图嵌入)，将不同语义views中的目标实例与其low-level特征views相关联。可以减轻projection domain shift 问题，并提供了一个公共空间可以在其中直接比较异构视图，并利用其互补性。
->
->   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/19.png" alt="img" style="zoom:50%;" />
->
->   > 将每个目标类实例的三个视图$f^A(X_T),f^v(X_T)$和$X_T$投影到共享的嵌入空间
->
-> - 对于**原型稀疏性**问题，提出novel heterogeneous multi-view hypergraph label propagation(异构多视图标签传播)，有效利用了不同语义表示提供互补信息，以一致的方式利用了多个表示空间的流形结构
->
->   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/20.png" alt="img" style="zoom:50%;" />
->
->   > - 黑色虚线连接表示多视图语义嵌入下同一节点的两个视图之间的相关性最大化
->   > - 红色/绿色虚线椭圆形表示异构超边，每个hyperedge由两个与该查询节点最相似的节点组成
-
-
-
 ##### Zero-shot recognition using dual visual-semantic mapping paths
 
 [Zero-shot recognition using dual visual-semantic mapping paths](https://arxiv.org/pdf/1703.05002.pdf)
@@ -370,24 +298,71 @@ tags:
 >   $$
 >   \arg \min _{\mathbf{w}} l(\mathbf{W} \mathbf{X}, \mathbf{K})+\gamma g(\mathbf{W})
 >   $$
->   
->- 提取$\mathcal{X}_s$的底层class-level流型，并生成和$\mathcal{X}_s$同构的$\tilde{\mathcal{K}}_s$
-> 
+>
+> - 提取$\mathcal{X}_s$的底层class-level流型，并生成和$\mathcal{X}_s$同构的$\tilde{\mathcal{K}}_s$
+>
 >  > 对于每个类嵌入$k^i_s$，我们从$\mathcal{K}$中找到它的m个最近邻，然后将这些图像的平均值作为类级原型，即
->   >
->   > $\tilde{k}^i_s$。和$\mathcal{K}_s$相比，$\tilde{\mathcal{K}}_s=\{\tilde{k}^i_s\}^k_{i=1}$在语义上与$\mathcal{X}$更一致
-> 
->- 将$\mathcal{X}_s$和$\tilde{K}_s$进行迭代对齐得到$\tilde{f}_s$，并优化$\tilde{K}_s$使其与$X_s$在语义上更加一致
-> 
+>  >
+>  > $\tilde{k}^i_s$。和$\mathcal{K}_s$相比，$\tilde{\mathcal{K}}_s=\{\tilde{k}^i_s\}^k_{i=1}$在语义上与$\mathcal{X}$更一致
+>
+> - 将$\mathcal{X}_s$和$\tilde{K}_s$进行迭代对齐得到$\tilde{f}_s$，并优化$\tilde{K}_s$使其与$X_s$在语义上更加一致
 >
 > 
->**测试阶段：**
+>
+> **测试阶段：**
+>
+> > 将$f_s,\tilde{f}_s,\tilde{\mathcal{K}}_s,\mathcal{K}_s$和$\mathcal{K}_u$作为输入，对于$n_t$个测试实例$X_u \in R^{d\times n_t}$，首先预测它们的语义表示$f_s(X_u)$，然后直接构建$\tilde{\mathcal{K}}_s$，最后，对于每个测试实例$x_j$，得到对应的标签$y_j=\arg \max_c d\left(\tilde{f}_{s}\left(\mathbf{x}_{j}\right), \tilde{\mathbf{k}}_{c}\right)$，其中$\tilde{\mathbf{k}}_{c}\in\tilde{\mathcal{K}}_{u}$ in **ZSR**；$\tilde{\mathbf{k}}_{c}\in\{\tilde{\mathcal{K}}_s \cup\tilde{\mathcal{K}}_{u}\}$ in **gZSR**.
+
+
+
+#### 将语义特征映射到视觉特征空间的深度嵌入模型
+
+##### Semantically Consistent Regularization for Zero-Shot Recognition
+
+[Semantically Consistent Regularization for Zero-Shot Recognition](https://arxiv.org/pdf/1704.03039.pdf)
+
 > 
->> 将$f_s,\tilde{f}_s,\tilde{\mathcal{K}}_s,\mathcal{K}_s$和$\mathcal{K}_u$作为输入，对于$n_t$个测试实例$X_u \in R^{d\times n_t}$，首先预测它们的语义表示$f_s(X_u)$，然后直接构建$\tilde{\mathcal{K}}_s$，最后，对于每个测试实例$x_j$，得到对应的标签$y_j=\arg \max_c d\left(\tilde{f}_{s}\left(\mathbf{x}_{j}\right), \tilde{\mathbf{k}}_{c}\right)$，其中$\tilde{\mathbf{k}}_{c}\in\tilde{\mathcal{K}}_{u}$ in **ZSR**；$\tilde{\mathbf{k}}_{c}\in\{\tilde{\mathcal{K}}_s \cup\tilde{\mathcal{K}}_{u}\}$ in **gZSR**.
 
 
 
+##### Learning a Deep Embedding Model for Zero-Shot Learning
 
+[Learning a Deep Embedding Model for Zero-Shot Learning](https://arxiv.org/pdf/1611.05088)
+
+> 提出一种端对端的深度模型来完成Zero-shot learning，将视觉特征空间作为嵌入空间(embedding space)要比语义空间作为嵌入空间的效果好的多。所提模型能够很好地解决hubness problem，如下图所示，$S$表示语义空间，$V$表示视觉特征空间，当将语义特征映射到视觉特征空间(S->V)中时，hubness problem不会加重，但当映射为视觉特征空间到语义空间(V->S)，hubness会加重，feature点之间变更稠密
+>
+> 
+>
+> **优势：**
+>
+> > - 能够更好地学习一个嵌入空间
+> > - 为基于神经网络的联合嵌入模型提供了灵活性，能够解决多种迁移性问题
+> > - 可以很自然地对多模态的数据进行fusing
+>
+> 
+>
+> **模型思想：**
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/27.png" alt="img" style="zoom:50%;" />
+>
+> > - 输入图片通过深度CNN进行特征提取
+> > - 语义表示单元(Semantic Representation Unit)可以利用三个结构进行代替，分别是单模态形式、多模态形式和RNN词嵌入形式
+> > - FC-ReLU作为投影矩阵
+> >
+> > $$
+> > \mathcal{L}\left(\mathbf{W}_{1}, \mathbf{W}_{2}\right)=\frac{1}{N} \sum_{i=1}^{N}\left\|\phi\left(\mathbf{I}_{i}\right)-f_{1}\left(\mathbf{W}_{2} f_{1}\left(\mathbf{W}_{1} \mathbf{y}_{i}^{u}\right)\right)\right\|^{2}+\lambda\left(\left\|\mathbf{W}_{1}\right\|^{2}+\left\|\mathbf{W}_{2}\right\|^{2}\right)
+> > $$
+> >
+> > > 其中$y$表示语义输入，$I$表示输入图片，$W_1$和$W_2$分别为全连接层的权重，$f_1$表示ReLU
+>
+
+
+
+##### Progressive Ensemble Networks for Zero-Shot Recognition
+
+[Progressive Ensemble Networks for Zero-Shot Recognition](https://arxiv.org/pdf/1805.07473.pdf)
+
+> 
 
 
 
@@ -444,6 +419,29 @@ tags:
 > > - 使用DGP预测的参数并固定，使用交叉熵损失调整特征提取部分的参数(对于seen classes)，使CNN特征适应于新得到的分类器
 
 
+
+##### Transductive Multi-View Zero-Shot Learning
+
+[Transductive Multi-View Zero-Shot Learning](http://arxiv.org/abs/1501.04560)
+
+> - 大多数现有的ZSL都是通过在带注释的训练集和不带注释测试集之间共享的中间层语义表示来转移学习。由于从低维特征空间到高维语义表示空间的映射是从辅助数据集(训练集)学习而来的，在进行应用时没有对目标数据集进行自适应，会产生**领域漂移**(domain shift)
+>
+> - 对于传统ZSL，一个类只有一个标签，然而同一类中不同个体之间的差异往往是巨大的，即在给定语义表示的情况下，通常只有一个原型可用于零样本学习，即**原型稀疏性**问题。每个类一个原型不足以表示类内部的可变性或帮助消除类间相重叠特征所带来的歧义，导致较大的类内差异和类间相似性。
+>
+>   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/18.png" alt="img" style="zoom:50%;" />
+>
+> - 对于**领域漂移**(domain shift) 提出了一个新的框架transductive multi-view embedding (直推式多视图嵌入)，将不同语义views中的目标实例与其low-level特征views相关联。可以减轻projection domain shift 问题，并提供了一个公共空间可以在其中直接比较异构视图，并利用其互补性。
+>
+>   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/19.png" alt="img" style="zoom:50%;" />
+>
+>   > 将每个目标类实例的三个视图$f^A(X_T),f^v(X_T)$和$X_T$投影到共享的嵌入空间
+>
+> - 对于**原型稀疏性**问题，提出novel heterogeneous multi-view hypergraph label propagation(异构多视图标签传播)，有效利用了不同语义表示提供互补信息，以一致的方式利用了多个表示空间的流形结构
+>
+>   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/20.png" alt="img" style="zoom:50%;" />
+>
+>   > - 黑色虚线连接表示多视图语义嵌入下同一节点的两个视图之间的相关性最大化
+>   > - 红色/绿色虚线椭圆形表示异构超边，每个hyperedge由两个与该查询节点最相似的节点组成
 
 
 
