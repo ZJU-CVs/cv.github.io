@@ -112,6 +112,8 @@ tags:
 
 ##### 验证AT自监督预训练和fine-tuning对分类鲁棒性的提高
 
+![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ad2.png)
+
 > $\mathcal{P}_1$ (without pre-training)
 >
 > $\mathcal{P}_2$ (standard self-supervision pre-training),
@@ -130,6 +132,10 @@ tags:
 
 > 将预训练和fine-tuning分离，可以从一个warm start开始学习图像分类器，减轻了one-shot AT的计算消耗缺点，且性能优越。
 
+baseline:《Using Self-Supervised Learning Can Improve Model Robustness and Uncertainty》
 
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ad4.png" alt="img" style="zoom:50%;" />
 
 ##### 验证Task Ensemble的有效性
+
+> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ad1.png)
