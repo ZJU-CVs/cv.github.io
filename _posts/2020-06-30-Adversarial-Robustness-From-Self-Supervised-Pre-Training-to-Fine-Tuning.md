@@ -64,3 +64,72 @@ tags:
 
 #### 2. Method
 
+##### 自监督预训练
+
+>- $\mathcal{T}_p$表示一个预训练任务，$\mathcal{D}_p$表示对应的(未标记)的预训练数据集。自监督预训练的目标是在没有明确的人工监督情况下，从$\mathcal{D}_p$本身学习一个模型。
+>
+>- 预训练损失$\mathcal{l}_p(\theta_p,\theta_{pc};\mathcal{D}_p)$，通过训练确定$\theta_p$使$l_p$最小化；$\theta_{pc}$表示基于$\mathcal{T}_p$得到的附加参数
+>
+>- 预训练任务主要为：
+>
+>  > **Selfie:** 通过masking out图像中选定的patches，selfie构造为一个分类问题，以确定要在被masked位置填充的正确patch
+>  >
+>  > 
+>  >
+>  > **Rotation:** 将图像随机旋转90度，rotation构造为一个分类问题，以确定应用于输入图像的旋转角度
+>  >
+>  > 
+>  >
+>  > **Jigsaw:** 通过将图像分成不同的快，Jigsaw训练一个分类器来预测这些patches正确的排列
+>
+>  
+>
+>  ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ad1.png)
+
+
+
+##### 有监督的Fine-tuning
+
+> - 设$r(x;\theta_p)$表示自监督与训练任务$\mathcal{T}_p$从输入样本$x$到其嵌入空间的映射。给定一个带有标签数据$D_f$的目标fine-tuning任务（下游任务）$\mathcal{T}_f$，fine-tuning的目标是确定一个分类器，表示$r(x;\theta_p)$映射到标签空间
+>
+> - 为了学习分类器，可以使用固定或重新训练的模型$\theta_p$来最小化常见的监督训练损失$l_f(\theta_p,\theta_f;\mathcal{D}_f)$
+
+
+
+##### 引入对抗训练
+
+> 对抗训练是训练一个鲁棒性的分类器的强有力方法，通过将对抗训练引入自监督，来提供泛化能力更强的预训练模型
+
+
+
+##### 多任务集成
+
+> 不同预训练模型含有不同的对抗特性，因此把多个预训练模型集成，取得进一步的性能提升
+
+
+
+#### 3. Experiments
+
+##### 验证AT自监督预训练和fine-tuning对分类鲁棒性的提高
+
+> $\mathcal{P}_1$ (without pre-training)
+>
+> $\mathcal{P}_2$ (standard self-supervision pre-training),
+>
+> $\mathcal{P}_3$ (adversarial self-supervision pre-training)
+>
+> $\mathcal{F}_1$ (partial standard ﬁne-tuning) 
+>
+> $\mathcal{F}_2$ (partial adversarial ﬁne-tuning) 
+>
+> $\mathcal{F}_3$(full standard ﬁne-tuning)
+>
+> $\mathcal{F}_4$ (full adversarial ﬁne-tuning).
+
+##### 验证AT的fine-tuning和预训练的可分离性
+
+> 将预训练和fine-tuning分离，可以从一个warm start开始学习图像分类器，减轻了one-shot AT的计算消耗缺点，且性能优越。
+
+
+
+##### 验证Task Ensemble的有效性
