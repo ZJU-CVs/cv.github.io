@@ -138,4 +138,4 @@ baseline:《Using Self-Supervised Learning Can Improve Model Robustness and Unce
 
 ##### 验证Task Ensemble的有效性
 
-> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ad1.png)
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ad3.png" alt="img" style="zoom:50%;" />
