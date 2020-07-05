@@ -29,11 +29,11 @@ K. Oksuz, B. C. Cam, S. Kalkan, E. Akbas, "Imbalance Problems in Object Detectio
 4. [Objective Imbalance](#4)
 
 
-![img](picture/imbalance-review.png)
+![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-04-imbalance-problems-in-object-detection/imbalance-review.png)
 #### 1. Class Imbalance （类别不均衡）
 ##### 1.1. Foreground-Background Class Imbalance （前景-背景类别不均衡）
 ##### 定义 前景-背景类别不均衡是目标检测中研究最广泛，程度最深的一类不平衡。这种不平衡并不是由于数据集引起，而是由于现有目标检测架构引起（要生成大量的box，在此基础上实现分类和回归任务），因此background boxes 远远多于 foreground boxes。前景-背景不平衡问题发生在训练过程中，不依赖于数据集中各个类的数量。
-![img](picture/class-imbalance1.png)
+![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-04-imbalance-problems-in-object-detection/class-imbalance1.png)
 
 - Hard Sampling Methods（硬采样）
 - 硬采样从给定的标记box集合中选择一个子集的正反示例（具有所需数量）,忽略未选择的示例。因此，选中的每个样本对损失的贡献相等，而未选择的样本对当前迭代的训练没有贡献。
@@ -110,7 +110,7 @@ Chen_Towards_Accurate_One-Stage_Object_Detection_With_AP-Loss_CVPR_2019_paper.pd
 
    - pRoI Generator, WACV 2020, [[paper]](http://openaccess.thecvf.com/content_WACV_2020/papers/Oksuz_Generating_Positive_Bounding_Boxes_for_Balanced_Training_of_Object_Detectors_WACV_2020_paper.pdf)
    与生成图像不同，正RoI（pRoI）生成器生成一组具有给定IoU、BB相对空间和前景类分布的正RoI。该方法依赖于一个边界盒生成器，该生成器能够使用给定的边界框（即基本真实）生成具有所需IoU的边界框（即正例）。注意到输入BB的IoU与其硬度有关，pRoI生成器是模拟并分析硬采样方法的基础。
-![img](picture/class-imbalance2.png)
+![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-04-imbalance-problems-in-object-detection/class-imbalance2.png)
 ##### 1.2. Foreground-Foreground Class Imbalance（前景-前景类别不均衡） 
 ##### 定义 在前景类不平衡中，过度表示类和欠表示类都是前景类。前景类之间的这种不平衡并没有像背景-背景不平衡那样引起人们的兴趣。数据集中对象类之间自然存在不平衡，训练的每个批次也存在不均衡，过度拟合有利于过度表示的类可能是不可避免的。
 
@@ -128,7 +128,7 @@ Chen_Towards_Accurate_One-Stage_Object_Detection_With_AP-Loss_CVPR_2019_paper.pd
 
 ##### 2.1. Object/box-level Scale Imbalance（对象/边界框等级不平衡）
 ##### 定义 当数据集中的对象或输入边界框的某些大小被过度表示时，就会出现尺度不平衡，会影响估计ROI的尺度和整体检测性能。
-![img](picture/scale-imbalance1.png)
+![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-04-imbalance-problems-in-object-detection/scale-imbalance1.png)
 
 - Methods Predicting from the Feature Hierarchy of Backbone Features（基于主干特征层次的预测方法）
 根据主干网不同层次的特征进行独立预测。考虑了多个尺度上的目标检测，因为不同的层次在不同的尺度上有不同的编码信息
@@ -176,7 +176,7 @@ Chen_Towards_Accurate_One-Stage_Object_Detection_With_AP-Loss_CVPR_2019_paper.pd
 ##### 2.2. Feature-level Imbalance 
 ##### 定义 来自主干网的特性的集成预计将在低级和高级特性方面达到平衡，以便能够进行一致的预测，高层次和低层次特征的影响是不同的。
 
-![img](picture/scale-imbalance2.png)
+![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-04-imbalance-problems-in-object-detection/scale-imbalance2.png)
 - Methods Using Pyramidal Features as a Basis（基于金字塔特征的方法）
 这些方法的目的是通过使用额外的操作或步骤来改进FPN收集的金字塔特征
   - PANet, CVPR 2018, [[paper]](http://openaccess.thecvf.com/content_cvpr_2018/papers/Liu_Path_Aggregation_Network_CVPR_2018_paper.pdf)
@@ -215,7 +215,7 @@ Chen_Towards_Accurate_One-Stage_Object_Detection_With_AP-Loss_CVPR_2019_paper.pd
 
 ##### 3.1. Imbalance in Regression Loss（回归损失不均衡） 
 ##### 定义 这种不平衡问题与不同个体对回归损失的贡献不均有关。如L1和L2，iou loss等。
-![img](picture/spatial-imbalance1.png)
+![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-04-imbalance-problems-in-object-detection/spatial-imbalance1.png)
 
 - Lp norm based
   - Smooth L1, ICCV 2015, [[paper]](https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Girshick_Fast_R-CNN_ICCV_2015_paper.pdf)
@@ -268,7 +268,7 @@ Chen_Towards_Accurate_One-Stage_Object_Detection_With_AP-Loss_CVPR_2019_paper.pd
 
 ##### 3.3. Object Location Imbalance (物体位置不平衡)
 ##### 定义 目标在图像中的分布很重要，因为当前的深部目标探测器使用密集采样的锚作为滑动窗口分类器。对于大多数方法，锚定点均匀分布在图像中，因此图像中的每个部分都被认为具有相同的重要性级别。另一方面，图像中的对象不遵循均匀分布，即对象位置存在不平衡。
-![img](picture/spatial-imbalance2.png)
+![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-04-imbalance-problems-in-object-detection/spatial-imbalance2.png)
 - Guided Anchoring, CVPR 2019, [[paper]](http://openaccess.thecvf.com/content_CVPR_2019/html/Wang_Region_Proposal_by_Guided_Anchoring_CVPR_2019_paper.html)
 学习锚定的位置、尺度和纵横比属性，以减少锚的数量，同时提高召回率。具体地说，在给定主干特征图的情况下，为每一个任务设计一个预测分支来生成锚：（i）锚位置预测分支预测一个每一个位置判断该位置是否包含目标，并根据输出概率采用硬阈值方法确定锚定点，（ii）锚定形状预测分支生成每个位置的锚形状。由于锚因图像而异，不同于在特征映射上使用完全卷积分类器的传统方法（即单级生成器和RPN），作者提出了基于可变形卷积的锚引导特征自适应，以便根据锚定尺寸获得平衡的表示。
 
@@ -278,7 +278,7 @@ Chen_Towards_Accurate_One-Stage_Object_Detection_With_AP-Loss_CVPR_2019_paper.pd
 #### 4. Objective Imbalance （多任务损失优化之间的不平衡）
 #### 定义 目标不平衡是指在训练过程中最小化的目标（损失）功能。根据定义，目标检测需要一个多任务丢失，以便同时解决分类和回归任务。但是，不同的任务会导致不平衡，这是由于以下原因：（i）任务的梯度规范可能不同，一个任务可以主导训练。（二）不同任务的损失函数取值范围可能不同，这会影响任务的一致性和均衡性优化。（iii）任务的难度可能不同，这会影响学习任务的速度，从而阻碍培训过程。
 
-![img](picture/object-imbalance1.png)
+![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-04-imbalance-problems-in-object-detection/object-imbalance1.png)
 
 - Task Weighting
 通过一个额外的超参数作为权重因子来平衡损失项。超参数是使用验证集选择的。当然，增加任务的数量，就像两级检测器的情况一样，会增加加权因子的数量和搜索空间的维数（请注意，两级检测器中有四个任务，一级检测器中有两个任务）。
