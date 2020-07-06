@@ -240,7 +240,7 @@ FPN收集的特征可以进一步增强，RoI可以映射到金字塔的每一�
   - IoU Loss, ACM IMM 2016, [[paper]](https://arxiv.org/pdf/1608.01471.pdf)
     利用IoU的可微性。一个早期的例子是IoU损失
   
-    > L_{iou}=-In(IoU)$
+    > $L_{iou}=-In(IoU)$
   
   - Bounded IoU Loss, CVPR 2018, [[paper]](http://openaccess.thecvf.com/content_cvpr_2018/CameraReady/0794.pdf)
     利用1-IoU度量性质的另一种方法是有界IoU损失。该损失将1-IoU的修改版本扭曲为平滑L1函数。修改包括通过固定除要计算的参数以外的所有参数来限定IoU，这意味着计算一个参数的最大可达IoU
@@ -251,8 +251,8 @@ FPN收集的特征可以进一步增强，RoI可以映射到金字塔的每一�
     基于最佳损失函数是性能度量本身的思想，在广义交大于并（GIoU）中，表明IoU可以直接优化，IoU和提出的GIoU可以用作损失函数。在修正IoU的主要缺点（即IoU=0时的瓶颈）时，GIoU被提议作为性能度量和损失函数。以这种方式，即使两个框不重叠，一个GIoU值可以分配给它们，这使得函数在整个输入域中具有非零梯度，而不是被限制在IoU>0。与IoU不同，GIoU∈[−1,1]。GIoU是IoU的下界，GIoU保留了IoU的优点，并使其在IoU=0时可微。另一方面，由于正标记BBs的IoU大于0.5，因此这部分函数在实际中从未访问过，但GIoU Loss比直接使用IoU作为损失函数要好。
 
     > $L_{Giou}(B,\overline{B})=IoU(B,\overline{B})-\frac{A(E)-A(B,\overline{B})}{A(E)}$
-  
-E为包含$B$和$\overline{B}$区域的最小框
+    >
+  > E为包含$B$和$\overline{B}$区域的最小框
   
   - Distance IoU Loss, AAAI 2020, [[paper]](https://arxiv.org/pdf/1911.08287.pdf)
   在传统的IoU误差（即1−IoU（B，−B））上添加惩罚项，以确保更快、更准确地收敛。为了达到这个目的，在距离IoU（DIoU）损失中，一个与B的中心距离有关的惩罚项
