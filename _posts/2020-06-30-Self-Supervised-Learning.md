@@ -12,6 +12,8 @@ tags:
 
 更新中...
 
+ref: https://lilianweng.github.io/lil-log/2019/11/10/self-supervised-learning.html
+
 ### 1. Introduction
 
 ##### **背景**
