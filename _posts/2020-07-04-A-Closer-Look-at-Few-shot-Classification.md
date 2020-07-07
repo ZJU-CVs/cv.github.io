@@ -144,7 +144,8 @@ tags:
 
 对比模型：meta learning few-shot classification(包括matching net、protonet、RelationNet和MAML)
 
-> 该类算法流程为：首先在meta-train阶段，support set $S_b$和query set $Q_b$采用Episode的训练方法来训练一个meta-learning classifer $M(.|S_b)$。在meta-testing stage，novel support set $S_n$训练新的分类器$M(.|S_n)$来预测新类别中的目标。（不同的meta-learning算法，其主要区别在于分类器$M(.|S)$的设计）
+> 该类算法流程为：首先在meta-train阶段，support set $S_b$和query set $Q_b$采用Episode的训练方法来训练一个meta-learning classifer $$M(.|S_b)$$。在meta-testing stage，novel support set $S_n$训练新的分类器
+> $$M(.|S_n)$$来预测新类别中的目标。（不同的meta-learning算法，其主要区别在于分类器$$M(.|S)$$的设计）
 >
 > 
 >
