@@ -69,7 +69,7 @@ tags:
 >
 >       > $\theta _e$和$\theta _n$分别为$f_e$和$f_n$的可学习参数，$f_e$将邻节点信息传递到待更新节点，$f_n$利用邻节点的聚合信息更新相应节点
 >     
->     - 最后根据更新后的节点向量得到conditioning vector $\mathbf{v}_{\mathcal{S}_{i}} \in \mathbb{R}^{d_{s}}$
+>     - 最后根据更新后的节点向量得到conditioning vector $$\mathbf{v}_{\mathcal{S}_{i}} \in \mathbb{R}^{d_{s}}$$
 >     
 >       $$\mathbf{v}_{\mathcal{S}_{i}}=\max \left(\left\{\tilde{\mathbf{v}}_{k}\right\}_{v_{k} \in \mathcal{V}_{i}}\right)$$
 >     
