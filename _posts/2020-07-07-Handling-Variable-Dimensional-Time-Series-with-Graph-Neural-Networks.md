@@ -77,29 +77,27 @@ tags:
 >
 > - 使用GNN的优势在于可以处理除训练过程中传感器组合之外的其他unseen组合，从而实现组合泛化
 >
-> 
->
-> 
+>   
 >
 > **core dynamics module:**
 >
-> > 该模型基于GRU构建（当然也可以用LSTM等），输入为固定维度的多变量，对于缺失的变量，**用一个常量或未缺失部分的平均值对缺失值进行填补**
+> > 该模型基于GRU构建（当然也可以用LSTM等），输入为固定维度的多变量，对于不可用的传感器进行平均插补。
 >
 > **Details:**
 >
 > - 对于不同多变量组合的时间序列$x_i$转化为固定维度d的$\tilde{\mathbf{x}}_{i}$，对于缺失变量用均值填充
 >
 > - 将$\tilde{\mathbf{x}}_{i}$输入GRU进行训练，在最后一个时间步骤为$T_i$的module的输出特征向量$z^{T_i}$
->   $$
+>  $$
 >   \mathbf{z}_{i}^{t}=G R U\left(\left[\tilde{\mathbf{x}}_{i}^{t}, \mathbf{v}_{\mathcal{S}_{i}}\right], \mathbf{z}_{i}^{t-1} ; \boldsymbol{\theta}_{G R U}\right), \quad t: 1, \ldots, T_{i}
 >   $$
->
+> 
 > - 根据下游任务(分类或回归)确定$f_o$，训练得到$\hat{y}_i$
->   $$
+>  $$
 >   \hat{y}_{i}=f_{o}\left(\mathbf{z}_{i}^{T_{i}} ; \boldsymbol{\theta}_{o}\right)
 >   $$
 >   
->
+> 
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/index.png" alt="img" style="zoom:50%;" />
 >
 >  
