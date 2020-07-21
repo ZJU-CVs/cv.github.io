@@ -195,7 +195,7 @@ tags:
 > - Baseline++在很大程度上改进了baseline，与其他元学习相比也具有竞争力
 > - 实验表明减少intra-class variation is an important factor in the current few-shot classification problem setting.
 >
-> <img src="/Users/jiangyu/Desktop/blog/img/2020-07-07-fsl/5.png" alt="7" style="zoom:33%;" />
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/5.png" alt="7" style="zoom:33%;" />
 >
 > 
 >
@@ -206,7 +206,7 @@ tags:
 >   - 加深网络深度在CUB数据集中效果显著，使acc增加；但是在mini-ImageNet数据集中，并不是所有方法中加深网络深度都会导致acc增加
 >   - 分析原因：CUB和mini-ImageNet的区别在于它们在base class和novel class上的域差异，在word-net层次中，mini-ImageNet中的类比CUB有更大的分歧
 >
-> <img src="/Users/jiangyu/Desktop/blog/img/2020-07-07-fsl/6.png" alt="7" style="zoom:50%;" />
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/6.png" alt="7" style="zoom:50%;" />
 >
 > **Domain differences between base and novel classes**
 >
@@ -215,11 +215,11 @@ tags:
 > - 使用ResNet-18 feature backbone进行实验：Baseline outperforms all other meta-learning methods under this scenario. 因为当元学习方法在meta-training stage时，learn to learn from the support set，所有的base support sets都在同一个数据集中，无法适应差异太大的novel class。而baseline只是简单地替换和训练一个新的基于少数给定的novel class的分类器，因此能够快速适应一个新的novel class，并不受源域和目标域之间域偏移的影响
 > - 此外，Baseline的性能比Baseline++方法好，可能是因为额外减少intra-class variation会损害适应性
 >
-> <img src="/Users/jiangyu/Desktop/blog/img/2020-07-07-fsl/7.png" alt="7" style="zoom:43%;" />
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/7.png" alt="7" style="zoom:43%;" />
 >
 > - 下图可以发现，随着域差异越来越大，based on a few novel class instances 变得越来越重要
 >
-> <img src="/Users/jiangyu/Desktop/blog/img/2020-07-07-fsl/8.png" alt="7" style="zoom:50%;" />
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/8.png" alt="7" style="zoom:50%;" />
 >
 > **Effect of further and adaptation**
 >
@@ -230,4 +230,4 @@ tags:
 > - ProtoNet的结果表示在域差异较小的以后，性能会下降，因为
 > - **Learning to learn adaptation in the meta-training stage would be an important direction for feature meta-learning research in few-shot classification.**
 >
-> <img src="/Users/jiangyu/Desktop/blog/img/2020-07-07-fsl/9.png" alt="7" style="zoom:40%;" />
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/9.png" alt="7" style="zoom:40%;" />
