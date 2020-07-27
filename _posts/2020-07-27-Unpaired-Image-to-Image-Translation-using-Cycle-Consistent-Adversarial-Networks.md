@@ -40,17 +40,54 @@ tags:
 
 
 
-CycleGAN
+CycleGAN Loss:
 
-- 双判别器：
+> CycleGAN Loss = Adversarial loss + Cycle-consistency loss + (Identity loss)
+> $$
+> \begin{aligned}
+> \mathcal{L}\left(G, F, D_{X}, D_{Y}\right)=& \mathcal{L}_{\mathrm{GAN}}\left(G, D_{Y}, X, Y\right)+\mathcal{L}_{\mathrm{GAN}}\left(F, D_{X}, Y, X\right)+\lambda \mathcal{L}_{\mathrm{cyc}}(G, F)
+> \end{aligned}
+> $$
 
-  > 两个分布X, Y，生成器G和F分别是X到Y和Y到X的映射，两个判别器$D_x$和$D_y$可以对转换后的图片进行判别
+- Adversarial loss：
+
+  > 两个分布X, Y，生成器G和F分别是X->Y和Y->X的映射，两个判别器$D_x$和$D_y$可以对转换后的图片进行判别
+  > $$
+  > \begin{aligned}
+  > \mathcal{L}_{\mathrm{GAN}}\left(G, D_{Y}, X, Y\right) &=\mathbb{E}_{y \sim p_{\text {data }}(y)}\left[\log D_{Y}(y)\right] +\mathbb{E}_{x \sim p_{\text {data }}(x)}\left[\log \left(1-D_{Y}(G(x))\right]\right.
+  > \end{aligned}
+  > $$
+  >
+  > $$
+  > \begin{aligned}
+  > \mathcal{L}_{\mathrm{GAN}}\left(F, D_{X}, Y, X\right) &=\mathbb{E}_{x \sim p_{\text {data }}(x)}\left[\log D_{X}(x)\right] +\mathbb{E}_{y \sim p_{\text {data }}(y)}\left[\log \left(1-D_{X}(F(y))\right]\right.
+  > \end{aligned}
+  > $$
+  >
+  > 
   >
   > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/2.png" alt="img" style="zoom:50%;" />
 
+  
+
 - Cycle-consistency loss
 
-  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/3.png" alt="img" style="zoom:50%;" />
-  >
-  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/4.png" alt="img" style="zoom:50%;" />
+  > 循环一致性损失，保留x中content成分，只改变style
+  > $$
+  > \begin{aligned}
+  > \mathcal{L}_{\mathrm{cyc}}(G, F) &=\mathbb{E}_{x \sim p_{\text {data }}(x)}\left[\|F(G(x))-x\|_{1}\right]+\mathbb{E}_{y \sim p_{\text {data }}(y)}\left[\|G(F(y))-y\|_{1}\right]
+  > \end{aligned}
+  > $$
+  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/3.png" alt="img" style="zoom:40%;" /><img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/4.png" alt="img" style="zoom:40%;" />
 
+
+
+- Identity loss
+
+  > $$
+  > L_{\text {Identity}}(G, F)=\mathbb{E}_{y \sim p_{\text {data}}(y)}\left[\|G(y)-y\|_{1}\right]+\mathbb{E}_{x \sim p_{\text {data}}(x)}\left[\|F(x)-x\|_{1}\right]
+  > $$
+  >
+  > > 生成器G用来生成y风格图像，则把y输入G，应该仍然生成y，只有这样才能证明G具有生成y风格的能力，因此G(y)和y应该尽可能接近
+  >
+  > 
