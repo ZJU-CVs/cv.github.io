@@ -11,9 +11,8 @@ tags:
    - paper
 ---
 
-```
-因为最近在看few-shot和meta-learning，一些方法需要与域适应相结合，提升模型性能。其中域适应常用的方法是基于cycleGAN的应用和改进，因此在这里简单介绍一下cycleGAN
-```
+`因为最近在看few-shot和meta-learning，一些方法需要与域适应相结合，提升模型性能。其中域适应常用的方法是基于cycleGAN的应用和改进，因此在这里简单介绍一下cycleGAN`
+
 
 
 
@@ -92,3 +91,7 @@ CycleGAN Loss:
   >
   > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/5.png" alt="img" style="zoom:40%;" />
 
+
+```
+
+```
