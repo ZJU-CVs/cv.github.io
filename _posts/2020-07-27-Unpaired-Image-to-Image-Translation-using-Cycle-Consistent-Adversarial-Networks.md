@@ -107,7 +107,7 @@ CycleGAN Loss:
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/6.png" alt="img" style="zoom:40%;" />
 
-> 如上图所示，模型共有5个损失函数，同时学习**分类器f，生成器G和域判别器D**，最终达到域适应的目的：
+> 如上图所示，模型共有5个损失函数，指导学习**分类器f，生成器G和域判别器D**，最终达到域适应的目的：
 >
 > - 分类判别损失
 > - 原样本映射的目标样本对抗损失
@@ -117,13 +117,11 @@ CycleGAN Loss:
 
 
 
-**Steps**
-
-- 学习一个源域分类器$f_s$，在源域数据上进行分类判别，损失函数如下：
-  $$
-  \mathcal{L}_{task}(f_S,X_S,Y_S)=-\mathbb{E}_{\left(x_{s}, y_{s}\right) \sim\left(X_{S}, Y_{S}\right)} \sum_{k=1}^{K} \mathbb{1}_{\left[k=y_{s}\right]} \log \left(\sigma\left(f_{S}^{(k)}\left(x_{s}\right)\right)\right)
-  $$
-  
+**Step 1:** 首先学习一个源域分类器$f_s$，在源域数据上进行分类判别，损失函数如下：
+$$
+\mathcal{L}_{task}(f_S,X_S,Y_S)=-\mathbb{E}_{\left(x_{s}, y_{s}\right) \sim\left(X_{S}, Y_{S}\right)} \sum_{k=1}^{K} \mathbb{1}_{\left[k=y_{s}\right]} \log \left(\sigma\left(f_{S}^{(k)}\left(x_{s}\right)\right)\right)
+$$
+**Step 2**: 学习目标域分类器$f_T$
 
 - 使用生成器$G_{S\rightarrow T}$，通过源域样本生成与目标样本类似的结果。对抗判别器$D_t$用于判别是原始的目标样本还是由源域生成的虚假目标样本。进行对抗域适应训练$G_{S\rightarrow T}$和$D_t$，损失函数为：
 
@@ -159,14 +157,13 @@ $$
   \end{aligned}
   $$
   
-
 - 此外，还考虑了特征级域适应，通过任务网络$f_T$的**输出特征**判断是否是来自两个图像集的特征或语义
   $$
   \mathcal{L}_{\mathrm{GAN}}\left(f_{T}, D_{\mathrm{feat}}, f_{S}\left(G_{S \rightarrow T}\left(X_{S}\right)\right), X_{T}\right)
   $$
   
+- **Total Loss：**
 
-**Total Loss：**
 $$
 \begin{aligned}
 \mathcal{L}_{\mathrm{CyCADA}} &\left(f_{T}, X_{S}, X_{T}, Y_{S}, G_{S \rightarrow T}, G_{T \rightarrow S}, D_{S}, D_{T}\right) \\
@@ -177,5 +174,6 @@ $$
 \end{aligned}
 $$
 
-- 最终求解的目标模型为$f_T$
+> - 其中第一项为经过转换后的源域图像，再使用转化前的标签得到分类损失；第二项为源域到目标域到对抗损失以及重构损失；第三项为特征级的对抗损失；第四项为循环一致性与语义一致性
+> - 第一项、第二项和第四项都为了尽可能多的在域适应中保留结构信息
 
