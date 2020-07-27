@@ -105,12 +105,77 @@ CycleGAN Loss:
 
 
 
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/6.png" alt="img" style="zoom:40%;" />
 
-
-> 如上图所示，模型共有5个损失函数：
+> 如上图所示，模型共有5个损失函数，同时学习**分类器f，生成器G和域判别器D**，最终达到域适应的目的：
 >
 > - 分类判别损失
 > - 原样本映射的目标样本对抗损失
 > - 特征级域适应损失
 > - 重构的原样本的循环损失
 > - 源图像和转化为目标图像后的语义一致性损失
+
+
+
+**Steps**
+
+- 学习一个源域分类器$f_s$，在源域数据上进行分类判别，损失函数如下：
+  $$
+  \mathcal{L}_{task}(f_S,X_S,Y_S)=-\mathbb{E}_{\left(x_{s}, y_{s}\right) \sim\left(X_{S}, Y_{S}\right)} \sum_{k=1}^{K} \mathbb{1}_{\left[k=y_{s}\right]} \log \left(\sigma\left(f_{S}^{(k)}\left(x_{s}\right)\right)\right)
+  $$
+  
+
+- 使用生成器$G_{S\rightarrow T}$，通过源域样本生成与目标样本类似的结果。对抗判别器$D_t$用于判别是原始的目标样本还是由源域生成的虚假目标样本。进行对抗域适应训练$G_{S\rightarrow T}$和$D_t$，损失函数为：
+
+$$
+\begin{aligned}
+\mathcal{L}_{\mathrm{GAN}}\left(G_{S \rightarrow T}, D_{T}, X_{T}, X_{S}\right) &=\mathbb{E}_{x_{t} \sim X_{T}}\left[\log D_{T}\left(x_{t}\right)\right]+\mathbb{E}_{x_{s} \sim X_{S}}\left[\log \left(1-D_{T}\left(G_{S \rightarrow T}\left(x_{s}\right)\right)\right)\right]
+\end{aligned}
+$$
+
+
+
+- 通过$G_{S\rightarrow T}$让源数据近似于目标数据，但为了**保证源域数据的结构和内容在对齐过程中保留下来**，在CyCADA中加入了一个循环一致性限制，即将目标域映射到源域
+
+$$
+\begin{array}{l}
+\mathcal{L}_{\mathrm{cyc}}\left(G_{S \rightarrow T}, G_{T \rightarrow S}, X_{S}, X_{T}\right)= \mathbb{E}_{x_{s} \sim X_{S}}\left[\left\|G_{T \rightarrow S}\left(G_{S \rightarrow T}\left(x_{s}\right)\right)-x_{s}\right\|_{1}\right]+\mathbb{E}_{x_{t} \sim X_{T}}\left[\left\|G_{S \rightarrow T}\left(G_{T \rightarrow S}\left(x_{t}\right)\right)-x_{t}\right\|_{1}\right]
+\end{array}
+$$
+
+
+
+- 为了在对齐过程中保留数据语义信息，需要将源数据的类别信息考虑进来
+
+  - 具体来说就是首先预训练一个源域分类器$f_S$，固定其权值，这样对于转换前的图像以及经过转换后的图像能够通过固定权值的分类器以相同的方式进行分类。
+  - 定义通过固定权值分类器f得到预测标签，即$p(f,X)=\arg max(f(X))$
+
+  
+
+  因此语义一致性损失为：
+  $$
+  \begin{aligned}
+  \mathcal{L}_{\mathrm{sem}}\left(G_{S \rightarrow T}, G_{T \rightarrow S}, X_{S}, X_{T}, f_{S}\right) &=\mathcal{L}_{\mathrm{task}}\left(f_{S}, G_{T \rightarrow S}\left(X_{T}\right), p\left(f_{S}, X_{T}\right)\right) +\mathcal{L}_{\mathrm{task}}\left(f_{S}, G_{S \rightarrow T}\left(X_{S}\right), p\left(f_{S}, X_{S}\right)\right)
+  \end{aligned}
+  $$
+  
+
+- 此外，还考虑了特征级域适应，通过任务网络$f_T$的**输出特征**判断是否是来自两个图像集的特征或语义
+  $$
+  \mathcal{L}_{\mathrm{GAN}}\left(f_{T}, D_{\mathrm{feat}}, f_{S}\left(G_{S \rightarrow T}\left(X_{S}\right)\right), X_{T}\right)
+  $$
+  
+
+**Total Loss：**
+$$
+\begin{aligned}
+\mathcal{L}_{\mathrm{CyCADA}} &\left(f_{T}, X_{S}, X_{T}, Y_{S}, G_{S \rightarrow T}, G_{T \rightarrow S}, D_{S}, D_{T}\right) \\
+&=\mathcal{L}_{\mathrm{task}}\left(f_{T}, G_{S \rightarrow T}\left(X_{S}\right), Y_{S}\right) \\
+&+\mathcal{L}_{\mathrm{GAN}}\left(G_{S \rightarrow T}, D_{T}, X_{T}, X_{S}\right)+\mathcal{L}_{\mathrm{GAN}}\left(G_{T \rightarrow S}, D_{S}, X_{S}, X_{T}\right) \\
+&+\mathcal{L}_{\mathrm{GAN}}\left(f_{T}, D_{\mathrm{feat}}, f_{S}\left(G_{S \rightarrow T}\left(X_{S}\right)\right), X_{T}\right) \\
+&+\mathcal{L}_{\mathrm{cyc}}\left(G_{S \rightarrow T}, G_{T \rightarrow S}, X_{S}, X_{T}\right)+\mathcal{L}_{\mathrm{sem}}\left(G_{S \rightarrow T}, G_{T \rightarrow S}, X_{S}, X_{T}, f_{S}\right)
+\end{aligned}
+$$
+
+- 最终求解的目标模型为$f_T$
+
