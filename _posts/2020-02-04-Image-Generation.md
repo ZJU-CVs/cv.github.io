@@ -1,4 +1,17 @@
-## Image Generation 图像生成
+---
+layout:     post
+title:      Image Generation 
+subtitle:   图像生成介绍
+date:       2020-02-05
+author:     JY
+header-img: img/post-bg.jpg
+catalog: true
+tags:
+    - Introduction
+
+---
+
+
 
 ### 1. Introduction 介绍
 (1). 判别模型 vs 生成模型 
@@ -69,20 +82,19 @@
 >   p_{\theta}(x)={\int}p_{\theta}(z)p_{\theta}(x|z)dz
 >   $$
 >   
->
-> - 该密度函数无法直接优化，需要通过推导出似然函数的下界然后对该下界进行优化
->
-> - 推导过程： 
+>- 该密度函数无法直接优化，需要通过推导出似然函数的下界然后对该下界进行优化
+> 
+>- 推导过程： 
 >   Data likelihood: $p_{\theta}(x)={\int}p_{\theta}(z)p_{\theta}(x|z)dz$      
 > Posterior density: $p_{\theta}(z|x)=p_{\theta}(z)p_{\theta}(x|z)/p_{\theta}(x)$        
 > 利用编码器网络$q_{\phi}(z|x)$估计出$p_{\theta}(z|x)$     
 > 使用对数似然：  ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/VAE_function.png)
 >   
 > - 由上推导可以看到，真正的损失函数$\mathcal{L}$由两部分构成:输入输出差异与分布差异，其中分布差异用的是KL散度。要让似然变大，需要让$$p(x|z)$$变大（最大限度地重构数据），同时让KL散度值变小（让后验概率与前验概率分布相似），在训练过程中根据损失函数，使用优化算法进行参数更新
->
-> - **优点：** 就生成模型来说，是一种有据可循的方法，使得查询推断成为可能
->
-> - **缺点：** 只能推断真实分布的近似值，而隐变量分布和真实分布之间的gap不可度量，因此导致VAE存在着生成图像模糊的问题。 
+> 
+>- **优点：** 就生成模型来说，是一种有据可循的方法，使得查询推断成为可能
+> 
+>- **缺点：** 只能推断真实分布的近似值，而隐变量分布和真实分布之间的gap不可度量，因此导致VAE存在着生成图像模糊的问题。 
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/VAE.png)      
 
 

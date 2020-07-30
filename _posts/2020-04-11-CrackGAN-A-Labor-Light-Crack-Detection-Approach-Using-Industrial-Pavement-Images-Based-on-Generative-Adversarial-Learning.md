@@ -8,6 +8,7 @@ header-img: img/post-bg.jpg
 catalog: true
 tags:
     - paper
+    - Anomaly Detection
 ---
 
 #### 1、简介

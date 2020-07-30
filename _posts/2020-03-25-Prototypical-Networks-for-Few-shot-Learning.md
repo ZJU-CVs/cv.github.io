@@ -8,6 +8,7 @@ header-img: img/post-bg.jpg
 catalog: true
 tags:
     - paper
+    - FSL
 ---
 
 #### 1. Introduction
@@ -37,7 +38,6 @@ tags:
   \mathbf{c}_{k}=\frac{1}{\left|S_{k}\right|} \sum_{\left(\mathbf{x}_{i}, y_{i}\right) \in S_{k}} f_{\phi}\left(\mathbf{x}_{i}\right)
   $$
   
-
 - 使用欧几里得距离作为距离度量，训练过程是通过随机梯度下降法最小化目标函数：
   $$
   J(\boldsymbol{\phi})=-\log p_{\phi}(y=k | \mathbf{x})=-log(\frac{\exp \left(-d\left(f_{\phi}(\mathbf{x}), \mathbf{c}_{k}\right)\right)}{\sum_{k^{\prime}} \exp \left(-d\left(f_{\phi}(\mathbf{x}), \mathbf{c}_{k^{\prime}}\right)\right)})
