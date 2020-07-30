@@ -8,6 +8,7 @@ header-img: img/post-bg.jpg
 catalog: true
 tags:
     - Overview
+    - Object Detection
 ---
 
 K. Oksuz, B. C. Cam, S. Kalkan, E. Akbas, "Imbalance Problems in Object Detection: A Review", (under review), 2019.[[preprint]](https://arxiv.org/abs/1909.00169)
@@ -85,6 +86,7 @@ PrIme-Sample-Attention（PISA）根据不同的标准为正、负样本分配权
 
 - Sampling-Free Methods（免取样法）
  为了避免前面提到的手工抽样方法，减少训练过程中的超参数数量，出现了一些替代方法
+   
    - Is Sampling Heuristics Necessary in Training Deep Object Detectors?, arXiv 2019, [[paper]](https://arxiv.org/pdf/1909.04868.pdf)
 - Residual Objectness for Imbalance Reduction, arXiv 2019, [[paper]](https://arxiv.org/pdf/1908.09075.pdf)   
    在检测网络中添加了一个目标分支，以预测剩余目标得分。虽然这个新的分支处理前景-背景不平衡，但分类分支只处理正类。在推理过程中，分类分数由分类结果和目标分支输出相乘得到提高了性能。
@@ -93,7 +95,7 @@ PrIme-Sample-Attention（PISA）根据不同的标准为正、负样本分配权
  直接建立最终性能指标的模型，并在此基础上进行实例加权。将损耗的分类部分作为一个排序任务并使用平均精度（AP）作为该任务的损失函数。
    - DR Loss, arXiv 2019, [[paper]](https://arxiv.org/pdf/1907.10156.pdf)
   DR Loss，该方法使用基于Hinge loss的分类损耗定义方法
-   
+  
    
 
 - Generative Methods（生成方法）
