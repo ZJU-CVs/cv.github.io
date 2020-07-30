@@ -8,6 +8,7 @@ header-img: img/post-bg.jpg
 catalog: true
 tags:
     - paper
+    - GCN
 ---
 
 ### 1. Introduction
@@ -88,15 +89,15 @@ tags:
 > - 对于不同多变量组合的时间序列$x_i$转化为固定维度d的$\tilde{\mathbf{x}}_{i}$，对于缺失变量用均值填充
 >
 > - 将$\tilde{\mathbf{x}}_{i}$输入GRU进行训练，在最后一个时间步骤为$T_i$的module的输出特征向量$z^{T_i}$
->  $$
+> $$
 >   \mathbf{z}_{i}^{t}=G R U\left(\left[\tilde{\mathbf{x}}_{i}^{t}, \mathbf{v}_{\mathcal{S}_{i}}\right], \mathbf{z}_{i}^{t-1} ; \boldsymbol{\theta}_{G R U}\right), \quad t: 1, \ldots, T_{i}
->   $$
+> $$
 > 
 > - 根据下游任务(分类或回归)确定$f_o$，训练得到$\hat{y}_i$
->  $$
+> $$
 >   \hat{y}_{i}=f_{o}\left(\mathbf{z}_{i}^{T_{i}} ; \boldsymbol{\theta}_{o}\right)
->   $$
->   
+> $$
+> 
 > 
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/index.png" alt="img" style="zoom:50%;" />
 >
