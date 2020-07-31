@@ -236,11 +236,13 @@ DySAT自上而下有三个模块：(1) 结构注意力模块; (2) 时间注意�
 
 #### Results
 
-> 比较了几种最先进的无监督静态嵌入方法：node2vec、[GraphSAGE]()和graph autoencoder
+> 比较了几种最先进的无监督静态嵌入方法：node2vec、[GraphSAGE](https://zju-cvs.github.io/2020/07/29/Inductive-Representation-Learning-on-Large-Graphs/) 和 graph autoencoder
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/7.png" alt="img" style="zoom:40%;" />
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/8.png" alt="img" style="zoom:40%;" />
+
+
 
 ### 4. Conclusion
 
