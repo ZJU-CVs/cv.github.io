@@ -8,6 +8,7 @@ header-img: img/post-bg.jpg
 catalog: true
 tags:
     - paper
+    - Segmentation
 ---
 
 #### 1. Introduction
