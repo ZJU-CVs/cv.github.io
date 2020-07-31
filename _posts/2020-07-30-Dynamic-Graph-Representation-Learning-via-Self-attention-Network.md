@@ -2,7 +2,7 @@
 layout:     post
 title:      Dynamic Graph Representation Learning via Self-attention Network
 subtitle:   
-date:       2020-07-28
+date:       2020-07-30
 author:     JY
 header-img: img/post-bg.jpg
 catalog: true
