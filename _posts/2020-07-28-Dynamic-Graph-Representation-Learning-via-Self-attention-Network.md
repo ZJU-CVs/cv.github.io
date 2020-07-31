@@ -48,11 +48,11 @@ tags:
 
   > attention函数的本质可以被描述为一个查询（query）到一系列（键key-值value）对的映射，self-attention中，query、key和value往往都来自同一输入
 
-- 《Attention is all you need》，提出的Transformer是基于self-attention的经典模型，在机器翻译任务汇总实现了最先进的性能，可以参考[link](https://zju-cvs.github.io/2020/05/14/Transformer/)
+- 《Attention is all you need》，提出的Transformer是基于self-attention的经典模型，在机器翻译任务汇总实现了最先进的性能，可以参考 [Link](https://zju-cvs.github.io/2020/05/14/Transformer/)
 
-- 《Graph attention networks》，将self-attention与GCN结合，用注意力机制对邻近节点特征进行加权求和。邻近节点特征的权重完全取决于节点特征，也就是说注意力权值通过两个链接节点信息的非线性组合得到。加入自注意力机制的图网络实现了静态图中半监督节点分类任务的最佳性能
+- 《Graph attention networks》，将self-attention与GCN结合，用注意力机制对邻近节点特征进行加权求和。邻近节点特征的权重完全取决于节点特征，也就是说**注意力权值通过两个链接节点信息的非线性组合得到**。加入自注意力机制的图网络实现了静态图中半监督节点分类任务的最佳性能。
 
-  <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/4.png" alt="img" style="zoom:33%;" />
+  <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/4.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -60,34 +60,35 @@ tags:
 
 > 基于[Introduction](#1. Introduction)中对动态图性质的分析以及自注意力机制的介绍，本文提出了一种新的神经网络架构，即动态自注意力网络(DySAT)来学习动态图上的节点表示：
 >
-> - 在**结构邻域和时序动态**两个维度上使用了自注意力，即考虑节点的邻居和历史表征，遵循自注意力机制，生成一个节点的动态表征
-> - 动态节点的表示反映了图结构在不同历史snapshots下时间的演化，且反映时间相关性的注意力权重在node-level的细粒度上捕获
+> - 在**结构邻域和时序动态**两个维度上使用了自注意力，即考虑节点的邻域和历史表征，遵循自注意力机制，生成一个节点的动态表征
+> - 动态节点的表示反映了图结构在不同历史snapshots下的时间演化，且反映时间相关性的注意力权重在node-level的细粒度上捕获
 
 
 
 #### Problem Definition
 
 > - 动态图被定义为一系列的observed snapshots $\mathbb{G}=\{\mathcal{G}^1,\mathcal{G}^2,...\mathcal{G}^T\}$
-> - 每个snapshot $\mathcal{G}_t=(\mathcal{V,\mathcal{E}^{t}})$是一个加权无向图，在t时刻，有一个共享节点集$V$，一个链接集$\mathcal{E}^t$和一个加权邻接矩阵$A^t$
-> - 本文所提方法允许删除图节点链接（以前的方法链接只能随着时间的推移而添加）
-> - 动态图表示学习的目标是在每个时间节点$t=1,2,...,T$，为每个节点$v\in \mathcal{V}$ 学习潜在表示$e^t_v\in \mathbb{R}^d$，即$e^t_v$既保留了以$v$作为中心节点的局部图结构，又保留了$t$之前的演化行为
+> - 每个snapshot $\mathcal{G}_t=(\mathcal{V,\mathcal{E}^{t}})$是一个加权无向图，在$t$时刻，有一个共享节点集$V$，一个链接集$\mathcal{E}^t$和一个加权邻接矩阵$A^t$，本文所提方法允许删除图节点链接（以前的方法链接只能随着时间的推移而添加）
+> - 动态图表示学习的目标是在每个时间节点$t=1,2,...,T$，为每个节点$v\in \mathcal{V}$ 学习潜在表示$e^t_v\in \mathbb{R}^d$，即$e^t_v$**既保留了以$v$作为中心节点的局部图结构，又保留了$t$之前的演化行为。**
 
 
 
 #### Model Structure
 
-> - DySAT主要由两个部分构成：*structural and temporal self-attention layers*，可以通过堆叠的方式(stack）来构造任意的图神经网络。同时采用多头注意力机制来提高模型的能力和鲁棒性
-> - DySAT由一个结构块和一个时间块组成，其中每个块可以包含对应层类型的多个堆叠层
->   - 结构块通过自注意力机制聚合从局部邻域中提取的特征，计算每个snapshot的中心节点表示，并将这些表示输入到时间块中
+> - DySAT主要由两个部分构成：*structural and temporal self-attention layers*，可以通过堆叠(stack)的方式来构造任意的图神经网络，同时采用多头注意力机制来提高模型的能力和鲁棒性
+> - DySAT由一个**结构块**和一个**时间块**组成，其中每个块可以包含对应层类型的多个堆叠层
+>   - 结构块通过自注意力机制聚合从局部邻域中提取的特征，计算每个snapshot的节点表示，并将这些表示输入到时间块中
 >   - 时间块经过多个时间步，捕捉图结构中的时间变化特性
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/5.png" alt="img" style="zoom:40%;" />
 
 
 
+`下面对结构自注意力模块和时序自注意力模块进行具体介绍`
+
 ##### Structural Self-Attention
 
-> - 该层的输入是一个graph snapshot $\mathcal{G}\in \mathbb{G}$和一组输入节点表示$\{x_v \in \mathbb{R}^D,\forall v \in \mathcal{V}\}$，其中D是输入嵌入维数
+> - 该层的输入是一个graph snapshot $\mathcal{G}\in \mathbb{G}$和一组输入节点表示$\{x_v \in \mathbb{R}^D,\forall v \in \mathcal{V}\}$，其中D是输入嵌入的维数
 >
 > - 输出是一组新的节点表示$\{\mathcal{z_v \in \mathbb{R}^F},\forall v \in \mathcal{V}\}$，其中$F$表示具有捕捉局部结构特性的维数
 >
@@ -133,15 +134,15 @@ tags:
 >     > - 当$M_{ij}= -\infty$时，softmax函数会导致注意力权重为0，即$\beta^{ij}_v=0$
 >
 >   
->
->   `注：上面这个公式不熟悉Scaled Dot-Product Attention 计算公式的可能比较难理解，下面给出《Attention is all you need》中的定义帮助理解`
->
->   > $$
->   > \text { Attention }(Q, K, V)=\operatorname{softmax}\left(\frac{Q K^{T}}{\sqrt{d_{k}}}\right) V
->   > $$
->   > 其中因子$\sqrt{d_k}$ 起到调节作用，使得上方内积不至于太大（太大的话 softmax 后就非 0 即 1 了，不够“soft”了），其中$\sqrt{d_k}$ 指的是键向量维度的平方根。
 
-##### 
+`注：上面这些公式不熟悉Scaled Dot-Product Attention 计算公式的可能比较难理解，下面给出《Attention is all you need》中的定义帮助理解`
+
+> > $$
+>> \text { Attention }(Q, K, V)=\operatorname{softmax}\left(\frac{Q K^{T}}{\sqrt{d_{k}}}\right) V
+> > $$
+>> 其中因子$\sqrt{d_k}$ 起到调节作用，使得上方内积不至于太大（太大的话 softmax 后就非 0 即 1 了，不够“soft”了），其中$\sqrt{d_k}$ 指的是键向量维度的平方根。
+
+
 
 ##### Multi-Head Attention
 
@@ -191,12 +192,12 @@ DySAT自上而下有三个模块：(1) 结构注意力模块; (2) 时间注意�
 >
 > - 使用节点$v$在时间步为$t$的动态表示$e_v^t$来预测$t$时刻在节点$v$附近局部邻域节点的出现
 >
-> - 在每个时间步使用BCE loss来激励节点在固定长度随机游走中同时出现，因此获得以下类似的表示：
+> - 在每个时间步使用BCE loss来激励相关节点在固定长度随机游走中同时出现，因此获得以下类似的表示：
 >   $$
 >   L_{v}=\sum_{t=1}^{T} \sum_{u \in \mathcal{N}_{w a l k}^{t}(v)}-\log \left(\sigma\left(<e_{u}^{t}, e_{v}^{t}>\right)\right)-w_{n} \cdot \sum_{u^{\prime} \in P_{n}^{t}(v)} \log \left(1-\sigma\left(<e_{u^{\prime}}^{t}, e_{v}^{t}>\right)\right)
 >   $$
 >
->   > $\sigma$表示sigmoid函数，$<\cdot>$表示内积运算，$\mathcal{N}^t_{walk}$表示在$t$时snapshot中与固定长度随机游走同时出现的节点集；$P^t_n$是snapshot $\mathcal{G}^t$的负采样分布，$w_n$为负采样比，用于平衡正样本和样本的可调超参数
+>   > $\sigma$表示sigmoid函数，$<\cdot>$表示内积运算体现节点间的相似性，$\mathcal{N}^t_{walk}$表示在$t$时snapshot中与固定长度随机游走同时出现的节点集；$P^t_n$是snapshot $\mathcal{G}^t$的负采样分布，$w_n$为负采样比，用于平衡正样本和样本的可调超参数
 >
 > **注：**
 >
@@ -204,7 +205,7 @@ DySAT自上而下有三个模块：(1) 结构注意力模块; (2) 时间注意�
 > >
 > > - 随机游走是指给定一个图和一个起始节点，随机选择一个邻节点，走到该处后在随机选择一个邻节点，重复length次，length是指随机游走的长度
 > >
-> > - 使用随机游走从起始节点到终止节点的概率值，可以用来表示相似度，即从u节点到v节点的概率值，应该正比于u节点与v节点embedding之后的点乘结果$z_v^Tz_u ∝P(v∣u)$
+> > - 使用随机游走从起始节点到终止节点的概率值，可以用来表示相似度，即**从u节点到v节点的概率值，应该正比于u节点与v节点embedding之后的点乘结果$z_v^Tz_u ∝P(v∣u)$**
 
 
 
@@ -226,7 +227,7 @@ DySAT自上而下有三个模块：(1) 结构注意力模块; (2) 时间注意�
 
 #### Experimental Setup
 
-> 对动态图中的链路预测任务进行实验，学习snapshots $\{\mathcal{G}^1,\mathcal{G}^2,...,\mathcal{G}^t\}$中的动态节点表示，并用$\{e^t_v,\forall v \in \mathcal{V}\}$来预测$\mathcal{G}^{t+1}$的链接。
+> 对动态图中的**链路预测任务**进行实验，学习snapshots $\{\mathcal{G}^1,\mathcal{G}^2,...,\mathcal{G}^t\}$中的动态节点表示，并用$\{e^t_v,\forall v \in \mathcal{V}\}$来预测$\mathcal{G}^{t+1}$的链接。
 >
 > - 基于正确地将每个节点对**(node pair)**分为链接和非链接的能力，训练一个logistic回归分类器作为动态链接预测，来评估不同模型的性能
 > - 为了进一步分析预测能力，评估了新链路预测能力，重点关注每个时间步出现的新链路
@@ -236,13 +237,24 @@ DySAT自上而下有三个模块：(1) 结构注意力模块; (2) 时间注意�
 
 #### Results
 
-> 比较了几种最先进的无监督静态嵌入方法：node2vec、[GraphSAGE](https://zju-cvs.github.io/2020/07/29/Inductive-Representation-Learning-on-Large-Graphs/) 和 graph autoencoder
+> - 比较了几种最先进的无监督静态嵌入方法：node2vec、GraphSAGE 和 graph autoencoder
+>
+>   - GraphSAGE：GraphSAGE的实验中使用不同的聚合器(GCN、mean pooling、max pooling和 LSTM)并取性能最好的聚合器结果
+>   - GraphSAGE+GAT：在GraphSAGE中实现了一个图注意力层作为额外的聚合器
+>   - GCN-AE和GAT-AE：表示训练GCN和GAT作为链路预测的自动编码器
+>
+>   注：对GraphSAGE不太了解的可以看[Link](https://zju-cvs.github.io/2020/07/29/Inductive-Representation-Learning-on-Large-Graphs/)
+>
+> - 比较了动态图嵌入的方法：DynAERNN、DynamicRiad、DynGEM
+
+> - 在每个时间步骤$t$通过训练不同的模型知道snapshot来评估模型
+> - 在每个$t=1,...,T$，评估$t+1$
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/7.png" alt="img" style="zoom:40%;" />
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/8.png" alt="img" style="zoom:40%;" />
 
-
+> 比较了每个时间步的模型性能
 
 ### 4. Conclusion
 
