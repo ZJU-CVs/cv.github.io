@@ -237,6 +237,8 @@ DySAT自上而下有三个模块：(1) 结构注意力模块; (2) 时间注意�
 
 #### Results
 
+**Baseline：**
+
 > - 比较了几种最先进的无监督静态嵌入方法：node2vec、GraphSAGE 和 graph autoencoder
 >
 >   - GraphSAGE：GraphSAGE的实验中使用不同的聚合器(GCN、mean pooling、max pooling和 LSTM)并取性能最好的聚合器结果
@@ -247,14 +249,19 @@ DySAT自上而下有三个模块：(1) 结构注意力模块; (2) 时间注意�
 >
 > - 比较了动态图嵌入的方法：DynAERNN、DynamicRiad、DynGEM
 
-> - 在每个时间步骤$t$通过训练不同的模型知道snapshot来评估模型
-> - 在每个$t=1,...,T$，评估$t+1$
 
-<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/7.png" alt="img" style="zoom:40%;" />
 
-<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/8.png" alt="img" style="zoom:40%;" />
+**Model Performance：**
 
-> 比较了每个时间步的模型性能
+> - 在每个时间步骤$t$通过训练不同的模型直到snapshot $t$来评估模型，并在每个$t=1,...,T$，评估$t+1$预测的准确性
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/7.png" alt="img" style="zoom:40%;" />
+>
+> 
+
+> - 比较了每个时间步的模型性能，课件DySAT的性能比其他方法更加稳定
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/16.png" alt="img" style="zoom:40%;" />
 
 ### 4. Conclusion
 
@@ -266,8 +273,28 @@ DySAT自上而下有三个模块：(1) 结构注意力模块; (2) 时间注意�
 
 ### Appendix
 
+`选了一些比较有意义的parts`
+
+#### Effectiveness of Self-Attention
+
+> - 通过消融实验分别验证自注意机制在结构和时间模块的有效性
+> - 验证多头注意力机制的有效性
+
+#### Dynamic New Link Prediction
+
+> - 报告了动态链接预测的结果，即只在每个时间步对新链接进行评估，对不同方法预测相对不可见链接能力进行了深入分析，验证了DySAT在准确捕捉时序上下文以用于新链路预测的有效性
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/8.png" alt="img" style="zoom:40%;" />
+
+#### Impact of Unseen Nodes on Dynamic Link Prediction
+
+> - 分析了不同图表示学习对$t$时刻新出现的unseen节点链路预测的敏感性
+
 #### Incremental Self-Attention Network
 
-> 论文在附录中还提出了增量的DySAT结构
+> - 论文在附录中还提出了增量的DySAT结构IncSAT，使用$t-1$中学习的嵌入作为初始化来学习$t$时的嵌入
+>   - 通过存储结构块的中间输入$\{h^T_v,\forall v \in \mathcal{V}\}$来实现增量学习
+>   - 在历史snapshots($1 \leqslant t<T$)的中间输出表示可以从先前保存的结果中直接加载，表示先前历史snapshots中的结构信息。
+>   - 时间自注意力只应用于当前的snapshot $\mathcal{G}^T$，在每个节点的历史表示上计算最终的$\{e^T_v,\forall v \in \mathcal{V}\}$
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/9.png" alt="img" style="zoom:40%;" />
