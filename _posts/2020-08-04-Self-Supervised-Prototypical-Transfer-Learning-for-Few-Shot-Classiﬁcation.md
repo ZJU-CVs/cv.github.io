@@ -30,3 +30,14 @@ tags:
 
 
 
+#### ProtoCLR
+
+- 将每个ProtoCLR预训练步骤视为一个N-way 1-shot的分类任务，通过对比损失函数进行优化（inspired from unsupervised meta-learning and self-supervised visual contrastive learning of representations）
+  - 《Unsupervised Meta-Learning for FewShot Image Classiﬁcation》
+  - 《A Simple Framework for Contrastive Learning of Visual Representations》（SimCLR）
+
+- ProtoCLR步骤如下：
+
+  ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/29.png)
+
+  > - 
