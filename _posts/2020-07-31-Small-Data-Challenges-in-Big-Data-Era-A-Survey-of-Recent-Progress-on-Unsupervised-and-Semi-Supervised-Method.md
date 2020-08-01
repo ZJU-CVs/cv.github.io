@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      Small Data Challenges in Big Data Era: A Survey of Recent Progress on Unsupervised and Semi-Supervised Methods
-subtitle:   
+title:      Small Data Challenges in Big Data Era 
+subtitle:   A Survey of Recent Progress on Unsupervised and Semi-Supervised Methods
 date:       2020-07-31
 author:     JY
 header-img: img/post-bg.jpg
