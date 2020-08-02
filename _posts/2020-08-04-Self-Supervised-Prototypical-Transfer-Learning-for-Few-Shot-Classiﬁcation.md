@@ -65,11 +65,20 @@ tags:
 
 #### In-Domain Few-shot Classification
 
-> 利用Omniglot和 mini-Imagenet
+> 利用Omniglot和 mini-Imagenet进行域内实验(base classes和novel classes来自同一分布)
 
 
 
 #### Cross-domain Few-shot Classfication
 
+> 利用CDFSL benchmark进行跨域实验
 
 
+
+### 4. Conclusion
+
+- 提出了ProtoTransfer用于少样本分类，只需要几个带标签的示例就可以从未标记的源域向目标域执行迁移学习
+- 在mini-ImageNet上，性能大大优于之前的无监督少镜头学习方法；在更具挑战的跨域少样本分类基准测试中，表现出与完全监督方法相近的性能
+- **大批量**是得到良好的表征用于下游少样本分类任务的关键，在目标任务进行参数微调能显著提高性能
+
+![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/29.png)
