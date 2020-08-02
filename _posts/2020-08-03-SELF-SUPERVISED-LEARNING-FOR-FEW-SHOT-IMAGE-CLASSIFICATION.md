@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Self-Supervised-Learning-for-Few-Shot-Image-Classification
+title:      Self Supervised Learning for Few Shot Image Classification
 subtitle:   
 date:       2020-08-03
 author:     JY
