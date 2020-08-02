@@ -29,18 +29,32 @@ tags:
 
 #### Self-supervised learning stage
 
-> - 用**Augmented Multiscale Deep InfoMax(AMDIM)**作为自监督模型，其
+> - 用**Augmented Multiscale Deep InfoMax(AMDIM)**作为自监督模型，其核心思想是从同一幅图像的两个视图$(x_a,x_b)$中最大化全局特征和局部特征之间互信息，可以通过最小化基于负样本的Noise Contrastive Estimation(NCE) loss来最大化互信息的下界
 >
->   (The pretext task is designed to maximize the mutual information between features extracted from multiple views of a shared context）
+>   - 具体而言，最大化$<f_g(x_a),f_5(x_b)>$，$<f_g(x_a),f_7(x_b)>$和$<f_5(x_a),f_5(x_b)>$，其中$f_g$为全局特征，$f_5$为编码器的$5\times 5$局部特征映射，$f_7$为编码器的$7\times 7$特征映射，以$f_g(x_a)$和$f_5(x_b)$间的NCE loss为例：
+>     $$
+>     \begin{array}{l}
+>     \mathcal{L}_{\text {amdim}}\left(f_{g}\left(x_{a}\right), f_{5}\left(x_{b}\right)\right)= -\log \frac{\exp \left\{\phi\left(f_{g}\left(x_{a}\right), f_{5}\left(x_{b}\right)\right)\right\}}{\sum_{\widetilde{x}_{b} \in \mathcal{N}_{x} \cup x_{b}} \exp \left\{\phi\left(f_{g}\left(x_{a}\right), f_{5}(\tilde{x}_b)\right)\right\}}
+>     \end{array}
+>     $$
 >
-> - 
+>     > $\mathcal{N}_x$为image $x$的负样本，$\phi$为距离度量函数
+
+
 
 #### Meta-learning stage
 
-> 
+> 在基于上述自监督学习得到嵌入网络的情况下，将元学习应用于网络fine-tune，以满足少样本分类的类变化
+>
+> - 典型的元学习可以看作是一个具有多个任务的K-way C-shot episodic 分类问题，对于每个分类任务$T$，有$K$个类，每个类有$C$个样本。
+> - 
 
 ### 3. Experiments
 
+- 数据集：采用MiniImageNet(64类为训练，16类为验证，20类为测试)和CUB-200-2011(100类为训练，50类为验证，50类为测试)
 
+- 定量比较：
+
+  
 
 ### 4. Conclusion
