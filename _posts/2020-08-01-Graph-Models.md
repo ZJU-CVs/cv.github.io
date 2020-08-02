@@ -131,3 +131,17 @@ tags:
 ### GAE
 
 `自编码器及其变体被广泛用于无监督学习，图自编码器适用于学习没有监督信息的图节点表示`
+
+- 不同GAE模型的比较
+
+  <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/GAE.png" alt="img" style="zoom:50%;" />
+
+
+
+通过encoder-decoder的结构获取合适的embedding来表示图节点，并支持链接预测等下游任务
+
+- Encode阶段：VGAE利用隐变量，让模型学习一些分布，再从这些分布中采样得到 latent representations (embedding)
+
+- Decode阶段：利用得到的latent representations 重构原始的图
+
+  
