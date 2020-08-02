@@ -136,8 +136,6 @@ tags:
 
   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/GAE.png" alt="img" style="zoom:50%;" />
 
-> 
-
 
 
 #### Encoder-Decoder
@@ -156,3 +154,6 @@ tags:
 
 #### with GAN
 
+> 在encoder-decoder的基础上，加入对抗机制
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/19.png" alt="img" style="zoom:40%;" />
