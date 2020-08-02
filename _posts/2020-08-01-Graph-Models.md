@@ -45,7 +45,7 @@ tags:
 >   >
 >   > - 最后每个节点的表示通过一个softmax函数得到每个标签的预测结果
 
-![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/GCN.png)
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/GCN.png" alt="img" style="zoom:50%;" />
 
 **优缺点**
 
@@ -97,11 +97,20 @@ tags:
 >
 > - multi-head attention
 >
->   - 为了稳定self-attention学习过程，采用多头注意力机制。考虑$K$个注意力机制
+>   - 为了稳定self-attention学习过程，采用多头注意力机制，考虑$K$个注意力机制，使得每个head学习到不同表示空间中的特征，多个head学习到的attention侧重点可能不同，是模型有更大的容量（通用型更强）
 >     $$
->     \overrightarrow{h^{\prime}}_{i}=\sigma\left(\frac{1}{K} \sum_{k=1}^{K} \sum_{j \in N i} a_{i j}^{k} W^{k} \vec{h}_{j}\right)
+>     \vec{h}_{i}^{\prime}=\prod_{k=1}^{K} \sigma\left(\sum_{j \in \mathcal{N}_{i}} \alpha_{i j}^{k} \mathbf{W}^{k} \vec{h}_{j}\right)
 >     $$
->     
+>
+>   - 在最后一层执行多头注意力机制，采用$K$平均来代替拼接操作，对平均结果采用非线性函数得到最终输出
+>
+>   $$
+>   \overrightarrow{h^{\prime}}_{i}=\sigma\left(\frac{1}{K} \sum_{k=1}^{K} \sum_{j \in N i} a_{i j}^{k} W^{k} \vec{h}_{j}\right)
+>   $$
+>
+>   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/GAT.png" alt="img" style="zoom:30%;" />
+>
+>   > 上图中不同的箭头样式和颜色表示独立的注意力计算($K=3$)，来自每个head的聚合特征被拼接或平均以获得$\vec{h'_1}$
 
 **优缺点**
 
@@ -109,9 +118,16 @@ tags:
 >   - 图中的每个节点可以根据邻节点的特征，为其分配不同的权值
 >   - 引入注意力机制后，指导聚合的信息只与邻节点有关，不需得到整张图的信息: （1）图不需要是无向的；（2）直接适用于*inductive learning*
 
+
+
 ### GraphSAGE
 
-> 
+>  https://zju-cvs.github.io/2020/07/29/Inductive-Representation-Learning-on-Large-Graphs/
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/11.png" alt="img" style="zoom:50%;" />
+
+
 
 ### GAE
 
+`自编码器及其变体被广泛用于无监督学习，图自编码器适用于学习没有监督信息的图节点表示`
