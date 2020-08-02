@@ -53,8 +53,30 @@ tags:
 
 - 数据集：采用MiniImageNet(64类为训练，16类为验证，20类为测试)和CUB-200-2011(100类为训练，50类为验证，50类为测试)
 
-- 定量比较：
+- 定量比较：所提的方法通过一个large network 的自监督预训练，能够显著改进少样本分类任务
+
+  **MiniImageNet**
+
+  <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/34.png" alt="img" style="zoom:50%;" />
+
+  > - **Mini80_SL:**
+  > - **Mini80_SSL$^-$:**
+  > - **Mini80_SSL:**
+  > - **Image900_SSL:**
+
+  
+
+  **CUB-200-2011**
+
+  <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/35.png" alt="img" style="zoom:50%;" />
+
+  > - **CUB150_SL:**
+  > - **CUB150_SSL$^-$:**
+  > - **CUB150_SSL:**
+  > - **Image1K_SSL:**
 
   
 
 ### 4. Conclusion
+
+> 提出利用自监督学习来有效地训练一个鲁棒的嵌入网络来进行少镜头图像分类。与其他基线相比，所得到的嵌入网络更具通用性和可移植性。通过元学习过程进行微调后，所提出的方法的性能可以显著优于基于两个常见的少量快照分类数据集的定量结果的所有基线。目前的框架可以在未来以多种方式扩展。例如，一个方向是将这两个阶段结合起来，并为此任务开发一个端到端的方法。另一个方向是研究所提出的方法在少镜头检测等其他少数任务上的有效性
