@@ -46,8 +46,22 @@ tags:
 
 > 在基于上述自监督学习得到嵌入网络的情况下，将元学习应用于网络fine-tune，以满足少样本分类的类变化
 >
-> - 典型的元学习可以看作是一个具有多个任务的K-way C-shot episodic 分类问题，对于每个分类任务$T$，有$K$个类，每个类有$C$个样本。
-> - 
+> - 典型的元学习可以看作是一个具有多个任务的K-way C-shot episodic 分类问题，对于每个分类任务$T$，有$K$个类，每个类有$C$个样本。对于$K$类，用训练样本嵌入的质心表示:
+>   $$
+>   c_{k}=\frac{1}{|S|} \sum_{\left(x_{i}, y_{i}\right) \in S} f_{g}\left(x_{i}\right)
+>   $$
+>   
+>
+> - 本文使用一种基于度量学习的方法，使用距离函数d，并从查询集$Q$中给定一个查询样本$q$，在所有类进行距离计算，并经过softmax得到：
+>   $$
+>   p(y=k \mid q)=\frac{\exp \left(-d\left(f_{g}(q), c_{k}\right)\right)}{\sum_{k^{\prime}} \exp \left(-d\left(f_{g}(q), c_{k^{\prime}}\right)\right)}
+>   $$
+>
+> - 因此元学习阶段的损失为：
+>   $$
+>   \mathcal{L}_{meta} = -log(p(y=k \mid q))=d(f_g(q),c_k)+log \sum_{k^{\prime}} d(f_g(q),c_k')
+>   $$
+>   
 
 ### 3. Experiments
 
@@ -59,10 +73,10 @@ tags:
 
   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/34.png" alt="img" style="zoom:50%;" />
 
-  > - **Mini80_SL:**
-  > - **Mini80_SSL$^-$:**
-  > - **Mini80_SSL:**
-  > - **Image900_SSL:**
+  > - **Mini80_SL:** 利用AmdimNet和标签交叉熵损失进行监督训练
+  > - **Mini80_SSL$^-$:** 表示自监督训练后没有进行元学习
+  > - **Mini80_SSL:** 从80个类(训练+验证)中进行自监督训练，没有标签
+  > - **Image900_SSL:** 从ImageNet1K中除了miniimagenet中的900类数据进行自监督训练
 
   
 
@@ -70,13 +84,20 @@ tags:
 
   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/35.png" alt="img" style="zoom:50%;" />
 
-  > - **CUB150_SL:**
-  > - **CUB150_SSL$^-$:**
-  > - **CUB150_SSL:**
-  > - **Image1K_SSL:**
-
   
 
 ### 4. Conclusion
 
-> 提出利用自监督学习来有效地训练一个鲁棒的嵌入网络来进行少镜头图像分类。与其他基线相比，所得到的嵌入网络更具通用性和可移植性。通过元学习过程进行微调后，所提出的方法的性能可以显著优于基于两个常见的少量快照分类数据集的定量结果的所有基线。目前的框架可以在未来以多种方式扩展。例如，一个方向是将这两个阶段结合起来，并为此任务开发一个端到端的方法。另一个方向是研究所提出的方法在少镜头检测等其他少数任务上的有效性
+> - 提出利用自监督学习来有效地训练一个鲁棒的嵌入网络来进行少镜头图像分类。与其他基线相比，所得到的嵌入网络更具通用性和可移植性。
+>
+>   
+>
+> - 通过元学习过程进行微调后，所提出的方法的性能可以显著优于基于两个常见的少样本分类数据集的定量结果的所有基线。
+
+
+
+`可以改进的地方`
+
+- 模型框架的改进：如将这两个阶段结合起来，并为此任务开发一个端到端的方法。
+- 少样本任务拓展：验证所提出的方法在其他少数任务上的有效性
+- 模型细节改进：如修改模型fine-tune方式，将global feature和local feature 拼接，参考[prototune]([https://zju-cvs.github.io/2020/08/04/Self-Supervised-Prototypical-Transfer-Learning-for-Few-Shot-Classi%EF%AC%81cation/](https://zju-cvs.github.io/2020/08/04/Self-Supervised-Prototypical-Transfer-Learning-for-Few-Shot-Classiﬁcation/))，冻结Amdimnet部分，在后面加线性分类器进行fine-tuning
