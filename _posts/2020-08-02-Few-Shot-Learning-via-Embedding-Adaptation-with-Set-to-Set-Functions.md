@@ -160,7 +160,7 @@ tags:
 
 - Parameter efﬁciency
 
-  <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/40.png" alt="img" style="zoom:50%;" />
+  <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/43.png" alt="img" style="zoom:50%;" />
 
 - Ablation Studies
 
