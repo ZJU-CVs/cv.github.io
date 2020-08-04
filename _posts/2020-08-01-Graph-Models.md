@@ -7,8 +7,9 @@ author:     JY
 header-img: img/post-bg.jpg
 catalog: true
 tags:
-	- Overview
-	- Upgrade
+    - Overview
+    - Upgrade
+    - GCN
 ---
 
 
@@ -32,7 +33,7 @@ tags:
 >   - 对于每个节点，都加入自环：$\tilde{A}=A+I_{N}$
 >   - $\tilde{D}$是度矩阵，$\tilde{D}_{ii}=\sum_j \tilde{A}_{ij}$，$\tilde{D}$是对角矩阵（图为无向图）
 > - 正则化邻接矩阵，使得每一行的和都为1：$\hat{A}=\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}}$
->     
+>   
 >   - $W^{(l)}$是第$l$层的权重矩阵，维度为$F^l\times F^{l+1}$，$F^{l}$为当前层的特征维度，$F^{l+1}$为下一层的特征维度
 >   
 > - 输入经过一个两层的GCN网络，得到每个标签的预测结果
@@ -81,7 +82,7 @@ tags:
 >     $$
 >     a_{i j}=\operatorname{softmax}_{j}\left(e_{i j}\right)=\frac{\exp \left(e_{i j}\right)}{\sum_{k \in N_{i}} \exp \left(e_{i k}\right)}
 >     $$
->     
+>   
 >- 论文的实验中，$a(\cdot)$采用单层的前馈神经网络+LeakyReLu，因此得到完整的注意力机制如下：
 >     $$
 >     a_{i j}=\frac{\exp \left(L eakyReLu(\vec{a}^T[W \vec{h_i}\|W\vec{h_j}])\right)}{\sum_{k \in N_{i}} \exp \left(LeakyReLu(\vec{a}^T[W \vec{h_i}\|W\vec{h_j}]\right)}
@@ -104,9 +105,9 @@ tags:
 > 
 >  - 在最后一层执行多头注意力机制，采用$K$平均来代替拼接操作，对平均结果采用非线性函数得到最终输出
 > 
->  $$
+> $$
 >   \overrightarrow{h^{\prime}}_{i}=\sigma\left(\frac{1}{K} \sum_{k=1}^{K} \sum_{j \in N i} a_{i j}^{k} W^{k} \vec{h}_{j}\right)
->   $$
+> $$
 > 
 >  <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/GAT.png" alt="img" style="zoom:30%;" />
 > 

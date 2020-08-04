@@ -158,16 +158,24 @@ tags:
 
 - Interpolation and extrapolation of classiﬁcation ways
 
+  <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/44.png" alt="img" style="zoom:50%;" />
+
 - Parameter efﬁciency
 
-  <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/43.png" alt="img" style="zoom:50%;" />
+  <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/43.png" alt="img" style="zoom:40%;" />
 
-- Ablation Studies
-
-
+  
 
 ##### Extended Few-Shot Learning Tasks
 
 - FS Domain Generalization
+
+  > unseen支持集和测试集中的实例来自不同的域
+
 - Transductive FSL
+
+  > 预测取决于目标任务中unseen类别中的训练(支持)实例和所有可用的测试实例
+
 - Generalized FSL
+
+  > 考虑seen和unseen的测试实例
