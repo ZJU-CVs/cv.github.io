@@ -172,9 +172,11 @@ tags:
 
   > unseen支持集和测试集中的实例来自不同的域
 
+  <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/45.png" alt="img" style="zoom:50%;" />
+
 - Transductive FSL
 
-  > 预测取决于目标任务中unseen类别中的训练(支持)实例和所有可用的测试实例
+  > 预测取决于目标任务中unseen类别中的训练(支持)实例和所有可用的测试实例，具体来说，使用未标记的测试实例来扩充Transformer的key set和value set
 
 - Generalized FSL
 
