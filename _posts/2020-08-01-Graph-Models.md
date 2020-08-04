@@ -67,8 +67,8 @@ tags:
 
 > - 输入与输出
 >
->   - 输入是一个节点特征向量集$h=\{\left.\vec{h}_{1}, \vec{h}_{2}, \ldots, \vec{h}_{N}\right\}, \vec{h}_{i} \in \mathbb{R}^{F}$，其中$N$为节点个数，$F$为节点特征的维度
->   - 输出是一个新的节点特征向量集$h'=\{\left.\vec{h'_{1}}, \vec{h'_{2}}, \ldots, \vec{h'_{N}}\right\}, \vec{h'_{i}} \in \mathbb{R}^{F'}$，其中$F'$表示新的节点特征向量维度
+>   - 输入是一个节点特征向量集$$h=\{\left.\vec{h}_{1}, \vec{h}_{2}, \ldots, \vec{h}_{N}\right\}, \vec{h}_{i} \in \mathbb{R}^{F}$$，其中$N$为节点个数，$$F$$为节点特征的维度
+>   - 输出是一个新的节点特征向量集$$h'=\{\left.\vec{h'_{1}}, \vec{h'_{2}}, \ldots, \vec{h'_{N}}\right\}, \vec{h'_{i}} \in \mathbb{R}^{F'}$$，其中$F'$表示新的节点特征向量维度
 >
 > - 特征提取与注意力机制
 >
