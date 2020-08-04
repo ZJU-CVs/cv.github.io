@@ -36,11 +36,13 @@ tags:
 >
 > 在只有少量训练实例的情况下，构造复杂的$f(\cdot)$具有挑战性，因此常常通过元学习的方式
 >
-> - 在可见类的数据集进行采样来生成许多M-shot N-way FSL tasks，使用训练集$\mathcal{D}_{train}=\{x_i,y_i\}^{NM}_{i=1}$来学习$f(\cdot)$。
+> - 使用训练集$\mathcal{D}_{train}=\{x_i,y_i\}^{NM}_{i=1}$来学习$f(\cdot)$，在可见类的数据集进行采样来生成许多*M-shot N-way FSL tasks*，目标是得到一个函数$f(\cdot)$，通过$\hat{y}_{test}=f(x_{test};\mathcal{D}_{train})\in\{0,1\}^N$对实例$x_{test}$进行分类
 >
 > $$
 > f^{*}=\underset{f}{\arg \min } \sum_{\left(\mathbf{x}_{\mathbf{t} \operatorname{est}}^{S}, \mathbf{y}_{\mathbf{t} \mathbf{e s t}}^{S}\right) \in \mathcal{D}_{\mathbf{t} \in \mathbf{e t}}}^{\mathcal{L}} \ell\left(f\left(\mathbf{x}_{\mathbf{t} \mathbf{e s t}}^{\mathcal{S}} ; \mathcal{D}_{\mathbf{t r a i n}}^{\mathcal{S}}\right), \mathbf{y}_{\mathbf{t e s t}}^{\mathcal{S}}\right)
 > $$
+>
+> - 分类器$f(\cdot)$包括两个部分，首先是一个嵌入函数$\phi_x=E(x)\in \mathbb{R}^d$将输入映射到表征空间；第二部分在表征空间中应用最近邻进行分类
 >
 > **可以看出嵌入函数的学习是任务无关的**
 
@@ -48,21 +50,124 @@ tags:
 
 #### Adapting Embedding for Task-speciﬁc FSL
 
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/37.png" alt="img" style="zoom:50%;" />
+
+##### Adapting to Task-Speciﬁc Embeddings
+
+> $$
+> \begin{aligned}
+> \left\{\psi_{\mathbf{x}} ; \forall \mathbf{x} \in \mathcal{X}_{\text {train }}\right\} &=\mathbf{T}\left(\left\{\phi_{\mathbf{x}} ; \forall \mathbf{x} \in \mathcal{X}_{\text {train }}\right\}\right) \left.=\mathbf{T}\left(\pi\left\{\phi_{\mathbf{x}} ; \forall \mathbf{x} \in \mathcal{X}_{\text {train }}\right\}\right)\right)
+> \end{aligned}
+> $$
+>
+> - $\mathcal{X}_{train}$是针对目标任务的训练集合，$\pi(\cdot)$是 一个集合上的置换算子
+>
+> - *set-to-set function*具有置换不变性
+>
+>   ---
+>   $$
+>   \hat{\mathbf{y}}_{\text {test }}=f\left(\phi_{\mathbf{x}_{\text {test }}} ;\left\{\psi_{\mathbf{x}}, \forall(\mathbf{x}, \mathbf{y}) \in \mathcal{D}_{\text {train }}\right\}\right)
+>   $$
+>
+> - 利用得到的嵌入$\psi_x$，通过计算最近邻对测试实例$x_{test}$进行分类
+
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/38.png" alt="img" style="zoom:30%;" />
 
 
 
-##### Adapting to Task-Speciﬁc Embeddings
-
 ##### Embedding Adaptation via Set-to-set Functions
+
+`提出了不同的set-to-set functions`
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/42.png" alt="img" style="zoom:60%;" />
+
+- **Bidirectional LSTM**
+
+- **DeepSets**
+  $$
+  \psi_{\mathbf{x}}=\phi_{\mathbf{x}}+g\left(\left[\phi_{\mathbf{x}} ; \sum_{\mathbf{x}_{i}^{\prime} \in \mathbf{x}^{0}} h\left(\phi_{\mathbf{x}_{i}^{\prime}}\right)\right]\right)
+  $$
+
+  > 对于每个实例，首先将其互补集中的嵌入合并为一个集合向量作为上下文信息，然后将此向量与输入拼接在一起，获得自适应嵌入的残差部分
+
+- **GCN**
+
+  > 首先构造度矩阵A来表示集合中实例的相似性，如果两个实例来自同一类，则将A中的对应元素设置为1，否则设置为0
+  > $$
+  > S=D^{-\frac{1}{2}}(A+I) D^{-\frac{1}{2}}
+  > $$
+  > 令$\Phi^0=\{\phi_x;\forall \mathbf{x} \in \mathcal{X}_{\text {train }}\}$，实例之间的关系基于$S$传播，即
+  > $$
+  > \Phi^{t+1}=\mathbf{R} \mathbf{e} \mathbf{L} \mathbf{U}\left(S \Phi^{t} W\right), t=0,1, \ldots, T-1
+  > $$
+  > 
+
+- **Transformer**
+
+  > $\mathcal{Q}=\mathcal{K}=\mathcal{V}=\mathcal{X}_{train}$，首先将输入$\mathcal{K}$映射到空间$K=W_K^T[\phi_{x_k};\forall x_k\in \mathcal{K}]\in \mathbb{R}^{d\times \mid{\mathcal{K}\mid}}$，对于$\mathcal{Q}$和$\mathcal{V}$同理分别映射到$W_Q$和$W_V$
+  >
+  > 利用自注意力公式得到注意力值，进行加权求和，更新输入得到$\psi_{x_q}$
+  > $$
+  > \alpha_{q k} \propto \exp \left(\frac{\phi_{\mathbf{x}_{q}}^{\top} W_{Q} \cdot K}{\sqrt{d}}\right)
+  > $$
+  >
+  > $$
+  > \psi_{\mathbf{x}_{q}}=\phi_{\mathbf{x}_{q}}+\sum_{k} \alpha_{q k} V_{:, k}
+  > $$
+  >
+  > 
 
 ##### Contrastive Learning of Set-to-Set Functions
 
+> 为了促进嵌入的适应性学习，还加入了对比目标，确保实例嵌入在适应后与同类相似而与不同类不相似
+>
+> - 将嵌入适应函数$T$应用于$N$类的不同实例，并得到转换后的嵌入$\psi'_x$和类中心$\{c_n\}^N_{n=1}$
+> - 采用对比目标确保训练实例更靠近自己的类中心，使set transformation提取相同类别实例的公共特征(preserve the category-wise similarity)
+>
 > $$
-> \hat{\mathbf{y}}_{\text {test }}=f\left(\phi_{\mathbf{x}_{\text {test }}} ;\left\{\psi_{\mathbf{x}}, \forall(\mathbf{x}, \mathbf{y}) \in \mathcal{D}_{\text {train }}\right\}\right)
+> \begin{array}{l}
+> \mathcal{L}\left(\hat{\mathbf{y}}_{\text {test }}, \mathbf{y}_{\text {test }}\right)=\ell\left(\hat{\mathbf{y}}_{\text {test }}, \mathbf{y}_{\text {test }}\right) +\lambda \cdot \ell\left(\text { softmax }\left(\operatorname{sim}\left(\psi_{\mathbf{x}_{\text {test }}}^{\prime}, \mathbf{c}_{n}\right)\right), \mathbf{y}_{\text {test }}\right)
+> \end{array}
 > $$
 >
-> 
+
+
 
 ### 3. Experiments
 
+##### Datasets
+
+> - MiniImageNet总共包括100个类，每个类600个示例。 分别使用64个类作为SEEN类别，将16和20类作为两组UNSEEN类别分别用于模型验证和评估。 
+> -  TieredImageNet中包含351、97和160个类别，分别用于模型训练，验证和评估。
+> - OfficeHome 数据集，以验证FEAT跨域的泛化能力。
+>   - 在OfficeHome中有四个域，其中两个域“ Clipart”和“ Real World”）被选中，其中包含8722张图像。 在将所有类别随机划分后，将25个类别用作可见模型来训练模型，其余的15和25个类别将用作两个UNSEEN进行评估
+
+
+
+##### Methods Comparison
+
+- Comparison to previous State-of-the-arts
+
+  (左图为MiniImageNet，右图为TiredImageNet)
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/39.png" alt="img" style="zoom:50%;" />     <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/40.png" alt="img" style="zoom:50%;" />
+
+- Comparison among the embedding adaptation models
+
+  > Transformer作为set-to-set函数能够实现实例间的充分交互，从而提供较高的表征能力，可以对嵌入自适应过程进行建模
+
+- Interpolation and extrapolation of classiﬁcation ways
+
+- Parameter efﬁciency
+
+  <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/40.png" alt="img" style="zoom:50%;" />
+
+- Ablation Studies
+
+
+
+##### Extended Few-Shot Learning Tasks
+
+- FS Domain Generalization
+- Transductive FSL
+- Generalized FSL
