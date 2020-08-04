@@ -178,4 +178,7 @@ tags:
 
 - Generalized FSL
 
-  > 考虑seen和unseen的测试实例
+  > 同时考虑seen和unseen的测试实例
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/41.png" alt="img" style="zoom:50%;" />
+
