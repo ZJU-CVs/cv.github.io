@@ -49,7 +49,7 @@ tags:
 > >
 > > > - 首先，每个训练类别y都可以表示为长度为m的属性向量$a_y=(a_1,...,a_m)$，且该属性向量为二值属性
 > > >
-> > > - 然后通过监督学习，得到image-attribute层的概率表示$p(a|x)$，是样本$x$对于所有$a_m$的后验概率乘积
+> > > - 然后通过监督学习，得到image-attribute层的概率表示$p(a\mid x)$，是样本$x$对于所有$a_m$的后验概率乘积
 > > >
 > > > - 在测试时，每个类别z可以用一个属性向量$a_z$表示，利用贝叶斯公式得到概率公式$p(z|x)$
 > > >   $$
@@ -312,7 +312,7 @@ tags:
 >
 > **测试阶段：**
 >
-> > 将$f_s,\tilde{f}_s,\tilde{\mathcal{K}}_s,\mathcal{K}_s$和$\mathcal{K}_u$作为输入，对于$n_t$个测试实例$X_u \in R^{d\times n_t}$，首先预测它们的语义表示$f_s(X_u)$，然后直接构建$\tilde{\mathcal{K}}_s$，最后，对于每个测试实例$x_j$，得到对应的标签$y_j=\arg \max_c d\left(\tilde{f}_{s}\left(\mathbf{x}_{j}\right), \tilde{\mathbf{k}}_{c}\right)$，其中$\tilde{\mathbf{k}}_{c}\in\tilde{\mathcal{K}}_{u}$ in **ZSR**；$\tilde{\mathbf{k}}_{c}\in\{\tilde{\mathcal{K}}_s \cup\tilde{\mathcal{K}}_{u}\}$ in **gZSR**.
+> > 将$$f_s,\tilde{f}_s,\tilde{\mathcal{K}}_s,\mathcal{K}_s$和$\mathcal{K}_u$$作为输入，对于$n_t$个测试实例$$X_u \in R^{d\times n_t}$$，首先预测它们的语义表示$f_s(X_u)$，然后直接构建$\tilde{\mathcal{K}}_s$，最后，对于每个测试实例$x_j$，得到对应的标签$$y_j=\arg \max_c d\left(\tilde{f}_{s}\left(\mathbf{x}_{j}\right), \tilde{\mathbf{k}}_{c}\right)$$，其中$$\tilde{\mathbf{k}}_{c}\in\tilde{\mathcal{K}}_{u}$$ in **ZSR**；$$\tilde{\mathbf{k}}_{c}\in\{\tilde{\mathcal{K}}_s \cup\tilde{\mathcal{K}}_{u}\}$$ in **gZSR**.
 
 
 
