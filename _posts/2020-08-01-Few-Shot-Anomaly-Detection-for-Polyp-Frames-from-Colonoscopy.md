@@ -37,3 +37,30 @@ tags:
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/48.png" alt="img" style="zoom:30%;" />
 
+以全局和局部的方式最大化正常训练图像和嵌入之间的MI，并最小化嵌入的差异和先验分布来对编码器建模；然后使用编码器产生的嵌入，使用类似对比的损失训练SIN
+
+> **1)** 特征编码器$z=f_E(x;\theta_E)$的预训练，以学习图像嵌入，从而最大化正常样本图像$x\in \mathcal{D}_N$和它们的嵌入$z=f_E(x\in \mathcal{D}_N;\theta_E)$之间的互信息(MI)，具体如下：
+> $$
+> \begin{aligned}
+> \theta_{E}^{*}, \theta_{G}^{*}, \theta_{L}^{*}=\arg \max _{\theta_{E}, \theta_{G}, \theta_{L}}(&\left.\alpha \hat{I}_{\theta_{G}}\left(\mathbf{x} ; f_{E}\left(\mathbf{x} ; \theta_{E}\right)\right)+\frac{\beta}{|\mathcal{M}|} \sum_{\omega \in \mathcal{M}} \hat{I}_{\theta_{L}}\left(\mathbf{x}(\omega) ; f_{E}\left(\mathbf{x}(\omega) ; \theta_{E}\right)\right)\right) \\
+> &+\gamma \arg \min _{\theta_{\mathrm{n}}} \arg \max _{\mathcal{A}} \hat{D}_{\phi}\left(\mathbb{V}|| \mathbb{U}_{\mathbb{P}, \theta_{E}}\right)
+> \end{aligned}
+> $$
+>
+> $$
+> \hat{I}_{\theta_{G}}\left(\mathbf{x} ; f_{E}\left(\mathbf{x} ; \theta_{E}\right)\right)=\mathbb{E}_{\mathbb{J}}\left[f_{G}\left(\mathbf{x}, f_{E}\left(\mathbf{x} ; \theta_{E}\right) ; \theta_{G}\right)\right]-\log \mathbb{E}_{\mathbb{M}}\left[e^{f_{G}\left(\mathbf{x}, f_{E}\left(\mathbf{x} ; \theta_{E}\right) ; \theta_{G}\right)}\right]
+> $$
+>
+> 
+>
+> 
+>
+> **2)** 训练SIN $f_s(f_E(x;\theta_E);\theta_S)$ ，具有类似对比的损耗，使用$\mathcal{D}_N$和$\mathcal{D}_A$达到目标
+> $$
+> f_S(f_E(x\in \mathcal{D}_A;\theta_E);\theta_S)>f_S(f_E(x\in \mathcal{D}_N;\theta_E);\theta_S)
+> $$
+> 
+
+
+
+在inference阶段
