@@ -47,17 +47,23 @@ tags:
 > \end{aligned}
 > $$
 >
+> > $x(w)$表示局部图像区域，$x$表示整张图片
+> >
 > > $\hat{I}_G(\cdot)$和$\hat{I}_L(\cdot)$表示MI下界（基于Donsker-Varadhan表示的KL散度） 
 >
+> ---
 > $$
 > \hat{I}_{\theta_{G}}\left(\mathbf{x} ; f_{E}\left(\mathbf{x} ; \theta_{E}\right)\right)=\mathbb{E}_{\mathbb{J}}\left[f_{G}\left(\mathbf{x}, f_{E}\left(\mathbf{x} ; \theta_{E}\right) ; \theta_{G}\right)\right]-\log \mathbb{E}_{\mathbb{M}}\left[e^{f_{G}\left(\mathbf{x}, f_{E}\left(\mathbf{x} ; \theta_{E}\right) ; \theta_{G}\right)}\right]
 > $$
 >
+> > $\mathbb{J}$表示联合分布，$\mathbb{M}$表示the product of the marginals的图像和嵌入
+>
+> ---
 > $$
 > \left.\arg \min _{\theta_{E}} \arg \max _{\phi} \hat{D}_{\phi}\left(\mathbb{V}|| \mathbb{U}_{\mathbb{P}, \theta_{E}}\right)=\mathbb{E}_{\mathbb{V}}[\log d(\mathbf{z} ; \phi)]+\mathbb{E}_{\mathbb{P}}\left[\log \left(1-d\left(f_{E}\left(\mathbf{x} ; \theta_{E}\right)\right) ; \phi\right)\right)\right]
 > $$
 >
-> 
+> > $\mathbb{V}$表示嵌入$z$的先验分布$\mathcal{N}(.;\mu_V,\sum_V)$，$\mathbb{P}$表示嵌入$z=f_E(x\in \mathcal{N}_N;\theta_E)$的分布
 >
 > **2)** 训练SIN $f_s(f_E(x;\theta_E);\theta_S)$ ，具有类似对比的损耗，使用$\mathcal{D}_N$和$\mathcal{D}_A$达到目标
 > $$
