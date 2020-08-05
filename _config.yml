@@ -67,7 +67,7 @@ kramdown:
 
 # Analytics settings
 # Baidu Analytics
-#ba_track_id: b50bf2b12b5338a1845e33832976fd68
+ba_track_id: aefe08ff45f527519d74cafe76d55157
 #
 ## Google Analytics
 ga_track_id: 'UA-174537821-1'            # Format: UA-xxxxxx-xx
