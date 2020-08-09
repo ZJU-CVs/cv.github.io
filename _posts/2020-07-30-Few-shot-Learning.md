@@ -34,7 +34,34 @@ tags:
   - 分析人类的学习方式可以发现，人类能够基于很少的数据，很快地学习到新的类别
   - 人类能够实时学习新的概念或新的类，而机器必须经历一个expensive offline process (即对整个模型反复的训练和再训练，以学习新的类)
 
+- how to learn with small labeled data
 
+  `ref: WSDM2020 tutorial`
+
+  - Model-wise
+
+    - transfer & reuse previous learned knowledge
+
+      - transfer learning
+
+      - multi-tasks learning
+
+      - meta-learning
+
+        
+
+    - utilize the extra-knowledge (e.g. domain expert)
+
+      - enrich representations using knowledge graph
+      - domain-knowledge driven regularization
+
+      
+
+  - Data-wise
+
+    - data augmentation from labeled/unlabeled data
+
+    
 
 `The potential solutions —— bridge the gap`
 

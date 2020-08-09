@@ -2,7 +2,7 @@
 layout:     post
 title:      Few-Shot Anomaly Detection for Polyp Frames from Colonoscopy
 subtitle:   
-date:       2020-08-01
+date:       2020-08-06
 author:     JY
 header-img: img/post-bg.jpg
 catalog: true
@@ -92,3 +92,12 @@ tags:
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/47.png" alt="img" style="zoom:30%;" />
 
 > 与之前的零样本异常检测方法和不平衡学习方法相比，所提方法实现了最新的异常检测性能
+
+
+
+### 4. Conclusion
+
+> 提出了FSAD-NET少样本异常检测框架，通过全局和局部的方式最大化正常训练图像和嵌入之间的互信息，并最小化嵌入的差异和先验分布，得到编码器。利用训练好的编码器产生的嵌入，使用类似对比的损失来训练Score Inference Network。
+
+
+

@@ -9,12 +9,7 @@ catalog: true
 tags:
     - Record
     - Fine-grained
-
 ---
-
-
-
-
 
 1. [**Introduction**](# Introduction)
 2. [**Tutorials**](#Tutorials)
