@@ -67,115 +67,175 @@ tags:
   >
   > 2) **Grounding Transformer(GT)：**以**自上而下**的方式，输出与下层特征图具有相同的比例。直观地说，将上层特征图的 "concept "与下层特征图的 "pixels "关联。特别是，由于没有必要使用全局信息来分割对象，而局部区域内的上下文在经验上更有参考价值，因此，还设计了一个**locality-constrained的GT，以保证语义分割的效率和准确性。**
   >
-  > **3) Rendering Transformer(RT)**。以**自下而上**的方式，输出与上层特征图具有相同的比例。直观地说，将上层 "concept "与下层 "pixels"的视觉属性进行渲染。这是一种**局部交互**，因为用另一个远处的 "pixels "来渲染一个 "object "是没有意义的。**每个层次的转换特征图（红色、蓝色和绿色）被重新排列到相应的map大小，然后与原始map连接，然后再输入到卷积层，将它们调整到原始 "thickness"。**
+  > 3) **Rendering Transformer(RT)**。以**自下而上**的方式，输出与上层特征图具有相同的比例。直观地说，将上层 "concept "与下层 "pixels"的视觉属性进行渲染。这是一种**局部交互**，因为用另一个远处的 "pixels "来渲染一个 "object "是没有意义的。**每个层次的转换特征图（红色、蓝色和绿色）被重新排列到相应的map大小，然后与原始map连接，然后再输入到卷积层，将它们调整到原始 "thickness"。**
 
-![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/2.png)
+
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/2.png" alt="img" style="zoom:50%;" />
+
+
+
+### 2. Method
+
+> **Feature Pyramid Transformer** (FPT)使特征能够在空间和尺寸上进行交互，具体包括三个transformers：
+>
+> - self-transformer
+> - grounding transformer
+> - rendering transformer
+>
+> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/3.png)
+
+
+
+#### Non-Local Interaction Revisited
+
+`传统的Non-Local Interaction 回顾`
+
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/4.png" alt="img" style="zoom:50%;" />
+>
+> > - $q_i=f_q(X_i)\in Q$表示第$i$个query；$k_j=f_k(X_j)\in K$和$v_j=f_v(X_j)\in V$表示第$j$个key-value对
+> > - $f_q(\cdot)$，$f_k(\cdot)$和$f_v(\cdot)$分别表示query，key和value的转换函数
+> > - $X_i$和$X_j$分别是$X$中的第$i$和第$j$个特征位置
+>
+> 用提出non-local的[论文](https://arxiv.org/pdf/1711.07971v3.pdf)表示如下：
+> $$
+> \mathbf{y}_{i}=\frac{1}{\mathcal{C}(\mathbf{x})} \sum_{\forall j} f\left(\mathbf{x}_{i}, \mathbf{x}_{j}\right) g\left(\mathbf{x}_{j}\right)
+> $$
+>
+> > - $f(x_i,x_j)$用来计算$i$与所有可能关联的位置$j$之间pairwise关系
+> > - $g(x_j)$用于计算输入信号在位置$j$的特征值
+> > - $\mathcal{C}(x)$为归一化参数
+
+
+
+#### I. Self-Transformer
+
+`Self-Transformer(ST)旨在捕获一个特征图上同时出现的对象特征`
+
+> ST是一种修改后的non-local交互，输出的特征图与其输入特征图的尺度相同。
+>
+> - 使用Mixture of Softmaxes(MoS)作为归一化函数，事实证明它比标准的Softmax在图像上更有效。具体来说，首先将query和key划分为N个部分，然后使用$F_{sim}$计算每对图像的相似度分数。MoS的本质是使用多个不同的softmax来增加模型的表达能力
+>
+> - 基于MoS的归一化函数$F_{mos}$表达式如下：
+>   $$
+>   F_{\operatorname{mos}}\left(s_{i, j}^{n}\right)=\sum_{n=1}^{\mathcal{N}} \pi_{n} \frac{\exp \left(s_{i, j}^{n}\right)}{\sum_{j} \exp \left(s_{i, j}^{n}\right)}
+>   $$
+>
+>   > - $\pi_n=Softmax(w_n^T\overline{\mathbf{k}})$，其中$w_n$是可学习的用于归一化的线性向量，$\overline{\mathbf{k}}$是$k_j$的所有位置的算术平均值
+>
+> - Self-Transformer可以表达为：
+>
+>   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/5.png" alt="img" style="zoom:50%;" />
+
+
+
+#### II. Grounding Transformer
+
+`Grounding Transformer(GT)为自上而下的non-local交互`
+
+> 将上层特征图$X^c$中的 "concept "与下层特征图$X^f$中的 "pixels "进行对接。输出特征图$\hat{X}^f$与$X^f$具有相同的尺度。
+>
+> - 一般来说，不同尺度的图像特征提取的语义或上下文信息不同，或者两者都有。
+> - 根据经验，当两个特征图的语义信息不同时，**euclidean距离的负值比点积更能有效地计算相似度**，因此使用euclidean距离$F_{edu}$作为相似度函数，其表达方式为：
+>
+> $$
+> F_{e u d}\left(\mathbf{q}_{i}, \mathbf{k}_{j}\right)=-\left\|\mathbf{q}_{i}-\mathbf{k}_{j}\right\|^{2}
+> $$
+>
+> - Grounding Transformer可以表示为：
+>
+>   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/6.png" alt="img" style="zoom:50%;" />
+>
+>   > - $q_i=f_q(X_i^f)$，$k_j=f_k(X^c_j)$，$v_j=f_v(X^c_j)$
+>   > - $X^f_i$是$X^f$中的第$i$个特征位置，$X^c_j$是$X^c$中的第$j$个特征位置
+>
+>   
+>
+> - 在特征金字塔中，高/低层次特征图包含大量全局/局部图像信息。从经验上讲，**查询位置周围的局部区域内的上下文会提供更多信息**，这些常规的跨尺度交互（如 summation/concatenation)）在现有的分割方法中体现出了有效性。然而**对于通过跨尺度特征交互的语义分割，没有必要使用全局信息来分割图像中的两个对象，**因此引入了<u>局域性GT转换</u>。
+
+
+
+`Locality-constrained  Grounding  Transformer`
+
+> - 引入了局域性GT转换进行语义分割，每个q（即低层特征图上的红色网格）在中心区域的局部正方形区域内与k和v的一部分（即高层特征图上的蓝色网格）相互作用，对于k和v超出索引的位置，改用0值。
+
+
+
+#### III. Rendering Transformer
+
+`Rendering Transformer（RT）以自下而上的方式交互`
+
+> 旨在通过将视觉属性合并到low-level 的 “pixels” 中来渲染high-level的“concept”。
+>
+> - RT是一种局部交互，其中该局部是基于**渲染具有来自另一个遥远对象的特征或属性的“object”是没有意义的**这一假设。
+>
+> - RT不是按像素进行的，而是按整个特征图进行的。具体步骤如下：
+>
+>   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/7.png" alt="img" style="zoom:60%;" />
+>
+>   > - 高层特征图定义为$Q$，低层特征图定义为$K$和$V$
+>   > - $Q$和$K$之间的交互是以channel-wise的注意力方式进行，$K$首先通过全局平均池化(GAP)计算权重$w$对$Q$进行加权得到$Q_{att}$
+>   > - $Q_{att}$通过3×3卷积进行优化，$V$通过3×3步长卷积(stride convolution)来缩小特征尺寸(灰色方块)，若$Q$和$V$的尺寸相同，则stride=1。
+>   > - 最后，将优化后的$Q_{att}$和$V_{dow}$**相加**，得到输出$\hat{X}^c$
+
+
 
 ### 3. Experiment
 
-> FPT可以极大地改善传统的检测/分割网络：1）在MS-COCO test-dev数据集上，用于框检测的百分比增益为8.5％，用于遮罩实例的mask AP值增益为6.0％；2）对于语义分割，分别在Cityscapes和PASCAL VOC 2012 测试集上的增益分别为1.6％和1.2％mIoU；在ADE20K 和LIP 验证集上的增益分别为1.7％和2.0％mIoU。
+`建立特定的FPT网路来处理目标检测、实例分割和语义分割，每个FPT网络都有四个部分组成：用于特征提取的backbone(如ResNet-50)、特征金字塔构建模块(如UFP、BFP)、所提的feature transformer和用于特定任务的head network(如Faster R-CNN head)`
 
-### 1、Non-Local Interaction Revisited
 
-**传统的Non-Local Interaction**
 
+#### Instance-Level Recognition
 
+`object detection and instance segmentation`
 
-![img](https://mmbiz.qpic.cn/mmbiz_png/Z8w2ExrFgDwhE9yjDyeymx8SXwCUlUZyEpNMMW42NEPhTGcKnhvLibjFo9WPzonFHxy9wnEly0et772E8IacKCA/640?wxfrom=5&wx_lazy=1&wx_co=1)
+- 评估三个单独的tranformer(ST, GT,RT)和组合后的精度和模型效率(eﬃciency)，其中BFP为baseline
 
-**2、Self-Transformer**
+	> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/8.png" alt="img" style="zoom:80%;" />
 
-**
-**
+- 研究FPT上加入tricks
 
-自变换器(Self-Transformer，ST)的目的是**在同一张特征图上捕获共同发生的对象特征**。如图3(a)所示，ST是一种修改后的非局部non-local交互，输出的特征图与其输入特征图的尺度相同。与其他方法区别在于，作者部署了Mixture of Softmaxes(MoS)作为归一化函数，事实证明它比标准的Softmax在图像上更有效。具体来说，首先将查询q和键k划分为N个部分。然后，使用Fsim计算每对图像的相似度分数。基于MoS的归一化函数Fmos表达式如下：
+  > SBN (SyncBN)和DropBlock (卷积正则化)的影响
+  >
+  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/9.png" alt="img" style="zoom:80%;" />
 
+- 在数据集MS-COCO 2017测试集上的模型精度对比
+	
+	> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/10.png" alt="img" style="zoom:80%;" />
 
+- 可视化结果
 
-![img](https://mmbiz.qpic.cn/mmbiz_png/Z8w2ExrFgDwhE9yjDyeymx8SXwCUlUZyscxeSdqgIY3eQpFzGnIfT0Zxt4ehVY7IO14yYRRLB1e9nA6KJjbkmA/640?wxfrom=5&wx_lazy=1&wx_co=1)
+  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/12.png" alt="img" style="zoom:80%;" />
 
-自变换器可以表达为：
 
 
+#### Pixel-Level Recognition
 
-![img](https://mmbiz.qpic.cn/mmbiz_png/Z8w2ExrFgDwhE9yjDyeymx8SXwCUlUZyAGL3zfD4qMibMjpOfCg8jwKur4pwjicR3shnpySHTkgPDibmKibdMf7ibkQ/640?wxfrom=5&wx_lazy=1&wx_co=1)
+`semantic segmentation`
 
+- UFP作为baseline，分别应用所提的tranformers (+ST，+LGT和+RT )进行消融实验，评估精度和模型效率
 
+  > 测试数据集为Cityscape validation set
+  >
+  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/14.png" alt="img" style="zoom:50%;" />
 
-**3、Grounding Transformer**
+- 与SOTA 方法进行比较
+	
+	> 将FPT应用于三种特征金字塔模型（UFP, PPM和ASPP）
+	>
+	> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/11.png" alt="img" style="zoom:70%;" />
+	>
+	> - 红色表示best，蓝色表示second best
 
+- 可视化结果
 
+  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/13.png" alt="img" style="zoom:70%;" />
 
-Grounding Transformer(GT)可以归类为**自上而下的非局部non-local交互**，它将上层特征图Xct中的 "概念 "与下层特征图Xf中的 "像素 "进行对接。输出特征图与Xf具有相同的尺度。一般来说，不同尺度的图像特征提取的语义或语境信息不同，或者两者兼而有之。此外，根据经验，当两个特征图的语义信息不同时，**euclidean距离的负值比点积更能有效地计算相似度**。所以我们更倾向于使用euclidean距离Fedu作为相似度函数，其表达方式为：
+### 4. Conclusion
 
+> - 提出了一种有效的特征交互方法(FPT)，该方法由三个carefully-designed transformers组成，分别对特征金字塔中的explicit self-level、top-down和bottom-up信息进行编码。
+>
+> - FPT不会更改特征金字塔的大小，因此具有通用性，易于即插即用（plug-and-play）
+> - FPT在baseline和SOTA均取得了改进，证明了其高效性和强大的应用能力
 
-
-![img](https://mmbiz.qpic.cn/mmbiz_png/Z8w2ExrFgDwhE9yjDyeymx8SXwCUlUZyibdgdsiaZ2tZozxiauzUUB2Z6CAsXX7aVmd1CyGBug8HeflQOJIqmcicdA/640?wxfrom=5&wx_lazy=1&wx_co=1)
-
-
-
-于是，Grounding Transformer可以表述为：
-
-![img](https://mmbiz.qpic.cn/mmbiz_png/Z8w2ExrFgDwhE9yjDyeymx8SXwCUlUZyQwtJHckgkCOXjklkibjnHgibFczJRzyNp93YFjMbXr66eE8yibibuy9cNQ/640?wxfrom=5&wx_lazy=1&wx_co=1)
-
-在特征金字塔中，高/低层次特征图包含大量全局/局部图像信息。然而，**对于通过跨尺度特征交互的语义分割，没有必要使用全局信息来分割图像中的两个对象。**从经验上讲，**查询位置周围的局部区域内的上下文会提供更多信息**。这就是为什么常规的跨尺度交互（例如求和和级联）在现有的分割方法中有效的原因。如图3（b）所示，它们本质上是隐式的局部non-local样式，但是本文的默认GT是**全局交互的**。
-
-
-
-![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/3.png)
-
-
-
-Locality-constrained  Grounding  Transformer。因此，作者引入了局域性GT转换进行语义分割，这是一个明确的局域特征交互作用。如图3（c）所示，每个q（即低层特征图上的红色网格）在中心区域的局部正方形区域内与k和v的一部分（即高层特征图上的蓝色网格）相互作用。坐标与q相同，边长为正方形。特别是，对于k和v超出索引的位置，改用0值。
-
-**4、Rendering Transformer**
-
-Rendering Transformer（RT）**以自下而上的方式工作**，旨在通过将视觉属性合并到低层级“像素”中来渲染高层级“概念”。如图3（d）所示，RT是一种局部交互，其中该局部是基于渲染具有来自另一个遥远对象的特征或属性的“对象”是没有意义的这一事实。
-
-在本文的实现中，RT不是按像素进行的，而是按整个特征图进行的。具体来说，高层特征图定义为Q，低层特征图定义为K和V，为了突出渲染目标，**Q和K之间的交互是以通道导向的关注方式进行的，K首先通过全局平均池化(GAP)计算出Q的权重w。然后，加权后的Q(即Qatt)通过3×3卷积进行优化，V通过3×3卷积与步长来缩小特征规模**(图3(d)中的灰色方块)。最后，将优化后的Qatt和下采样的V(即Vdow)**相加**，再经过一次3×3卷积进行细化处理。
-
-
-
-![img](https://mmbiz.qpic.cn/mmbiz_png/Z8w2ExrFgDwhE9yjDyeymx8SXwCUlUZyZV8mwtWXa1LiabtzeUwZz8KDe2LZcRp4JgZQrSTicZ3uiaYgYDr2MCfXQ/640?wxfrom=5&wx_lazy=1&wx_co=1)
-
-实验与结果
-
-
-
-
-
-
-
-**消融实验：**
-
-
-
-**![img](https://mmbiz.qpic.cn/mmbiz_png/Z8w2ExrFgDwhE9yjDyeymx8SXwCUlUZyRcQicaiaicIZX3KZLsTzuy3TdUWm5ib1YXibfwRAMg6tnwkCXqLXwZcicPCw/640?wxfrom=5&wx_lazy=1&wx_co=1)**
-
-
-
-![img](https://mmbiz.qpic.cn/mmbiz_png/Z8w2ExrFgDwhE9yjDyeymx8SXwCUlUZyRxiaYegGBNAlkQwCfiaiaJTATKCYiaVNnNgOL9GlVlu0K2P6z67olfduuw/640?wxfrom=5&wx_lazy=1&wx_co=1)
-
-**对比实验**
-
-
-
-![img](https://mmbiz.qpic.cn/mmbiz_png/Z8w2ExrFgDwhE9yjDyeymx8SXwCUlUZyYEfPZqGfUvviapBdL0LdyeEyutHEBIIxCiaelMMZHVMoOdRjLKLcaRkg/640?wxfrom=5&wx_lazy=1&wx_co=1)
-
-![img](https://mmbiz.qpic.cn/mmbiz_png/Z8w2ExrFgDwhE9yjDyeymx8SXwCUlUZyTAkUFbqaXV7Fj6vtaSl3FhYRqnKibQGmV4BMNnAJlwHPknszLrXo97g/640?wxfrom=5&wx_lazy=1&wx_co=1)
-
-
-
-**可视化对比**
-
-
-
-**![img](https://mmbiz.qpic.cn/mmbiz_png/Z8w2ExrFgDwhE9yjDyeymx8SXwCUlUZyuZYpeh9hWKSShVfTUl5fRwrBGg3lVN9L6cUmRzLpxyABmM2LhfkAWg/640?wxfrom=5&wx_lazy=1&wx_co=1)**
-
-**![img](https://mmbiz.qpic.cn/mmbiz_png/Z8w2ExrFgDwhE9yjDyeymx8SXwCUlUZyePd96t2VsTEysM9ER2wKsNicdZKnU0oZQwPibkZicUVq9YickC3S3NcnWg/640?wxfrom=5&wx_lazy=1&wx_co=1)**
-
-**![img](https://mmbiz.qpic.cn/mmbiz_png/Z8w2ExrFgDwhE9yjDyeymx8SXwCUlUZywo1Eic81QL9jaq4z5kVRicibUQnxWbNTGtjPZALUYFMFDArNwiaWzooJZQ/640?wxfrom=5&wx_lazy=1&wx_co=1)**
-
-**![img](https://mmbiz.qpic.cn/mmbiz_png/Z8w2ExrFgDwhE9yjDyeymx8SXwCUlUZyRlGYGQX4423QcMiaY6wk0ATo8vQ5fZbHWkaFzjEGSTHO2c8224qia6SQ/640?wxfrom=5&wx_lazy=1&wx_co=1)**
-
-#### 
