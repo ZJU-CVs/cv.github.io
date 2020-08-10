@@ -9,7 +9,7 @@ catalog: true
 tags:
     - Overview
     - Anomaly Detection
-    - Upgrade
+    - Update
 ---
 
 

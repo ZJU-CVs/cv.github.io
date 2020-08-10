@@ -2,13 +2,13 @@
 layout:     post
 title:      Attention Models
 subtitle:   基于注意力机制的模型总结
-date:       2020-04-10
+date:       2020-02-01
 author:     JY
 header-img: img/post-bg.jpg
 catalog: true
 tags:
     - Overview
-    - Upgrade
+    - Update
     - Attention Mechanism
 ---
 
