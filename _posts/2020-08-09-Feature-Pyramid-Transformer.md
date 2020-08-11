@@ -188,24 +188,41 @@ tags:
 
 #### Instance-Level Recognition
 
-`object detection and instance segmentation`
+`Object Detection & Instance Segmentation`
 
-- 评估三个单独的tranformer(ST, GT,RT)和组合后的精度和模型效率(eﬃciency)，其中BFP为baseline
+> Dataset: MS-COCO 2017
+>
+> Backbone: 
+>
+> - ResNet-50 -------in ablation study
+> - ResNet-101, Non-local Network (NL-ResNet-101), Global Context Network (GC-ResNet-101) and Attention Augmented Network (AA-ResNet-101)    -------- to compare to SOTA
+
+- 方法对比，将FPT与最新的跨尺度特征金字塔交互 (cross-scale feature pyramid interactions) 进行比较
+
+  > 最新的跨尺度特征金字塔交互包括FPN、Bottom-up Path Aggregation(BPA)、Bi-direction Feature Interaction(BFI)
+  >
+  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/15.png" alt="img" style="zoom:50%;" />
+
+- 进行消融实验，评估三个单独的tranformer(ST, GT,RT)和组合后的精度和模型效率(eﬃciency)，其中BFP (Bottom-up Feature Pyramid) 为baseline
 
 	> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/8.png" alt="img" style="zoom:80%;" />
 
-- 研究FPT上加入tricks
+- 进行消融实验，研究FPT上加入tricks
 
   > SBN (SyncBN)和DropBlock (卷积正则化)的影响
   >
   > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/9.png" alt="img" style="zoom:80%;" />
 
-- 在数据集MS-COCO 2017测试集上的模型精度对比
+- 在数据集MS-COCO 2017测试集上对模型与SOTA方法进行对比将FPT与最新的跨尺度特征金字塔交互 (cross-scale feature pyramid interactions) 进行比较
 	
+	> 最新的跨尺度特征金字塔交互包括FPN、Bottom-up Path Aggregation(BPA)、Bi-direction Feature Interaction(BFI)，同时加入了Augmented Head(AH) 和 Multi-scale Training(MT)进行实验
+	>
 	> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/10.png" alt="img" style="zoom:80%;" />
 
 - 可视化结果
 
+  > 红色矩形突出显示了该区域FPT优越的预测性能
+  >
   > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/12.png" alt="img" style="zoom:80%;" />
 
 
@@ -214,7 +231,11 @@ tags:
 
 `semantic segmentation`
 
-- UFP作为baseline，分别应用所提的tranformers (+ST，+LGT和+RT )进行消融实验，评估精度和模型效率
+> Dataset: Cityscapes; ADE20K; LIP; PASCAL VOC 2012
+>
+> Backbone: ResNet-101
+
+- 消融实验，UFP作为baseline，分别应用所提的tranformers (+ST，+LGT和+RT )进行消融实验，评估精度和模型效率
 
   > 测试数据集为Cityscape validation set
   >
@@ -222,7 +243,7 @@ tags:
 
 - 与SOTA 方法进行比较
 	
-	> 将FPT应用于三种特征金字塔模型（UFP, PPM和ASPP）
+	> 将FPT应用于三种特征金字塔模型（UFP, PPM和ASPP），与最先进的(SOTA)像素级特征金字塔交互方法，如Object Context Network (OCNet).
 	>
 	> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/11.png" alt="img" style="zoom:70%;" />
 	>
@@ -230,6 +251,8 @@ tags:
 
 - 可视化结果
 
+  > 红色矩形突出显示了该区域FPT优越的预测性能
+  >
   > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/13.png" alt="img" style="zoom:70%;" />
 
 ### 4. Conclusion
