@@ -56,7 +56,7 @@ tags:
 > \hat{I}_{\theta_{G}}\left(\mathbf{x} ; f_{E}\left(\mathbf{x} ; \theta_{E}\right)\right)=\mathbb{E}_{\mathbb{J}}\left[f_{G}\left(\mathbf{x}, f_{E}\left(\mathbf{x} ; \theta_{E}\right) ; \theta_{G}\right)\right]-\log \mathbb{E}_{\mathbb{M}}\left[e^{f_{G}\left(\mathbf{x}, f_{E}\left(\mathbf{x} ; \theta_{E}\right) ; \theta_{G}\right)}\right]
 > $$
 >
-> > $\mathbb{J}$表示联合分布，$\mathbb{M}$表示the product of the marginals的图像和嵌入
+> > $\mathbb{J}$表示联合分布，$\mathbb{M}$表示the product of the marginals的图像嵌入
 > >
 > > `注：正样本定义为来自joint distribution，负样本定义为来自the product of marginals`
 >
@@ -69,7 +69,7 @@ tags:
 >
 > 
 >
-> **2)** 训练SIN $f_s(f_E(x;\theta_E);\theta_S)$ ，具有类似对比的损耗，使用$\mathcal{D}_N$和$\mathcal{D}_A$达到目标
+> **2)** 训练SIN $f_s(f_E(x;\theta_E);\theta_S)$ ，具有类似对比的损失，使用$\mathcal{D}_N$和$\mathcal{D}_A$达到目标
 > $$
 > f_S(f_E(x\in \mathcal{D}_A;\theta_E);\theta_S)>f_S(f_E(x\in \mathcal{D}_N;\theta_E);\theta_S)
 > $$
@@ -97,7 +97,7 @@ tags:
 
 ### 4. Conclusion
 
-> 提出了FSAD-NET少样本异常检测框架，通过全局和局部的方式最大化正常训练图像和嵌入之间的互信息，并最小化嵌入的差异和先验分布，得到编码器。利用训练好的编码器产生的嵌入，使用类似对比的损失来训练Score Inference Network。
+> 提出了FSAD-NET少样本异常检测框架，通过最大化正常训练图像和嵌入之间全局和局部的互信息，并最小化嵌入和先验分布的差异，训练得到编码器。利用训练好的编码器产生的嵌入，使用类似对比学习的损失来训练Score Inference Network ($f_S$)用于计算异常分数。
 
 
 
