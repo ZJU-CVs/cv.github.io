@@ -27,7 +27,11 @@ tags:
 
   ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/33.png)
 
+
+
 #### Self-supervised learning stage
+
+`Step 1`
 
 > - 用**Augmented Multiscale Deep InfoMax(AMDIM)**作为自监督模型，其核心思想是从同一幅图像的两个视图$(x_a,x_b)$中最大化全局特征和局部特征之间互信息，可以通过最小化基于负样本的Noise Contrastive Estimation(NCE) loss来最大化互信息的下界
 >
@@ -47,19 +51,24 @@ tags:
 
 #### Meta-learning stage
 
-> 在基于上述自监督学习得到嵌入网络的情况下，将元学习应用于网络fine-tune，以满足少样本分类的类变化
->
+`Step 2`
+
+在基于上述自监督学习得到嵌入网络的情况下，将元学习应用于网络fine-tune，以满足少样本分类的类变化
+
 > - 典型的元学习可以看作是一个具有多个任务的K-way C-shot episodic 分类问题，对于每个分类任务$T$，有$K$个类，每个类有$C$个样本。对于$K$类，用训练样本嵌入的质心表示:
->   $$
->   c_{k}=\frac{1}{|S|} \sum_{\left(x_{i}, y_{i}\right) \in S} f_{g}\left(x_{i}\right)
->   $$
->   
->- 本文使用一种基于度量学习的方法，使用距离函数d，并从查询集$Q$中给定一个查询样本$q$，在所有类进行距离计算，并经过softmax得到：
+>
+> $$
+> c_{k}=\frac{1}{|S|} \sum_{\left(x_{i}, y_{i}\right) \in S} f_{g}\left(x_{i}\right)
+> $$
+> 
+> 
+>
+> - 本文使用一种基于度量学习的方法，使用距离函数d，并从查询集$Q$中给定一个查询样本$q$，在所有类进行距离计算，并经过softmax得到：
 >   $$
 >   p(y=k \mid q)=\frac{\exp \left(-d\left(f_{g}(q), c_{k}\right)\right)}{\sum_{k^{\prime}} \exp \left(-d\left(f_{g}(q), c_{k^{\prime}}\right)\right)}
 >   $$
-> 
->- 因此元学习阶段的损失为：
+>
+> - 因此元学习阶段的损失为：
 >   $$
 >   \mathcal{L}_{meta} = -log(p(y=k \mid q))=d(f_g(q),c_k)+log \sum_{k^{\prime}} d(f_g(q),c_k')
 >   $$
