@@ -124,30 +124,27 @@ tags:
 
 ##### CCI Module
 
-> 学习图像之间的通道关系，动态地从图像对中识别出**判别区域(discriminate region)**，以捕获细粒度分类中的细微差异
+学习图像之间的通道关系，动态地从图像对中识别出**判别区域(discriminate region)**，以捕获细粒度分类中的细微差异
 
-> $$
-> W_{AB}
-> $$
-> 
->
 > - 利用图像$I_A$和$I_B$的SCI权重矩阵和生成特征($W_A, W_B, Y_A, Y_B$)可以得到CCI权重矩阵$W_{AB}$和$W_{BA}$        
->   $$
->   \eta=\psi(\left[Y_{A}, Y_{B}\right]),\gamma = \psi\left(\left[Y_{B}, Y_{A}\right]\right)
->   $$
->   
+> 
+> $$
+> W_{AB}=\mid W_{A}-\eta W_{B}\mid \\
+>W_{B A}=\mid W_{B}-\gamma W_{A}\mid
+> $$
 >
->   > 其中$\eta=\psi(\left[Y_{A}, Y_{B}\right]),\gamma = \psi\left(\left[Y_{B}, Y_{A}\right]\right)$，$\psi$为全连接层，$\Vert$表示绝对值
->   >
->   > 使用减法能够抑制两张图片的共性，并突出显示独特的通道关系
->
-> - 将CCI的权重矩阵$W_{AB}$和$W_{BA}$应用于特征$X_A$和$X_B$       
->
+> 
+> > 其中$\eta=\psi(\left[Y_{A}, Y_{B}\right]),\gamma = \psi\left(\left[Y_{B}, Y_{A}\right]\right)$，$\psi$为全连接层，$\Vert$表示绝对值
+> >
+> > 使用减法能够抑制两张图片的共性，并突出显示独特的通道关系
+> 
+>- 将CCI的权重矩阵$W_{AB}$和$W_{BA}$应用于特征$X_A$和$X_B$       
+> 
 > $$
 > Z_{A}^{\prime}=\phi\left(Y_{A}^{\prime}\right)+X_{A}=\phi\left(W_{A B} X_{A}\right)+X_{A}, Z_{B}^{\prime}=\phi\left(Y_{B}^{\prime}\right)+X_{B}=\phi\left(W_{B A} X_{B}\right)+X_{B}
-> $$
+>$$
 > - Loss Function
->   
+>  
 >   - 使用contrastive loss作为损失函数，假设每个batch有N个image pairs (2N images)，可得：       
 >     $$
 >     L_{cont}=\frac{1}{N} \sum_{A, B} \ell\left(Z_{A}^{\prime}, Z_{B}^{\prime}\right)
@@ -164,15 +161,15 @@ tags:
 >     > $y_{AB}=1$表示图像$I_A$和$I_B$来自同一类别，$y_{AB}=0$表示negative pair，$h$表示将特征映射到$r$空间的全连接层。
 >     >
 >     > 对于正样本对，这个loss随着样本对生成表征之间的距离减小而减少，从而拉近正样本对；对于负样本对，loss只有在样本对生成表征的距离都大于$\beta$时为0。(设置阈值$\beta$的目的是**当某个负样本对中的表征足够好，体现在其距离足够远的时候，就没有必要在该负样本对中浪费时间去增大这个距离了，因此进一步的训练将会关注在其他更加难分别的样本对中**)
->
+> 
 > - 最终的损失函数：     
 >   $$
 >   L_{total}=L_{soft}+\alpha \cdot L_{cont}
 >   $$
->   
->
+>  
+> 
 >   > 其中$L_{soft}$表示基于SCI生成的特征$Z$，使用softmax loss进行分类预测的损失
->
+> 
 
 
 
