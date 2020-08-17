@@ -1,45 +1,80 @@
 ---
 layout:     post
-title:      Awesome Fine-grained Image Recognition
-subtitle:   
+title:      Awesome Fine-grained Image Analysis (FGIA)
+subtitle:   细粒度图像分析总结
 date:       2020-08-04
 author:     JY
 header-img: img/post-bg.jpg
 catalog: true
 tags:
-    - Record
+    - Overview
     - Fine-grained
+    - Update
 ---
 
-1. [**Introduction**](# Introduction)
-2. [**Tutorials**](#Tutorials)
-3. [**Survey papers**](#Survey papers)
-4. [**Benchmark datasets**](#Benchmark datasets)
-5. [**Fine-grained image recognition**](#Fine-grained image recognition)
-   1. Fine-grained recognition by localization-classification subnetworks
-   2. Fine-grained recognition by end-to-end feature encoding
-   3. Fine-grained recognition with external information
-      1. Fine-grained recognition with web data / auxiliary data
-      2. Fine-grained recognition with multi-modality data
-      3. Fine-grained recognition with humans in the loop
-6. [**Fine-grained image retrieval**](#Fine-grained image retrieval)
-   1. Unsupervised with pre-trained models
-   2. Supervised with metric learning
-7. [**Fine-grained image generation**](#Fine-grained image generation)
-   1. Generating from fine-grained image distributions
-   2. Generating from text descriptions
-8. [**Future directions of FGIA**](#Future directions of FGIA)
-   1. Automatic fine-grained models
-   2. Fine-grained few shot learning
-   3. Fine-grained hashing
-   4. FGIA within more realistic settings
-9. [**Leaderboard**](#Leaderboard)
+[**Introduction**](# Introduction)
+[**Tutorials**](#Tutorials)
+[**Survey papers**](#Survey papers)
+[**Benchmark datasets**](#Benchmark datasets)
+[**Fine-grained image recognition**](#Fine-grained image recognition)
+
+   - [Fine-grained recognition by localization-classification subnetworks](#Fine-grained recognition by localization-classification subnetworks)
+
+   - [Fine-grained recognition by end-to-end feature encoding](#Fine-grained recognition by end-to-end feature encoding)
+
+   - [Fine-grained by leveraging attention mechanisms](#Fine-grained by leveraging attention mechanisms)
+
+   - [Fine-grained by contrastive learning manners](#Fine-grained by contrastive learning manners)
+
+   - [Fine-grained recognition with external information](#Fine-grained recognition with external information)
+     
+        - Fine-grained recognition with web data / auxiliary data
+        	- Fine-grained recognition with multi-modality data
+        
+         - Fine-grained recognition with humans in the loop
+        
+ - [Fine-grained image recognition with limited data](#Fine-grained image recognition with limited data)
+
+
+
+[**Fine-grained image retrieval**](#Fine-grained image retrieval)
+
+- [Unsupervised with pre-trained models](#Unsupervised with pre-trained models)
+- [Supervised with metric learning](#Supervised with metric learning)
+
+
+
+[**Fine-grained image generation**](#Fine-grained image generation)
+
+- [Generating from fine-grained image distributions](#Generating from fine-grained image distributions)
+- [Generating from text descriptions](#Generating from text descriptions)
+
+
+
+[**Future directions of FGIA**](#Future directions of FGIA)
+
+- [Automatic fine-grained models](#Automatic fine-grained models)
+- [Fine-grained few shot learning](#Fine-grained few shot learning)
+- [Fine-grained hashing](#Fine-grained hashing)
+- [FGIA within more realistic settings](#FGIA within more realistic settings)
+
+
+
+[**Leaderboard**](#Leaderboard)
 
 
 
 ## Introduction
 
-This homepage lists some representative papers/codes/datasets all about deep learning based **fine-grained image analysis**, including fine-grained image recognition, fine-grained image retrieval, fine-grained image generation, etc. If you have any questions, please feel free to contact Prof. [Xiu-Shen Wei](http://www.weixiushen.com/).
+- 细粒度图像，相对于通用图像(general/generic images)的区别和难点在于其图像所属类别的粒度更为精细，是计算机视觉领域比较热门的一个方向，包括了分类、检索以及图像生成等
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/FGIA/1.png" alt="img" style="zoom: 25%;" />
+
+- 细粒度图像识别的难点和挑战主要在于：
+  - **类间差异小** (small inter-class variance)：都属于同一个物种下的小类
+  - **类内差异大** (large intra-class variance)：受姿态、尺度和旋转等因素影响
+
+
 
 ## Tutorials
 
@@ -48,6 +83,8 @@ This homepage lists some representative papers/codes/datasets all about deep lea
 
 - [Fine-Grained Image Analysis](http://www.icme2019.org/conf_tutorials).
   Xiu-Shen Wei. *IEEE International Conference on Multimedia and Expo (ICME)*, 2019.
+
+
 
 ## Survey papers
 
@@ -59,7 +96,7 @@ This homepage lists some representative papers/codes/datasets all about deep lea
 
 ## Benchmark datasets
 
-Summary of popular fine-grained image datasets. Note that ‘‘***BBox***’’ indicates whether this dataset provides object bounding box supervisions. ‘‘***Part anno.***’’ means providing the key part localizations. ‘‘***HRCHY***’’ corresponds to hierarchical labels. ‘‘***ATR***’’ represents the attribute labels (e.g., wing color, male, female, etc). ‘‘***Texts***’’ indicates whether fine-grained text descriptions of images are supplied.
+展示了 11 个数据集，如下图所示，其中 **BBox** 表示数据集提供物体的边界框信息，**Part anno** 则是数据集共了关键部位的位置信息，**HRCHY** 表示有分层次的标签，**ATR** 表示属性标签（比如翅膀颜色等），**Texts** 表示提供了图片的文本描述信息。
 
 | Dataset name                                                 | Year | Meta-class       | images  | categories | BBox                                                         | Part annotation                                              | HRCHY                                                        | ATR                                                          | Texts                                                        |
 | ------------------------------------------------------------ | ---- | ---------------- | ------- | ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -76,9 +113,51 @@ Summary of popular fine-grained image datasets. Note that ‘‘***BBox***’’
 | [*iNat2017*](http://openaccess.thecvf.com/content_cvpr_2018/papers/Van_Horn_The_INaturalist_Species_CVPR_2018_paper.pdf) | 2017 | Plants & Animals | 859,000 | 5,089      | ![surd](http://www.weixiushen.com/project/Awesome_FGIA/eqs/779537073705367497-130.png) |                                                              | ![surd](http://www.weixiushen.com/project/Awesome_FGIA/eqs/779537073705367497-130.png) |                                                              |                                                              |
 | [*RPC*](https://rpc-dataset.github.io/)                      | 2019 | Retail products  | 83,739  | 200        | ![surd](http://www.weixiushen.com/project/Awesome_FGIA/eqs/779537073705367497-130.png) |                                                              | ![surd](http://www.weixiushen.com/project/Awesome_FGIA/eqs/779537073705367497-130.png) |                                                              |                                                              |
 
+
+
 ## Fine-grained image recognition
 
 ### Fine-grained recognition by localization-classification subnetworks
+
+`基于定位-分类网络`
+
+#### Classical State-of-the-arts
+
+- [Mask-CNN: Localizing Parts and Selecting Descriptors for Fine-Grained Im age Recognition](https://arxiv.org/pdf/1605.06878.pdf)
+
+  > 主要包括两个模块：第一个是Part Localization，第二个全局和局部图像块的特征学习
+  >
+  > - 在Mask-CNN中，借助FCN学习一个三分类分割模型（一类为头部、一类为躯干、最后一类则是背景），GT mask是通过Part Annotation得到的头部和躯干部位的最小外接矩形。
+  >
+  >   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/FGIA/3.png" alt="img" style="zoom: 50%;" />
+  >
+  > - FCN训练完毕后，可以对测试集中的细粒度图像进行较精确地part定位，得到part mask，合起来为object-mask，用于part localization和useful feature selection
+  >
+  >   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/FGIA/4.png" alt="img" style="zoom: 40%;" />
+  >
+  > - 将不同部位输入到CNN子网络后输出feature map，利用前面得到的part-mask和object-mask作为权重，与对应像素点点乘。然后再分别进行max pooling和average pooling得到的特征级联作为子网络的最终feature vector。最后将三个子网特征再次级联作为整张图像的特征表示
+  >
+  >   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/FGIA/2.png" alt="img" style="zoom: 30%;" />
+  >
+  > 
+
+- [Selective Sparse Sampling for Fine-Grained Image Recognition](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9008286)
+
+  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/FGIA/5.png" alt="img" style="zoom: 50%;" />
+  >
+  > 提出了一种捕捉细粒度级别特征同时不会丢失上下文信息的简单有效的框架，
+  >
+  > - 采用class peak responses，从class response map中定位局部最大值，从而形成sparse attention。sparse attention通常对应于精细的图像部分
+  >
+  > - 定义了两个平行的采样分支去重采样图片：
+  >   - **判别性**(discriminative)分支：抽取判别性的特征
+  >   - **互补性**(complementary)分支：抽取互补性的特征
+  > - 将三个输出拼接后通过FC层实现最终的分类
+
+  
+
+
+#### Related Works 
 
 - [Part-based R-CNNs for Fine-Grained Category Detection](https://arxiv.org/pdf/1407.3867.pdf).
   Ning Zhang, Jeff Donahue, Ross Girshick, and Trevor Darrell. *ECCV*, 2014. `[code]`
@@ -146,7 +225,19 @@ Summary of popular fine-grained image datasets. Note that ‘‘***BBox***’’
 - [Filtration and Distillation: Enhancing Region Attention for Fine-Grained Visual Categorization](https://www.aiide.org/ojs/index.php/AAAI/article/view/6822).
   Chuanbin Liu, Hongtao Xie, Zheng-Jun Zha, Lingfeng Ma, Lingyun Yu, and Yongdong Zhang. *AAAI*, 2020.
 
+
+
 ### Fine-grained recognition by end-to-end feature encoding
+
+`端对端特征编码`
+
+#### Classical State-of-the-arts
+
+- [Bilinear CNN Models for Fine-Grained Visual Recognition](https://arxiv.org/pdf/1504.07889v6.pdf)
+
+  > 
+
+#### Related Works 
 
 - [Fine-Grained Visual Categorization via Multi-stage Metric Learning](http://qi-qian.com/papers/cvpr15.pdf).
   Qi Qian, Rong Jin, Shenghuo Zhu, and Yuanqing Lin. *CVPR*, 2015.
@@ -232,9 +323,45 @@ Summary of popular fine-grained image datasets. Note that ‘‘***BBox***’’
 - [Fine-grained Recognition: Accounting for Subtle Differences between Similar Classes](https://arxiv.org/pdf/1912.06842v1.pdf).
   Guolei Sun, Hisham Cholakkal, Salman Khan, Fahad Shahbaz Khan, and Ling Shao. *AAAI*, 2020.
 
+
+
+### Fine-grained by leveraging attention mechanisms
+
+`利用注意力机制`
+
+#### Classical State-of-the-arts
+
+- [Look Closer to See Better: Recurrent Attention Convolutional Neural Network for Fine-Grained Image Recognition](https://openaccess.thecvf.com/content_cvpr_2017/papers/Fu_Look_Closer_to_CVPR_2017_paper.pdf)
+
+  > 
+
+
+
+### Fine-grained by contrastive learning manners
+
+`利用对比学习`
+
+#### Classical State-of-the-arts
+
+- [Learning Attentive Pairwise Interation for Fine-Grained Classification](https://arxiv.org/pdf/2002.10191.pdf)
+
+  > 
+
+- [Channel Interaction Networks for Fine-Grained Image Categorization](https://arxiv.org/pdf/2003.05235.pdf)
+
+  > 
+
+
+
+
+
 ### Fine-grained recognition with external information
 
+`采用额外信息，减少标注成本`
+
 **Fine-grained recognition with web data / auxiliary data**
+
+`web data / auxiliary data需要利用模型进行数据降噪`
 
 - [Augmenting Strong Supervision Using Web Data for Fine-Grained Categorization](https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Xu_Augmenting_Strong_Supervision_ICCV_2015_paper.pdf).
   Zhe Xu, Shaoli Huang, Ya Zhang, and Dacheng Tao. *ICCV*, 2015.
@@ -254,6 +381,8 @@ Summary of popular fine-grained image datasets. Note that ‘‘***BBox***’’
 - [Web-Supervised Network with Softly Update-Drop Training for Fine-Grained Visual Classification](https://www.aiide.org/ojs/index.php/AAAI/article/view/6973).
   Chuanyi Zhang, Yazhou Yao, Huafeng Liu, Guo-Sen Xie, Xiangbo Shu, Tianfei Zhou, Zheng Zhang, Fumin Shen, and Zhenmin Tang. *AAAI*, 2020.
 
+
+
 **Fine-grained recognition with multi-modality data**
 
 - [Fine-Grained Image Classification via Combining Vision and Language](http://openaccess.thecvf.com/content_cvpr_2017/papers/He_Fine-Grained_Image_Classification_CVPR_2017_paper.pdf).
@@ -271,6 +400,8 @@ Summary of popular fine-grained image datasets. Note that ‘‘***BBox***’’
 - [Bi-Modal Progressive Mask Attention for Fine-Grained Recognition](https://ieeexplore.ieee.org/document/9103943).
   Kaitao Song, Xiu-Shen Wei, Xiangbo Shu, Ren-Jie Song, Jianfeng Lu. *IEEE TIP*, 2020.
 
+
+
 **Fine-grained recognition with humans in the loop**
 
 - [Fine-grained Categorization and Dataset Bootstrapping using Deep Metric Learning with Humans in the Loop](https://vision.cornell.edu/se3/wp-content/uploads/2016/04/1950.pdf).
@@ -278,6 +409,28 @@ Summary of popular fine-grained image datasets. Note that ‘‘***BBox***’’
 
 - [Leveraging the Wisdom of the Crowd for Fine-Grained Recognition](https://ieeexplore.ieee.org/document/7115172).
   Jia Deng, Jonathan Krause, Michael Stark, and Li Fei-Fei. *IEEE TPAMI*, 2016.
+
+
+
+### Fine-grained image recognition with limited data
+
+`少样本学习在细粒度识别的应用`
+
+#### Classical State-of-the-arts
+
+- [Piecewise Classifier Mappings: Learning Fine-Grained Learners for Novel Categories with Few Examples](https://arxiv.org/pdf/1805.04288.pdf)
+
+  > 
+
+- [Multi-Attention Meta Learning for Few-Shot Fine-Grained Image Recognition](http://vipl.ict.ac.cn/homepage/jsq/publication/2020-Zhu-IJCAI-PRICAI.pdf)
+
+  > 
+
+- [Revisiting Pose-Normalization for Fine-Grained Few-Shot Recognition](https://arxiv.org/pdf/2004.00705.pdf)
+
+  > 
+
+
 
 ## Fine-grained image retrieval
 
@@ -294,6 +447,8 @@ Summary of popular fine-grained image datasets. Note that ‘‘***BBox***’’
 - [Towards Optimal Fine Grained Retrieval via Decorrelated Centralized Loss with Normalize-Scale layer](http://mac.xmu.edu.cn/rrji/papers/AAAI2019_zxw.pdf).
   Xiawu Zheng, Rongrong Ji, Xiaoshuai Sun, Baochang Zhang, Yongjian Wu, and Feiyue Huang. *AAAI*, 2019.
 
+
+
 ## Fine-grained image generation
 
 ### Generating from fine-grained image distributions
@@ -308,6 +463,8 @@ Summary of popular fine-grained image datasets. Note that ‘‘***BBox***’’
 
 - [AttnGAN: Fine-Grained Text to Image Generation with Attentional Generative Adversarial Networks](http://openaccess.thecvf.com/content_cvpr_2018/papers/Xu_AttnGAN_Fine-Grained_Text_CVPR_2018_paper.pdf).
   Tao Xu, Pengchuan Zhang, Qiuyuan Huang, Han Zhang, Zhe Gan, Xiaolei Huang, and Xiaodong He. *CVPR*, 2018. `[code]`
+
+
 
 ## Future directions of FGIA
 
@@ -354,7 +511,7 @@ Summary of popular fine-grained image datasets. Note that ‘‘***BBox***’’
 
 ## Recognition leaderboard
 
-The section is being continually updated. Since *CUB200-2011* is the most popularly used fine-grained dataset, we list the fine-grained recognition leaderboard by treating it as the test bed.
+在数据集 **CUB200-2011** 数据集上的测试准确率，列举出目前最好的方法和其是否采用标准信息、额外的数据、采用的网络结构、输入图片的大小设置以及分类准确率
 
 | Method                                                       | Publication   | BBox?                                                        | Part?                                                        | External information? | Base model   | Image resolution       | Accuracy |
 | ------------------------------------------------------------ | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | --------------------- | ------------ | ---------------------- | -------- |
