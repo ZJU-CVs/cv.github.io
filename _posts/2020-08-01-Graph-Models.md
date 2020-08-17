@@ -156,8 +156,10 @@ $$
 通过encoder-decoder的结构获取合适的embedding来表示图节点，并支持链接预测等下游任务
 
 > - Encode阶段：VGAE利用隐变量，让模型学习一些分布，再从这些分布中采样得到 latent representations (embedding)，使用GCN结构，输出$Z\in \mathbb{R}^{N\times f}$表示所有节点的latent representations
+>
+>   
 > $$
-> \operatorname{GCN}(\mathbf{X}, \mathbf{A})=\tilde{\mathbf{A}} \operatorname{Re} \operatorname{LU}\left(\tilde{\mathbf{A}} \mathbf{X} \mathbf{W}_{\mathbf{0}}\right) \mathbf{W}_{\mathbf{1}}
+> {GCN}(\mathbf{X}, {A})=\tilde{{A}} {Re} {LU}\left(\tilde{{A}} {X} {W}_{{0}}\right) {W}_{{1}}
 > $$
 > 
 >
