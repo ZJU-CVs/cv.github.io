@@ -41,7 +41,7 @@ tags:
   >   >
   >   > **Details:**   
   >   >
-  >   > - $$f: \mathcal{L}\times \mathcal{I} \rightarrow \mathbb{R}^{K\times D}$$，特征函数获取图像$I\in \mathcal{I}$和位置$l\in \mathcal{L}$，并输出大小为$K\times D$的特征
+  >   > - $f: \mathcal{L}\times \mathcal{I} \rightarrow \mathbb{R}^{K\times D}$，特征函数获取图像$I\in \mathcal{I}$和位置$l\in \mathcal{L}$，并输出大小为$K\times D$的特征
   >   >
   >   > - $$
   >   >   \text { bilinear }\left(l, I, f_{A}, f_{B}\right)=f_{A}(l, I)^{T} f_{B}(l, I) \in \mathbb{R}^{M\times N}\\
