@@ -97,9 +97,11 @@ tags:
 > > - $f_q(\cdot)$，$f_k(\cdot)$和$f_v(\cdot)$分别表示query，key和value的转换函数
 > > - $X_i$和$X_j$分别是$X$中的第$i$和第$j$个特征位置
 >
+> 
+>
 > 用提出non-local的[论文](https://arxiv.org/pdf/1711.07971v3.pdf)表示如下：
 > $$
-> \mathbf{y}_{i}=\frac{1}{\mathcal{C}(\mathbf{x})} \sum_{\forall j} f\left(\mathbf{x}_{i}, \mathbf{x}_{j}\right) g\left(\mathbf{x}_{j}\right)
+> y_{i}=\frac{1}{\mathcal{C}(x)} \sum_{\forall j} f\left(x_{i}, x_{j}\right) g\left(x_{j}\right)
 > $$
 >
 > > - $f(x_i,x_j)$用来计算$i$与所有可能关联的位置$j$之间pairwise关系
@@ -115,13 +117,13 @@ tags:
 > ST是一种修改后的non-local交互，输出的特征图与其输入特征图的尺度相同。
 >
 > - 使用Mixture of Softmaxes(MoS)作为归一化函数，事实证明它比标准的Softmax在图像上更有效。具体来说，首先将query和key划分为N个部分，然后使用$F_{sim}$计算每对图像的相似度分数。MoS的本质是使用多个不同的softmax来增加模型的表达能力
->
 > - 基于MoS的归一化函数$F_{mos}$表达式如下：
->   $$
->   F_{\operatorname{mos}}\left(s_{i, j}^{n}\right)=\sum_{n=1}^{\mathcal{N}} \pi_{n} \frac{\exp \left(s_{i, j}^{n}\right)}{\sum_{j} \exp \left(s_{i, j}^{n}\right)}
->   $$
 >
->   > - $\pi_n=Softmax(w_n^T\overline{\mathbf{k}})$，其中$w_n$是可学习的用于归一化的线性向量，$\overline{\mathbf{k}}$是$k_j$的所有位置的算术平均值
+> $$
+> F_{\operatorname{mos}}\left(s_{i, j}^{n}\right)=\sum_{n=1}^{\mathcal{N}} \pi_{n} \frac{\exp \left(s_{i, j}^{n}\right)}{\sum_{j} \exp \left(s_{i, j}^{n}\right)}
+> $$
+>
+> > $\pi_n=Softmax(w_n^T\overline{\mathbf{k}})$，其中$w_n$是可学习的用于归一化的线性向量，$\overline{\mathbf{k}}$是$k_j$的所有位置的算术平均值
 >
 > - Self-Transformer可以表达为：
 >
@@ -201,8 +203,7 @@ tags:
 
   > 最新的跨尺度特征金字塔交互包括FPN、Bottom-up Path Aggregation(BPA)、Bi-direction Feature Interaction(BFI)
   >
-  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/15.png" alt="img" style="zoom:50%;" />
-
+  
 - 进行消融实验，评估三个单独的tranformer(ST, GT,RT)和组合后的精度和模型效率(eﬃciency)，其中BFP (Bottom-up Feature Pyramid) 为baseline
 
 	> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/8.png" alt="img" style="zoom:80%;" />
