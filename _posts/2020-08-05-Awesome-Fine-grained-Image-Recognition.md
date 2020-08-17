@@ -333,7 +333,7 @@ tags:
 
 - [Look Closer to See Better: Recurrent Attention Convolutional Neural Network for Fine-Grained Image Recognition](https://openaccess.thecvf.com/content_cvpr_2017/papers/Fu_Look_Closer_to_CVPR_2017_paper.pdf)
 
-  > 
+  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/FGIA/7.png" alt="img" style="zoom: 50%;" />
 
 
 
@@ -345,11 +345,13 @@ tags:
 
 - [Learning Attentive Pairwise Interation for Fine-Grained Classification](https://arxiv.org/pdf/2002.10191.pdf)
 
-  > 
+  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/FGIA/8.png" alt="img" style="zoom: 50%;" />
+
+  
 
 - [Channel Interaction Networks for Fine-Grained Image Categorization](https://arxiv.org/pdf/2003.05235.pdf)
 
-  > 
+  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/FGIA/9.png" alt="img" style="zoom: 50%;" />
 
 
 
