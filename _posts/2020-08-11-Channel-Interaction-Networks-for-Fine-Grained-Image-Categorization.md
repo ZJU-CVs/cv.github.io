@@ -126,10 +126,10 @@ tags:
 >
 > - 利用图像$I_A$和$I_B$的SCI权重矩阵和生成特征($W_A, W_B, Y_A, Y_B$)可以得到CCI权重矩阵$W_{AB}$和$W_{BA}$        
 >   $$
->   W_{AB}=\mid W_A-\eta W_{B}\mid, W_{BA}=\mid W_{B}-\gamma W_{A}\mid
+>   W_{A B}=\left|W_{A}-\eta W_{B}\right|, W_{B A}=\left|W_{B}-\gamma W_{A}\right|
 >   $$
 >
->   > 其中$\eta=\psi(\left[Y_{A}, Y_{B}\right]),\psi\left(\left[Y_{B}, Y_{A}\right]\right)$，$\psi$为全连接层，$\vert \vert$表示绝对值
+>   > 其中$\eta=\psi(\left[Y_{A}, Y_{B}\right]),\gamma = \psi\left(\left[Y_{B}, Y_{A}\right]\right)$，$\psi$为全连接层，$\vert \vert$表示绝对值
 >   >
 >   > 使用减法能够抑制两张图片的共性，并突出显示独特的通道关系
 >
@@ -137,7 +137,7 @@ tags:
 >   
 > - 将CCI的权重矩阵$W_{AB}$和$W_{BA}$应用于特征$X_A$和$X_B$       
 >   $$
->   Z'_A=\phi(Y'_A)+X_A=\phi(W_{AB}X_A)+X_A, Z'_B=\phi(Y'_B)+X_B=\phi(W_{BA}X_B)+X_B
+>   Z_{A}^{\prime}=\phi\left(Y_{A}^{\prime}\right)+X_{A}=\phi\left(W_{A B} X_{A}\right)+X_{A}, Z_{B}^{\prime}=\phi\left(Y_{B}^{\prime}\right)+X_{B}=\phi\left(W_{B A} X_{B}\right)+X_{B}
 >   $$
 >
 >   
