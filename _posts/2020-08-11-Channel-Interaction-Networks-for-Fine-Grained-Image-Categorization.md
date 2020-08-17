@@ -41,9 +41,13 @@ tags:
   >   >
   >   > **Details:**   
   >   >
-  >   > - $f: \mathcal{L}\times \mathcal{I} \rightarrow \mathbb{R}^{K\times D}$，特征函数获取图像$I\in \mathcal{I}$和位置$l\in \mathcal{L}$，并输出大小为$K\times D$的特征
-  >   >
   >   > - $$
+  >   >   f: \mathcal{L}\times \mathcal{I} \rightarrow \mathbb{R}^{K\times D}
+  >   >   $$
+  >   >
+  >   >   > 特征函数获取图像$I\in \mathcal{I}$和位置$l\in \mathcal{L}$，并输出大小为$K\times D$的特征
+  >   >
+  >   > -   $$
   >   >   \text { bilinear }\left(l, I, f_{A}, f_{B}\right)=f_{A}(l, I)^{T} f_{B}(l, I) \in \mathbb{R}^{M\times N}\\
   >   >   \Phi(I)=\sum_{l \in \mathcal{L}} \text { bilinear }\left(l, I, f_{A}, f_{B}\right)=\sum_{l \in \mathcal{L}} f_{A}(l, I)^{T} f_{B}(l, I) \in \mathbb{R}^{M\times N}
   >   >   $$
@@ -53,10 +57,10 @@ tags:
   >   >   > 通过矩阵外积得到每个位置$l$的特征输出
   >   >   >
   >   >   > 通过sum pooling对所有位置进行求和，在池化处理的过程中忽略了特征的位置，因此得到的bilinear特征是无序表示
-  >   >
+  >   >   
   >   > - $$
   >   >   y = sign(x)\sqrt{\vert{x}\vert}\\
-  >   >   z=y/\|y\|_{2}
+  >   >   z=y/\Vert y \Vert_{2}
   >   >   $$
   >   >   > 对$x=\Phi(I)$进行归一化操作，输入分类函数中进行分类
   > - 基于目标块的检测(part detection)和对齐(alignment)的方法
