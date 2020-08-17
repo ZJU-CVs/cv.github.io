@@ -107,8 +107,10 @@ tags:
 >
 >   $Z=\phi(Y)+X$，其中$\phi$表示$3\times 3$卷积层
 
-> SCI 模块可以形式化为Non-local： $Y=f(X,X)g(X)$，其中$f(X,X)=softmax(-XX^{\top})\in\mathbb{R}^{c\times c}$，$g(X)=X\in \mathbb{R}^{c\times l}$
-> 
+> SCI 模块可以形式化为Non-local： $Y=f(X,X)g(X)$
+>
+> - 其中$f(X,X)=softmax(-XX^{\top})\in\mathbb{R}^{c\times c}$，$g(X)=X\in \mathbb{R}^{c\times l}$
+>
 > - 与考虑空间维度相互作用的non-local模块不同，SCI更关注通道维度；此外，non-local更倾向于利用空间位置之间的正相关性，而SCI模块更关注负相关性，使模型能够发现语义上互补的通道信息
 
 
@@ -126,7 +128,7 @@ tags:
 >   >
 >   > 使用减法能够抑制两张图片的共性，并突出显示独特的通道关系
 >
-> - 将CCI的权重矩阵$W_{AB}$和$W_{BA}$应用于特征$X_A$和$X_B$
+> - 将CCI的权重矩阵$W_{AB}$和$W_{BA}$应用于特征$X_A$和$X_B$     
 >   $$
 >   Z'_A=\phi(Y'_A)+X_A=\phi(W_{AB}X_A)+X_A, Z'_B=\phi(Y'_B)+X_B=\phi(W_{BA}X_B)+X_B
 >   $$
