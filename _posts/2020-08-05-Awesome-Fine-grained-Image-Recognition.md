@@ -29,8 +29,7 @@ tags:
    - [Fine-grained recognition with external information](#Fine-grained recognition with external information)
      
         - Fine-grained recognition with web data / auxiliary data
-        	- Fine-grained recognition with multi-modality data
-        
+        - Fine-grained recognition with multi-modality data
          - Fine-grained recognition with humans in the loop
         
  - [Fine-grained image recognition with limited data](#Fine-grained image recognition with limited data)
