@@ -102,13 +102,17 @@ tags:
 
 
 
-> 用提出non-local的[论文](https://arxiv.org/pdf/1711.07971v3.pdf)表示为：$$y_{i}=\frac{1}{ C (x)} \sum_{\forall j} f\left(x_{i}, x_{j}\right) g\left(x_{j}\right)$$
+用提出non-local的[论文](https://arxiv.org/pdf/1711.07971v3.pdf)表示为：
+
+> $$
+> y_{i}=\frac{1}{\mathcal{C}(x)}\sum_{\forall j}f(x_{i},x_{j})g(x_{j})
+> $$
 >
-> > $f(x_i,x_j)$用来计算$i$与所有可能关联的位置$j$之间pairwise关系
-> >
-> > $g(x_j)$用于计算输入信号在位置$j$的特征值
-> >
-> > $\mathcal{C}(x)$为归一化参数
+> $f(x_i,x_j)$用来计算$i$与所有可能关联的位置$j$之间pairwise关系
+>
+> $g(x_j)$用于计算输入信号在位置$j$的特征值
+>
+> $\mathcal{C}(x)$为归一化参数
 
 
 
