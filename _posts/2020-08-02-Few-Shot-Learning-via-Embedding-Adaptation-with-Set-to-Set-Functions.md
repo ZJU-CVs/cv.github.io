@@ -36,7 +36,7 @@ tags:
 >
 > - 在只有少量训练实例的情况下，构造复杂的 $f(\cdot)$具有挑战性，因此常常通过元学习的方式       
 >
-> - 使用训练集$\mathcal{D}_{train}=\{x_i,y_i\}$来学习$f(\cdot)$           
+> - 使用训练集$\mathcal{D}_{train}=\{x_i,y_i\} ^{NM}$来学习$f(\cdot)$           
 >   - 在可见类的数据集进行采样来生成许多*M-shot N-way FSL tasks*，目标是得到一个函数$f(\cdot)$，通过$\hat{y}_{test}=f(x_{test};\mathcal{D}_{train})\in\{0,1\}^N$ 对实例$x_{test}$进行分类
 
 $$
