@@ -109,9 +109,8 @@ tags:
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/FGIA/11.png" alt="img" style="zoom:50%;" />
 >
-> - 因为生成的特征$Y$会丢失原始特征的某些信息，因此将生成特征和原始特征聚合在一起得到判别特征(discriminate features)
+> - 因为生成的特征$Y$会丢失原始特征的某些信息，因此将生成特征和原始特征聚合在一起得到判别特征$Z=\phi(Y)+X$ (discriminate features)，其中$\phi$表示$3\times 3$卷积层
 >
->   $Z=\phi(Y)+X$，其中$\phi$表示$3\times 3$卷积层
 
 
 
