@@ -130,18 +130,18 @@ tags:
 >
 > - Loss Function
 >
->   - 使用contrastive loss作为损失函数，假设每个batch有N个image pairs (2N images)，可得：
+>   - 使用contrastive loss作为损失函数，假设每个batch有N个image pairs (2N images)，可得：       
 >
 >   $$
 >   L_{cont}=\frac{1}{N} \sum_{A, B} \ell\left(Z_{A}^{\prime}, Z_{B}^{\prime}\right)
 >   $$
 >
->   - 其中$\ell$的定义如下：
+>   - 其中$\ell$的定义如下：        
 >     $$
 >     \ell=\{\begin{array}{ll}
->       \|h(Z_{A}^{\prime})-h(Z_{B}^{\prime})\|^{2}, & \text { if } y_{A B}=1 \\
->       \max (0, \beta-\|h(Z_{A}^{\prime})-h(Z_{B}^{\prime})\|)^{2}, & \text { if } y_{A B}=0
->       \end{array}
+>     \Vert h(Z_{A}^{\prime})-h(Z_{B}^{\prime})\Vert^{2}, & \text { if } y_{A B}=1 \\
+>     \max (0, \beta-\Vert h(Z_{A}^{\prime})-h(Z_{B}^{\prime})\Vert)^{2}, & \text { if } y_{A B}=0
+>     \end{array}
 >     $$
 >     
 >   
@@ -149,7 +149,7 @@ tags:
 >     >
 >     > 对于正样本对，这个loss随着样本对生成表征之间的距离减小而减少，从而拉近正样本对；对于负样本对，loss只有在样本对生成表征的距离都大于$\beta$时为0。(设置阈值$\beta$的目的是**当某个负样本对中的表征足够好，体现在其距离足够远的时候，就没有必要在该负样本对中浪费时间去增大这个距离了，因此进一步的训练将会关注在其他更加难分别的样本对中**)
 >   
->   - 最终的损失函数
+>   - 最终的损失函数：     
 >     $$
 >     L_{total}=L_{soft}+\alpha \cdot L_{cont}
 >     $$
