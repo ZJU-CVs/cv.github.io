@@ -82,39 +82,48 @@ $$
 >   - 论文中通过masked attention将这个注意力机制引入图结构中，即**仅将注意力分配到节点$i$的邻节点集$N_i$上，$j\in N_i$**
 >
 >   - 为了使得注意力系数更容易计算和便于比较，引入softmax进行正则化
->     $$
->     a_{i j}=\operatorname{softmax}_{j}\left(e_{i j}\right)=\frac{\exp \left(e_{i j}\right)}{\sum_{k \in N_{i}} \exp \left(e_{i k}\right)}
->     $$
 >   
->- 论文的实验中，$a(\cdot)$采用单层的前馈神经网络+LeakyReLu，因此得到完整的注意力机制如下：
->     $$
->     a_{i j}=\frac{\exp \left(L eakyReLu(\vec{a}^T[W \vec{h_i}\|W\vec{h_j}])\right)}{\sum_{k \in N_{i}} \exp \left(LeakyReLu(\vec{a}^T[W \vec{h_i}\|W\vec{h_j}]\right)}
->     $$
->     <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/4.png" alt="img" style="zoom:50%;" />
+>   $$
+>   a_{i j}=\operatorname{softmax}_{j}\left(e_{i j}\right)=\frac{\exp \left(e_{i j}\right)}{\sum_{k \in N_{i}} \exp \left(e_{i k}\right)}
+>   $$
 >   
->- 输出特征计算
+>   
+>   
+> - 论文的实验中，$a(\cdot)$采用单层的前馈神经网络+LeakyReLu，因此得到完整的注意力机制如下：
+>
+> $$
+> a_{i j}=\frac{\exp \left(L eakyReLu(\vec{a}^T[W \vec{h_i}\|W\vec{h_j}])\right)}{\sum_{k \in N_{i}} \exp \left(LeakyReLu(\vec{a}^T[W \vec{h_i}\|W\vec{h_j}]\right)}
+> $$
+>
 > 
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/4.png" alt="img" style="zoom:50%;" />
+>
+> - 输出特征计算
 >  - 通过得到的不同节点之间的注意力系数，来预测每个节点的输出特征。下面这个公式表示**节点$i$的输出特征和它的相邻的所有节点特征有关，由它们的线性和非线性激活后得到**：
->     $$
->     \vec{h'_i}=\sigma(\sum_{j \in N_{i}} a_{i j} W \vec{h}_{j})
->     $$
-> 
->- multi-head attention
-> 
+>
+> $$
+> \vec{h'_i}=\sigma(\sum_{j \in N_{i}} a_{i j} W \vec{h}_{j})
+> $$
+>
+> - multi-head attention
 >  - 为了稳定self-attention学习过程，采用多头注意力机制，考虑$K$个注意力机制，使得每个head学习到不同表示空间中的特征，多个head学习到的attention侧重点可能不同，是模型有更大的容量（通用型更强）
->     $$
->     \vec{h}_{i}^{\prime}=\prod_{k=1}^{K} \sigma\left(\sum_{j \in \mathcal{N}_{i}} \alpha_{i j}^{k} \mathbf{W}^{k} \vec{h}_{j}\right)
->     $$
-> 
+>
+> $$
+> \vec{h}_{i}^{\prime}=\prod_{k=1}^{K} \sigma\left(\sum_{j \in \mathcal{N}_{i}} \alpha_{i j}^{k} \mathbf{W}^{k} \vec{h}_{j}\right)
+> $$
+>
 >  - 在最后一层执行多头注意力机制，采用$K$平均来代替拼接操作，对平均结果采用非线性函数得到最终输出
-> 
+>
 > $$
->   \overrightarrow{h^{\prime}}_{i}=\sigma\left(\frac{1}{K} \sum_{k=1}^{K} \sum_{j \in N i} a_{i j}^{k} W^{k} \vec{h}_{j}\right)
+> \overrightarrow{h^{\prime}}_{i}=\sigma\left(\frac{1}{K} \sum_{k=1}^{K} \sum_{j \in N i} a_{i j}^{k} W^{k} \vec{h}_{j}\right)
 > $$
-> 
->  <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/GAT.png" alt="img" style="zoom:30%;" />
-> 
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/GAT.png" alt="img" style="zoom:30%;" />
+>
 >  > 上图中不同的箭头样式和颜色表示独立的注意力计算($K=3$)，来自每个head的聚合特征被拼接或平均以获得$\vec{h'_1}$
+
+
 
 **优缺点**
 
