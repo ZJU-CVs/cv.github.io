@@ -150,7 +150,7 @@ tags:
 >
 > - Loss Function
 >   
->   - 使用contrastive loss作为损失函数，假设每个batch有N个image pairs (2N images)，可得：       \
+>   - 使用contrastive loss作为损失函数，假设每个batch有N个image pairs (2N images)，可得：     
 >   
 >   $$
 >   L_{cont}=\frac{1}{N} \sum_{A,B} \ell\left(Z_{A}^{\prime},Z_{B}^{\prime}\right)
