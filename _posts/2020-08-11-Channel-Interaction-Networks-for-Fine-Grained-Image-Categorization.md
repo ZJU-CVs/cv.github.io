@@ -126,7 +126,8 @@ tags:
 
 > 学习图像之间的通道关系，动态地从图像对中识别出**判别区域(discriminate region)**，以捕获细粒度分类中的细微差异
 > $$
-> W_{A B}=\mid W_{A}-\eta W_{B}\mid, W_{B A}=\mid W_{B}-\gamma W_{A}\mid
+> W_{AB}=\mid W_{A}-\eta W_{B}\mid \\
+> W_{B A}=\mid W_{B}-\gamma W_{A}\mid
 > $$
 > 
 >
