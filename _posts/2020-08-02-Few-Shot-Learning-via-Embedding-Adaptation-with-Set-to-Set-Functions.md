@@ -32,20 +32,21 @@ tags:
 
 #### Learning Embedding for Task-agnostic FSL
 
-- 在FSL中，一个任务表示为*M-shot N-way*分类问题
-
-- 在只有少量训练实例的情况下，构造复杂的 $f(\cdot)$具有挑战性，因此常常通过元学习的方式
-
-- 使用训练集$\mathcal{D}_{train}=\{x_i,y_i\}^{NM}_{i=1}$ 来学习$f(\cdot)$
-  - 在可见类的数据集进行采样来生成许多*M-shot N-way FSL tasks*，目标是得到一个函数$f(\cdot)$，通过$\hat{y}_{test}=f(x_{test};\mathcal{D}_{train})\in\{0,1\}^N$ 对实例$x_{test}$进行分类
+> 在FSL中，一个任务表示为*M-shot N-way*分类问题
+>
+> 在只有少量训练实例的情况下，构造复杂的 $f(\cdot)$具有挑战性，因此常常通过元学习的方式
+>
+> 使用训练集 $\mathcal{D}_{train}=\{x_i,y_i\}^{NM}_{i=1}$ 来学习 $f(\cdot)$
+>
+> - 在可见类的数据集进行采样来生成许多*M-shot N-way FSL tasks*，目标是得到一个函数$f(\cdot)$，通过$\hat{y}_{test}=f(x_{test};\mathcal{D}_{train})\in\{0,1\}^N$ 对实例$x_{test}$进行分类
 
 $$
 f^{*}=\underset{f}{\arg \min } \sum_{\left(\mathbf{x}_{\mathbf{test}}^{S}, \mathbf{y}_{\mathbf{tes t}}^{S}\right) \in \mathcal{D}_{\mathbf{tes t}}}^{\mathcal{L}} \ell\left(f\left(\mathbf{x}_{\mathbf{t} \mathbf{e s t}}^{\mathcal{S}} ; \mathcal{D}_{\mathbf{t r a i n}}^{\mathcal{S}}\right), \mathbf{y}_{\mathbf{t e s t}}^{\mathcal{S}}\right)
 $$
 
-> 分类器$f(\cdot)$包括两个部分，首先是一个嵌入函数$\phi_x=E(x)\in \mathbb{R}^d$将输入映射到表征空间；第二部分在表征空间中应用最近邻进行分类
+- 分类器$f(\cdot)$包括两个部分，首先是一个嵌入函数$\phi_x=E(x)\in \mathbb{R}^d$将输入映射到表征空间；第二部分在表征空间中应用最近邻进行分类，**<u>可以看出嵌入函数的学习是任务无关的</u>**
 
-**<u>回顾传统的基于度量学习的FSL方法，可以看出嵌入函数的学习是任务无关的</u>**
+
 
 
 
