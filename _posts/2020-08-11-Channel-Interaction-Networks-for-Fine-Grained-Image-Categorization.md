@@ -119,7 +119,7 @@ tags:
 
 > 学习图像之间的通道关系，动态地从图像对中识别出**判别区域(discriminate region)**，以捕获细粒度分类中的细微差异
 >
-> - 利用图像$I_A$和$I_B$的SCI权重矩阵和生成特征($W_A, W_B, Y_A, Y_B$)可以得到CCI权重矩阵$W_{AB}$和$W_{BA}$
+> - 利用图像$I_A$和$I_B$的SCI权重矩阵和生成特征($W_A, W_B, Y_A, Y_B$)可以得到CCI权重矩阵$W_{AB}$和$W_{BA}$     
 >   $$
 >   W_{AB}=\mid W_A-\eta W_{B}\mid, W_{B A}=\mid W_{B}-\gamma W_{A} \mid
 >   $$
