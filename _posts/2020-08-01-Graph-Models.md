@@ -144,12 +144,14 @@ $$
 
 #### Encoder-Decoder
 
-> 通过encoder-decoder的结构获取合适的embedding来表示图节点，并支持链接预测等下游任务
->
+通过encoder-decoder的结构获取合适的embedding来表示图节点，并支持链接预测等下游任务
+
 > - Encode阶段：VGAE利用隐变量，让模型学习一些分布，再从这些分布中采样得到 latent representations (embedding)，使用GCN结构，输出$Z\in \mathbb{R}^{N\times f}$表示所有节点的latent representations
 > $$
 > \operatorname{GCN}(\mathbf{X}, \mathbf{A})=\tilde{\mathbf{A}} \operatorname{Re} \operatorname{LU}\left(\tilde{\mathbf{A}} \mathbf{X} \mathbf{W}_{\mathbf{0}}\right) \mathbf{W}_{\mathbf{1}}
 > $$
+> 
+>
 > - Decode阶段：利用得到的latent representations 重构原始的图，采用inner-product得到重构的矩阵$\hat{\mathbf{A}}=\sigma\left(\mathbf{Z Z}^{\mathrm{T}}\right)$，一个好的$Z$，应该使重构的邻接矩阵与原始的邻接矩阵尽可能的相似
 >
 >   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/graph-models/18.png" alt="img" style="zoom:30%;" />
