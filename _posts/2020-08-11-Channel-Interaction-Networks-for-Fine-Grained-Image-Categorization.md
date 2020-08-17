@@ -96,16 +96,16 @@ tags:
 >
 > - SCI模块的输出是$Y=WX\in\mathbb{R}^{c\times l}$，其中$W\in \mathbb{R}^{c\times c}$表示SCI的权重矩阵，
 >   $$
->   W_{i j}=\frac{\exp (-X X^{T} _{i j})}{\sum_{k=1}^{c} \exp (-X X^{T} _{i k})}
+>   W_{ij}=\frac{\exp (-XX^{T}_{ij})}{\sum_{k=1}^{c} \exp (-XX^{T} _{ik})}
 >   $$
 >
 >   
->   > 其中$\sum_{k=1}^{c} W_{i k}=1$，$Y_i$表示$X_i$和所有通道之间的交互，$Y_i=W_{i1}X_1+...+W_{ic}X_c$
+>   > - 其中$\sum_{k=1}^{c} W_{i k}=1$，$Y_i$表示$X_i$和所有通道之间的交互，$Y_i=W_{i1}X_1+...+W_{ic}X_c$
 >   >
-> > 如下图所示，权重较大的通道在语义上倾向于与$X_i$互补，如$X_i$通道关注于头部，因此突出翅膀和脚的互补通道具有较大的权重，而突出头部的通道具有较小的权重
->   
+>   > - 如下图所示，权重较大的通道在语义上倾向于与$X_i$互补，如$X_i$通道关注于头部，因此突出翅膀和脚的互补通道具有较大的权重，而突出头部的通道具有较小的权重
+> 
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/FGIA/11.png" alt="img" style="zoom:50%;" />
->   
+> 
 > - 因为生成的特征$Y$会丢失原始特征的某些信息，因此将生成特征和原始特征聚合在一起得到判别特征$Z$ (discriminate features)
 >
 >   $Z=\phi(Y)+X$，其中$\phi$表示$3\times 3$卷积层
@@ -124,7 +124,7 @@ tags:
 
 > 学习图像之间的通道关系，动态地从图像对中识别出**判别区域(discriminate region)**，以捕获细粒度分类中的细微差异
 >
-> - 利用图像$I_A$和$I_B$的SCI权重矩阵和生成特征($W_A, W_B, Y_A, Y_B$)可以得到CCI权重矩阵$W_{AB}$和$W_{BA}$     
+> - 利用图像$I_A$和$I_B$的SCI权重矩阵和生成特征($W_A, W_B, Y_A, Y_B$)可以得到CCI权重矩阵$W_{AB}$和$W_{BA}$        
 >   $$
 >   W_{AB}=\mid W_A-\eta W_{B}\mid, W_{B A}=\mid W_{B}-\gamma W_{A} \mid
 >   $$
