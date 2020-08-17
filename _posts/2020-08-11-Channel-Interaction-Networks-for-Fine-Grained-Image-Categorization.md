@@ -147,10 +147,10 @@ tags:
 >
 >   - 其中$\ell$的定义如下：
 >   $$
->     \ell=\left\{\begin{array}{ll}
->     \left\|h\left(Z_{A}^{\prime}\right)-h\left(Z_{B}^{\prime}\right)\right\|^{2}, & \text { if } y_{A B}=1 \\
->     \max \left(0, \beta-\left\|h\left(Z_{A}^{\prime}\right)-h\left(Z_{B}^{\prime}\right)\right\|\right)^{2}, & \text { if } y_{A B}=0
->     \end{array}\right.
+>   \ell=\{\begin{array}{ll}
+>     \|h(Z_{A}^{\prime})-h(Z_{B}^{\prime})\|^{2}, & \text { if } y_{A B}=1 \\
+>     \max (0, \beta-\|h(Z_{A}^{\prime})-h(Z_{B}^{\prime})\|)^{2}, & \text { if } y_{A B}=0
+>     \end{array}
 >   $$
 >   
 >   > $y_{AB}=1$表示图像$I_A$和$I_B$来自同一类别，$y_{AB}=0$表示negative pair，$h$表示将特征映射到$r$空间的全连接层。
