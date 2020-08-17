@@ -93,20 +93,24 @@ tags:
 
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/4.png" alt="img" style="zoom:50%;" />
 >
-> > - $q_i=f_q(X_i)\in Q$表示第$i$个query；$k_j=f_k(X_j)\in K$和$v_j=f_v(X_j)\in V$表示第$j$个key-value对
-> > - $f_q(\cdot)$，$f_k(\cdot)$和$f_v(\cdot)$分别表示query，key和value的转换函数
-> > - $X_i$和$X_j$分别是$X$中的第$i$和第$j$个特征位置
+> > $q_i=f_q(X_i)\in Q$表示第$i$个query；$k_j=f_k(X_j)\in K$和$v_j=f_v(X_j)\in V$表示第$j$个key-value对
+> >
+> > $f_q(\cdot)$，$f_k(\cdot)$和$f_v(\cdot)$分别表示query，key和value的转换函数
+> >
+> > $X_i$和$X_j$分别是$X$中的第$i$和第$j$个特征位置
 >
 > 
 >
-> 用提出non-local的[论文](https://arxiv.org/pdf/1711.07971v3.pdf)表示如下：
+> 用提出non-local的[论文](https://arxiv.org/pdf/1711.07971v3.pdf)表示如下：     
 > $$
-> y_{i}=\frac{1}{\mathcal{C}(x)} \sum_{\forall j} f\left(x_{i}, x_{j}\right) g\left(x_{j}\right)
+> y_{i}=\frac{1}{\mathcal{C}(x)} \sum_{\forall j} f\left(x_{i},x_{j}\right)g\left(x_{j}\right)
 > $$
 >
-> > - $f(x_i,x_j)$用来计算$i$与所有可能关联的位置$j$之间pairwise关系
-> > - $g(x_j)$用于计算输入信号在位置$j$的特征值
-> > - $\mathcal{C}(x)$为归一化参数
+> > $f(x_i,x_j)$用来计算$i$与所有可能关联的位置$j$之间pairwise关系
+> >
+> > $g(x_j)$用于计算输入信号在位置$j$的特征值
+> >
+> > $\mathcal{C}(x)$为归一化参数
 
 
 
