@@ -126,7 +126,7 @@ tags:
 >
 > - 利用图像$I_A$和$I_B$的SCI权重矩阵和生成特征($W_A, W_B, Y_A, Y_B$)可以得到CCI权重矩阵$W_{AB}$和$W_{BA}$        
 >   $$
->   W_{AB}=\mid W_A-\eta W_{B}\mid, W_{BA}=\mid W_{B}-\gamma W_{A} \mid
+>   W_{AB}=\mid W_A-\eta W_{B}\mid, W_{BA}=\mid W_{B}-\gamma W_{A}\mid
 >   $$
 >
 >   > 其中$\eta=\psi(\left[Y_{A}, Y_{B}\right]),\psi\left(\left[Y_{B}, Y_{A}\right]\right)$，$\psi$为全连接层，$\vert \vert$表示绝对值
@@ -135,11 +135,12 @@ tags:
 >
 >   
 >   
-> - 将CCI的权重矩阵$W_{AB}$和$W_{BA}$应用于特征$X_A$和$X_B$     
+> - 将CCI的权重矩阵$W_{AB}$和$W_{BA}$应用于特征$X_A$和$X_B$       
 >   $$
 >   Z'_A=\phi(Y'_A)+X_A=\phi(W_{AB}X_A)+X_A, Z'_B=\phi(Y'_B)+X_B=\phi(W_{BA}X_B)+X_B
 >   $$
 >
+>   
 > - Loss Function
 >
 >   - 使用contrastive loss作为损失函数，假设每个batch有N个image pairs (2N images)，可得：       
@@ -150,10 +151,10 @@ tags:
 >
 >   - 其中$\ell$的定义如下：        
 >   $$
->   \ell=\{\begin{array}{ll}
->   \Vert h(Z_{A}^{\prime})-h(Z_{B}^{\prime})\Vert^{2}, & \text { if } y_{A B}=1 \\
->   \max (0, \beta-\Vert h(Z_{A}^{\prime})-h(Z_{B}^{\prime})\Vert)^{2}, & \text { if } y_{A B}=0
->   \end{array}
+>   \ell=\left\{\begin{array}{ll}
+>   \left\|h\left(Z_{A}^{\prime}\right)-h\left(Z_{B}^{\prime}\right)\right\|^{2}, & \text { if } y_{A B}=1 \\
+>   \max \left(0, \beta-\left\|h\left(Z_{A}^{\prime}\right)-h\left(Z_{B}^{\prime}\right)\right\|\right)^{2}, & \text { if } y_{A B}=0
+>   \end{array}\right.
 >   $$
 >
 >     > $y_{AB}=1$表示图像$I_A$和$I_B$来自同一类别，$y_{AB}=0$表示negative pair，$h$表示将特征映射到$r$空间的全连接层。
