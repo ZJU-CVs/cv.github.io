@@ -65,9 +65,12 @@ tags:
 > - *set-to-set function*具有置换不变性
 >
 >   ---
->   $$
->   \hat{\mathbf{y}}_{\text {test }}=f\left(\phi_{\mathbf{x}_{\text {test }}} ;\left\{\psi_{\mathbf{x}}, \forall(\mathbf{x}, \mathbf{y}) \in \mathcal{D}_{\text {train }}\right\}\right)
->   $$
+>
+> $$
+> \hat{\mathbf{y}}_{\text {test }}=f\left(\phi_{\mathbf{x}_{\text {test }}} ;\left\{\psi_{\mathbf{x}}, \forall(\mathbf{x}, \mathbf{y}) \in \mathcal{D}_{\text {train }}\right\}\right)
+> $$
+>
+> 
 >
 > - 利用得到的嵌入$\psi_x$，通过计算最近邻对测试实例$x_{test}$进行分类
 
@@ -84,19 +87,20 @@ tags:
 - **Bidirectional LSTM**
 
 - **DeepSets**
-  $$
-  \psi_{\mathbf{x}}=\phi_{\mathbf{x}}+g\left(\left[\phi_{\mathbf{x}} ; \sum_{\mathbf{x}_{i}^{\prime} \in \mathbf{x}^{0}} h\left(\phi_{\mathbf{x}_{i}^{\prime}}\right)\right]\right)
-  $$
 
-  > 对于每个实例，首先将其互补集中的嵌入合并为一个集合向量作为上下文信息，然后将此向量与输入拼接在一起，获得自适应嵌入的残差部分
+$$
+\psi_{\mathbf{x}}=\phi_{\mathbf{x}}+g\left(\left[\phi_{\mathbf{x}} ; \sum_{\mathbf{x}_{i}^{\prime} \in \mathbf{x}^{0}} h\left(\phi_{\mathbf{x}_{i}^{\prime}}\right)\right]\right)
+$$
+
+> 对于每个实例，首先将其互补集中的嵌入合并为一个集合向量作为上下文信息，然后将此向量与输入拼接在一起，获得自适应嵌入的残差部分
 
 - **GCN**
 
-  > 首先构造度矩阵A来表示集合中实例的相似性，如果两个实例来自同一类，则将A中的对应元素设置为1，否则设置为0
+  首先构造度矩阵A来表示集合中实例的相似性，如果两个实例来自同一类，则将A中的对应元素设置为1，否则设置为0
   > $$
   > S=D^{-\frac{1}{2}}(A+I) D^{-\frac{1}{2}}
   > $$
-  > 令$\Phi^0=\{\phi_x;\forall \mathbf{x} \in \mathcal{X}_{\text {train }}\}$，实例之间的关系基于$S$传播，即
+  > 令$\Phi^0=\{\phi_x;\forall \mathbf{x} \in \mathcal{X}_{\text {train }}\}$，实例之间的关系基于$S$传播，即：
   > $$
   > \Phi^{t+1}=\mathbf{R} \mathbf{e} \mathbf{L} \mathbf{U}\left(S \Phi^{t} W\right), t=0,1, \ldots, T-1
   > $$
