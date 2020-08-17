@@ -37,7 +37,9 @@ tags:
   >   >
   >   > 采用Bilinear CNNs (B-CNNs)模型，通过计算不同空间位置的外积，并对不同空间位置计算平均池化得到双线性特征。外积捕获了特征通道之间成对的相关关系，通过计算从而提高细粒度特征表示性能，可以表示为$\beta=(f_A,f_B,P,C)$的形式，$f_A$和$f_B$表示CNN的特征提取函数，$P$表示池化函数，$C$表示分类函数。
   >   >
-  >   > **Details:**
+  >   > 
+  >   >
+  >   > **Details:**   
   >   > $$
   >   > f: \mathcal{L}\times \mathcal{I} \rightarrow \mathbb{R}^{K\times D}
   >   > $$
