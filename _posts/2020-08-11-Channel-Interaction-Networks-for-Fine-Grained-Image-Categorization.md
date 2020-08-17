@@ -171,9 +171,9 @@ tags:
 
 ##### Datasets
 
-> - CUB-200-2011: 11,788 images from 200 wild bird species
-> - Stanford Cars: 16,185 images over 196 classes
-> - FGVC Aircraft: 196 classes about 10,000 images.
+> - **CUB-200-2011**: 11,788 images from 200 wild bird species
+> - **Stanford Cars**: 16,185 images over 196 classes
+> - **FGVC Aircraft**: 196 classes about 10,000 images.
 
 
 
