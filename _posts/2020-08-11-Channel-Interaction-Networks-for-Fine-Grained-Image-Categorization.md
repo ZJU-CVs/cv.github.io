@@ -96,7 +96,7 @@ tags:
 
 > - 输入图像$I$，通过backbone提取特征得到$X'\in \mathbb{R}^{w\times h\times c}$，然后reshape成$X\in \mathbb{R}^{c\times l},l=w\times h$
 >
-> - SCI模块的输出是$Y=WX\in\mathbb{R}^{c\times l}$，其中$W\in \mathbb{R}^{c\times c}$表示SCI的权重矩阵
+> - SCI模块的输出是$Y=WX\in\mathbb{R}^{c\times l}$，其中$W\in \mathbb{R}^{c\times c}$表示SCI的权重矩阵      
 >
 > $$
 > W_{ij}=\frac{exp(-XX^{T}_{ij})}{\sum_{k=1}^{c} exp(-XX^{T}_{ik})}
