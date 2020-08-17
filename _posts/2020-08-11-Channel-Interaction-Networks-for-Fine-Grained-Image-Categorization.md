@@ -159,16 +159,17 @@ tags:
 >   
 >   
 >   - 其中$\ell$的定义如下：        
->     $$
->     \ell=\left\{\begin{array}{ll}
->     \left\|h\left(Z_{A}^{\prime}\right)-h\left(Z_{B}^{\prime}\right)\right\|^{2}, & \text { if } y_{A B}=1 \\
->     \max \left(0, \beta-\left\|h\left(Z_{A}^{\prime}\right)-h\left(Z_{B}^{\prime}\right)\right\|\right)^{2}, & \text { if } y_{A B}=0
->     \end{array}\right.
->     $$
 >   
+>   $$
+>   \ell=\left\{\begin{array}{ll}
+>   \left\|h\left(Z_{A}^{\prime}\right)-h\left(Z_{B}^{\prime}\right)\right\|^{2} & \text { if } y_{A B}=1 \\
+>   \max \left(0, \beta-\left\|h\left(Z_{A}^{\prime}\right)-h\left(Z_{B}^{\prime}\right)\right\|\right)^{2}, & \text { if } y_{A B}=0
+>   \end{array}\right.
+>   $$
+>
 >   > $y_{AB}=1$表示图像$I_A$和$I_B$来自同一类别，$y_{AB}=0$表示negative pair，$h$表示将特征映射到$r$空间的全连接层。
->     >
->     > 对于正样本对，这个loss随着样本对生成表征之间的距离减小而减少，从而拉近正样本对；对于负样本对，loss只有在样本对生成表征的距离都大于$\beta$时为0。(设置阈值$\beta$的目的是**当某个负样本对中的表征足够好，体现在其距离足够远的时候，就没有必要在该负样本对中浪费时间去增大这个距离了，因此进一步的训练将会关注在其他更加难分别的样本对中**)
+>   >
+>   > 对于正样本对，这个loss随着样本对生成表征之间的距离减小而减少，从而拉近正样本对；对于负样本对，loss只有在样本对生成表征的距离都大于$\beta$时为0。(设置阈值$\beta$的目的是**当某个负样本对中的表征足够好，体现在其距离足够远的时候，就没有必要在该负样本对中浪费时间去增大这个距离了，因此进一步的训练将会关注在其他更加难分别的样本对中**)
 >   
 > - 最终的损失函数：     
 >   $$
