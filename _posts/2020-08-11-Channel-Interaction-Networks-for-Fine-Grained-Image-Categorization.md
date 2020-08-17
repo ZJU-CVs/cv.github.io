@@ -125,7 +125,7 @@ tags:
 >
 > - 利用图像$I_A$和$I_B$的SCI权重矩阵和生成特征($W_A, W_B, Y_A, Y_B$)可以得到CCI权重矩阵$W_{AB}$和$W_{BA}$
 >   $$
->   W_{AB}=\vert W_A-\eta W_{B}\vert, W_{B A}=\vert W_{B}-\gamma W_{A} \vert
+>   W_{AB}=\mid W_A-\eta W_{B}\mid, W_{B A}=\mid W_{B}-\gamma W_{A} \mid
 >   $$
 >
 >   > 其中$\eta=\psi(\left[Y_{A}, Y_{B}\right]),\psi\left(\left[Y_{B}, Y_{A}\right]\right)$，$\psi$为全连接层，$\vert \vert$表示绝对值
