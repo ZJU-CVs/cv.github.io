@@ -203,7 +203,8 @@ tags:
 
   > 最新的跨尺度特征金字塔交互包括FPN、Bottom-up Path Aggregation(BPA)、Bi-direction Feature Interaction(BFI)
   >
-  
+  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/15.png" alt="img" style="zoom:50%;" />
+
 - 进行消融实验，评估三个单独的tranformer(ST, GT,RT)和组合后的精度和模型效率(eﬃciency)，其中BFP (Bottom-up Feature Pyramid) 为baseline
 
 	> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/backbone/8.png" alt="img" style="zoom:80%;" />
