@@ -109,6 +109,8 @@ tags:
 >
 >   $Z=\phi(Y)+X$，其中$\phi$表示$3\times 3$卷积层
 
+
+
 > SCI 模块可以形式化为Non-local： $Y=f(X,X)g(X)$
 >
 > - 其中$f(X,X)=softmax(-XX^{\top})\in\mathbb{R}^{c\times c}$，$g(X)=X\in \mathbb{R}^{c\times l}$
