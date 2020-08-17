@@ -32,13 +32,16 @@ tags:
 > - 用**Augmented Multiscale Deep InfoMax(AMDIM)**作为自监督模型，其核心思想是从同一幅图像的两个视图$(x_a,x_b)$中最大化全局特征和局部特征之间互信息，可以通过最小化基于负样本的Noise Contrastive Estimation(NCE) loss来最大化互信息的下界
 >
 >   - 具体而言，最大化$<f_g(x_a),f_5(x_b)>$，$<f_g(x_a),f_7(x_b)>$和$<f_5(x_a),f_5(x_b)>$，其中$f_g$为全局特征，$f_5$为编码器的$5\times 5$局部特征映射，$f_7$为编码器的$7\times 7$特征映射，以$f_g(x_a)$和$f_5(x_b)$间的NCE loss为例：
->     $$
->     \begin{array}{l}
->     \mathcal{L}_{\text {amdim}}\left(f_{g}\left(x_{a}\right), f_{5}\left(x_{b}\right)\right)= -\log \frac{\exp \left\{\phi\left(f_{g}\left(x_{a}\right), f_{5}\left(x_{b}\right)\right)\right\}}{\sum_{\widetilde{x}_{b} \in \mathcal{N}_{x} \cup x_{b}} \exp \left\{\phi\left(f_{g}\left(x_{a}\right), f_{5}(\tilde{x}_b)\right)\right\}}
->     \end{array}
->     $$
->
->     > $\mathcal{N}_x$为image $x$的负样本，$\phi$为距离度量函数
+>   
+>   $$
+>   \begin{array}{l}
+>   \mathcal{L}_{\text {amdim}}\left(f_{g}\left(x_{a}\right), f_{5}\left(x_{b}\right)\right)= -\log \frac{\exp \left\{\phi\left(f_{g}\left(x_{a}\right), f_{5}\left(x_{b}\right)\right)\right\}}{\sum_{\widetilde{x}_{b} \in \mathcal{N}_{x} \cup x_{b}} \exp \left\{\phi\left(f_{g}\left(x_{a}\right), f_{5}(\tilde{x}_b)\right)\right\}}
+>   \end{array}
+> $$
+>   
+>   
+>   
+>   > $\mathcal{N}_x$为image $x$的负样本，$\phi$为距离度量函数
 
 
 
@@ -51,13 +54,12 @@ tags:
 >   c_{k}=\frac{1}{|S|} \sum_{\left(x_{i}, y_{i}\right) \in S} f_{g}\left(x_{i}\right)
 >   $$
 >   
->
-> - 本文使用一种基于度量学习的方法，使用距离函数d，并从查询集$Q$中给定一个查询样本$q$，在所有类进行距离计算，并经过softmax得到：
+>- 本文使用一种基于度量学习的方法，使用距离函数d，并从查询集$Q$中给定一个查询样本$q$，在所有类进行距离计算，并经过softmax得到：
 >   $$
 >   p(y=k \mid q)=\frac{\exp \left(-d\left(f_{g}(q), c_{k}\right)\right)}{\sum_{k^{\prime}} \exp \left(-d\left(f_{g}(q), c_{k^{\prime}}\right)\right)}
 >   $$
->
-> - 因此元学习阶段的损失为：
+> 
+>- 因此元学习阶段的损失为：
 >   $$
 >   \mathcal{L}_{meta} = -log(p(y=k \mid q))=d(f_g(q),c_k)+log \sum_{k^{\prime}} d(f_g(q),c_k')
 >   $$
