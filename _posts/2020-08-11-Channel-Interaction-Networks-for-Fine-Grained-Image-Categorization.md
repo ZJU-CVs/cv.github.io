@@ -41,38 +41,40 @@ tags:
   >   >
   >   > **Details:**   
   >   >
-  >   > - $$
+  >   >   $$
   >   >   f: \mathcal{L}\times \mathcal{I} \rightarrow \mathbb{R}^{K\times D}
   >   >   $$
   >   >
   >   >   > 特征函数获取图像$I\in \mathcal{I}$和位置$l\in \mathcal{L}$，并输出大小为$K\times D$的特征
   >   >
-  >   > -   $$
+  >   > $$
   >   >   \text { bilinear }\left(l, I, f_{A}, f_{B}\right)=f_{A}(l, I)^{T} f_{B}(l, I) \in \mathbb{R}^{M\times N}\\
   >   >   \Phi(I)=\sum_{l \in \mathcal{L}} \text { bilinear }\left(l, I, f_{A}, f_{B}\right)=\sum_{l \in \mathcal{L}} f_{A}(l, I)^{T} f_{B}(l, I) \in \mathbb{R}^{M\times N}
-  >   >   $$
+  >   > $$
   >   >
   >   >   > 两个不同的特征提取函数$f_A$和$f_B$输出为$\mathbb{R}^{K\times M}$和$\mathbb{R}^{K\times N}$
   >   >   >
   >   >   > 通过矩阵外积得到每个位置$l$的特征输出
   >   >   >
   >   >   > 通过sum pooling对所有位置进行求和，在池化处理的过程中忽略了特征的位置，因此得到的bilinear特征是无序表示   
-  >   >   
-  >   >- $$
-  >   >   \begin{array}{c}
+  >   > 
+  >   > $$
+  >   > \begin{array}{c}
   >   >   y=\operatorname{sign}(x) \sqrt{|x|} \\
   >   >   z=\frac{y}{\|y\|_{2}}
   >   >   \end{array}
-  >   >   $$
+  >   > $$
   >   > 
   >   >  > 对$x=\Phi(I)$进行归一化操作，输入分类函数中进行分类
+  >   
   > - 基于目标块的检测(part detection)和对齐(alignment)的方法
-  > 
-  >  > 先在图像中检测出目标所在的位置，然后再检测出目标中有区分性区域的位置，然后将目标图像（即前景）以及具有区分性的目标区域块同时送入深度卷积网络进行分类。
-  > 
-  >- 基于视觉注意机制(visual attention)的方法
-  > 
-  >  > 可以在不需要额外标注信息（比如目标位置标注框和重要部件的位置标注信息）的情况下，定位出图像中有区分性的区域
+  >
+  >   > 先在图像中检测出目标所在的位置，然后再检测出目标中有区分性区域的位置，然后将目标图像（即前景）以及具有区分性的目标区域块同时送入深度卷积网络进行分类。
+  >
+  > - 基于视觉注意机制(visual attention)的方法
+  >
+  >   > 可以在不需要额外标注信息（比如目标位置标注框和重要部件的位置标注信息）的情况下，定位出图像中有区分性的区域
+  >
 
 
 
