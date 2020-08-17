@@ -102,11 +102,7 @@ tags:
 
 
 
-> 用提出non-local的[论文](https://arxiv.org/pdf/1711.07971v3.pdf)表示如下:      
-> $$
-> y_{i}=\frac{1}{\mathcal{C}(x)}\sum_{\forall j}f\left(x_{i},x_{j}\right)g\left(x_{j}\right)
-> $$
-> 
+> 用提出non-local的[论文](https://arxiv.org/pdf/1711.07971v3.pdf)表示为：$$y_{i}=\frac{1}{ C (x)} \sum_{\forall j} f\left(x_{i}, x_{j}\right) g\left(x_{j}\right)$$
 >
 > > $f(x_i,x_j)$用来计算$i$与所有可能关联的位置$j$之间pairwise关系
 > >
