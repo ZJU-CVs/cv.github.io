@@ -83,7 +83,7 @@ tags:
 > 提出了Channel Interaction Network (CIN)用于细粒度图像分类，基本架构如下图。
 >
 > - 给定一个图片对，首先用共享的backbone进行处理(如ResNet50)，生成一对卷积特征图
-> - 通过一个self-channel interaction(SCI) 模块来对不同通道之间的相关性进行建模，计算的到channel-wise的补充信息，然后将原始特征图和补充信息进行聚合得到判别特征
+> - 通过一个self-channel interaction(SCI) 模块来对不同通道之间的相关性进行建模，计算得到channel-wise的补充信息，然后将原始特征图和补充信息进行聚合得到判别特征
 > - 通过结合对比损失设计的一个contrastive channel interaction(CCI)模块，对两个图像之间的通道关系进行建模
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/FGIA/9.png" alt="img" style="zoom:50%;" />
