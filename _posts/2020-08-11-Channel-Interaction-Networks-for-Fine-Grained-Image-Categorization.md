@@ -92,12 +92,12 @@ tags:
 
 ##### SCI Module
 
-> 由于不同的特征通道中存在丰富的编码知识，因此设计SCI模块用于对图像中不同通道之间的相互作用进行建模，以获得每个通道的通道补充信息，从而增强每个通道学习的**判别特征(discriminate feature)**
->
+由于不同的特征通道中存在丰富的编码知识，因此设计SCI模块用于对图像中不同通道之间的相互作用进行建模，以获得每个通道的通道补充信息，从而增强每个通道学习的**判别特征(discriminate feature)**
+
 > - 输入图像$I$，通过backbone提取特征得到$X'\in \mathbb{R}^{w\times h\times c}$，然后reshape成$X\in \mathbb{R}^{c\times l},l=w\times h$
 >
 > - SCI模块的输出是$Y=WX\in\mathbb{R}^{c\times l}$，其中$W\in \mathbb{R}^{c\times c}$表示SCI的权重矩阵
->   $$
+>  $$
 >   W_{ij}=\frac{exp(-XX^{T}_{ij})}{\sum_{k=1}^{c} exp(-XX^{T}_{ik})}
 >   $$
 > 
@@ -105,7 +105,7 @@ tags:
 >   > 其中$\sum_{k=1}^{c} W_{i k}=1$，$Y_i$表示$X_i$和所有通道之间的交互，$Y_i=W_{i1}X_1+...+W_{ic}X_c$
 >   >
 >   > 如下图所示，权重较大的通道在语义上倾向于与$X_i$互补，如$X_i$通道关注于头部，因此突出翅膀和脚的互补通道具有较大的权重，而突出头部的通道具有较小的权重
->
+> 
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/FGIA/11.png" alt="img" style="zoom:50%;" />
 >
 > - 因为生成的特征$Y$会丢失原始特征的某些信息，因此将生成特征和原始特征聚合在一起得到判别特征$Z$ (discriminate features)
@@ -127,24 +127,29 @@ tags:
 学习图像之间的通道关系，动态地从图像对中识别出**判别区域(discriminate region)**，以捕获细粒度分类中的细微差异
 
 > - 利用图像$I_A$和$I_B$的SCI权重矩阵和生成特征($W_A, W_B, Y_A, Y_B$)可以得到CCI权重矩阵$W_{AB}$和$W_{BA}$        
-> 
+>
 > $$
 > W_{AB}=\mid W_{A}-\eta W_{B}\mid \\
->W_{B A}=\mid W_{B}-\gamma W_{A}\mid
+> W_{B A}=\mid W_{B}-\gamma W_{A}\mid
 > $$
 >
-> 
+>
 > > 其中$\eta=\psi(\left[Y_{A}, Y_{B}\right]),\gamma = \psi\left(\left[Y_{B}, Y_{A}\right]\right)$，$\psi$为全连接层，$\Vert$表示绝对值
 > >
 > > 使用减法能够抑制两张图片的共性，并突出显示独特的通道关系
+>
 > 
->- 将CCI的权重矩阵$W_{AB}$和$W_{BA}$应用于特征$X_A$和$X_B$       
-> 
+>
+> - 将CCI的权重矩阵$W_{AB}$和$W_{BA}$应用于特征$X_A$和$X_B$       
+>
 > $$
-> Z_{A}^{\prime}=\phi\left(Y_{A}^{\prime}\right)+X_{A}=\phi\left(W_{A B} X_{A}\right)+X_{A}, Z_{B}^{\prime}=\phi\left(Y_{B}^{\prime}\right)+X_{B}=\phi\left(W_{B A} X_{B}\right)+X_{B}
->$$
+> Z_{A}^{\prime}=\phi\left(Y_{A}^{\prime}\right)+X_{A}=\phi\left(W_{A B} X_{A}\right)+X_{A}\\
+> Z_{B}^{\prime}=\phi\left(Y_{B}^{\prime}\right)+X_{B}=\phi\left(W_{B A} X_{B}\right)+X_{B}
+> $$
+> 
+>
 > - Loss Function
->  
+>   
 >   - 使用contrastive loss作为损失函数，假设每个batch有N个image pairs (2N images)，可得：       
 >     $$
 >     L_{cont}=\frac{1}{N} \sum_{A, B} \ell\left(Z_{A}^{\prime}, Z_{B}^{\prime}\right)
@@ -161,15 +166,15 @@ tags:
 >     > $y_{AB}=1$表示图像$I_A$和$I_B$来自同一类别，$y_{AB}=0$表示negative pair，$h$表示将特征映射到$r$空间的全连接层。
 >     >
 >     > 对于正样本对，这个loss随着样本对生成表征之间的距离减小而减少，从而拉近正样本对；对于负样本对，loss只有在样本对生成表征的距离都大于$\beta$时为0。(设置阈值$\beta$的目的是**当某个负样本对中的表征足够好，体现在其距离足够远的时候，就没有必要在该负样本对中浪费时间去增大这个距离了，因此进一步的训练将会关注在其他更加难分别的样本对中**)
-> 
+>
 > - 最终的损失函数：     
 >   $$
 >   L_{total}=L_{soft}+\alpha \cdot L_{cont}
 >   $$
->  
-> 
+>   
+>
 >   > 其中$L_{soft}$表示基于SCI生成的特征$Z$，使用softmax loss进行分类预测的损失
-> 
+>
 
 
 
