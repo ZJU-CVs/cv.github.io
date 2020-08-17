@@ -63,16 +63,17 @@ tags:
   >   > y = sign(x)\sqrt{\vert{x}\vert}\\
   >   > z=y/\|y\|_{2}
   >   > $$
+  >   > 
   >   > > - 对$x=\Phi(I)$进行归一化操作，输入分类函数中进行分类
   >   > 
   >   
   > - 基于目标块的检测(part detection)和对齐(alignment)的方法
-  > 
-  >  > 先在图像中检测出目标所在的位置，然后再检测出目标中有区分性区域的位置，然后将目标图像（即前景）以及具有区分性的目标区域块同时送入深度卷积网络进行分类。
-  > 
-  >- 基于视觉注意机制(visual attention)的方法
-  > 
-  >  > 可以在不需要额外标注信息（比如目标位置标注框和重要部件的位置标注信息）的情况下，定位出图像中有区分性的区域
+  >
+  >   > 先在图像中检测出目标所在的位置，然后再检测出目标中有区分性区域的位置，然后将目标图像（即前景）以及具有区分性的目标区域块同时送入深度卷积网络进行分类。
+  >
+  > - 基于视觉注意机制(visual attention)的方法
+  >
+  >   > 可以在不需要额外标注信息（比如目标位置标注框和重要部件的位置标注信息）的情况下，定位出图像中有区分性的区域
 
 
 
@@ -92,7 +93,7 @@ tags:
 >
 > - 输入图像$I$，通过backbone提取特征得到$X'\in \mathbb{R}^{w\times h\times c}$，然后reshape成$X\in \mathbb{R}^{c\times l},l=w\times h$
 >
-> - SCI模块的输出是$Y=WX\in\mathbb{R}^{c\times l}$，其中$W\in \mathbb{R}^{c\times c}$表示SCI的权重矩阵
+> - SCI模块的输出是$Y=WX\in\mathbb{R}^{c\times l}$，其中$W\in \mathbb{R}^{c\times c}$表示SCI的权重矩阵          
 >   $$
 >   W_{i j}=\frac{\exp \left(-X X^{\top} _{i j}\right)}{\sum_{k=1}^{c} \exp \left(-X X^{\top} _{i k}\right)}
 >   $$
@@ -107,7 +108,7 @@ tags:
 >
 >   $Z=\phi(Y)+X$，其中$\phi$表示$3\times 3$卷积层
 
-> SCI 模块可以形式化为Non-local：
+> SCI 模块可以形式化为Non-local：      
 > $$
 > Y=f(X,X)g(X)
 > $$
