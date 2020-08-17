@@ -98,7 +98,7 @@ tags:
 >
 > - SCI模块的输出是$Y=WX\in\mathbb{R}^{c\times l}$，其中$W\in \mathbb{R}^{c\times c}$表示SCI的权重矩阵
 >   
->   $W_{ij}=\frac{\exp(-XX^{T}_{ij})}{\sum_{k=1}^{c}\exp(-XX^{T}_{ik})}$
+>   ​						$$W_{ij}=\frac{\exp(-XX^{T}_{ij})}{\sum_{k=1}^{c}\exp(-XX^{T}_{ik})}$$
 >   
 >  > 其中$\sum_{k=1}^{c} W_{i k}=1$，$Y_i$表示$X_i$和所有通道之间的交互，$Y_i=W_{i1}X_1+...+W_{ic}X_c$
 >  >
