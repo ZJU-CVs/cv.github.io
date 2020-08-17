@@ -133,7 +133,7 @@ tags:
 >
 > - 利用图像$I_A$和$I_B$的SCI权重矩阵和生成特征($W_A, W_B, Y_A, Y_B$)可以得到CCI权重矩阵$W_{AB}$和$W_{BA}$        
 >   $$
->   W_{A B}=\mid W_{A}-\eta W_{B}\mid, W_{B A}=\mid W_{B}-\gamma W_{A}\mid
+>   \eta=\psi(\left[Y_{A}, Y_{B}\right]),\gamma = \psi\left(\left[Y_{B}, Y_{A}\right]\right)
 >   $$
 >   
 >
