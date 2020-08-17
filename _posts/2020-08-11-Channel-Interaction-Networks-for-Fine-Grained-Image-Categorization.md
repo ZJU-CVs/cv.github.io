@@ -63,7 +63,6 @@ tags:
   >   > $$
   >   > y = sign(x)\sqrt{\vert{x}\vert}
   >   > $$
-  >   >
   >   > $$
   >   > z=y/\|y\|_{2}
   >   > $$
@@ -154,7 +153,7 @@ tags:
 >     \left\|h\left(Z_{A}^{\prime}\right)-h\left(Z_{B}^{\prime}\right)\right\|^{2}, & \text { if } y_{A B}=1 \\
 >     \max \left(0, \beta-\left\|h\left(Z_{A}^{\prime}\right)-h\left(Z_{B}^{\prime}\right)\right\|\right)^{2}, & \text { if } y_{A B}=0
 >     \end{array}\right.
->     $$
+>   $$
 >   
 >   > $y_{AB}=1$表示图像$I_A$和$I_B$来自同一类别，$y_{AB}=0$表示negative pair，$h$表示将特征映射到$r$空间的全连接层。
 >     >
