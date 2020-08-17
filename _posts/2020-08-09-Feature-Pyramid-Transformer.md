@@ -99,9 +99,10 @@ tags:
 > >
 > > $X_i$和$X_j$分别是$X$中的第$i$和第$j$个特征位置
 >
-> 
->
-> 用提出non-local的[论文](https://arxiv.org/pdf/1711.07971v3.pdf)表示如下：     
+
+
+
+> 用提出non-local的[论文](https://arxiv.org/pdf/1711.07971v3.pdf)表示如下:      
 > $$
 > y_{i}=\frac{1}{\mathcal{C}(x)} \sum_{\forall j} f\left(x_{i},x_{j}\right)g\left(x_{j}\right)
 > $$
