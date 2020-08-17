@@ -97,19 +97,18 @@ tags:
 > - 输入图像$I$，通过backbone提取特征得到$X'\in \mathbb{R}^{w\times h\times c}$，然后reshape成$X\in \mathbb{R}^{c\times l},l=w\times h$
 >
 > - SCI模块的输出是$Y=WX\in\mathbb{R}^{c\times l}$，其中$W\in \mathbb{R}^{c\times c}$表示SCI的权重矩阵
->   $$
->   W_{ij}=\frac{\exp(-XX^{T}_{ij})}{\sum_{k=1}^{c}\exp(-XX^{T}_{ik})}
->   $$
->  
+>   
+>   $W_{ij}=\frac{\exp(-XX^{T}_{ij})}{\sum_{k=1}^{c}\exp(-XX^{T}_{ik})}$
+>   
 >  > 其中$\sum_{k=1}^{c} W_{i k}=1$，$Y_i$表示$X_i$和所有通道之间的交互，$Y_i=W_{i1}X_1+...+W_{ic}X_c$
->   >
+>  >
 >   > 如下图所示，权重较大的通道在语义上倾向于与$X_i$互补，如$X_i$通道关注于头部，因此突出翅膀和脚的互补通道具有较大的权重，而突出头部的通道具有较小的权重
 > 
-><img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/FGIA/11.png" alt="img" style="zoom:50%;" />
-> 
->- 因为生成的特征$Y$会丢失原始特征的某些信息，因此将生成特征和原始特征聚合在一起得到判别特征$Z$ (discriminate features)
-> 
->  $Z=\phi(Y)+X$，其中$\phi$表示$3\times 3$卷积层
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/FGIA/11.png" alt="img" style="zoom:50%;" />
+>
+> - 因为生成的特征$Y$会丢失原始特征的某些信息，因此将生成特征和原始特征聚合在一起得到判别特征$Z$ (discriminate features)
+>
+>   $Z=\phi(Y)+X$，其中$\phi$表示$3\times 3$卷积层
 
 
 
