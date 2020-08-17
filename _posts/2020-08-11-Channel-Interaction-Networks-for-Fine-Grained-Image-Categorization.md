@@ -58,14 +58,14 @@ tags:
   >   >   >
   >   >   > 通过sum pooling对所有位置进行求和，在池化处理的过程中忽略了特征的位置，因此得到的bilinear特征是无序表示
   >   >   
-  >   >   
-  >   >   
+  >   >
   >   > - $$
   >   >   \begin{array}{c}
   >   >   y=\operatorname{sign}(x) \sqrt{|x|} \\
   >   >   z=\frac{y}{\|y\|_{2}}
   >   >   \end{array}
   >   >   $$
+  >   >
   >   >   > 对$x=\Phi(I)$进行归一化操作，输入分类函数中进行分类
   > - 基于目标块的检测(part detection)和对齐(alignment)的方法
   >
