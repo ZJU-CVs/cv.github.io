@@ -60,19 +60,24 @@ tags:
 > $$
 > c_{k}=\frac{1}{|S|} \sum_{\left(x_{i}, y_{i}\right) \in S} f_{g}\left(x_{i}\right)
 > $$
-> 
+>
 > 
 >
 > - 本文使用一种基于度量学习的方法，使用距离函数d，并从查询集$Q$中给定一个查询样本$q$，在所有类进行距离计算，并经过softmax得到：
->   $$
->   p(y=k \mid q)=\frac{\exp \left(-d\left(f_{g}(q), c_{k}\right)\right)}{\sum_{k^{\prime}} \exp \left(-d\left(f_{g}(q), c_{k^{\prime}}\right)\right)}
->   $$
+>
+> $$
+> p(y=k \mid q)=\frac{\exp \left(-d\left(f_{g}(q), c_{k}\right)\right)}{\sum_{k^{\prime}} \exp \left(-d\left(f_{g}(q), c_{k^{\prime}}\right)\right)}
+> $$
+>
+> 
 >
 > - 因此元学习阶段的损失为：
->   $$
->   \mathcal{L}_{meta} = -log(p(y=k \mid q))=d(f_g(q),c_k)+log \sum_{k^{\prime}} d(f_g(q),c_k')
->   $$
->   
+>
+> $$
+> \mathcal{L}_{meta} = -log(p(y=k \mid q))=d(f_g(q),c_k)+log \sum_{k^{\prime}} d(f_g(q),c_k')
+> $$
+>
+> 
 
 ### 3. Experiments
 
