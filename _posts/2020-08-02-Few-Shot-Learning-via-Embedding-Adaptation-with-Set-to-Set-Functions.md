@@ -84,42 +84,50 @@ tags:
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/42.png" alt="img" style="zoom:60%;" />
 
-- **Bidirectional LSTM**
+**(1) Bidirectional LSTM**
 
-- **DeepSets**
-
+**(2) DeepSets**
 $$
 \psi_{\mathbf{x}}=\phi_{\mathbf{x}}+g\left(\left[\phi_{\mathbf{x}} ; \sum_{\mathbf{x}_{i}^{\prime} \in \mathbf{x}^{0}} h\left(\phi_{\mathbf{x}_{i}^{\prime}}\right)\right]\right)
 $$
 
 > 对于每个实例，首先将其互补集中的嵌入合并为一个集合向量作为上下文信息，然后将此向量与输入拼接在一起，获得自适应嵌入的残差部分
 
-- **GCN**
 
-  首先构造度矩阵A来表示集合中实例的相似性，如果两个实例来自同一类，则将A中的对应元素设置为1，否则设置为0
-  > $$
-  > S=D^{-\frac{1}{2}}(A+I) D^{-\frac{1}{2}}
-  > $$
-  > 令$\Phi^0=\{\phi_x;\forall \mathbf{x} \in \mathcal{X}_{\text {train }}\}$，实例之间的关系基于$S$传播，即：
-  > $$
-  > \Phi^{t+1}=\mathbf{R} \mathbf{e} \mathbf{L} \mathbf{U}\left(S \Phi^{t} W\right), t=0,1, \ldots, T-1
-  > $$
-  > 
 
-- **Transformer**
+**(3) GCN**
 
-  > $\mathcal{Q}=\mathcal{K}=\mathcal{V}=\mathcal{X}_{train}$，首先将输入$\mathcal{K}$映射到空间$K=W_K^T[\phi_{x_k};\forall x_k\in \mathcal{K}]\in \mathbb{R}^{d\times \mid{\mathcal{K}\mid}}$，对于$\mathcal{Q}$和$\mathcal{V}$同理分别映射到$W_Q$和$W_V$
-  >
-  > 利用自注意力公式得到注意力值，进行加权求和，更新输入得到$\psi_{x_q}$
-  > $$
-  > \alpha_{q k} \propto \exp \left(\frac{\phi_{\mathbf{x}_{q}}^{\top} W_{Q} \cdot K}{\sqrt{d}}\right)
-  > $$
-  >
-  > $$
-  > \psi_{\mathbf{x}_{q}}=\phi_{\mathbf{x}_{q}}+\sum_{k} \alpha_{q k} V_{:, k}
-  > $$
-  >
-  > 
+首先构造度矩阵A来表示集合中实例的相似性，如果两个实例来自同一类，则将A中的对应元素设置为1，否则设置为0     
+
+> $$
+> S=D^{-\frac{1}{2}}(A+I) D^{-\frac{1}{2}}
+> $$
+> 令$\Phi^0=\{\phi_x;\forall \mathbf{x} \in \mathcal{X}_{\text {train }}\}$，实例之间的关系基于$S$传播，即：
+> $$
+> \Phi^{t+1}=\mathbf{R} \mathbf{e} \mathbf{L} \mathbf{U}\left(S \Phi^{t} W\right), t=0,1, \ldots, T-1
+> $$
+> 
+
+
+
+**(4) Transformer**
+
+> $\mathcal{Q}=\mathcal{K}=\mathcal{V}=\mathcal{X}_{train}$，首先将输入$\mathcal{K}$映射到空间$K=W_K^T[\phi_{x_k};\forall x_k\in \mathcal{K}]\in \mathbb{R}^{d\times \mid{\mathcal{K}\mid}}$，对于$\mathcal{Q}$和$\mathcal{V}$同理分别映射到$W_Q$和$W_V$
+>
+> 利用自注意力公式得到注意力值，进行加权求和，更新输入得到$\psi_{x_q}$
+> $$
+> \alpha_{q k} \propto \exp \left(\frac{\phi_{\mathbf{x}_{q}}^{\top} W_{Q} \cdot K}{\sqrt{d}}\right)
+> $$
+>
+> $$
+> \psi_{\mathbf{x}_{q}}=\phi_{\mathbf{x}_{q}}+\sum_{k} \alpha_{q k} V_{:, k}
+> $$
+>
+> 
+
+
+
+
 
 ##### Contrastive Learning of Set-to-Set Functions
 
