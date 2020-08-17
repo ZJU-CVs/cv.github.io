@@ -33,7 +33,7 @@ $$
 > 加入两个trick：
 >
 > - 对于每个节点，都加入自环：$\tilde{A}=A+I_{N}$
-> - $$\tilde{D}$$是度矩阵，$$\tilde{D}_{ii}=\sum_j \tilde{A}_{ij}$$，$$\tilde{D}$$是对角矩阵（图为无向图）
+> - 其中$$\tilde{D}$$是度矩阵，$$\tilde{D}_{ii}=\sum_j \tilde{A}_{ij}$$，$$\tilde{D}$$是对角矩阵（图为无向图）
 >
 > - 正则化邻接矩阵，使得每一行的和都为1：$\hat{A}=\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}}$
 >   
