@@ -39,11 +39,9 @@ tags:
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/48.png" alt="img" style="zoom:30%;" />
 
-**1)** 特征编码器$z=f_E(x;\theta_E)$的预训练，以学习图像嵌入，从而最大化正常样本图像$x\in \mathcal{D}_N$和它们的嵌入$z=f_E(x\in \mathcal{D}_N;\theta_E)$之间的互信息(MI)，具体如下：
+**1)** 特征编码器$z=f_E(x;\theta_E)$的预训练，以学习图像嵌入，从而最大化正常样本图像$x\in \mathcal{D}_N$和它们的嵌入$z=f_E(x\in \mathcal{D}_N;\theta_E)$之间的互信息(MI)，具体如下：            
 $$
-\begin{aligned}
 \theta_{E}^{*}, \theta_{G}^{*}, \theta_{L}^{*}=\arg \max _{\theta_{E}, \theta_{G}, \theta_{L}}(\alpha \hat{I}_{\theta_{G}}(\mathbf{x} ; f_{E}(\mathbf{x} ; \theta_{E}))+\frac{\beta}{|\mathcal{M}|} \sum_{\omega \in \mathcal{M}} \hat{I}_{\theta_{L}}(\mathbf{x}(\omega) ; f_{E}(\mathbf{x}(\omega) ; \theta_{E}))) +\gamma \arg \min _{\theta_{\mathrm{E}}} \arg \max _{\phi} \hat{D}_{\phi}\left(\mathbb{V}|| \mathbb{U}_{\mathbb{P}, \theta_{E}}\right)
-\end{aligned}
 $$
 
 > > $x(w)$表示局部图像区域，$x$表示整张图片
@@ -66,13 +64,13 @@ $$
 > 
 > 
 
-**2)** 训练SIN $f_s(f_E(x;\theta_E);\theta_S)$ ，具有类似对比的损失，使用$\mathcal{D}_N$和$\mathcal{D}_A$达到目标
+**2)** 训练SIN $f_s(f_E(x;\theta_E);\theta_S)$ ，具有类似对比的损失，使用$\mathcal{D}_N$和$\mathcal{D}_A$达到目标        
 $$
 f_S(f_E(x\in \mathcal{D}_A;\theta_E);\theta_S)>f_S(f_E(x\in \mathcal{D}_N;\theta_E);\theta_S)
 $$
 
 
-> - 通过计算$z=f_E(x\in \mathcal{D}_A \left.\cup \mathcal{D}_{N} ; \theta_{E}^{*}\right)$来训练$f_S(z;\theta_S)$
+> - 通过计算$z=f_E(x\in \mathcal{D}_A \cup \mathcal{D}_{N} ; \theta_{E}^{*})$来训练$f_S(z;\theta_S)$
 > 
 > $$
 > \ell_{S}=\mathbb{I}(y \text { is } \text {Normal})\left|s\left(f_{S}\left(\mathbf{z} ; \theta_{S}\right)\right)\right|+\mathbb{I}(y \text { is } \text {Abnormal}) \max \left(0, a-s\left(f_{S}\left(\mathbf{z} ; \theta_{S}\right)\right)\right)
