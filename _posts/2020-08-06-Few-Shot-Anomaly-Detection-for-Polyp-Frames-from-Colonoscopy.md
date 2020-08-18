@@ -42,10 +42,6 @@ tags:
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/48.png" alt="img" style="zoom:30%;" />
 
 **1).** 特征编码器$z=f_E(x;\theta_E)$的预训练，以学习图像嵌入，从而最大化正常样本图像$x\in \mathcal{D}_N$和它们的嵌入$z=f_E(x\in \mathcal{D}_N;\theta_E)$之间的互信息(MI)，具体如下：
-$$
-x \cdot y+d=0
-$$
-
 
 $$
 \theta_{E}^{*}, \theta_{G}^{*}, \theta_{L}^{*}=\arg \max _{\theta_{E}, \theta_{G}, \theta_{L}}\left(\alpha \hat{I}_{\theta_{G}}\left( x ; f_{E}\left( x ; \theta_{E}\right)\right)+\frac{\beta}{| M |} \sum_{\omega \in M } \hat{I}_{\theta_{L}}\left( x (\omega) ; f_{E}\left( x (\omega) ; \theta_{E}\right)\right)\right)+\gamma \arg \min _{\theta_{ E }} \arg \max _{\phi} \hat{D}_{\phi}\left( V \Vert U _{ P , \theta_{E}}\right)
