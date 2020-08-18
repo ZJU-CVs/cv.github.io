@@ -123,8 +123,9 @@ $$
 
 
 **(4) Transformer**
-
-$\mathcal{Q}=\mathcal{K}=\mathcal{V}=\mathcal{X}_{train}$
+$$
+\mathcal{Q}=\mathcal{K}=\mathcal{V}=\mathcal{X}_{train}
+$$
 
 - 首先将输入$\mathcal{K}$映射到空间$K=W_K^T[\phi_{x_k};\forall x_k\in \mathcal{K}]\in \mathbb{R}^{d\times \mid{\mathcal{K}\mid}}$，对于$\mathcal{Q}$和$\mathcal{V}$同理分别映射到$W_Q$和$W_V$
 
