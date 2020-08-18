@@ -49,25 +49,25 @@ $$
 \theta_{E}^{*}, \theta_{G}^{*}, \theta_{L}^{*}=\arg \max _{\theta_{E}, \theta_{G}, \theta_{L}}\left(\alpha \hat{I}_{\theta_{G}}\left( x ; f_{E}\left( x ; \theta_{E}\right)\right)+\frac{\beta}{| M |} \sum_{\omega \in M } \hat{I}_{\theta_{L}}\left( x (\omega) ; f_{E}\left( x (\omega) ; \theta_{E}\right)\right)\right)+\gamma \arg \min _{\theta_{ E }} \arg \max _{\phi} \hat{D}_{\phi}\left( V \Vert U _{ P , \theta_{E}}\right)
 $$
 
-> > $x(w)$表示局部图像区域，$x$表示整张图片
-> >
-> > $\hat{I}_G(\cdot)$和$\hat{I}_L(\cdot)$表示MI下界（基于Donsker-Varadhan表示的KL散度） 
+> $x(w)$表示局部图像区域，$x$表示整张图片
+> 
+> $\hat{I}_G(\cdot)$和$\hat{I}_L(\cdot)$表示MI下界（基于Donsker-Varadhan表示的KL散度） 
+
 
 $$
 \hat{I}_{\theta_{G}}\left(\mathbf{x} ; f_{E}\left(\mathbf{x} ; \theta_{E}\right)\right)=\mathbb{E}_{\mathbb{J}}\left[f_{G}\left(\mathbf{x}, f_{E}\left(\mathbf{x} ; \theta_{E}\right) ; \theta_{G}\right)\right]-\log \mathbb{E}_{\mathbb{M}}\left[e^{f_{G}\left(\mathbf{x}, f_{E}\left(\mathbf{x} ; \theta_{E}\right) ; \theta_{G}\right)}\right]
 $$
 
-> > $\mathbb{J}$表示联合分布，$\mathbb{M}$表示the product of the marginals的图像嵌入
-> >
-> > `注：正样本定义为来自joint distribution，负样本定义为来自the product of marginals`
+> $\mathbb{J}$表示联合分布，$\mathbb{M}$表示the product of the marginals的图像嵌入
+> 
+> `注：正样本定义为来自joint distribution，负样本定义为来自the product of marginals`
+
 
 $$
 \left.\arg \min _{\theta_{E}} \arg \max _{\phi} \hat{D}_{\phi}\left(\mathbb{V}|| \mathbb{U}_{\mathbb{P}, \theta_{E}}\right)=\mathbb{E}_{\mathbb{V}}[\log d(\mathbf{z} ; \phi)]+\mathbb{E}_{\mathbb{P}}\left[\log \left(1-d\left(f_{E}\left(\mathbf{x} ; \theta_{E}\right)\right) ; \phi\right)\right)\right]
 $$
 
-> > $\mathbb{V}$表示嵌入$z$的先验分布$\mathcal{N}(.;\mu_V,\sum_V)$，$\mathbb{P}$表示嵌入$z=f_E(x\in \mathcal{N}_N;\theta_E)$的分布
-> 
-> 
+> $\mathbb{V}$表示嵌入$z$的先验分布$\mathcal{N}(.;\mu_V,\sum_V)$，$\mathbb{P}$表示嵌入$z=f_E(x\in \mathcal{N}_N;\theta_E)$的分布
 
 
 
