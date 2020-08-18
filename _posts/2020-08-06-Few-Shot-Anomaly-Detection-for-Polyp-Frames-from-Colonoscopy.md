@@ -41,7 +41,7 @@ tags:
 
 **1)** 特征编码器$z=f_E(x;\theta_E)$的预训练，以学习图像嵌入，从而最大化正常样本图像$x\in \mathcal{D}_N$和它们的嵌入$z=f_E(x\in \mathcal{D}_N;\theta_E)$之间的互信息(MI)，具体如下：
 $$
-x \cdot y
+x \cdot y+d=0
 $$
 
 
