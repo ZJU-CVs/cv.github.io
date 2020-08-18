@@ -77,7 +77,7 @@ tags:
 >   >
 >   > - 一系列的权重矩阵$W^k,\forall k \in\{1, \ldots, K\}$被用作在模型层与层之间传播embedding时做非线性变换。
 >   >
->   > - 最终在第$K$层，有$\overrightarrow{\mathbf{z}}_{v}=\overrightarrow{\mathbf{h}}_{v}^{(K)}$
+>   > - 最终在第$K$层，有$\overrightarrow{{z}}_{v}=\overrightarrow{{h}}_{v}^{(K)}$
 >   >
 >   >   
 >   >
@@ -96,6 +96,8 @@ tags:
 >   > 对每个节点采样一定数量的邻节点作为待聚合信息的顶点。设需要采样数量为$S$，若邻节点数少于$S$，则采用有放回的抽样方法，直到采样出$S$个顶点；若邻节点的数大于$S$，则采用无放回的抽样（若不考虑计算效率，完全可以对每个顶点利用其所有的邻居顶点进行信息聚合，这样是信息无损的）
 >   >
 >   > `论文里常常出现的“固定长度的随机游走”其实就是指随机采样了固定数量的邻节点`
+>
+>   
 >
 > - 小批量训练形式：
 >
@@ -143,26 +145,34 @@ tags:
 
 `定义好聚合函数之后，需要对函数中的参数进行学习，论文分别提出了无监督学习和监督学习两种方式`
 
-**基于图的无监督损失**
 
-> 无监督主要根据图的结构学习，希望节点u与邻节点v的embedding相似，与没有交集的不相似
-> $$
-> J_{\mathcal{G}}\left(\mathbf{z}_{u}\right)=-\log \left(\sigma\left(\mathbf{z}_{u}^{\top} \mathbf{z}_{v}\right)\right)-Q \cdot \mathbb{E}_{v_{n} \sim P_{n}(v)} \log \left(\sigma\left(-\mathbf{z}_{u}^{\top} \mathbf{z}_{v_{n}}\right)\right)
-> $$
->
-> - $Z_u$为节点$u$通过GraphSAGE生成的embedding
-> - 节点$v$是节点$u$随机游走访达的邻节点
-> - $v_n \sim P_n(v) $表示负采样，$Q$为负采样的样本数
-> - 相似度通过向量点积得到
+
+- **基于图的无监督损失**
+
+  无监督主要根据图的结构学习，希望节点u与邻节点v的embedding相似，与没有交集的不相似
+
+$$
+J_{\mathcal{G}}\left(\mathbf{z}_{u}\right)=-\log \left(\sigma\left(\mathbf{z}_{u}^{\top} \mathbf{z}_{v}\right)\right)-Q \cdot \mathbb{E}_{v_{n} \sim P_{n}(v)} \log \left(\sigma\left(-\mathbf{z}_{u}^{\top} \mathbf{z}_{v_{n}}\right)\right)
+$$
 
 
 
-**基于图的有监督损失**
+> $Z_u$为节点$u$通过GraphSAGE生成的embedding
+> 
+> 节点$v$是节点$u$随机游走访达的邻节点
+> 
+>$v_n \sim P_n(v) $表示负采样，$Q$为负采样的样本数
+> 
+> 相似度通过向量点积得到
 
-> 无监督损失函数的设定来学习节点embedding 可以供下游多个任务使用，若仅使用在特定某个任务上，则可以替代上述损失函数符合特定任务目标，如交叉熵
+
+
+- **基于图的有监督损失**
+
+  无监督损失函数的设定来学习节点embedding 可以供下游多个任务使用，若仅使用在特定某个任务上，则可以替代上述损失函数符合特定任务目标，如交叉熵
 
 
 
-**参数学习**
+- **参数学习**
 
-> 通过前向传播得到节点u的embedding $z_u$ ,然后梯度下降（实现使用Adam优化器） **进行反向传播**优化参数 $W_k$和聚合函数内参数。
+  通过前向传播得到节点u的embedding $z_u$ ,然后梯度下降（实现使用Adam优化器） **进行反向传播**优化参数 $W_k$和聚合函数内参数。
