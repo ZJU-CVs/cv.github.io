@@ -64,9 +64,11 @@ $$
 > 
 > 
 
-**2)** 训练SIN $f_s(f_E(x;\theta_E);\theta_S)$ ，具有类似对比的损失，使用$\mathcal{D}_N$和$\mathcal{D}_A$达到目标        
+
+
+**2)** 训练SIN $f_s(f_E(x;\theta_E);\theta_S)$ ，具有类似对比的损失，使用$\mathcal{D}_N$和$\mathcal{D}_A$达到目标：        
 $$
-f_S(f_E(x\in \mathcal{D}_A;\theta_E);\theta_S)>f_S(f_E(x\in \mathcal{D}_N;\theta_E);\theta_S)
+f_S(f_E(x\in \mathcal{D}_A;\theta_E);\theta_S)\gt f_S(f_E(x\in \mathcal{D}_N;\theta_E);\theta_S)
 $$
 
 
