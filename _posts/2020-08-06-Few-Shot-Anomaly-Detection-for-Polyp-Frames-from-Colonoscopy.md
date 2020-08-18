@@ -39,7 +39,7 @@ tags:
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/48.png" alt="img" style="zoom:30%;" />
 
-**1)** 特征编码器$z=f_E(x;\theta_E)$的预训练，以学习图像嵌入，从而最大化正常样本图像$x\in \mathcal{D}_N$和它们的嵌入$z=f_E(x\in \mathcal{D}_N;\theta_E)$之间的互信息(MI)，具体如下：
+**1).** 特征编码器$z=f_E(x;\theta_E)$的预训练，以学习图像嵌入，从而最大化正常样本图像$x\in \mathcal{D}_N$和它们的嵌入$z=f_E(x\in \mathcal{D}_N;\theta_E)$之间的互信息(MI)，具体如下：
 $$
 x \cdot y+d=0
 $$
@@ -71,7 +71,7 @@ $$
 
 
 
-**2)** 训练SIN $f_s(f_E(x;\theta_E);\theta_S)$ ，具有类似对比的损失，使用$\mathcal{D}_N$和$\mathcal{D}_A$达到目标：        
+**2).** 训练SIN $f_s(f_E(x;\theta_E);\theta_S)$ ，具有类似对比的损失，使用$\mathcal{D}_N$和$\mathcal{D}_A$达到目标：        
 $$
 f_S(f_E(x\in \mathcal{D}_A;\theta_E);\theta_S)\gt f_S(f_E(x\in \mathcal{D}_N;\theta_E);\theta_S)
 $$
@@ -88,7 +88,7 @@ $$
 
 
 
-**3）**在inference阶段，对于一张测试图像$x$，使用$f_E(x;\theta_E)$计算特征嵌入，然后使用$s=f_S(z;\theta_S)$计算分数，将分数结果$s$与阈值$\mathcal{T}$进行比较，确定测试图像是正常还是异常
+**3). **在inference阶段，对于一张测试图像$x$，使用$f_E(x;\theta_E)$计算特征嵌入，然后使用$s=f_S(z;\theta_S)$计算分数，将分数结果$s$与阈值$\mathcal{T}$进行比较，确定测试图像是正常还是异常
 
 
 
