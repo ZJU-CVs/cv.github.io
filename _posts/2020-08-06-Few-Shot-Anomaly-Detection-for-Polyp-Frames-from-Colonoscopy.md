@@ -8,6 +8,8 @@ header-img: img/post-bg.jpg
 catalog: true
 tags:
     - paper
+    - FSL
+    - Anomaly Detection
 ---
 
 
