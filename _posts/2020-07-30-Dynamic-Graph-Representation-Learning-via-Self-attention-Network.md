@@ -96,7 +96,21 @@ tags:
 > \boldsymbol{z}_{v}=\sigma\left(\sum_{u \in \mathcal{N}_{v}} \alpha_{u v} \boldsymbol{W}^{s} \boldsymbol{x}_{u}\right), \quad \alpha_{u v}=\frac{\exp \left(\sigma\left(A_{u v} \cdot \boldsymbol{a}^{T}\left[\boldsymbol{W}^{s} \boldsymbol{x}_{u} \| \boldsymbol{W}^{s} \boldsymbol{x}_{v}\right]\right)\right)}{\sum_{w \in \mathcal{N}_{v}} \exp \left(\sigma\left(A_{w v} \cdot \boldsymbol{a}^{T}\left[\boldsymbol{W}^{s} \boldsymbol{x}_{w}|| \boldsymbol{W}^{s} \boldsymbol{x}_{v}\right]\right)\right)}
 > $$
 >
-> > 其中$\mathcal{N}_v=\{u\in \mathcal{V}:(u,v)\in \mathcal{E}\}$是snapshot G中节点$v$的邻节点集；$W^s\in \mathbb{R}^{D\times F}$是应用于图中每个节点的共享权值；$a\in \mathbb{R}^{2D}$是一个权重向量参数化的注意力函数，通过前馈层实现；$\|$ 表示级联操作；$\sigma(\cdot)$是一个函数非线性激活；$A_{uv}$是当前snapshot G中链接$(u,v)$的权重；通过softmax在每个节点的邻域上获得学习系数$a_{uv}$表示节点$u$对节点$v$在当前snapshot G中的重要性或贡献度；使用**LeakyRELU**来计算注意权重$a_{uv}$，然后用**ELU**计算输出表示$z_v$
+> > 其中$\mathcal{N}_v=\{u\in \mathcal{V}:(u,v)\in \mathcal{E}\}$是snapshot G中节点$v$的邻节点集；    
+> >
+> > $W^s\in \mathbb{R}^{D\times F}$是应用于图中每个节点的共享权值；   
+> >
+> > $a\in \mathbb{R}^{2D}$是一个权重向量参数化的注意力函数，通过前馈层实现；
+> >
+> > $\Vert$ 表示级联操作；
+> >
+> > $\sigma(\cdot)$是一个函数非线性激活；
+> >
+> > $A_{uv}$是当前snapshot G中链接$(u,v)$的权重；
+> >
+> > 通过softmax在每个节点的邻域上获得学习系数$a_{uv}$表示节点$u$对节点$v$在当前snapshot G中的重要性或贡献度；
+> >
+> > 使用**LeakyRELU**来计算注意权重$a_{uv}$，然后用**ELU**计算输出表示$z_v$
 
 
 
