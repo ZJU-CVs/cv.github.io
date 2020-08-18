@@ -154,11 +154,14 @@ tags:
   >     > R_{\text {loss}}^{\text {sym}}=& \frac{1}{n}\left\|Z_{\text {int}}-M_{\text {int}}\left(F_{Y}, F_{X}\right)\right\|_{2}+ \frac{1}{n}\left\|Z_{\text {uni}}-M_{\text {uni}}\left(F_{Y}, F_{X}\right)\right\|_{2}
   >     > \end{aligned}
   >     > $$
-  >   - 其中 $R^{mc}_{loss}$ 用于提高模型的稳定性，防止模型崩溃而导致每种可能的标签组合出现半固定的输出（如许多具有相同标签集的不同图像对，$M_{int}$ 可能会有非常相似的输出）
-  >
+  >   
+  > - 其中 $R^{mc}_{loss}$ 用于提高模型的稳定性，防止模型崩溃而导致每种可能的标签组合出现半固定的输出
+  >   
+  >     (如许多具有相同标签集的不同图像对，$M_{int}$ 可能会有非常相似的输出)
+  >     
   >     > $$
   >     > \begin{aligned}
-  >     > R_{\text {loss}}^{m c}=& \frac{1}{n}\left\|F_{X}-M_{\text {uni}}\left(Z_{\text {sub}}, Z_{\text {int}}\right)\right\|_{2}^{2}+\frac{1}{n}\left\|F_{Y}-M_{\text {uni}}\left(M_{\text {sub}}\left(F_{Y}, F_{X}\right), Z_{\text {int}}\right)\right\|_{2}^{2}
+>     > R_{\text {loss}}^{m c}=& \frac{1}{n}\left\|F_{X}-M_{\text {uni}}\left(Z_{\text {sub}}, Z_{\text {int}}\right)\right\|_{2}^{2}+\frac{1}{n}\left\|F_{Y}-M_{\text {uni}}\left(M_{\text {sub}}\left(F_{Y}, F_{X}\right), Z_{\text {int}}\right)\right\|_{2}^{2}
   >     > \end{aligned}
   >     > $$
 
@@ -192,6 +195,8 @@ tags:
 
 [paper](https://arxiv.org/pdf/1905.11641.pdf)
 
+
+
 ---
 
 #### Embedding Based
@@ -208,37 +213,31 @@ tags:
 
 [paper]()
 
-##### 
 
 ##### Learning for Semi-Supervised Classiﬁcation
 
 [paper]()
 
-##### 
 
 ##### Transferable Prototypical Networks
 
 [paper]()
 
-##### 
 
 ##### Matching Network
 
 [paper]()
 
-##### 
 
 ##### Task dependent adaptive metric learning
 
 [paper]()
 
-##### 
 
 ##### Representative-based metric learning
 
 [paper]()
 
-##### 
 
 ##### Task-Aware Feature Embedding
 
@@ -260,37 +259,31 @@ tags:
 
 [paper]()
 
-##### 
 
 ##### Model Agnostic based Meta Learning
 
 [paper]()
 
-##### 
 
 ##### Task-Agnostic Meta-Learning
 
 [paper]()
 
-##### 
 
 ##### Meta-SGD
 
 [paper]()
 
-##### 
 
 ##### Learning to Learn in the Concept Space
 
 [paper]()
 
-##### 
 
 ##### ∆-encoder
 
 [paper]()
 
-##### 
 
 
 
@@ -300,19 +293,16 @@ tags:
 
 [paper]()
 
-##### 
 
 ##### Learning via Aligned Variational Autoencoders (VAE)
 
 [paper]()
 
-##### 
 
 ##### Learning by Knowledge Transfer With Class Hierarchy
 
 [paper]()
 
-##### 
 
 ### Future Direction
 
