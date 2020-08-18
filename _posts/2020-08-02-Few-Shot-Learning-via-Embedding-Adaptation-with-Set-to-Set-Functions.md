@@ -55,20 +55,22 @@ $$
 
 ##### Adapting to Task-Speciﬁc Embeddings
 
-> $$
-> \begin{aligned}
-> \left\{\psi_{\mathbf{x}} ; \forall \mathbf{x} \in \mathcal{X}_{\text {train }}\right\} &=\mathbf{T}\left(\left\{\phi_{\mathbf{x}} ; \forall \mathbf{x} \in \mathcal{X}_{\text {train }}\right\}\right) \left.=\mathbf{T}\left(\pi\left\{\phi_{\mathbf{x}} ; \forall \mathbf{x} \in \mathcal{X}_{\text {train }}\right\}\right)\right)
-> \end{aligned}
-> $$
->
+$$
+\begin{aligned}
+\left\{\psi_{\mathbf{x}} ; \forall \mathbf{x} \in \mathcal{X}_{\text {train }}\right\} &=\mathbf{T}\left(\left\{\phi_{\mathbf{x}} ; \forall \mathbf{x} \in \mathcal{X}_{\text {train }}\right\}\right) \left.=\mathbf{T}\left(\pi\left\{\phi_{\mathbf{x}} ; \forall \mathbf{x} \in \mathcal{X}_{\text {train }}\right\}\right)\right)
+\end{aligned}
+$$
+
+
+
 > - $\mathcal{X}_{train}$是针对目标任务的训练集合，$\pi(\cdot)$是 一个集合上的置换算子
->
+> 
 > - *set-to-set function*具有置换不变性
->
+> 
 >   ---
 >
 > $$
-> \hat{\mathbf{y}}_{\text {test }}=f\left(\phi_{\mathbf{x}_{\text {test }}} ;\left\{\psi_{\mathbf{x}}, \forall(\mathbf{x}, \mathbf{y}) \in \mathcal{D}_{\text {train }}\right\}\right)
+>\hat{\mathbf{y}}_{\text {test }}=f\left(\phi_{\mathbf{x}_{\text {test }}} ;\left\{\psi_{\mathbf{x}}, \forall(\mathbf{x}, \mathbf{y}) \in \mathcal{D}_{\text {train }}\right\}\right)
 > $$
 >
 > 
@@ -87,9 +89,13 @@ $$
 
 **(1) Bidirectional LSTM**
 
+
+
 **(2) DeepSets**
+
+
 $$
-\psi_{\mathbf{x}}=\phi_{\mathbf{x}}+g\left(\left[\phi_{\mathbf{x}} ; \sum_{\mathbf{x}_{i}^{\prime} \in \mathbf{x}^{0}} h\left(\phi_{\mathbf{x}_{i}^{\prime}}\right)\right]\right)
+\psi_{{x}}=\phi_{{x}}+g\left(\left[\phi_{{x}} ; \sum_{{x}_{i}^{\prime} \in {x}^{0}} h\left(\phi_{{x}_{i}^{\prime}}\right)\right]\right)
 $$
 
 > 对于每个实例，首先将其互补集中的嵌入合并为一个集合向量作为上下文信息，然后将此向量与输入拼接在一起，获得自适应嵌入的残差部分
@@ -98,51 +104,55 @@ $$
 
 **(3) GCN**
 
-首先构造度矩阵A来表示集合中实例的相似性，如果两个实例来自同一类，则将A中的对应元素设置为1，否则设置为0     
+- 首先构造度矩阵A来表示集合中实例的相似性，如果两个实例来自同一类，则将A中的对应元素设置为1，否则设置为0     
 
-> $$
-> S=D^{-\frac{1}{2}}(A+I) D^{-\frac{1}{2}}
-> $$
-> 令$\Phi^0=\{\phi_x;\forall \mathbf{x} \in \mathcal{X}_{\text {train }}\}$，实例之间的关系基于$S$传播，即：
-> $$
-> \Phi^{t+1}=\mathbf{R} \mathbf{e} \mathbf{L} \mathbf{U}\left(S \Phi^{t} W\right), t=0,1, \ldots, T-1
-> $$
-> 
+$$
+S=D^{-\frac{1}{2}}(A+I) D^{-\frac{1}{2}}
+$$
+
+
+
+- 令$\Phi^0=\{\phi_x;\forall \mathbf{x} \in \mathcal{X}_{\text {train }}\}$，实例之间的关系基于$S$传播，即：
+
+$$
+\Phi^{t+1}=\mathbf{R} \mathbf{e} \mathbf{L} \mathbf{U}\left(S \Phi^{t} W\right), t=0,1, \ldots, T-1
+$$
+
+
 
 
 
 **(4) Transformer**
 
-> $\mathcal{Q}=\mathcal{K}=\mathcal{V}=\mathcal{X}_{train}$，首先将输入$\mathcal{K}$映射到空间$K=W_K^T[\phi_{x_k};\forall x_k\in \mathcal{K}]\in \mathbb{R}^{d\times \mid{\mathcal{K}\mid}}$，对于$\mathcal{Q}$和$\mathcal{V}$同理分别映射到$W_Q$和$W_V$
->
-> 利用自注意力公式得到注意力值，进行加权求和，更新输入得到$\psi_{x_q}$
-> $$
-> \alpha_{q k} \propto \exp \left(\frac{\phi_{\mathbf{x}_{q}}^{\top} W_{Q} \cdot K}{\sqrt{d}}\right)
-> $$
->
-> $$
-> \psi_{\mathbf{x}_{q}}=\phi_{\mathbf{x}_{q}}+\sum_{k} \alpha_{q k} V_{:, k}
-> $$
->
-> 
+$\mathcal{Q}=\mathcal{K}=\mathcal{V}=\mathcal{X}_{train}$
 
+- 首先将输入$\mathcal{K}$映射到空间$K=W_K^T[\phi_{x_k};\forall x_k\in \mathcal{K}]\in \mathbb{R}^{d\times \mid{\mathcal{K}\mid}}$，对于$\mathcal{Q}$和$\mathcal{V}$同理分别映射到$W_Q$和$W_V$
 
+- 利用自注意力公式得到注意力值，进行加权求和，更新输入得到$\psi_{x_q}$
+
+$$
+\alpha_{q k} \propto \exp \left(\frac{\phi_{\mathbf{x}_{q}}^{\top} W_{Q} \cdot K}{\sqrt{d}}\right)
+$$
+
+$$
+\psi_{\mathbf{x}_{q}}=\phi_{\mathbf{x}_{q}}+\sum_{k} \alpha_{q k} V_{:, k}
+$$
 
 
 
 ##### Contrastive Learning of Set-to-Set Functions
 
-> 为了促进嵌入的适应性学习，还加入了对比目标，确保实例嵌入在适应后与同类相似而与不同类不相似
->
-> - 将嵌入适应函数$T$应用于$N$类的不同实例，并得到转换后的嵌入$\psi'_x$和类中心$\{c_n\}^N_{n=1}$
-> - 采用对比目标确保训练实例更靠近自己的类中心，使set transformation提取相同类别实例的公共特征(preserve the category-wise similarity)
->
+为了促进嵌入的适应性学习，还加入了对比目标，确保实例嵌入在适应后与同类相似而与不同类不相似
+
+> - 将嵌入适应函数$T$应用于$N$类的不同实例，并得到转换后的嵌入$\psi^{'}_x$和类中心$\{c_n\}^N_{n=1}$
+>- 采用对比目标确保训练实例更靠近自己的类中心，使set transformation提取相同类别实例的公共特征(preserve the category-wise similarity)
+> 
 > $$
-> \begin{array}{l}
+>\begin{array}{l}
 > \mathcal{L}\left(\hat{\mathbf{y}}_{\text {test }}, \mathbf{y}_{\text {test }}\right)=\ell\left(\hat{\mathbf{y}}_{\text {test }}, \mathbf{y}_{\text {test }}\right) +\lambda \cdot \ell\left(\text { softmax }\left(\operatorname{sim}\left(\psi_{\mathbf{x}_{\text {test }}}^{\prime}, \mathbf{c}_{n}\right)\right), \mathbf{y}_{\text {test }}\right)
 > \end{array}
 > $$
->
+> 
 
 
 
