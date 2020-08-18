@@ -41,7 +41,7 @@ tags:
 
 **1)** 特征编码器$z=f_E(x;\theta_E)$的预训练，以学习图像嵌入，从而最大化正常样本图像$x\in \mathcal{D}_N$和它们的嵌入$z=f_E(x\in \mathcal{D}_N;\theta_E)$之间的互信息(MI)，具体如下：            
 $$
-\theta_{E}^{*}, \theta_{G}^{*}, \theta_{L}^{*}=\arg \max _{\theta_{E}, \theta_{G}, \theta_{L}}(\alpha \hat{I}_{\theta_{G}}(\mathbf{x} ; f_{E}(\mathbf{x} ; \theta_{E}))+\frac{\beta}{|\mathcal{M}|} \sum_{\omega \in \mathcal{M}} \hat{I}_{\theta_{L}}(\mathbf{x}(\omega) ; f_{E}(\mathbf{x}(\omega) ; \theta_{E}))) +\gamma \arg \min _{\theta_{\mathrm{E}}} \arg \max _{\phi} \hat{D}_{\phi}\left(\mathbb{V}|| \mathbb{U}_{\mathbb{P}, \theta_{E}}\right)
+\theta_{E}^{*}, \theta_{G}^{*}, \theta_{L}^{*}=\arg \max _{\theta_{E}, \theta_{G}, \theta_{L}}\left(\alpha \hat{I}_{\theta_{G}}\left( x ; f_{E}\left( x ; \theta_{E}\right)\right)+\frac{\beta}{| M |} \sum_{\omega \in M } \hat{I}_{\theta_{L}}\left( x (\omega) ; f_{E}\left( x (\omega) ; \theta_{E}\right)\right)\right)+\gamma \arg \min _{\theta_{ E }} \arg \max _{\phi} \hat{D}_{\phi}\left( V || U _{ P , \theta_{E}}\right)
 $$
 
 > > $x(w)$表示局部图像区域，$x$表示整张图片
@@ -70,7 +70,7 @@ f_S(f_E(x\in \mathcal{D}_A;\theta_E);\theta_S)>f_S(f_E(x\in \mathcal{D}_N;\theta
 $$
 
 
-> - 通过计算 $$z=f_E(x\in \mathcal{D}_A \cup \mathcal{D}_{N} ; \theta_{E}^{*})$$ 来训练 $ f_S(z;\theta_S) $
+> - 通过计算 $z=f_E(x\in \mathcal{D}_A \cup \mathcal{D}_{N} ; \theta_{E}^{*})$ 来训练 $ f_S(z;\theta_S) $
 > 
 > $$
 > \ell_{S}=\mathbb{I}(y \text { is } \text {Normal})\left|s\left(f_{S}\left(\mathbf{z} ; \theta_{S}\right)\right)\right|+\mathbb{I}(y \text { is } \text {Abnormal}) \max \left(0, a-s\left(f_{S}\left(\mathbf{z} ; \theta_{S}\right)\right)\right)
