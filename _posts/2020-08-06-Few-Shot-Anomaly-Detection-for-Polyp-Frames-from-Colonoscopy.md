@@ -42,8 +42,7 @@ tags:
 **1)** 特征编码器$z=f_E(x;\theta_E)$的预训练，以学习图像嵌入，从而最大化正常样本图像$x\in \mathcal{D}_N$和它们的嵌入$z=f_E(x\in \mathcal{D}_N;\theta_E)$之间的互信息(MI)，具体如下：
 $$
 \begin{aligned}
-\theta_{E}^{*}, \theta_{G}^{*}, \theta_{L}^{*}=\arg \max _{\theta_{E}, \theta_{G}, \theta_{L}}(&\left.\alpha \hat{I}_{\theta_{G}}\left(\mathbf{x} ; f_{E}\left(\mathbf{x} ; \theta_{E}\right)\right)+\frac{\beta}{|\mathcal{M}|} \sum_{\omega \in \mathcal{M}} \hat{I}_{\theta_{L}}\left(\mathbf{x}(\omega) ; f_{E}\left(\mathbf{x}(\omega) ; \theta_{E}\right)\right)\right) \\
-&+\gamma \arg \min _{\theta_{\mathrm{E}}} \arg \max _{\phi} \hat{D}_{\phi}\left(\mathbb{V}|| \mathbb{U}_{\mathbb{P}, \theta_{E}}\right)
+\theta_{E}^{*}, \theta_{G}^{*}, \theta_{L}^{*}=\arg \max _{\theta_{E}, \theta_{G}, \theta_{L}}(\alpha \hat{I}_{\theta_{G}}(\mathbf{x} ; f_{E}(\mathbf{x} ; \theta_{E}))+\frac{\beta}{|\mathcal{M}|} \sum_{\omega \in \mathcal{M}} \hat{I}_{\theta_{L}}(\mathbf{x}(\omega) ; f_{E}(\mathbf{x}(\omega) ; \theta_{E}))) +\gamma \arg \min _{\theta_{\mathrm{E}}} \arg \max _{\phi} \hat{D}_{\phi}\left(\mathbb{V}|| \mathbb{U}_{\mathbb{P}, \theta_{E}}\right)
 \end{aligned}
 $$
 
@@ -74,13 +73,15 @@ $$
 
 
 > - 通过计算$z=f_E(x\in \mathcal{D}_A \left.\cup \mathcal{D}_{N} ; \theta_{E}^{*}\right)$来训练$f_S(z;\theta_S)$
->   $$
->   \ell_{S}=\mathbb{I}(y \text { is } \text {Normal})\left|s\left(f_{S}\left(\mathbf{z} ; \theta_{S}\right)\right)\right|+\mathbb{I}(y \text { is } \text {Abnormal}) \max \left(0, a-s\left(f_{S}\left(\mathbf{z} ; \theta_{S}\right)\right)\right)
->   $$
 > 
->   > $s(x)=\frac{x-\mu_{S}}{\sigma_{S}}$
+> $$
+> \ell_{S}=\mathbb{I}(y \text { is } \text {Normal})\left|s\left(f_{S}\left(\mathbf{z} ; \theta_{S}\right)\right)\right|+\mathbb{I}(y \text { is } \text {Abnormal}) \max \left(0, a-s\left(f_{S}\left(\mathbf{z} ; \theta_{S}\right)\right)\right)
+> $$
 > 
->  
+> > 其中，$s(x)=\frac{x-\mu_{S}}{\sigma_{S}}$
+>
+
+
 
 **3）**在inference阶段，对于一张测试图像$x$，使用$f_E(x;\theta_E)$计算特征嵌入，然后使用$s=f_S(z;\theta_S)$计算分数，将分数结果$s$与阈值$\mathcal{T}$进行比较，确定测试图像是正常还是异常
 
