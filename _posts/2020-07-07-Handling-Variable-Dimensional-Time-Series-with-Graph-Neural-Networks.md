@@ -75,7 +75,7 @@ tags:
 >     - 对于任意active 节点$v_k$，对应的节点向量$\mathbf{v}_{k}$更新如下：
 >
 >     $$
->    \begin{aligned}
+>   \begin{aligned}
 >     \mathbf{v}_{k l} &=f_{e}\left(\left[\mathbf{v}_{k}, \mathbf{v}_{l}\right] ; \boldsymbol{\theta}_{e}\right), \quad \forall v_{l} \in \mathcal{N}_{\mathcal{G}}\left(v_{k}\right) \\
 >     \tilde{\mathbf{v}}_{k} &=f_{n}\left(\left[\mathbf{v}_{k}, \sum_{\forall l} \mathbf{v}_{k l}\right] ; \boldsymbol{\theta}_{n}\right)
 >     \end{aligned}

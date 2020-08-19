@@ -69,11 +69,12 @@ tags:
 >
 >     > 表示仅使用从 $\tau_{train}$ 中的任务所标记的训练数据进行优化
 >
->   - 定义$\mathcal{L}_{da}=\mathcal{L}_{G A N}+\mathcal{L}_{c y c l e}$为域适应损失
+>   - 定义为域适应损失
 >
 >     > 表示从$\tau_{train}$和$\tau_{test}$中的任务中未标记的数据进行优化
 >
 > $$
+> \mathcal{L}_{da}=\mathcal{L}_{G A N}+\mathcal{L}_{c y c l e}\\
 > \min _{\hat{\mathbf{F}}, \mathbf{G}, \mathbf{G}^{\prime}} \max _{D} \mathcal{L}_{f s}+\mathcal{L}_{d a}
 > $$
 >
