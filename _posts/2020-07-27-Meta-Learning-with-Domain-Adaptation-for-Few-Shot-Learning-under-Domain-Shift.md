@@ -47,7 +47,7 @@ tags:
 
 - 学习一个特征提取器，能够区分特征是否有助于新任务的快速学习
 - 希望这些特征对在训练任务的分布和测试任务的分布是相同的
-  - 对于给定的任务$T_i \sim (\mathcal{D}^m_{train},\mathcal{D}_{train})$，
+  - 对于给定的任务$T_i \sim (\mathcal{D}^m_{train},\mathcal{D}_{train})$，通过对其进行适应，使其类似于从$(\mathcal{D}^m_{test},\mathcal{D}_{test})$中获得的任务
 
 
 
