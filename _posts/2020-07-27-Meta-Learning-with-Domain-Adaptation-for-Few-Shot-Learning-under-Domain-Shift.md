@@ -49,7 +49,7 @@ tags:
 
 - 希望这些特征对在训练任务的分布和测试任务的分布是相同的
 
-  > 即对于任务$T_i$，       
+  > 即对于任务$T_{i}\sim$，       
   >
   > 希望其类似于从$\left(\mathcal{D}_{\text {test}}^{m}, \mathcal{D}_{\text {test}}\right)$中提取的任务
 
