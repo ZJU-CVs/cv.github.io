@@ -45,9 +45,8 @@ tags:
 
 有两个目标需要同时优化：
 
-> (1) 学习一个特征提取器，能够区分特征是否有助于新任务的快速学习
->
-> (2) 希望这些特征对训练任务的分布和测试任务的分布是不变的，即对于任务$T_i\sim \left(\mathcal{D}_{ train}^{m}, \mathcal{D}_{train}\right)$，希望使其类似于从$\left(\mathcal{D}_{test}^{m}, \mathcal{D}_{test}\right)$中提取的任务
+- 学习一个特征提取器，能够区分特征是否有助于新任务的快速学习
+- 希望这些特征对在训练任务的分布和测试任务的分布是不变的，即对于任务$T_i \sim \left(\mathcal{D}_{ train}^m, \mathcal{D}_{train}\right)$，希望其类似于从$\left(\mathcal{D}_{test}^{m}, \mathcal{D}_{test}\right)$中提取的任务
 
 
 
