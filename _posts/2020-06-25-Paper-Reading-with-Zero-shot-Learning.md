@@ -372,9 +372,11 @@ tags:
 > > y_j=\arg \max_c d\left(\tilde{f}_{s}\left(\mathbf{x}_{j}\right), \tilde{\mathbf{k}}_{c}\right)
 > > $$
 > >
-> > > $\tilde{k}_{c}\in\tilde{\mathcal{K}}_{u}$ in **ZSR**
+> > > $\tilde{k}_{c} \in \tilde{\mathcal{K}}_u$
 > > >
-> > > $\tilde{k}_{c}\in\{\tilde{\mathcal{K}}_s \cup\tilde{\mathcal{K}}_{u}\}$ in **gZSR**
+> > >  in **ZSR**
+> > >
+> > > $\tilde{k}_{c}\in\{\tilde{\mathcal{K}}_{s} \cup\tilde{\mathcal{K}}_{u}\}$ in **gZSR**
 
 
 
