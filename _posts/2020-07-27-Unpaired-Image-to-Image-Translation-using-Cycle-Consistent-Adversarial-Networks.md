@@ -41,7 +41,7 @@ tags:
 
 CycleGAN Loss:
 
-> CycleGAN Loss = Adversarial loss + Cycle-consistency loss + (Identity loss)
+> CycleGAN Loss = Adversarial loss + Cycle-consistency loss + (Identity loss)            
 > $$
 > \begin{aligned}
 > \mathcal{L}\left(G, F, D_{X}, D_{Y}\right)=& \mathcal{L}_{\mathrm{GAN}}\left(G, D_{Y}, X, Y\right)+\mathcal{L}_{\mathrm{GAN}}\left(F, D_{X}, Y, X\right)+\lambda \mathcal{L}_{\mathrm{cyc}}(G, F)
