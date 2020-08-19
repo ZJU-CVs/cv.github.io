@@ -68,7 +68,9 @@ tags:
 >   >   $$
 >   >   O_{i, c}=\operatorname{Depthwise} \operatorname{Conv}\left(X, W_{c,:}, i, c\right)=\sum_{j=1}^{k} W_{c, j} \cdot X_{\left(i+j-\left\lceil\frac{k+1}{2}\right\rceil\right), c}
 >   >   $$
->   >   *c* is the output dimension, $W\in R^{d\times k}$, $O \in R^{n\times d}$
+>   >   
+>   >
+>   >   - *c* is the output dimension, $W\in R^{d\times k}$, $O \in R^{n\times d}$
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/20.jpg" alt="img" style="zoom:50%;" />
 >
