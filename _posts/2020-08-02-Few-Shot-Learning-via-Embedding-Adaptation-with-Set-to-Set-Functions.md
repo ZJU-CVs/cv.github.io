@@ -38,7 +38,7 @@ tags:
 >
 > - 使用训练集$\mathcal{D}_{train}=\left\{ x_i,y_i \right\} ^{NM}_{i=1}$ ，学习$f(\cdot)$           
 >   
->   > 在可见类的数据集进行采样来生成许多*M-shot N-way FSL tasks*，目标是得到一个函数$f(\cdot)$，通过$\hat{y}_{\text {test}}=f\left(x_{\text {test}} ; D _{\text {train}}\right) \in\{0,1\}^{N}$对实例$ x_{test} $进行分类
+>   > 在可见类的数据集进行采样来生成许多*M-shot N-way FSL tasks*，目标是得到一个函数$f(\cdot)$，通过$\hat{y}_{\text {test}}=f\left(x_{\text {test}} ; D _{\text {train}}\right) \in\{0,1\}^{N}$，对实例$ x_{test} $进行分类
 
 $$
 f^{*}=\underset{f}{\arg \min } \sum_{\left(\mathbf{x}_{\mathbf{test}}^{S}, \mathbf{y}_{\mathbf{tes t}}^{S}\right) \in \mathcal{D}_{\mathbf{tes t}}}^{\mathcal{L}} \ell\left(f\left(\mathbf{x}_{\mathbf{t} \mathbf{e s t}}^{\mathcal{S}} ; \mathcal{D}_{\mathbf{t r a i n}}^{\mathcal{S}}\right), \mathbf{y}_{\mathbf{t e s t}}^{\mathcal{S}}\right)
@@ -123,7 +123,9 @@ $$
 
 
 
-**(4) Transformer**
+**(4) Transformer**      
+
+
 $$
 \mathcal{Q}=\mathcal{K}=\mathcal{V}=\mathcal{X}_{train}
 $$
@@ -146,7 +148,7 @@ $$
 
 为了促进嵌入的适应性学习，还加入了对比目标，确保实例嵌入在适应后与同类相似而与不同类不相似
 
-> - 将嵌入适应函数$T$应用于$N$类的不同实例，并得到转换后的嵌入$\psi^{'}_x$和类中心$\{c_n\}^N_{n=1}$
+> - 将嵌入适应函数$T$应用于$N$类的不同实例，并得到转换后的嵌入$\psi^{'}_x$，类中心$\{c_n\}^N_{n=1}$
 >- 采用对比目标确保训练实例更靠近自己的类中心，使set transformation提取相同类别实例的公共特征(preserve the category-wise similarity)
 > 
 > $$
