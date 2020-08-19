@@ -608,8 +608,10 @@ tags:
 > >
 > > 
 > >
-> > - 最终的损失函数：$\min _{G} \max _{D} L_{W G A N}+\beta L_{C L S}$
+> > - 最终的损失函数：
 > >
+> >   $$\min _{G} \max _{D} L_{W G A N}+\beta L_{C L S}$$
+> >   
 > >   > $$\min _{G} \max _{D} L_{W G A N}=E[D(x, c(y))]-E[D(\tilde{x}, c(y))]-\lambda E\left[\left(\left\|\nabla_{\hat{x}} D(\hat{x}, c(y))\right\|_{2}-1\right)^{2}\right]$$
 > >   >
 > >   > $$L_{C L S}=-E_{\tilde{x} \sim p_{\tilde{x}}}[\log P(y \mid \tilde{x} ; \theta)]$$
