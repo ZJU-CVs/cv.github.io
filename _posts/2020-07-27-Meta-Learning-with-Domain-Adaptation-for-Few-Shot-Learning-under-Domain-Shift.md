@@ -29,7 +29,9 @@ tags:
 
 ##### Problem Setting
 
-> 总体目标是学习一个meta-learner，使其能够利用$ \tau_{train}$获得一个好的少样本先验知识，克服task-level 域偏移，以学习$\tau_{test}$中未观测到的少样本任务
+> 总体目标是学习一个meta-learner，使其能够利用$ \tau_{train}$获得一个好的少样本先验知识，克服task-level 域偏移，以学习$\tau_{test}$中未观测到的少样本任务        
+>
+> 
 > $$
 > \left(\mathcal{D}_{train}^{m}, \mathcal{D}_{train}\right) \sim \tau_{train},\left(\mathcal{D}_{test}^{m}, \mathcal{D}_{test}\right) \sim \tau_{test}
 > $$
