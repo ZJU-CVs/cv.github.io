@@ -40,7 +40,7 @@ tags:
 
 > - 考虑一个训练集$\mathcal{D}={(x_i,y_i)}^N_{i=1}$，具有N个多变量时间序列$x_i \in \mathcal{X}$和对应的相关目标$y_i \in \mathcal{Y}$
 > - $\mathcal{S}$表示所有传感器的集合，共$d$维；$\mathcal{S}_i \subseteq \mathcal{S}$表示不同的传感器组合，共$d_i$维
-> - $x_i=\{x^t_i\}^{T_i}_{t=1},x_i^t\in \mathbb{R}^{d_{i}}$
+> - $x_i$的表示：$x_i=\{x^t_i\}^{T_i}_{t=1}, x_i^t\in \mathbb{R}^{d_{i}}$        
 
 
 
