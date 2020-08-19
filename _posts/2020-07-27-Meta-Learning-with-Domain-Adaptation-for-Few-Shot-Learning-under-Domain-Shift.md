@@ -30,42 +30,65 @@ tags:
 ##### Problem Setting
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/16.png" alt="img" style="zoom:43%;" />
+$$
+\left(\mathcal{D}_{\text {train}}^{m}, \mathcal{D}_{\text {train}}\right) \sim \tau_{\text {train}},\left(\mathcal{D}_{\text {test}}^{m}, \mathcal{D}_{\text {test}}\right) \sim \tau_{\text {test}}
+$$
 
-> $\left(\mathcal{D}_{\text {train}}^{m}, \mathcal{D}_{\text {train}}\right) \sim \tau_{\text {train}}$，$\left(\mathcal{D}_{\text {test}}^{m}, \mathcal{D}_{\text {test}}\right) \sim \tau_{\text {test}}$，总体目标是学习一个meta-learner，使其能够利用$ \tau_{train}$获得一个好的少样本先验知识，克服task-level 域偏移，以学习$\tau_{test}$中未观测到的少样本任务
+> 总体目标是学习一个meta-learner，使其能够利用$ \tau_{train}$获得一个好的少样本先验知识，克服task-level 域偏移，以学习$\tau_{test}$中未观测到的少样本任务
 
 
 
 ##### **Meta-Learning with Domain Adaptation (MLDA)**
 
-> 有两个目标需要同时优化：
+有两个目标需要同时优化：
+
+> (1) 学习一个特征提取器，能够区分特征是否有助于新任务的快速学习
 >
-> - 学习一个特征提取器，能够区分特征是否有助于新任务的快速学习
-> - 希望这些特征对训练任务的分布和测试任务的分布是不变的，即对于任务$T_i\sim \left(\mathcal{D}_{\text {train}}^{m}, \mathcal{D}_{\text {train}}\right)$，希望使其类似于从$\left(\mathcal{D}_{\text {test}}^{m}, \mathcal{D}_{\text {test}}\right)$中提取的任务
+> (2) 希望这些特征对训练任务的分布和测试任务的分布是不变的，即对于任务$T_i\sim \left(\mathcal{D}_{ train}^{m}, \mathcal{D}_{train}\right)$，希望使其类似于从$\left(\mathcal{D}_{test}^{m}, \mathcal{D}_{test}\right)$中提取的任务
 
 
 
 > 具体实现：
 >
 > - 在元学习阶段，考虑先把meta-training里的图像先通过G转换为meta-testing里面的图像domain，然后再做meta-learning，该步骤通过GAN来训练（**这里用到了meta-testing的数据，有点违背meta learning的基本设定**）
->   - 特征提取器F将$X_{train}$输入映射为$d$维嵌入，$$F(x)=\hat{F}(G(x))$$，其中$$\mathbf{G}: \mathcal{X}^{\text {train}} \rightarrow \mathcal{X}^{\text {test}},\hat{F}=\mathcal{X}^{test} \rightarrow \mathbb{R}^d$$
-> - 损失函数：$\min _{\hat{\mathbf{F}}, \mathbf{G}, \mathbf{G}^{\prime}} \max _{D} \mathcal{L}_{f s}+\mathcal{L}_{d a}$
->   - $\mathcal{L}_{fs}$为预测损失，表示仅使用从$\tau_{train}$中的任务所标记的训练数据进行优化
->   - $\mathcal{L}_{da}$表示域适应损失，从$\tau_{train}$和$\tau_{test}$中的任务中未标记的数据进行优化，$\mathcal{L}_{da}=\mathcal{L}_{GAN}+\mathcal{L}_{cycle}$
+>   
+>   - 特征提取器F将$X_{train}$输入映射为$d$维嵌入，$$F(x)=\hat{F}(G(x))$$，其中$$G: \mathcal{X}^{train} \rightarrow \mathcal{X}^{test},\hat{F}=\mathcal{X}^{test} \rightarrow \mathbb{R}^d$$
+>   
+>   
+>   
+> - 损失函数：
+>
+> $$
+> \min _{\hat{\mathbf{F}}, \mathbf{G}, \mathbf{G}^{\prime}} \max _{D} \mathcal{L}_{f s}+\mathcal{L}_{d a}
+> $$
+>
+> > $\mathcal{L}_{fs}$为预测损失，表示仅使用从$\tau_{train}$中的任务所标记的训练数据进行优化
+> >
+> > $\mathcal{L}_{da}$表示域适应损失，从$\tau_{train}$和$\tau_{test}$中的任务中未标记的数据进行优化，$\mathcal{L}_{da}=\mathcal{L}_{GAN}+\mathcal{L}_{cycle}$
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/17.png" alt="img" style="zoom:43%;" />
 
-<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/17.png" alt="img" style="zoom:43%;" />
+
 
 ##### Few-shot Learning
 
-> 本文选择基于原型网络来实现具有域适应的元学习框架
+本文选择基于原型网络来实现具有域适应的元学习框架
+
+> - 对于给定的任务$T_i \sim (\mathcal{D}_{train}^m,\mathcal{D}_{train})$，原型网络使用特征提取器$F$为每个实例计算得到一个$d$维的嵌入，计算得到原型:
 >
-> - 对于给定的任务$T_i \sim (\mathcal{D}_{train}^m,\mathcal{D}_{train})$，原型网络使用特征提取器$F$为每个实例计算得到一个$d$维的嵌入，计算得到原型$c_n==\frac{1}{S_{n}^{s u p p o r t}} \sum_{\left(\mathbf{x}_{i}, y_{i}\right) \in S_{n}^{s u p p o r t}} \mathbf{F}\left(\mathbf{x}_{i}\right)$
+> $$
+> c_n==\frac{1}{S_{n}^{s u p p o r t}} \sum_{\left(\mathbf{x}_{i}, y_{i}\right) \in S_{n}^{s u p p o r t}} \mathbf{F}\left(\mathbf{x}_{i}\right)
+> $$
+>
+> 
 >
 > - 对于给定的查询实例$x$,原型网络在类别上生成概率分布：
->   $$
->   p(y=n \mid \mathbf{x})=\frac{\exp \left(-\operatorname{dist}\left(\mathbf{F}(\mathbf{x}), \mathbf{c}_{n}\right)\right)}{\sum_{(j=1)}^{N} \exp \left(-\operatorname{dist}\left(\mathbf{F}(\mathbf{x}), \mathbf{c}_{j}\right)\right)}
->   $$
 >
->   > 其中$dist$用于衡量查询实例的嵌入与类原型之间的距离
+> $$
+> p(y=n \mid \mathbf{x})=\frac{\exp \left(-\operatorname{dist}\left(\mathbf{F}(\mathbf{x}), \mathbf{c}_{n}\right)\right)}{\sum_{(j=1)}^{N} \exp \left(-\operatorname{dist}\left(\mathbf{F}(\mathbf{x}), \mathbf{c}_{j}\right)\right)}
+> $$
+>
+> > 其中$dist$用于衡量查询实例的嵌入与类原型之间的距离
 >
 > - $\mathcal{L}_{f s}=-\log p(y=k \mid \mathbf{x})$计算在query set上的损失，并反向传播更新特征提取器$F$
 
