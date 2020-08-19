@@ -426,7 +426,7 @@ tags:
 
 [Rethinking Knowledge Graph Propagation for Zero-Shot Learning](https://arxiv.org/pdf/1805.11724.pdf)
 
-> 使用$\mathcal{C}$表示所有类的集合，$\mathcal{C}_{te}$和$\mathcal{C}_tr$分别为测试集和训练集中的类别，要求$$\mathcal{C}_{t e} \cap \mathcal{C}_{t r}=\emptyset$$。使用$S$维的语义表征向量$z\in R^S$表示所有的类别，$\mathcal{D}_{tr}=\{\left(\vec{X}_{i}, c_{i}\right), i=1, \ldots, N\}$表示训练集中的样本（图像及标签）
+> 使用$\mathcal{C}$表示所有类的集合，$\mathcal{C}_{te}$和$\mathcal{C}_tr$分别为测试集和训练集中的类别，要求$\mathcal{C}_{t e} \cap \mathcal{C}_{t r}=\emptyset$。使用$S$维的语义表征向量$z\in R^S$表示所有的类别，$\mathcal{D}_{tr}=\{(\vec{X}_{i}, c_{i}), i=1, \ldots, N\}$表示训练集中的样本（图像及标签）
 >
 > **模型思想：**
 >
@@ -438,8 +438,8 @@ tags:
 >
 > > - 在训练过程中，DGP使用一种半监督的方法来监督CNN最后一层的参数，即能够利用知识图谱提供的类别的语义描述之间关系的信息来拓展原有的CNN分类器，使其适应unseen的类
 > > - 具体来说，给定一个由$N$个节点的图，每个节点使用$S$维输入特征表示，则$X\in R^{N\times S}$就表示特征矩阵。每个节点表示一个不同的类，类之间的链接使用对称的邻接矩阵表示$A\in R^{N\times N}$，其中包括自环
-> > - 图的传播法则表示为：$$H^{(l+1)}=\sigma\left(D^{-1} A H^{(l)} \Theta^{(l)}\right)$$，其中$H^{(l)}$表示第$l$层的激活结果，$\Theta^{(l)}\in R^{S\times F}$表示第$l$层的可学习参数
-> > - 通过优化$$\mathcal{L}=\frac{1}{2 M} \sum_{i=1}^{M} \sum_{j=1}^{P}\left(W_{i, j}-\tilde{W}_{i, j}\right)^{2}$$来训练GCN预测参数的能力，其中$M$表示训练时的类别数目，$P$表示权重向量的维度，Ground turth的权重$w$通过抽取预训练的CNN分类器得到。
+> > - 图的传播法则表示为：$H^{(l+1)}=\sigma\left(D^{-1} A H^{(l)} \Theta^{(l)}\right)$，其中$H^{(l)}$表示第$l$层的激活结果，$\Theta^{(l)}\in R^{S\times F}$表示第$l$层的可学习参数
+> > - 通过优化$\mathcal{L}=\frac{1}{2 M} \sum_{i=1}^{M} \sum_{j=1}^{P}\left(W_{i, j}-\tilde{W}_{i, j}\right)^{2}$来训练GCN预测参数的能力，其中$M$表示训练时的类别数目，$P$表示权重向量的维度，Ground turth的权重$w$通过抽取预训练的CNN分类器得到。
 >
 > 
 >
