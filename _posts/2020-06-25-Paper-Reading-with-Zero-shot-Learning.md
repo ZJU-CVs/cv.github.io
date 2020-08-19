@@ -449,11 +449,17 @@ tags:
 > >
 > > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/26.png" alt="img" style="zoom:50%;" />
 > >
+> > 
+> >
 > > **带权重的传播公式：**
+> >
+> > 
 > > $$
 > > H=\sigma\left(\sum_{k=0}^{K} \alpha_{k}^{a} D_{k}^{a^{-1}} A_{k}^{a} \sigma\left(\sum_{k=0}^{K} \alpha_{k}^{d} D_{k}^{d^{-1}} A_{k}^{d} X \Theta_{d}\right) \Theta_{a}\right)
 > > $$
-> > 
+> >
+>
+> 
 >
 > **训练步骤：**
 >
@@ -477,6 +483,8 @@ tags:
 >   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/19.png" alt="img" style="zoom:50%;" />
 >
 >   > 将每个目标类实例的三个视图$f^A(X_T),f^v(X_T)$和$X_T$投影到共享的嵌入空间
+>
+>   
 >
 > - 对于**原型稀疏性**问题，提出novel heterogeneous multi-view hypergraph label propagation(异构多视图标签传播)，有效利用了不同语义表示提供互补信息，以一致的方式利用了多个表示空间的流形结构
 >
@@ -584,20 +592,23 @@ tags:
 > 使用三种conditional GAN的变体来循序渐进的生成图像特征：embedding feature
 >
 > > - 通过下式表示可见类和不可见类
-> >   $$
-> >   S=\left\{(x, y, c(y)) \mid x \in X, y \in Y^{s}, c(y) \in C\right\} \\
-> >   U=\left\{(u, c(u)) \mid u \in Y^{u}, c(u) \in C\right\}
-> >   $$
+> >   
+> >   > $$
+> >   > S=\left\{(x, y, c(y)) \mid x \in X, y \in Y^{s}, c(y) \in C\right\} \\
+> >   > U=\left\{(u, c(u)) \mid u \in Y^{u}, c(u) \in C\right\}
+> > > $$
+> >   >
+> >   > - 其中$S$代表所有可见训练集，$x\in R^{d_x}$是CNN特征，$y^s = {y_1,...,y_k}$代表有$k$个相互独立的可见类，$y$代表类标签，$c(y)\in R^{d_c}$代表y类的embedding属性集，由语义向量构成。
+> >   >
+> >   > - $U$代表不可见类，缺少了图像和CNN特征
+> >   >
+> >   > - ZSL的任务：学习一个分类器$f_{zsl}:X \rightarrow Y^{u}$
+> >   >
+> > > - GZSL的任务：学习一个分类器$f_{gzsl}:X \rightarrow Y^{s}\cup Y^{u}$
 > >
-> >   > 其中$S$代表所有可见训练集，$x\in R^{d_x}$是CNN特征，$y^s = {y_1,...,y_k}$代表有$k$个相互独立的可见类，$y$代表类标签，$c(y)\in R^{d_c}$代表y类的embedding属性集，由语义向量构成。
-> >   >
-> >   > $U$代表不可见类，缺少了图像和CNN特征
-> >   >
-> >   > ZSL的任务：学习一个分类器$f_{zsl}:X \rightarrow Y^{u}$
-> >   >
-> >   > GZSL的任务：学习一个分类器$f_{gzsl}:X \rightarrow Y^{s}\cup Y^{u}$
+> > 
 > >
-> > - 最终的损失函数：$$\min _{G} \max _{D} L_{W G A N}+\beta L_{C L S}$$
+> > - 最终的损失函数：$\min _{G} \max _{D} L_{W G A N}+\beta L_{C L S}$
 > >
 > >   > $$\min _{G} \max _{D} L_{W G A N}=E[D(x, c(y))]-E[D(\tilde{x}, c(y))]-\lambda E\left[\left(\left\|\nabla_{\hat{x}} D(\hat{x}, c(y))\right\|_{2}-1\right)^{2}\right]$$
 > >   >
