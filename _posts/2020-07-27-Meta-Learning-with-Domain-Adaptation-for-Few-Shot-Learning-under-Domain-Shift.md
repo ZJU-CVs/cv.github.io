@@ -103,16 +103,22 @@ tags:
 > How to perform task-level domain adaptation and learn the mapping parameters $G$.
 
 - 使用GAN loss学习生成器$G:\mathcal{X}^{\text {train}} \rightarrow \mathcal{X}^{\text {test}}$和对应的判别器$D$
-  $$
-  \mathcal{L}_{G A N}\left(\mathbf{G}, D, \mathcal{X}^{\text {train}}, \mathcal{X}^{\text {test}}\right)=\mathbb{E}_{\mathbf{x}^{\text {test}} \sim \mathcal{D}_{\text {test}}}\left[\log D\left(\mathbf{x}^{\text {test}}\right)\right]+\mathbb{E}_{\mathbf{x}^{t r a i n} \sim \mathcal{D}_{\text {train}}}\left[\log \left(1-D\left(\mathbf{G}\left(\mathbf{x}^{\text {train}}\right)\right)\right)\right]
-  $$
+
+$$
+\mathcal{L}_{G A N}\left(G, D, \mathcal{X}^{train}, \mathcal{X}^{test}\right)=E_{x^{test} \sim \mathcal{D}_{test}}\left[\log D\left(x^{test}\right)\right]+\mathbb{E}_{x^{train} \sim \mathcal{D}_{ train}}\left[\log \left(1-D\left(G\left(x^{train}\right)\right)\right)\right]
+$$
+
+
 
 - 使用生成对抗网络能够产生与测试域$\mathcal{X}^{train}$相似的输出，但是网络将会将训练域$\mathcal{X}^{train}$中同一组输入图像映射到测试域的任意随机排列，因为GAN loss的目标是高度不受约束的。因此需要使用周期一致损失cycle-consistency loss，使用一个新的映射$G':\mathcal{X}^{test}\rightarrow \mathcal{X}^{\text {train}}$恢复原始实例
-  $$
-  \mathcal{L}_{\text {cycle}}=\mathbb{E}_{\mathbf{x}^{\text {train}} \sim \mathcal{D}_{\text {train}}}\left[\left\|\mathbf{G}^{\prime}(\mathbf{G}(\mathbf{x}))-\mathbf{x}\right\|_{1}\right]
-  $$
 
-- 因此域适应目标为：$$\mathcal{L}_{d a}=\mathcal{L}_{G A N}+\mathcal{L}_\text {cycle}$$
+$$
+\mathcal{L}_{cycle}=\mathbb{E}_{x^{train} \sim \mathcal{D}_{train}}\left[\left\|G^{\prime}(G(x))-x\right\|_{1}\right]
+$$
+
+
+
+- 因此域适应目标为：$\mathcal{L}_{da}=\mathcal{L}_{GAN}+\mathcal{L}_{cycle}$
 
 
 
