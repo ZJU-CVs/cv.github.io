@@ -47,13 +47,16 @@ tags:
 >   - F将噪声z编码成隐变量w
 >
 >   - G生成图像，同时取决于隐变量w和噪声$\eta$ 的输入
->     $$
->     q(x)=\int_{w} \int_{\eta} q_{G}(x | w, \eta) q_{F}(w) p_{\eta}(\eta) \mathrm{d} \eta \mathrm{d} w
->     $$
 >
->   - E将生成的图像进行编码，$$\begin{equation}
+>   $$
+>   q(x)=\int_{w} \int_{\eta} q_{G}(x | w, \eta) q_{F}(w) p_{\eta}(\eta) d \eta dw
+>   $$
+>
+>   
+>
+>   - E将生成的图像进行编码，$\begin{equation}
 >     q_{E}(w)=\int_{x} q_{E}(w | x) q(x) d x
->     \end{equation}$$
+>     \end{equation}$
 >
 >   - **约束为使F生成的分布与由E生成的分布尽可能相近**
 >
@@ -63,7 +66,9 @@ tags:
 >
 >   
 >
-> - 优化目标
+> - 优化目标：
+>
+>   
 > $$
 > \min _{E, G} \Delta(F \| E \circ G \circ F)
 > $$
