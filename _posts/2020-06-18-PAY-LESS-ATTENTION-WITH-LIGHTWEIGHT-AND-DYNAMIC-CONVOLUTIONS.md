@@ -82,19 +82,16 @@ tags:
 >   >
 >   > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/21.jpg" alt="img" style="zoom:50%;" />
 >   
+>   
+>   
 > - dynamic convolutions:
 >
 >   不同组的权重根据输入的$X_i$得到，进行加权组合得到Dynamic Convolution
 >   > $$
->   > \text { DynamicConv }(X, i, c)=\operatorname{Light} \operatorname{Conv}\left(X, f\left(X_{i}\right)_{h,:}, i, c\right)
+>   > \text { DynamicConv }(X, i, c)=\operatorname{Light} \operatorname{Conv}\left(X, f\left(X_{i}\right)_{h,:}, i, c\right)\\f(X_i)=\sum_{c=1}^{d} W_{h, j, c}^{Q} X_{i, c}
 >   > $$
->   > $$
->   > f(X_i)=\sum_{c=1}^{d} W_{h, j, c}^{Q} X_{i, c}
->   > $$
->   > 
 >   >
->   > 
->   ><img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/22.jpg" alt="img" style="zoom:30%;" />
+>   > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/22.jpg" alt="img" style="zoom:30%;" />
 >
 > 
 
