@@ -46,7 +46,10 @@ tags:
 有两个目标需要同时优化：
 
 - 学习一个特征提取器，能够区分特征是否有助于新任务的快速学习
-- 希望这些特征对在训练任务的分布和测试任务的分布是不变的，即对于任务$T_i \sim \left(\mathcal{D}_{ train}^m, \mathcal{D}_{train}\right)$，希望其类似于从$\left(\mathcal{D}_{test}^{m}, \mathcal{D}_{test}\right)$中提取的任务
+
+- 希望这些特征对在训练任务的分布和测试任务的分布是相同的
+
+  > 即对于任务$T_{i}\sim \left(\mathcal{D}_{train}^m, \mathcal{D}_{train}\right)$，希望其类似于从$\left(\mathcal{D}_{test}^{m}, \mathcal{D}_{test}\right)$中提取的任务
 
 
 
@@ -60,8 +63,8 @@ tags:
 >
 > - 损失函数：
 >
->   - $\mathcal{L}_{fs}$为预测损失，表示仅使用从$\tau_{train}$中的任务所标记的训练数据进行优化
->   - $\mathcal{L}_{da}$表示域适应损失，从$\tau_{train}$和$\tau_{test}$中的任务中未标记的数据进行优化，$\mathcal{L}_{da}=\mathcal{L}_{GAN}+\mathcal{L}_{cycle}$
+>   - 定义$\mathcal{L}_{fs}$为预测损失，表示仅使用从 $\tau_{train}$ 中的任务所标记的训练数据进行优化
+>   - 定义$\mathcal{L}_{da}$为域适应损失，从$\tau_{train}$和$\tau_{test}$中的任务中未标记的数据进行优化，$\mathcal{L}_{da}=\mathcal{L}_{GAN}+\mathcal{L}_{cycle}$
 >
 > $$
 > \min _{\hat{\mathbf{F}}, \mathbf{G}, \mathbf{G}^{\prime}} \max _{D} \mathcal{L}_{f s}+\mathcal{L}_{d a}
