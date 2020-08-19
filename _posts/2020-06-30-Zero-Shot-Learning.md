@@ -295,8 +295,8 @@ ref: [A survey of zero-shot learning: Settings, methods, and applications](https
 >
 > - 具体实现：
 >
->   > - 设输入层到隐层的映射为W，隐层到输出层的映射为$W^*$，$W$和$W^*$是对称的，即$W^* = W^T$。期望输入和输出尽可能相似，目标函数为$$\min _{\mathbf{w}, \mathbf{w}^{*}}\left\|\mathbf{X}-\mathbf{W}^{*} \mathbf{W} \mathbf{X}\right\|_{F}^{2}$$
->   > - 期望中间隐层S具有抽象的语义，能表示样本属性或者类别标签，所以加入约束，使自编码器成为监督学习的问题。$$\min _{\mathbf{W}, \mathbf{W}^{*}}\left\|\mathbf{X}-\mathbf{W}^{*} \mathbf{W} \mathbf{X}\right\|_{F}^{2} \text { s.t. } \mathbf{W X}=\mathbf{S}$$
+>   > - 设输入层到隐层的映射为W，隐层到输出层的映射为$W^*$，$W$和$W^*$是对称的，即$W^* = W^T$。期望输入和输出尽可能相似，目标函数为$\min _{\mathbf{w}, \mathbf{w}^{*}}\left\|\mathbf{X}-\mathbf{W}^{*} \mathbf{W} \mathbf{X}\right\|_{F}^{2}$
+>   > - 期望中间隐层S具有抽象的语义，能表示样本属性或者类别标签，所以加入约束，使自编码器成为监督学习的问题。$\min _{\mathbf{W}, \mathbf{W}^{*}}\left\|\mathbf{X}-\mathbf{W}^{*} \mathbf{W} \mathbf{X}\right\|_{F}^{2} \text { s.t. } \mathbf{W X}=\mathbf{S}$
 >
 >   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/8.png" alt="img" style="zoom:50%;" />
 
