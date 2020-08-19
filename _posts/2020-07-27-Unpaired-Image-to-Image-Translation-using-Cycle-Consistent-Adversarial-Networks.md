@@ -81,17 +81,14 @@ $$
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/4.png" alt="img" style="zoom:40%;" />
 
 > - Identity loss
->
 >   - 生成器G用来生成y风格图像，则把y输入G，应该仍然生成y，只有这样才能证明G具有生成y风格的能力，因此G(y)和y应该尽可能接近。如下图，若无Identity loss，生成器G和F会自主地修改色调，使得整体的颜色产生变化。      
->
->     
 > $$
 > L_{\text {Identity}}(G, F)=\mathbb{E}_{y \sim p_{\text {data}}(y)}\left[\|G(y)-y\|_{1}\right]+\mathbb{E}_{x \sim p_{\text {data}}(x)}\left[\|F(x)-x\|_{1}\right]
 > $$
 >
 > 
 >
-> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/5.png" alt="img" style="zoom:40%;" />
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/5.png" alt="img" style="zoom:30%;" />
 
 
 
@@ -119,10 +116,14 @@ $$
 
 
 
-**Step 1:**  首先学习一个源域分类器$f_s$，在源域数据上进行分类判别，损失函数如下：        
+**Step 1:**  首先学习一个源域分类器$f_s$，在源域数据上进行分类判别。
+
+- 损失函数如下：    
+
 $$
 \mathcal{L}_{task}(f_S,X_S,Y_S)=-\mathbb{E}_{\left(x_{s}, y_{s}\right)\sim\left(X_{S}, Y_{S}\right)}\sum_{k=1}^{K}\mathbb{1}_{\left[k=y_{s}\right]}\log\left(\sigma\left(f_{S}^{(k)}\left(x_{s}\right)\right)\right)
 $$
+
 
 
 **Step 2**: 学习目标域分类器$f_T$
