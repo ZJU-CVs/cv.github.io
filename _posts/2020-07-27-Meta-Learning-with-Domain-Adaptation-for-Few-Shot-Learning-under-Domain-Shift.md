@@ -51,7 +51,7 @@ tags:
 
   > 即对于任务$T_{i}\sim (\mathcal{D}_{train}^m, \mathcal{D}_{train})$，       
   >
-  > 希望其类似于从$(\mathcal{D}_{test}^{m}, \mathcal{D}_{test})$中提取的任务
+  > 希望其类似于从$\left(\mathcal{D}_{\text {test}}^{m}, \mathcal{D}_{\text {test}}\right)$中提取的任务
 
 
 
