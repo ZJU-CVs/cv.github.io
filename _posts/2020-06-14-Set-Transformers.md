@@ -59,7 +59,10 @@ $$
 - 首先用$I$对输入$X$做self-attention
 - 用得到的结果对输入做attention
 
+
+
 以上步骤将复杂度从$O(n^2)$优化为$O(mn)$
+
 
 
 $$
@@ -73,13 +76,16 @@ $$
 ##### Pipeline
 
 - Encoder由SAB或ISAB堆栈构成：$X\in R^{n\times dx}$为输入，$Z\in R^{n\times d}$为经过Encoder之后的特征表示
-  $$
-  Encoder(X)=SAB(SAB(X))
-  $$
 
-  $$
-  Encoder(X)=ISAB_m(ISAB_m(X))
-  $$
+$$
+Encoder(X)=SAB(SAB(X))
+$$
+
+$$
+Encoder(X)=ISAB_m(ISAB_m(X))
+$$
+
+
 
 - Decoder:
 
@@ -88,10 +94,14 @@ $$
 $$
 
 > PMA为Pooling by Multihead Attention,用来聚合多个特征，$S\in R^{k\times d}$
+>
+> 
 > $$
 > \operatorname{PMA}_{k}(Z)=\operatorname{MAB}(S, \operatorname{rFF}(Z))
 > $$
 > SAB用于建模k个输出之间的关系
+
+
 
 #### 3. Experiments
 
