@@ -81,7 +81,10 @@ $$
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/4.png" alt="img" style="zoom:40%;" />
 
 > - Identity loss
->   - 生成器G用来生成y风格图像，则把y输入G，应该仍然生成y，只有这样才能证明G具有生成y风格的能力，因此G(y)和y应该尽可能接近。如下图，若无Identity loss，生成器G和F会自主地修改色调，使得整体的颜色产生变化。
+>
+>   - 生成器G用来生成y风格图像，则把y输入G，应该仍然生成y，只有这样才能证明G具有生成y风格的能力，因此G(y)和y应该尽可能接近。如下图，若无Identity loss，生成器G和F会自主地修改色调，使得整体的颜色产生变化。      
+>
+>     
 > $$
 > L_{\text {Identity}}(G, F)=\mathbb{E}_{y \sim p_{\text {data}}(y)}\left[\|G(y)-y\|_{1}\right]+\mathbb{E}_{x \sim p_{\text {data}}(x)}\left[\|F(x)-x\|_{1}\right]
 > $$
