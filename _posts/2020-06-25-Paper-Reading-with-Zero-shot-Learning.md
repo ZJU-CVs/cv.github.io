@@ -616,7 +616,7 @@ tags:
 > >   >
 > >   > $$L_{C L S}=-E_{\tilde{x} \sim p_{\tilde{x}}}[\log P(y \mid \tilde{x} ; \theta)]$$
 > >   >
-> >   > - 其中$$\tilde{x}=G(z, c(y))$$，$$\hat{x}=\alpha x+(1-\alpha) \tilde{x}$$，$$\alpha \sim U(0,1)$$，$\lambda$为处罚系数
+> >   > - 其中$\tilde{x}=G(z, c(y))$，$\hat{x}=\alpha x+(1-\alpha) \tilde{x}$，$\alpha \sim U(0,1)$，$\lambda$为处罚系数
 > >   > - $P(y \mid \tilde{x} ; \theta)$表示$\tilde{x}$被类别标签$y$真实预测的概率，分类器的参数$\theta$是根据可见类的实际特征进行预训练
 > >   > - 分类损失可以看作是正则化项，使生成器构造判别性强的特征
 >
