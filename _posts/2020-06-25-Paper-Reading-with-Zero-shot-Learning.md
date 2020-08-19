@@ -315,10 +315,14 @@ tags:
 > >
 > >   
 > >
-> > - 对于**typical ZSR**问题，一般分为两步：(1) 通过visual-semantic $f_{s}: \mathcal{X}_{s} \rightarrow \mathcal{K}_{s}$映射预测嵌入$k_j$；(2) 通过比较$k_j$与default ZSR setting中的$\mathcal{K}_u$或default gZSR setting中的$\mathcal{K}_{s} \cup \mathcal{K}_{u}$
+> > - 对于**typical ZSR**问题，一般分为两步：
 > >
+> >   > (1) 通过visual-semantic $f_{s}: \mathcal{X}_{s} \rightarrow \mathcal{K}_{s}$映射预测嵌入$k_j$
+> > >
+> >   > (2) 通过比较$k_j$与default ZSR setting中的$\mathcal{K}_u$ 或 default gZSR setting中的$\mathcal{K}_{s} \cup \mathcal{K}_{u}$
+> >   
 > >   - **存在问题：**
-> >
+> >   
 > >     如下图所示，圆和三角形分别表示可见类和不可见类，对于嵌入语义空间$\mathcal{K}$中的两个unseen classes ($v_u^i$和$v_u^j$)，如果它们在可见类子空间$\mathcal{S}=span(\mathcal{K_s})$中正交投影相同，则$\mathcal{K}$对于这两种未知类没有迁移能力
 > >
 > > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/21.png" alt="img" style="zoom:50%;" />
