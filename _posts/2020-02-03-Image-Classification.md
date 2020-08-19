@@ -10,10 +10,11 @@ tags:
     - Introduction
 ---
 
-#### 1.  Introduction 介绍：
+#### 1.  Introduction 介绍
   - 图像分类主要解决如何将图像按视觉特点分为不同类别的问题。其是计算机视觉中的基础任务，也是图像检测、图像分割、图像搜索等高级任务的根本。
     
-#### 2.  Challenge 困难和挑战：
+    
+#### 2.  Challenge 困难和挑战
 
   - 多视角：收集同一个物体图像，获取的角度是多变的；
     
@@ -26,7 +27,7 @@ tags:
   - 类内差异：一类物体的个体之间有许多不同的对象，每个都有自己的外形，细粒度分类难度大。
 
     
-#### 3. Classification Model 分类模型：
+#### 3. Classification Model 分类模型
 
   ```markdown
   根据不同的数据集特性和场景功能需求，选择不同的分类模型进行图像分类。
@@ -51,8 +52,9 @@ tags:
 ​    
 
 
-#### 4.  Image Classification Technique 图像分类方法：  
-  **4.1 Traditional Methods 传统方法：**      
+#### 4.  Image Classification Technique 图像分类方法 
+#####   **4.1 Traditional Methods 传统方法 **      
+
   ```markdown
   需要进行特征提取和分类两个步骤。
   ```
@@ -76,8 +78,7 @@ tags:
 
      `注：分类模型的选择通常比特征选择简单的多，只需要把备选的模型都试一遍，挑效果最好的模型进行调参，得到最优的分类器。`
 
-
-  **4.2 Deep Learning 深度学习：**
+#####   **4.2 Deep Learning 深度学习**
 
   ```markdown
   深度学习在图像分类中的应用主要是以卷积神经网络（Convolution Neural Network,CNN）为代表，

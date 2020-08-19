@@ -24,14 +24,19 @@ Ref: [Few-shot Learning: A Survey](https://github.com/jyniki/Learn2019/blob/mast
   - 可以帮助减少数据密集型应用的数据收集工作，例如图像分类、图像检索、对象跟踪、手势识别、图像加字幕、视频时间检测、语言建模等。
   - 同时适合应用于一些难以获取受监督信息的任务，目标任务只有少量样本，通过FSL为少见的情况学习合适的模型。
 
+
+
 (2). 定义 Definition   
-- 考虑一个监督学习任务T，FSL处理的数据集$$D=\left\{D^{\text { train }}, D^{\text { test }}\right\}$$中包括训练集$$D^{\mathrm{train}}=\left\{\left(x^{(i)}, y^{(i)}\right)\right\}_{i=1}^{I}$$和测试集$$D^{\text { test }}=\left\{x^{\text { test }}\right\}$$
+
+- 考虑一个监督学习任务T，FSL处理的数据集$D=\left\{D^{\text { train }}, D^{\text { test }}\right\}$中包括训练集$D^{\mathrm{train}}=\left\{\left(x^{(i)}, y^{(i)}\right)\right\}_{i=1}^{I}$和测试集$D^{\text { test }}=\left\{x^{\text { test }}\right\}$
 - 通常考虑N类K-shot分类任务，其中$D^{train}$包括N个类，每个类有K个示例，I=KN。$p(x, y)$表示输入$x$和输出$y$之间的真实联合分布。FSL通过拟合$D^{train}$学习从$x$到$y$发现最优解$o^*$，并且在$D_{test}$应用上有良好表现。为了近似$$o^*$$，Model
 
   
 
 
 训练集中，每个类别都有样本，但都只是少量样本（只有一个或几个） 
+
+
 
 (3). 方法 Methods
 Few-shot Learning 算法大致可分为三类：  
@@ -116,13 +121,13 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
 
 
 
-#### 3. Methods 方法     
+#### 3. Methods      
 
 ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS6.png)  
 
 **I. Classifier-Based Methods**       
 `focus:直接学习一个能分类unseen classes的分类器`        
-- 现有的基于分类器的方法通常采用一种one-versus-rest(一对多)的解决方案来学习多类zero-shot分类器。对于每个unseen class，都学习一个binary one-versus-rest(二元一对多)分类器$f_{i}^{u}(\cdot) : \mathbb{R}^{D} \rightarrow\{0,1\}$。 最终得到zero-shot分类器由$N_u$个binary one-versus-rest分类器组成$$\left\{f_{i}^{u}(\cdot) | i=1, \ldots, N_{u}\right\}$$
+- 现有的基于分类器的方法通常采用一种one-versus-rest(一对多)的解决方案来学习多类zero-shot分类器。对于每个unseen class，都学习一个binary one-versus-rest(二元一对多)分类器$f_{i}^{u}(\cdot) : \mathbb{R}^{D} \rightarrow\{0,1\}$。 最终得到zero-shot分类器由$N_u$个binary one-versus-rest分类器组成$\left\{f_{i}^{u}(\cdot) | i=1, \ldots, N_{u}\right\}$
   - **correspondence methods**：通过对unseen每个类binary one-versus-rest分类器与对应类原型的相对关系来构造unseen classes分类器
     - 在语义空间中，每个类只有一个对应的原型，可以将原型看作这个类的表示；同时在特征空间中，对于每个类都有对应的binary one-versus-rest分类器，也可以看作是这个类的表示。
     - Aim：学习这两种表示形式之间的对应函数（correspondence function）
@@ -132,19 +137,19 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
       - step3：；利用得到的这些二元分类器$\left\{f_{i}^{u}(\cdot)\right\}_{i=1}^{N_{u}}$，实现对测试实例的分类       
 
   - **relationship methods**：根据类之间的关系构造unseen classes分类器     
-    - 在特征空间中，可以利用可用数据（根据不同的学习设置，可用数据是不同的）学习seen classes的binary one-versus-rest分类器$$\left\{f_{i}^{s}(\cdot)\right\}_{i=1}^{N_{s}}$$；同时通过计算相应原型之间的关系或通过其他方法获得seen classes和unseen classes之间的关系
+    - 在特征空间中，可以利用可用数据（根据不同的学习设置，可用数据是不同的）学习seen classes的binary one-versus-rest分类器$\left\{f_{i}^{s}(\cdot)\right\}_{i=1}^{N_{s}}$；同时通过计算相应原型之间的关系或通过其他方法获得seen classes和unseen classes之间的关系
     - Aim：学习seen classes这些binary one-versus-rest分类器和这些类的关系   
     - General procedure：
-      - step1：利用可用数据学习seen classes的这些二元分类器$$\left\{f_{i}^{s}(\cdot)\right\}_{i=1}^{N_{s}}$$    
+      - step1：利用可用数据学习seen classes的这些二元分类器$\left\{f_{i}^{s}(\cdot)\right\}_{i=1}^{N_{s}}$    
       - step2：通过计算相应原型之间的关系或通过其他方法获得seen classes和unseen classes之间的关系$\delta$
-      - step3：利用得到的seen classes分类器$$\left\{f_{i}^{s}(\cdot)\right\}_{i=1}^{N_{s}}$$和关系$\delta$，构建unseen classes的分类器$$f^{u}(\cdot)=\left\{f_{i}^{u}(\cdot)\right\}_{i=1}^{N_{u}}$$，实现对测试实例的分类  
+      - step3：利用得到的seen classes分类器$\left\{f_{i}^{s}(\cdot)\right\}_{i=1}^{N_{s}}$和关系$\delta$，构建unseen classes的分类器$f^{u}(\cdot)=\left\{f_{i}^{u}(\cdot)\right\}_{i=1}^{N_{u}}$，实现对测试实例的分类  
     
   - **combination methods**：通过对“用于构成类的基本元素”的分类器进行组合，为unseen classes构造分类器   
     - 在特征空间，认为有一组<u>基本元素</u>用于组成类，每个seen class和unseen class都是这些基本元素的组合。对应的映射到语义空间，每个维度代表一个基本元素，每个类原型代表对应类的这些基本元素的组合。 因此该方法主要使用于语义空间，其中类原型中的每个维度取1或0，表示类是否具有相应的元素。
-    - 由于该方法目前是基于二元属性空间（binary attribute spaces）发展的，因此基本元素在该空间中称为属性(attribute)。在binary attribute spaces中，seen classes 和unseen classes的类原型由属性组成，每个维度都是一个属性。因此对于类$c_i$对应的类原型$t_i$，使用$a_i$表示类原型由属性组成。将seen classes对应的类原型集表示为$$A^{s}=\left\{\mathbf{a}_{i}^{s}\right\}_{i=1}^{\dot{N}_{s}}$$，将unseen classes对应的类原型集表示为$$A^{u}=\left\{\mathbf{a}_{i}^{u}\right\}_{i=1}^{N_{u}}$$                
+    - 由于该方法目前是基于二元属性空间（binary attribute spaces）发展的，因此基本元素在该空间中称为属性(attribute)。在binary attribute spaces中，seen classes 和unseen classes的类原型由属性组成，每个维度都是一个属性。因此对于类$c_i$对应的类原型$t_i$，使用$a_i$表示类原型由属性组成。将seen classes对应的类原型集表示为$A^{s}=\left\{\mathbf{a}_{i}^{s}\right\}_{i=1}^{\dot{N}_{s}}$，将unseen classes对应的类原型集表示为$A^{u}=\left\{\mathbf{a}_{i}^{u}\right\}_{i=1}^{N_{u}}$              
     - General procedure：
-      - step1：利用可用数据（根据不同的学习设置，可用数据是不同的），首先学习属性(attributes)的分类器$$\left\{f_{i}^{a}(\cdot)\right\}_{i=1}^{M}$$        
-      - step2：根据学习得到的属性分类器，通过一些推理模型（inference model）得到unseen classes的分类器$$f^{u}(\cdot)=\left\{f_{i}^{u}(\cdot)\right\}_{i=1}^{N_{u}}$$        
+      - step1：利用可用数据（根据不同的学习设置，可用数据是不同的），首先学习属性(attributes)的分类器$\left\{f_{i}^{a}(\cdot)\right\}_{i=1}^{M}$        
+      - step2：根据学习得到的属性分类器，通过一些推理模型（inference model）得到unseen classes的分类器$f^{u}(\cdot)=\left\{f_{i}^{u}(\cdot)\right\}_{i=1}^{N_{u}}$        
   
 
 **II. Instance-Based Methods**    
@@ -172,7 +177,7 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
       - 合成方法1：估计每个seen class实例的分布参数，并利用语义空间中的类原型，计算出seen classes和unseen classes之间的关系。根据分布参数和seen & unseen classes之间的关系，为每个unseen class合成为伪实例
       - 合成方法2：生成模型利用seen class学习从属性（attribute）到特征的转换。然后对每一个unseen class，将对应的类原型和一些噪声作为生成模型的输入，合成相应的伪实例   
     - step3：利用所有unseen class的伪实例，学习unseen classes分类器，实现对测试实例的分类
-![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS7.png)
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS7.png" alt="img" style="zoom:50%;" />
 
 
 
