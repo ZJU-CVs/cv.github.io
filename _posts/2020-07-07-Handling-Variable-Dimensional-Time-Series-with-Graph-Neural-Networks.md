@@ -64,9 +64,7 @@ tags:
 >
 > - **Details**
 >
->   - 每个传感器$s\in \mathcal{S}$与一个可学习的嵌入向量$v_s\in \mathbb{R}^{d_{s}}$相关联，对应于传感器组合$\mathcal{S}$，考虑图$\mathcal{G}(\mathcal{V}, \mathcal{E})$，每个$s\in\mathcal{S}$对应一个节点$v_s\in \mathcal{V}$，每个节点$v_s$的邻节点表示为 
->
->   - $\mathcal{N}_\mathcal{G}(v_{k})$
+>   - 每个传感器$s\in \mathcal{S}$与一个可学习的嵌入向量$v_s\in \mathbb{R}^{d_{s}}$相关联，对应于传感器组合$\mathcal{S}$，考虑图$\mathcal{G}(\mathcal{V}, \mathcal{E})$，每个$s\in\mathcal{S}$对应一个节点$v_s\in \mathcal{V}$
 >
 >   - 只有已知组合$\mathcal{S}_i$的中的对应节点被激活，图中每个active节点都接连接到其他active节点，因此每个边两端的节点都是active的
 >
@@ -77,20 +75,22 @@ tags:
 >     - 对于任意active 节点$v_k$，对应的节点向量$\mathbf{v}_{k}$更新如下：
 >
 >     $$
->   \begin{aligned}
+>     \begin{aligned}
 >     \mathbf{v}_{k l} &=f_{e}\left(\left[\mathbf{v}_{k}, \mathbf{v}_{l}\right] ; \boldsymbol{\theta}_{e}\right), \quad \forall v_{l} \in \mathcal{N}_{\mathcal{G}}\left(v_{k}\right) \\
 >     \tilde{\mathbf{v}}_{k} &=f_{n}\left(\left[\mathbf{v}_{k}, \sum_{\forall l} \mathbf{v}_{k l}\right] ; \boldsymbol{\theta}_{n}\right)
 >     \end{aligned}
 >     $$
 >
 >     > $\theta _e$和$\theta _n$分别为$f_e$和$f_n$的可学习参数，$f_e$将邻节点信息传递到待更新节点，$f_n$利用邻节点的聚合信息更新相应节点
+>     >
+>     > $\mathcal{N}_\mathcal{G}(v_{k})$表示每个节点$v_s$的邻节点
 >
 >     
 >
 >     - 最后根据更新后的节点向量得到conditioning vector 
 >
 >     $$
->    \mathbf{v}_{\mathcal{S}_{i}}=\max \left(\left\{\tilde{\mathbf{v}}_{k}\right\}_{v_{k} \in \mathcal{V}_{i}}\right)\in \mathbb{R}^{d_{s}}
+>      \mathbf{v}_{\mathcal{S}_{i}}=\max \left(\left\{\tilde{\mathbf{v}}_{k}\right\}_{v_{k} \in \mathcal{V}_{i}}\right)\in \mathbb{R}^{d_{s}}
 >     $$
 >
 >     
