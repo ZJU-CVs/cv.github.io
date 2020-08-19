@@ -133,11 +133,19 @@ tags:
 >
 > **损失函数：**
 >
-> - 分类任务：$\mathcal{L}_{c}=-\frac{1}{N} \sum_{i=1}^{N} \sum_{k=1}^{K} y_{i}^{k} \log \left(\hat{y}_{i}^{k}\right)$
+> - 分类任务：
 >
-> - 回归任务：$\mathcal{L}_{r}=\frac{1}{N} \sum_{i=1}^{N}\left(y_{i}-\hat{y}_{i}\right)^{2}$
+> $$
+> \mathcal{L}_{c}=-\frac{1}{N} \sum_{i=1}^{N} \sum_{k=1}^{K} y_{i}^{k} \log \left(\hat{y}_{i}^{k}\right)
+> $$
 >
->   
+> 
+>
+> - 回归任务：
+>
+> $$
+> \mathcal{L}_{r}=\frac{1}{N} \sum_{i=1}^{N}\left(y_{i}-\hat{y}_{i}\right)^{2}
+> $$
 >
 > 值得注意的是：模型参数学习方式为mini-batch SGD，在每个小批量内输入为具有相同可用传感器集的时间序列，即每个小批量中所有时间序列的活动节点都相同。(可以看这篇blog：https://www.imooc.com/article/details/id/48566)
 
