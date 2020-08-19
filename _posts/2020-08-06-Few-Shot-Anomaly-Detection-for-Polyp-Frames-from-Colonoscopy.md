@@ -79,12 +79,11 @@ $$
 
 
 
-> - 通过计算$z=f_E(x\in \mathcal{D}_A \cup \mathcal{D}_{N};\theta_{E}^{*})$， 训练 $ f_S(z;\theta_S) $
-> 
+> 通过计算$z=f_E(x\in \mathcal{D}_A \cup \mathcal{D}_{N};\theta_{E}^{*})$训练 $ f_S(z;\theta_S) $
 > $$
 > \ell_{S}=\mathbb{I}(y \text { is } \text {Normal})\left|s\left(f_{S}\left(\mathbf{z} ; \theta_{S}\right)\right)\right|+\mathbb{I}(y \text { is } \text {Abnormal}) \max \left(0, a-s\left(f_{S}\left(\mathbf{z} ; \theta_{S}\right)\right)\right)
 > $$
-> 
+>
 > > 其中，$s(x)=\frac{x-\mu_{S}}{\sigma_{S}}$
 >
 
