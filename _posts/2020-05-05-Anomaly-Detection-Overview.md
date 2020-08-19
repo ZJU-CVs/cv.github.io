@@ -144,17 +144,31 @@ Adversarially Learned One-Class Classifier for Novelty Detection (2018-05)
 >
 > 损失函数：$\mathcal{L}=\mathcal{L}_{\mathcal{R}+\mathcal{D}}+\lambda \mathcal{L}_{\mathcal{R}}$
 >
-> - $L _{R+D}=\min _{ R } \max _{ D }\left( E _{X \sim p_{t}}[\log ( D (X))]++ E _{\tilde{X} \sim p_{t}+ N _{\sigma}}[\log (1- D ( R (\tilde{X})))]\right)$ (生成对抗损失)
-> - $L _{ R }=\left\|X-X^{\prime}\right\|^{2}$ (增强原始数据，抑制异常数据)
+> - 生成对抗损失
+>
+> $$
+> L _{R+D}=\min _{ R } \max _{ D }\left( E _{X \sim p_{t}}[\log ( D (X))]++ E _{\tilde{X} \sim p_{t}+ N _{\sigma}}[\log (1- D ( R (\tilde{X})))]\right)
+> $$
+>
+> 
+>
+> - 增强原始数据，抑制异常数据
+>
+> $$
+> L _{ R }=\left\|X-X^{\prime}\right\|^{2}
+> $$
 >
 > 
 >
 > 测试阶段：
 >
-> $$\operatorname{OCC}(X)=\left\{\begin{array}{ll}
+> $$
+> \operatorname{OCC}(X)=\left\{\begin{array}{ll}
 > \text { Target Class } & \text { if } D ( R (X))>\tau \\
 > \text { Novelty (Outlier) } & \text { otherwise }
-> \end{array}\right.$$
+> \end{array}\right.
+> $$
+> 
 
 
 
@@ -187,12 +201,19 @@ Anomaly Detection for Skin Disease Images Using Variational Autoencoder (2018-07
 ```
 
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/AD8.png" alt="img" style="zoom:50%;" />
->  $$Anomaly \ score =s_{i w a e}^{k l}(x)+s_{i w a e}^{r e c o n s t}(x)$$
+> $$
+> Anomaly \ score =s_{i w a e}^{k l}(x)+s_{i w a e}^{r e c o n s t}(x)
+> $$
+> 
 >
-> 包括隐空间分布损失和重构损失：$$\begin{aligned}
+> 包括隐空间分布损失和重构损失：
+> $$
+> \begin{aligned}
 > &s_{i w a e}^{k l}(x)=-\log \left(\frac{1}{L} \sum_{i=1}^{L} \frac{p\left(z_{i}\right)}{q\left(z_{i} | x\right)}\right)\\
 > &s_{i w a e}^{r e c o n s t}(x)=-\log \left(\frac{1}{L} \sum_{i=1}^{L} p\left(x | z_{i}\right)\right)
-> \end{aligned}$$
+> \end{aligned}
+> $$
+> 
 
 
 
@@ -202,11 +223,11 @@ Anomaly Detection for Skin Disease Images Using Variational Autoencoder (2018-07
 Ganomaly: Semi-supervised anomaly detection via adversarial training (2018-11)
 ```
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/AD4.png)
-> 损失函数：$$\mathcal{L}=w_{adv}\mathcal{L}_{adv}+w_{con}\mathcal{L}_{con}+w_{enc} \mathcal{L}_{enc}$$
+> 损失函数：$\mathcal{L}=w_{adv}\mathcal{L}_{adv}+w_{con}\mathcal{L}_{con}+w_{enc} \mathcal{L}_{enc}$
 >
 > 
 >
-> 异常分数：$$\mathcal{A}(\hat{x})=\left\|G_{E}(\hat{x})-E(G(\hat{x}))\right\|_{1}$$
+> 异常分数：$\mathcal{A}(\hat{x})=\left\|G_{E}(\hat{x})-E(G(\hat{x}))\right\|_{1}$
 
 
 
