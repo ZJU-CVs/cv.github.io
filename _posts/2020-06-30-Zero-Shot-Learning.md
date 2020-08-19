@@ -321,7 +321,7 @@ ref: [A survey of zero-shot learning: Settings, methods, and applications](https
 
 (1) [DeViSE: A Deep Visual-Semantic Embedding Model](http://papers.nips.cc/paper/5204-devise-a-deep-visual-semantic-embedding-model.pdf)
 
-![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/11.png)
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/11.png" alt="img" style="zoom:50%;" />
 
 > - 数据集中每个class/label可作为一个词在语义空间进行embedding表示(如使用预训练skip-gram模型得到有关class的language feature vector，同时利用预训练的CNN-based模型提取图片的visual feature vector)
 > - 将两个向量映射到同一维度的空间，进行相似度计算
@@ -345,24 +345,24 @@ ref: [A survey of zero-shot learning: Settings, methods, and applications](https
 >
 >   > - GCN的输入是n个类别(包括seen class和unseen class)的语义向量    
 >   >
->   > 
+>   >
 >   > $$
 >   > \mathcal{X}=\{x_{i}\}_{i=1}^{n}，\mathcal{X}\in {n\times k}
 >   > $$
->   > 
 >   >
->   > - GCN的输出是每个类别的分类器参数
+>   >
+>   > - GCN的输出是每个类别的分类器参数，GCN每个节点的输出维度D和CNN输出的特征维度相等
+>   >
+>   >   
 >   > $$
 >   > \mathcal{W}=\left\{\hat{w}_{i}\right\}_{i=1}^{n},\mathcal{W}\in {n\times D}
 >   > $$
->   >
->   >   ，GCN每个节点的输出维度D​和CNN输出的特征维度相等
 >   >
 >   > 
 >   >
 >   > - 训练时用seen类的CNN输出特征向量作为监督信号$w_i$（绿色节点）训练GCN模型的参数监督学习来更新整个GCN
 >   >
->   > 
+>   >
 >   > $$
 >   > \frac{1}{m} \sum_{i=1}^{m} L_{\mathrm{mse}}\left(\hat{w}_{i}, w_{i}\right)
 >   > $$
