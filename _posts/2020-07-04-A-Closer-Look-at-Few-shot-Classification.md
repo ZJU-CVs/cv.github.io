@@ -138,26 +138,26 @@ tags:
 >
 > > 两个网络的训练流程是一样的，在training stage采用base classes data训练一个特征提取器和分类器，在fine-tune stage，固定特征提取器的参数，采用新的类别样本对分类器进行fine-tune
 >
-> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/2.png)
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/2.png" alt="img" style="zoom:50%;" />
 
 
 
 对比模型：meta learning few-shot classification(包括matching net、protonet、RelationNet和MAML)
 
-> 该类算法流程为：首先在meta-train阶段，support set $S_b$和query set $Q_b$采用Episode的训练方法来训练一个meta-learning classifer $$M(.\mid S_b)$$。在meta-testing stage，novel support set $S_n$训练新的分类器
-> $$M(.\mid S_n)$$来预测新类别中的目标。（不同的meta-learning算法，其主要区别在于分类器$$M(.\mid S)$$的设计）
+> 该类算法流程为：首先在meta-train阶段，support set $S_b$和query set $Q_b$采用Episode的训练方法来训练一个meta-learning classifer $M(.\mid S_b)$。在meta-testing stage，novel support set $S_n$训练新的分类器
+> $M(.\mid S_n)$来预测新类别中的目标。（不同的meta-learning算法，其主要区别在于分类器$M(.\mid S)$的设计）
 >
 > 
 >
 > 
 >
-> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/3.png)
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/3.png" alt="img" style="zoom:50%;" />
 
 
 
-#### 4. Experiments
+### 4. Experiments
 
-**Datasets and scenarios**
+#### **Datasets and scenarios**
 
 > - 通用对象识别 Generic object recognition 
 >
@@ -173,13 +173,13 @@ tags:
 
 
 
-**Implementation details**
+#### **Implementation details**
 
 > - 在Baseline和Baseline++方法的训练阶段，训练了400个批次大小为16的epochs
 >
 > - 在meta-learning的meta-training阶段，训练1-shot 60000 episodes，5-shot 40000 episodes。使用validation set来选择best accuracy的训练training episode。对于每个episode，采样N个类构成N-way分类，对于每一类，选择k个标记的实例作为support set，并为k-shot任务选择16个实例作为query set。
 
-##### Evaluation
+#### Evaluation
 
 > **Validating our re-implementation**
 >
