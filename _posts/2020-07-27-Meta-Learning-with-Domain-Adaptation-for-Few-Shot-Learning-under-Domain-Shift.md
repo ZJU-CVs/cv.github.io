@@ -53,13 +53,11 @@ tags:
 > 具体实现：
 >
 > - 在元学习阶段，考虑先把meta-training里的图像先通过G转换为meta-testing里面的图像domain，然后再做meta-learning，该步骤通过GAN来训练（**这里用到了meta-testing的数据，有点违背meta learning的基本设定**）
+>
+>   > 特征提取器$F$将$X_{train}$输入映射为$d$维嵌入，$F(x)=\hat{F}(G(x))$，其中$G: \mathcal{X}^{train} \rightarrow \mathcal{X}^{test},\hat{F}=\mathcal{X}^{test} \rightarrow \mathbb{R}^d$
+>
 >   
->   - 特征提取器$F$将$X_{train}$输入映射为$d$维嵌入，$$F(x)=\hat{F}(G(x))$$
->   
->     > 其中$$G: \mathcal{X}^{train} \rightarrow \mathcal{X}^{test},\hat{F}=\mathcal{X}^{test} \rightarrow \mathbb{R}^d$$
->   
->   
->   
+>
 > - 损失函数：
 >
 > $$
