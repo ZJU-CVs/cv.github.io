@@ -225,10 +225,13 @@ Anomaly Detection for Skin Disease Images Using Variational Autoencoder (2018-07
 Ganomaly: Semi-supervised anomaly detection via adversarial training (2018-11)
 ```
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/AD4.png" alt="img" style="zoom:50%;" />
+>
 > 损失函数：
->$$
+> $$
 > \mathcal{L}=w_{adv}\mathcal{L}_{adv}+w_{con}\mathcal{L}_{con}+w_{enc} \mathcal{L}_{enc}
->$$
+> $$
+> 
+>
 > 异常分数：$\mathcal{A}(\hat{x})=\left\|G_{E}(\hat{x})-E(G(\hat{x}))\right\|_{1}$
 
 
