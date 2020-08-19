@@ -61,16 +61,15 @@ $$
 
 
 
-以上步骤将复杂度从$O(n^2)$优化为$O(mn)$
-
-
-
+以上步骤将复杂度从$O(n^2)$优化为$O(mn)$          
 $$
 \begin{array}{c}
 \mathrm{ISAB}_{m}(X)=\operatorname{MAB}(X, H) \in \mathbb{R}^{n \times d} \\
 \text { where } H=\operatorname{MAB}(I, X) \in \mathbb{R}^{m \times d}
 \end{array}
 $$
+
+
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/set_transformer1.png" alt="img" style="zoom:67%;" />
 
 ##### Pipeline
