@@ -82,15 +82,15 @@ tags:
 >
 >- 预训练任务主要为：
 >
-> > **Selfie:** 通过masking out图像中选定的patches，selfie构造为一个分类问题，以确定要在被masked位置填充的正确patch
-> >
-> > 
-> >
-> > **Rotation:** 将图像随机旋转90度，rotation构造为一个分类问题，以确定应用于输入图像的旋转角度
-> >
-> > 
-> >
-> > **Jigsaw:** 通过将图像分成不同的快，Jigsaw训练一个分类器来预测这些patches正确的排列
+>  > **Selfie:** 通过masking out图像中选定的patches，selfie构造为一个分类问题，以确定要在被masked位置填充的正确patch
+>  >
+>  > 
+>  >
+>  > **Rotation:** 将图像随机旋转90度，rotation构造为一个分类问题，以确定应用于输入图像的旋转角度
+>  >
+>  > 
+>  >
+>  > **Jigsaw:** 通过将图像分成不同的快，Jigsaw训练一个分类器来预测这些patches正确的排列
 >
 > 
 >
