@@ -27,7 +27,7 @@ tags:
 > >
 > > $\tilde{A}=A+I$，$I$是单位矩阵
 > >
-> > $\tilde{D}$是$\widetilde{A}$的度矩阵，使用$\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}}$进行矩阵$\widetilde{A}$归一化
+> > $\tilde{D}$是$\tilde{A}$的度矩阵，使用$\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}}$进行矩阵$\tilde{A}$归一化
 > >
 > > $\sigma$为激活函数
 > >
