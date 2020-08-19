@@ -67,7 +67,7 @@ tags:
 >
 >     > 表示仅使用从 $\tau_{train}$ 中的任务所标记的训练数据进行优化
 >
->   - 定义$\mathcal{L}_{da}=\mathcal{L}_{GAN}+\mathcal{L}_{cycle}$为域适应损失
+>   - 定义$$\mathcal{L}_{da}=\mathcal{L}_{GAN}+\mathcal{L}_{cycle}$$为域适应损失
 >
 >     > 表示从$\tau_{train}$和$\tau_{test}$中的任务中未标记的数据进行优化
 >
