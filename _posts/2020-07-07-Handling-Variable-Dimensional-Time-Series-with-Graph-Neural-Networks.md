@@ -18,11 +18,15 @@ tags:
 
 ### 2. Related Works
 
-> **解决方案1:** 变量维度的变化可以看作是缺失值，常用的处理时间序列中缺失值的方法（如平均值、插值等）性能会随着缺失率的增加而迅速下降，同时该类方法不适合整条缺失（rely on the availability of at least one value for each dimension in the time series）
+> **解决方案1:** 
+>
+> 变量维度的变化可以看作是缺失值，常用的处理时间序列中缺失值的方法（如平均值、插值等）性能会随着缺失率的增加而迅速下降，同时该类方法不适合整条缺失（rely on the availability of at least one value for each dimension in the time series）
 >
 > 
 >
-> **解决方案2:** 为每个可能的多变量组合训练一个不同的网络，但存在三点缺陷：
+> **解决方案2:** 
+>
+> 为每个可能的多变量组合训练一个不同的网络，但存在三点缺陷：
 >
 > - 随着可能组合数量成指数型增长而不可拓展
 > - 该方法的前提假设是每个组合都要有足够的训练数据可用
