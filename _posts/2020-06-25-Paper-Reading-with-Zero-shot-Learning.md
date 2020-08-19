@@ -450,7 +450,11 @@ tags:
 >   > $$\mathcal{C}_{t e} \cap \mathcal{C}_{t r}=\emptyset$$
 >
 > - 使用$S$维的语义表征向量$z\in R^S$表示所有的类别
-> - $\mathcal{D}_{tr}=\{(\vec{X}_{i}, c_{i}), i=1, \ldots, N\}$ 表示训练集中的样本（图像及标签）
+> - 训练集中的样本（图像及标签）表示为：
+>
+> $$
+> \mathcal{D}_{tr}=\{(\vec{X}_{i}, c_{i}), i=1, \ldots, N\}
+> $$
 >
 > 
 >
