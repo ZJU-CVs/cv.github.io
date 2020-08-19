@@ -94,6 +94,8 @@ tags:
 >
 > > 其中$dist$用于衡量查询实例的嵌入与类原型之间的距离
 >
+> 
+>
 > - $\mathcal{L}_{f s}=-\log p(y=k \mid \mathbf{x})$计算在query set上的损失，并反向传播更新特征提取器$F$
 
 
