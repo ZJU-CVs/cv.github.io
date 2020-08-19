@@ -62,14 +62,13 @@ tags:
 > - matching cost
 >   
 >   > 考虑了class prediction 和 similarity
+>   > $$
+>   > \mathcal{L}_{\text {match }}\left(y_{i}, \hat{y}_{\sigma(i)}\right)=-\mathbb{1}_\left\{c_{i} \neq \varnothing\right\} \hat{p}_{\sigma(i)}\left(c_{i}\right)+\mathbb{1}_{\left\{c_{i} \neq \varnothing\right\}} \mathcal{L}_{\mathrm{box}}\left(b_{i}, \hat{b}_{\sigma(i)}\right)
+>   > $$
+>   >
+>   > - 其中，$c_i$是目标类别标签，$b_i$是向量代表真值BBox中心点坐标及其宽高
+>   > - 寻找 matching 的过程类似于匹配 proposal 或者 anchors 机制，主要区别是需要找一个one to one matching，而不需要重复
 >   
-> $$
->   \mathcal{L}_{\text {match }}\left(y_{i}, \hat{y}_{\sigma(i)}\right)=-\mathbb{1}_\left\{c_{i} \neq \varnothing\right\} \hat{p}_{\sigma(i)}\left(c_{i}\right)+\mathbb{1}_{\left\{c_{i} \neq \varnothing\right\}} \mathcal{L}_{\mathrm{box}}\left(b_{i}, \hat{b}_{\sigma(i)}\right)
-> $$
->
-> > 其中，$c_i$是目标类别标签，$b_i$是向量代表真值BBox中心点坐标及其宽高
->
-> > 寻找 matching 的过程类似于匹配 proposal 或者 anchors 机制，主要区别是需要找一个one to one matching，而不需要重复
 >
 >   
 >
@@ -78,10 +77,12 @@ tags:
 >   > $$
 >   > \mathcal{L}_{\text {Hungarian }}(y, \hat{y})=\sum_{i=1}^{N}\left[-\log \hat{p}_{\hat{\sigma}(i)}\left(c_{i}\right)+\mathbb{1}_{\left\{c_{i} \neq \varnothing\right\}} \mathcal{L}_{\mathrm{box}}\left(b_{i}, \hat{b}_{\hat{\sigma}}(i)\right)\right]
 >   > $$
->
+> >
+>   > $\hat{\sigma}$是optimal assignment，matching cost和Hungarian loss对BBox进行打分处理，
 >   
 >   
->   $\hat{\sigma}$是optimal assignment，matching cost和Hungarian loss对BBox进行打分处理，
+>   
+>   
 >   
 >   box loss采用了L1 loss和generalized IoU loss
 >   
