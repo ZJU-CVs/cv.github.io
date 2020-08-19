@@ -120,13 +120,13 @@ Efficient GAN-Based Anomaly Detection (2018-02)
 >
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/AD7.png)
 >
-> 异常分数：$$A(x)=\alpha L_{G}(x)+(1-\alpha) L_{D}(x)$$ 
+> 异常分数：$A(x)=\alpha L_{G}(x)+(1-\alpha) L_{D}(x)$ 
 >
-> - 生成器：$$L_{G}(x)=\|x-G(E(x))\|_{1}$$
+> - 生成器：$L_{G}(x)=\|x-G(E(x))\|_{1}$
 >
 >   
 >
-> - 判别器：$$L_D(x)=\sigma(D(x, E(x)), 1)$$  or  $$L_D(x)=\left\|f_{D}(x, E(x))-f_{D}(G(E(x)), E(x))\right\|_{1}$$
+> - 判别器：$L_D(x)=\sigma(D(x, E(x)), 1)$  or  $L_D(x)=\left\|f_{D}(x, E(x))-f_{D}(G(E(x)), E(x))\right\|_{1}$
 >
 > *测试时不需要将 x编码成 z这一步耗时的部分*
 
@@ -142,10 +142,10 @@ Adversarially Learned One-Class Classifier for Novelty Detection (2018-05)
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/AD3.png" alt="img" style="zoom:50%;" />
 >
-> 损失函数：$$\mathcal{L}=\mathcal{L}_{\mathcal{R}+\mathcal{D}}+\lambda \mathcal{L}_{\mathcal{R}}$$
+> 损失函数：$\mathcal{L}=\mathcal{L}_{\mathcal{R}+\mathcal{D}}+\lambda \mathcal{L}_{\mathcal{R}}$
 >
-> - $$L _{R+D}=\min _{ R } \max _{ D }\left( E _{X \sim p_{t}}[\log ( D (X))]++ E _{\tilde{X} \sim p_{t}+ N _{\sigma}}[\log (1- D ( R (\tilde{X})))]\right)$$ (生成对抗损失)
-> - $$L _{ R }=\left\|X-X^{\prime}\right\|^{2}$$ (增强原始数据，抑制异常数据)
+> - $L _{R+D}=\min _{ R } \max _{ D }\left( E _{X \sim p_{t}}[\log ( D (X))]++ E _{\tilde{X} \sim p_{t}+ N _{\sigma}}[\log (1- D ( R (\tilde{X})))]\right)$ (生成对抗损失)
+> - $L _{ R }=\left\|X-X^{\prime}\right\|^{2}$ (增强原始数据，抑制异常数据)
 >
 > 
 >
