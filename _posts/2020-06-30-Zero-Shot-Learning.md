@@ -122,15 +122,17 @@ ref: [A survey of zero-shot learning: Settings, methods, and applications](https
   **实现步骤：**
 
   > - 利用训练集中的样本和标签，对训练集中出现的每个类别训练一个二分类器
-  >
   > - 对测试集中每个新类别，通过已有类别二分类器加权平均的方式得到新类别的分类器
-  >   $$
-  >   f_{i}^{u}(\cdot)=\sum_{j=1}^{K} \delta\left(c_{i}^{u}, c_{j}^{s}\right) \cdot f_{j}^{s}(\cdot)
-  >   $$
   >
-  >   > 其中$\delta\left(c_{i}^{u}, c_{j}^{s}\right)$为新类别$c^u_i$和训练集中类别$c^s_i$之间的相似度，作为分类器的权重。通过把所有已知类别分类器加权平均得到未知类别的分类器，也可以选择与未知类别关系最紧密的K个类别加权平均
-  >   >
-  >   > `类别之间关系(相似度)有多种计算方法，如计算描述信息的余弦相似度、利用WordNet中两个类别之间的结构关系`
+  > $$
+  > f_{i}^{u}(\cdot)=\sum_{j=1}^{K} \delta\left(c_{i}^{u}, c_{j}^{s}\right) \cdot f_{j}^{s}(\cdot)
+  > $$
+  >
+  > > 其中$\delta\left(c_{i}^{u}, c_{j}^{s}\right)$为新类别$c^u_i$和训练集中类别$c^s_i$之间的相似度，作为分类器的权重。通过把所有已知类别分类器加权平均得到未知类别的分类器，也可以选择与未知类别关系最紧密的K个类别加权平均
+  > >
+  > > `类别之间关系(相似度)有多种计算方法，如计算描述信息的余弦相似度、利用WordNet中两个类别之间的结构关系`
+
+  
 
 - 组合方法 (combination methods)
 
@@ -157,39 +159,47 @@ ref: [A survey of zero-shot learning: Settings, methods, and applications](https
   > 类别描述信息可以被当作样本标签看待
   >
   > - 首先通过拟合函数，将样本$x_i$和类别描述信息$t_j$拟合到同一空间P
-  >   $$
-  >   \begin{array}{l}
-  >   \mathcal{X} \rightarrow \mathcal{P}: \mathbf{z}_{i}=\theta\left(\mathbf{x}_{i}\right) \\
-  >   \mathcal{T} \rightarrow \mathcal{P}: \mathbf{b}_{j}=\xi\left(\mathbf{t}_{j}\right)
-  >   \end{array}
-  >   $$
+  >
+  > $$
+  > \begin{array}{l}
+  > \mathcal{X} \rightarrow \mathcal{P}: \mathbf{z}_{i}=\theta\left(\mathbf{x}_{i}\right) \\
+  > \mathcal{T} \rightarrow \mathcal{P}: \mathbf{b}_{j}=\xi\left(\mathbf{t}_{j}\right)
+  > \end{array}
+  > $$
+  >
+  > 
   >
   > - 由于未知类别在特征空间没有样本，且只有语义空间中有一个类别描述信息标签，无法用常规的分类方法训练
   > - 借助KNN思想，将样本$x_i$和类别描述信息$t_j$拟合到同一个空间P，然后对于未知样本，也拟合到这个空间，并选择离它最近的类别描述信息所对应的类别作为它的类别(1NN)
 
+  
+
   (a) 语义空间作为拟合空间
 
-  > 类别描述信息$t_j$不改变，只通过拟合函数$\theta$来将样本$x_i$拟合到语义空间，损失函数为：
+  类别描述信息$t_j$不改变，只通过拟合函数$\theta$来将样本$x_i$拟合到语义空间，损失函数为：
+
   > $$
   > \min _{\zeta} \frac{1}{N_{t r}} \sum_{i=1}^{N_{t r}} \ell\left(\theta\left(\mathbf{x}_{i}^{t r} ; s\right), \pi\left(y_{i}^{t r}\right)\right)+\lambda R(\zeta)
   > $$
-  >
-  > - $t^{tr}_i=\pi(y_i^{tr})$为类别描述信息，拟合函数$\theta$将样本$x_i^{tr}$拟合到语义空间，使其在拟合空间的表示和其的类别描述信息的表示$t_i^{tr}$相似
+  > 
+  >- $t^{tr}_i=\pi(y_i^{tr})$为类别描述信息，拟合函数$\theta$将样本$x_i^{tr}$拟合到语义空间，使其在拟合空间的表示和其的类别描述信息的表示$t_i^{tr}$相似
   > - 在测试阶段，对于每个测试样本$x_i^u$，通过拟合函数$\theta$拟合到语义空间，并找到离它最近的类别描述信息所对应的类别作为它的类别（1NN）实现分类
-  >
   > 
   >
-  > **存在的问题：**枢纽度问题
+  > 
+  >**存在的问题：**枢纽度问题
 
   
 
   (b) 特征空间作为拟合空间
 
   > 通过拟合函数$\xi$将类别描述信息$t_j$拟合到特征空间，而样本特征$x_i$不用改变。损失函数为：
+  >
+  > 
   > $$
   > \min _{\zeta} \frac{1}{N_{t r}} \sum_{i=1}^{N_{t r}} \ell\left(\mathbf{x}_{i}^{t r}, \xi\left(\pi\left(y_{i}^{t r}\right) ; s\right)\right)+\lambda R(\zeta)
   > $$
-  > 
+  >
 
   
 
