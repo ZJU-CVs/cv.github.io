@@ -50,7 +50,9 @@ CycleGAN Loss:
 
 - Adversarial loss：
 
-  > 两个分布X, Y，生成器G和F分别是X->Y和Y->X的映射，两个判别器$D_x$和$D_y$可以对转换后的图片进行判别
+  > 两个分布X, Y，生成器G和F分别是X->Y和Y->X的映射，两个判别器$D_x$和$D_y$可以对转换后的图片进行判别                       
+  >
+  > 
   > $$
   > \begin{aligned}
   > \mathcal{L}_{\mathrm{GAN}}\left(G, D_{Y}, X, Y\right) &=\mathbb{E}_{y \sim p_{\text {data }}(y)}\left[\log D_{Y}(y)\right] +\mathbb{E}_{x \sim p_{\text {data }}(x)}\left[\log \left(1-D_{Y}(G(x))\right]\right.
