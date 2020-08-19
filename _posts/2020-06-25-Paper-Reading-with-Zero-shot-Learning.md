@@ -304,28 +304,31 @@ tags:
 > >
 > > 直推式学习是transductive学习，仅仅可以对未标记样本$X_U$进行标记，不具备对测试样本$X_{test}$进行泛化的能力（即假设未标记的数据就是最终要用来测试的数据，学习的目的是在这些数据上取得最佳泛化能力）
 >
-> 
->
-> **模型思想：**
->
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/5.png)
 >
-> > $\mathcal{K}$为p维语义嵌入空间，$D_s=\{x_i,k_i,y_i\}$为带标签的训练集，其中$x_i\in \mathcal{X}_{s}$是图片的特征表示。对于一个新的测试数据$x_j$，需要估计出它的语义嵌入$k_j$和标签$y_i$
+> > - $\mathcal{K}$为p维语义嵌入空间，$D_s=\{x_i,k_i,y_i\}$为带标签的训练集，其中$x_i\in \mathcal{X}_{s}$是图片的特征表示。对于一个新的测试数据$x_j$，需要估计出它的语义嵌入$k_j$和标签$y_i$
 > >
-> > 对于**typical ZSR**问题，一般分为两步：(1) 通过visual-semantic $f_{s}: \mathcal{X}_{s} \rightarrow \mathcal{K}_{s}$映射预测嵌入$k_j$；(2) 通过比较$k_j$与default ZSR setting中的$\mathcal{K}_u$或default gZSR setting中的$\mathcal{K}_{s} \cup \mathcal{K}_{u}$
+> >   
 > >
-> > 
+> > - 对于**typical ZSR**问题，一般分为两步：(1) 通过visual-semantic $f_{s}: \mathcal{X}_{s} \rightarrow \mathcal{K}_{s}$映射预测嵌入$k_j$；(2) 通过比较$k_j$与default ZSR setting中的$\mathcal{K}_u$或default gZSR setting中的$\mathcal{K}_{s} \cup \mathcal{K}_{u}$
 > >
-> > **存在问题：**如下图所示，圆和三角形分别表示可见类和不可见类，对于嵌入语义空间$\mathcal{K}$中的两个unseen classes ($v_u^i$和$v_u^j$)，如果它们在可见类子空间$\mathcal{S}=span(\mathcal{K_s})$中正交投影相同，则$\mathcal{K}$对于这两种未知类没有迁移能力
+> >   - **存在问题：**
+> >
+> >     如下图所示，圆和三角形分别表示可见类和不可见类，对于嵌入语义空间$\mathcal{K}$中的两个unseen classes ($v_u^i$和$v_u^j$)，如果它们在可见类子空间$\mathcal{S}=span(\mathcal{K_s})$中正交投影相同，则$\mathcal{K}$对于这两种未知类没有迁移能力
 > >
 > > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/21.png" alt="img" style="zoom:50%;" />
 >
-> **模型思想：**将$X_s$通过两条不同的visual-semantic映射函数$f_s$和$\tilde{f}_s$建立与不同空间$\mathcal{K}_s$和$\tilde{\mathcal{K}}_s$的关系，双映射主要步骤包括：
+> **模型思想：**
+>
+> 将$X_s$通过两条不同的visual-semantic映射函数$f_s$和$\tilde{f}_s$建立与不同空间$\mathcal{K}_s$和$\tilde{\mathcal{K}}_s$的关系，双映射主要步骤包括：
 >
 > - 学习两个异构空间$X_s$到$\mathcal{K}_s$的映射函数$f_s$
->   $$
->   \arg \min _{\mathbf{w}} l(\mathbf{W} \mathbf{X}, \mathbf{K})+\gamma g(\mathbf{W})
->   $$
+>
+> $$
+> \arg \min _{\mathbf{w}} l(\mathbf{W} \mathbf{X}, \mathbf{K})+\gamma g(\mathbf{W})
+> $$
+>
+> 
 >
 > - 提取$\mathcal{X}_s$的底层class-level流型，并生成和$\mathcal{X}_s$同构的$\tilde{\mathcal{K}}_s$
 >
