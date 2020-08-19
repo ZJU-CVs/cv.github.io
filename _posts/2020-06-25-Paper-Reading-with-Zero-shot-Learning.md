@@ -445,9 +445,9 @@ tags:
 
 [Rethinking Knowledge Graph Propagation for Zero-Shot Learning](https://arxiv.org/pdf/1805.11724.pdf)
 
-> - 使用$\mathcal{C}$表示所有类的集合，$\mathcal{C}_{te}$和$\mathcal{C}_{tr}$分别为测试集和训练集中的类别
+> - 使用$\mathcal{C}$表示所有类的集合，$\mathcal{C}_{te},\mathcal{C}_{tr}$分别为测试集和训练集中的类别
 >
->   > $\mathcal{C}_{t e} \cap \mathcal{C}_{t r}=\emptyset$
+>   > $$\mathcal{C}_{t e} \cap \mathcal{C}_{t r}=\emptyset$$
 >
 > - 使用$S$维的语义表征向量$z\in R^S$表示所有的类别
 > - $\mathcal{D}_{tr}=\{(\vec{X}_{i}, c_{i}), i=1, \ldots, N\}$表示训练集中的样本（图像及标签）
