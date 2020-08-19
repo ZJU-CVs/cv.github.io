@@ -67,7 +67,7 @@ tags:
 
 #### Problem Definition
 
-> - 动态图被定义为一系列的observed snapshots $\mathbb{G}=\{\mathcal{G}^1,\mathcal{G}^2,...\mathcal{G}^T\}$
+> - 动态图被定义为一系列的observed snapshots $\mathbb{G}=\left\{\mathcal{G}^1,\mathcal{G}^2,\ldots,\mathcal{G}^T\right\}$
 > - 每个snapshot $\mathcal{G}_t=(\mathcal{V,\mathcal{E}^{t}})$是一个加权无向图，在$t$时刻，有一个共享节点集$V$，一个链接集$\mathcal{E}^t$和一个加权邻接矩阵$A^t$，本文所提方法允许删除图节点链接（以前的方法链接只能随着时间的推移而添加）
 > - 动态图表示学习的目标是在每个时间节点$t=1,2,...,T$，为每个节点$v\in \mathcal{V}$ 学习潜在表示$e^t_v\in \mathbb{R}^d$，即$e^t_v$**既保留了以$v$作为中心节点的局部图结构，又保留了$t$之前的演化行为。**
 
