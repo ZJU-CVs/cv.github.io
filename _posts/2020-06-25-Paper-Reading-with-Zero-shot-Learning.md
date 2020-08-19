@@ -52,10 +52,14 @@ tags:
 > > > - 然后通过监督学习，得到image-attribute层的概率表示$p(a\mid x)$，是样本$x$对于所有$a_m$的后验概率乘积
 > > >
 > > > - 在测试时，每个类别z可以用一个属性向量$a_z$表示，利用贝叶斯公式得到概率公式$p(z|x)$
-> > >   $$
-> > >   p(z \mid x)=\sum_{a \in\{0,1\}} p(z \mid a) p(a \mid x)=\frac{p(z)}{p\left(a^{z}\right)} \prod_{m=1}^{M} p\left(a_{m}^{z} \mid x\right)
-> > >   $$
-> > >   >  由于类别z是未知的，因此可以假设其的先验概率相同，对于先验概率$p(a_m)$,可以用训练时学习到的属性层值取平均值表示$$p\left(a_{m}\right)=\frac{1}{K} \sum_{k=1}^{K} a_{m}^{y_{k}}$$，则$$p(a)=\prod_{m=1}^{M} p\left(a_{m}\right)$$
+> > >
+> > > $$
+> > > p(z \mid x)=\sum_{a \in\{0,1\}} p(z \mid a) p(a \mid x)=\frac{p(z)}{p\left(a^{z}\right)} \prod_{m=1}^{M} p\left(a_{m}^{z} \mid x\right)
+> > > $$
+> > >
+> > > >  由于类别z是未知的，因此可以假设其的先验概率相同，对于先验概率$p(a_m)$,可以用训练时学习到的属性层值取平均值表示$p\left(a_{m}\right)=\frac{1}{K} \sum_{k=1}^{K} a_{m}^{y_{k}}$，则$p(a)=\prod_{m=1}^{M} p\left(a_{m}\right)$
+> > >
+> > > 
 > > >
 > > > - 最终由$f:X \rightarrow Z$的推测可以使用MAP prediction得到：
 > > >
