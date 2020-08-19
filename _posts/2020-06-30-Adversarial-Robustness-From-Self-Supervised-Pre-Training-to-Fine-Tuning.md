@@ -68,24 +68,33 @@ tags:
 ##### 自监督预训练
 
 >- $\mathcal{T}_p$表示一个预训练任务，$\mathcal{D}_p$表示对应的(未标记)的预训练数据集。自监督预训练的目标是在没有明确的人工监督情况下，从$\mathcal{D}_p$本身学习一个模型。
->- 预训练损失$\mathcal{l}_p(\theta_p,\theta_{pc};\mathcal{D}_p)$
->  - 通过训练确定$\theta_p$使$l_p$最小化
->  - $\theta_{pc}$表示基于$\mathcal{T}_p$得到的附加参数
->- 预训练任务主要为：
 >
->  > **Selfie:** 通过masking out图像中选定的patches，selfie构造为一个分类问题，以确定要在被masked位置填充的正确patch
+>- 预训练损失
+>
+>  > $$
+>  > \mathcal{l}_p(\theta_p,\theta_{pc};\mathcal{D}_p)
+>  > $$
 >  >
->  > 
->  >
->  > **Rotation:** 将图像随机旋转90度，rotation构造为一个分类问题，以确定应用于输入图像的旋转角度
->  >
->  > 
->  >
->  > **Jigsaw:** 通过将图像分成不同的快，Jigsaw训练一个分类器来预测这些patches正确的排列
+>  > - 通过训练确定$\theta_p$使$l_p$最小化
+>  > - $\theta_{pc}$表示基于$\mathcal{T}_p$得到的附加参数
 >
 >  
 >
->  ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ad1.png)
+>- 预训练任务主要为：
+>
+> > **Selfie:** 通过masking out图像中选定的patches，selfie构造为一个分类问题，以确定要在被masked位置填充的正确patch
+> >
+> > 
+> >
+> > **Rotation:** 将图像随机旋转90度，rotation构造为一个分类问题，以确定应用于输入图像的旋转角度
+> >
+> > 
+> >
+> > **Jigsaw:** 通过将图像分成不同的快，Jigsaw训练一个分类器来预测这些patches正确的排列
+>
+> 
+>
+> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ad1.png)
 
 
 
