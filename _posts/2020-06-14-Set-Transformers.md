@@ -93,11 +93,9 @@ $$
 \operatorname{Decoder}(Z ; \lambda)=\operatorname{rFF}\left(\operatorname{SAB}\left(\operatorname{PMA}_{k}(Z)\right)\right)
 $$
 
-> PMA为Pooling by Multihead Attention,用来聚合多个特征，$S\in R^{k\times d}$
->
-> 
+> PMA为Pooling by Multihead Attention,用来聚合多个特征
 > $$
-> \operatorname{PMA}_{k}(Z)=\operatorname{MAB}(S, \operatorname{rFF}(Z))
+> \operatorname{PMA}_{k}(Z)=\operatorname{MAB}(S, \operatorname{rFF}(Z)), S\in R^{k\times d}
 > $$
 > SAB用于建模k个输出之间的关系
 
@@ -116,10 +114,12 @@ $$
 ##### (3) Amortized Clustering with Mixture of Gaussians
 
 > 给定一个数据集$X = \{x_{1:n}\}$，其混合高斯的最大似然估计为:
+>
+> 
 > $$
 > \log p(X ; \theta)=\sum_{i=1}^{n} \log \sum_{j=1}^{k} \pi_{j} \mathcal{N}\left(x_{i} ; \mu_{j}, \operatorname{diag}\left(\sigma_{j}^{2}\right)\right)
 > $$
-> 不使用EM算法，直接用神经网络学习到最大值参数的映射
+> - 不使用EM算法，直接用神经网络学习到最大值参数的映射
 
 ##### (4) Set Anomaly Detection
 
@@ -127,7 +127,7 @@ $$
 
 ##### (5) Point Cloud Classiﬁcation
 
-> 文章使用`ModelNet40`作为数据集，该数据集包含许多三维物体数据，共40类，每个物体用一个点云表示，即一个有![[公式]](https://www.zhihu.com/equation?tex=n)个三维向量的集合，作为分类的属性
+> 文章使用`ModelNet40`作为数据集，该数据集包含许多三维物体数据，共40类，每个物体用一个点云表示，即一个有$n$个三维向量的集合，作为分类的属性
 
 
 
