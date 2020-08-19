@@ -40,7 +40,9 @@ tags:
 
 > - 考虑一个训练集$\mathcal{D}={(x_i,y_i)}^N_{i=1}$，具有N个多变量时间序列$x_i \in \mathcal{X}$和对应的相关目标$y_i \in \mathcal{Y}$
 > - $\mathcal{S}$表示所有传感器的集合，共$d$维；$\mathcal{S}_i \subseteq \mathcal{S}$表示不同的传感器组合，共$d_i$维
-> - $$x_i=\{x^t_i\}^{T_i}_{t=1}$$，$$x_i^t\in \mathbb{R}^{d_{i}}$$
+> - $x_i=\{x^t_i\}^{T_i}_{t=1},x_i^t\in \mathbb{R}^{d_{i}}$
+
+
 
 **模型架构：**由一个conditioning module和一个core dynamics module构成
 
@@ -61,20 +63,25 @@ tags:
 >     - $f_n$ 为节点前馈网络，$f_e$为边前馈网络，$f_n$和$f_e$在图中的节点和边上共享，也就是说这两个网络训练的不是特定点或特定边的更新方式，而是通用的更新方式
 >
 >     - 对于任意active 节点$v_k$，对应的节点向量$\mathbf{v}_{k}$更新如下：
->       $$
->       \begin{aligned}
->       \mathbf{v}_{k l} &=f_{e}\left(\left[\mathbf{v}_{k}, \mathbf{v}_{l}\right] ; \boldsymbol{\theta}_{e}\right), \quad \forall v_{l} \in \mathcal{N}_{\mathcal{G}}\left(v_{k}\right) \\
->       \tilde{\mathbf{v}}_{k} &=f_{n}\left(\left[\mathbf{v}_{k}, \sum_{\forall l} \mathbf{v}_{k l}\right] ; \boldsymbol{\theta}_{n}\right)
->       \end{aligned}
->       $$
 >
->       > $\theta _e$和$\theta _n$分别为$f_e$和$f_n$的可学习参数，$f_e$将邻节点信息传递到待更新节点，$f_n$利用邻节点的聚合信息更新相应节点
+>     $$
+>     \begin{aligned}
+>     \mathbf{v}_{k l} &=f_{e}\left(\left[\mathbf{v}_{k}, \mathbf{v}_{l}\right] ; \boldsymbol{\theta}_{e}\right), \quad \forall v_{l} \in \mathcal{N}_{\mathcal{G}}\left(v_{k}\right) \\
+>     \tilde{\mathbf{v}}_{k} &=f_{n}\left(\left[\mathbf{v}_{k}, \sum_{\forall l} \mathbf{v}_{k l}\right] ; \boldsymbol{\theta}_{n}\right)
+>     \end{aligned}
+>     $$
+>
+>     > $\theta _e$和$\theta _n$分别为$f_e$和$f_n$的可学习参数，$f_e$将邻节点信息传递到待更新节点，$f_n$利用邻节点的聚合信息更新相应节点
+>
 >     
->     - 最后根据更新后的节点向量得到conditioning vector $$\mathbf{v}_{\mathcal{S}_{i}} \in \mathbb{R}^{d_{s}}$$
+>
+>     - 最后根据更新后的节点向量得到conditioning vector $\mathbf{v}_{\mathcal{S}_{i}} \in \mathbb{R}^{d_{s}}$
+>
+>     $$
+>     \mathbf{v}_{\mathcal{S}_{i}}=\max \left(\left\{\tilde{\mathbf{v}}_{k}\right\}_{v_{k} \in \mathcal{V}_{i}}\right)
+>     $$
+>
 >     
->       $$\mathbf{v}_{\mathcal{S}_{i}}=\max \left(\left\{\tilde{\mathbf{v}}_{k}\right\}_{v_{k} \in \mathcal{V}_{i}}\right)$$
->     
->       
 >
 > - 使用GNN的优势在于可以处理除训练过程中传感器组合之外的其他unseen组合，从而实现组合泛化
 >
@@ -84,24 +91,32 @@ tags:
 >
 > > 该模型基于GRU构建（当然也可以用LSTM等），输入为固定维度的多变量，对于不可用的传感器进行平均插补。
 >
+> 
+>
 > **Details:**
 >
 > - 对于不同多变量组合的时间序列$x_i$转化为固定维度d的$\tilde{\mathbf{x}}_{i}$，对于缺失变量用均值填充
 >
 > - 将$\tilde{\mathbf{x}}_{i}$输入GRU进行训练，在最后一个时间步骤为$T_i$的module的输出特征向量$z^{T_i}$
+>
+>   
 > $$
 >   \mathbf{z}_{i}^{t}=G R U\left(\left[\tilde{\mathbf{x}}_{i}^{t}, \mathbf{v}_{\mathcal{S}_{i}}\right], \mathbf{z}_{i}^{t-1} ; \boldsymbol{\theta}_{G R U}\right), \quad t: 1, \ldots, T_{i}
 > $$
-> 
+>
 > - 根据下游任务(分类或回归)确定$f_o$，训练得到$\hat{y}_i$
+>
+>   
 > $$
->   \hat{y}_{i}=f_{o}\left(\mathbf{z}_{i}^{T_{i}} ; \boldsymbol{\theta}_{o}\right)
+> \hat{y}_{i}=f_{o}\left(z_{i}^{T_{i}} ; \theta_{o}\right)
 > $$
-> 
-> 
+>
+>
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/index.png" alt="img" style="zoom:50%;" />
 >
 >  
+
+
 
 **训练方式：**
 
@@ -109,8 +124,11 @@ tags:
 >
 > **损失函数：**
 >
-> - 分类任务：$$\mathcal{L}_{c}=-\frac{1}{N} \sum_{i=1}^{N} \sum_{k=1}^{K} y_{i}^{k} \log \left(\hat{y}_{i}^{k}\right)$$
-> - 回归任务：$$\mathcal{L}_{r}=\frac{1}{N} \sum_{i=1}^{N}\left(y_{i}-\hat{y}_{i}\right)^{2}$$
+> - 分类任务：$\mathcal{L}_{c}=-\frac{1}{N} \sum_{i=1}^{N} \sum_{k=1}^{K} y_{i}^{k} \log \left(\hat{y}_{i}^{k}\right)$
+>
+> - 回归任务：$\mathcal{L}_{r}=\frac{1}{N} \sum_{i=1}^{N}\left(y_{i}-\hat{y}_{i}\right)^{2}$
+>
+>   
 >
 > 值得注意的是：模型参数学习方式为mini-batch SGD，在每个小批量内输入为具有相同可用传感器集的时间序列，即每个小批量中所有时间序列的活动节点都相同。(可以看这篇blog：https://www.imooc.com/article/details/id/48566)
 
