@@ -81,8 +81,10 @@ tags:
 >
 > 回归任务unbounded的特性，直接增大回归loss常导致对outliers更加敏感（对于梯度的贡献度，outliers贡献了70%，而大量的inliers只有30%的贡献）
 
-> 思路：从损失函数的角度增大了inliers 对梯度的贡献，实现平衡训练
->
+
+
+思路：从损失函数的角度增大了inliers 对梯度的贡献，实现平衡训练
+
 > - Fast R-CNN损失函数为例：
 >
 > $$
@@ -101,9 +103,9 @@ tags:
 >
 > 
 >
-> 将原来的smooth L1 loss：
+> 将原来的**smooth L1 loss**：
 > $$
-> smooth_{L_{1}}(x)=\left\{\begin{array}{ll}
+> smooth_{L_1}(x)=\left\{\begin{array}{ll}
 > 0.5 x^{2} & \text { if }|x|<1 \\
 > |x|-0.5 & \text { otherwise }
 > \end{array}\right.
