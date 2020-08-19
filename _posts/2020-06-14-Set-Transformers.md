@@ -116,7 +116,7 @@ $$
 
 ##### (3) Amortized Clustering with Mixture of Gaussians
 
-> 给定一个数据集$X = \{x_{1:n}\}$，其混合高斯的最大似然估计为:
+> 给定一个数据集$X = \{x_{1:n}\}$，其混合高斯的最大似然估计为:                          
 > $$
 > \log p(X ; \theta)=\sum_{i=1}^{n} \log \sum_{j=1}^{k} \pi_{j} \mathcal{N}\left(x_{i} ; \mu_{j}, \operatorname{diag}\left(\sigma_{j}^{2}\right)\right)
 > $$
@@ -124,9 +124,13 @@ $$
 >
 > - 不使用EM算法，直接用神经网络学习到最大值参数的映射
 
+
+
 ##### (4) Set Anomaly Detection
 
 > 文章使用`CelebA`进行异常检测。该数据集有202599张图片，共40个属性。随机选定两个属性，对这两个属性随机选定七张图片，它们都含有该属性，再选定另一张图片，不含这两个属性，将这八张图片作为一个集合去找出与众不同的图片 （有点meta-learning的感觉）
+
+
 
 ##### (5) Point Cloud Classiﬁcation
 
