@@ -105,10 +105,12 @@ tags:
 >
 > 将原来的**smooth L1 loss**：
 > $$
+> \begin{equation}
 > smooth_{L_1}(x)=\left\{\begin{array}{ll}
 > 0.5 x^{2} & \text { if }|x|<1 \\
 > |x|-0.5 & \text { otherwise }
 > \end{array}\right.
+> \end{equation}
 > $$
 > 
 >
@@ -118,10 +120,12 @@ tags:
 > >
 > > 设计一个promoted gradient formulation as:                         
 > > $$
+> > \begin{equation}
 > > L_{b}(x)=\left\{\begin{array}{ll}
 > > \frac{\alpha}{b}(b|x|+1) \ln (b|x|+1)-\alpha|x| & \text { if }|x|<1 \\
 > > \gamma|x|+C & \text { otherwise }
 > > \end{array}\right.
+> > \end{equation}
 > > $$
 > > 
 > >
