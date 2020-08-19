@@ -376,7 +376,9 @@ tags:
 > >
 > > > **ZSR:** $\tilde{k}_{c} \in \tilde{\mathcal{K}}_u$
 > > >
-> > > $\tilde{k}_{c}\in\{\tilde{\mathcal{K}}_{s} \cup\tilde{\mathcal{K}}_{u}\}$
+> > > 
+> > >
+> > > $\tilde{k}_{c}\in\{\tilde{\mathcal{K}}_s\cup\tilde{\mathcal{K}}_u\}$
 > > >
 > > > **gZSR:**
 
