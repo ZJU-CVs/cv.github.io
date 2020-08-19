@@ -229,6 +229,8 @@ Ganomaly: Semi-supervised anomaly detection via adversarial training (2018-11)
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/AD4.png" alt="img" style="zoom:50%;" />
 >
 > 损失函数：
+>
+> ​                   
 > $$
 > \mathcal{L}=w_{adv}\mathcal{L}_{adv}+w_{con}\mathcal{L}_{con}+w_{enc} \mathcal{L}_{enc}
 > $$
@@ -302,9 +304,9 @@ Anomaly Detection with Adversarial Dual Autoencoders (2019-02)
 
 #### RSRAE
 
-> $$\begin{equation}
+> $\begin{equation}
 > x \stackrel{\mathscr{E}}{\longrightarrow} Z \stackrel{ A }{\longrightarrow} \tilde{ Z } \stackrel{\mathscr{D}}{\longrightarrow} \tilde{ X }
-> \end{equation}$$，引入RSR layer，将隐编码嵌入到$$R ^{D}$$空间
+> \end{equation}$，引入RSR layer，将隐编码嵌入到$$R ^{D}$$空间
 >
 > 
 >
@@ -316,8 +318,8 @@ Anomaly Detection with Adversarial Dual Autoencoders (2019-02)
 >
 > $$L_{ RSR }^{q}( A )=L_{ RSR _{1}}( A )+L_{ RSR _{2}}( A )=\lambda_{1} \sum_{t=1}^{N}\| z ^{(t)}- A ^{ T } \underbrace{ A z ^{(t)}}_{ Z ^{(t)}}\|_{2}^{q}+\lambda_{2}\left\| A A ^{ T }- I _{d}\right\|_{ F }$$
 >
-> > $P$为恢复子空间上的正交投影（$$\begin{equation}
-> > x^{(t)} \stackrel{\mathscr{E}}{\longrightarrow} \tilde{ x }^{(t)} \end{equation}$$）
+> > $P$为恢复子空间上的正交投影（$\begin{equation}
+> > x^{(t)} \stackrel{\mathscr{E}}{\longrightarrow} \tilde{ x }^{(t)} \end{equation}$）
 > >
 > > $q$为$\begin{equation}
 > > L( P )=\sum_{t=1}^{N}\left\|( I - P ) y ^{(t)}\right\|_{2}^{ q }
