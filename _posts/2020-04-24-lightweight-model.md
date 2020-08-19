@@ -118,9 +118,9 @@ paper:《Xception: Deep Learning with Depthwise Separable Convolutions》
 >
 > - 将通道之间的相关性与空间相关性分开处理。采用 Depthwise Separable Convolution来替换原来 Inception-v3中的卷积操作。
 >
->   Standard Convolution：$2*3*3*3=54$
+>   Standard Convolution：$2\times3\times3\times3=54$
 >
->   Depthwise Separate Convolution：$2*3*3+2*1*1*3=24$
+>   Depthwise Separate Convolution：$2\times3\times3+2\times1\times1\times3=24$
 >
 >   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/lightweight-model/1.png" alt="img" style="zoom:70%;" />
 >
