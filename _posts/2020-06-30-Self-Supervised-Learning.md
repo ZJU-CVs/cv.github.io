@@ -71,8 +71,8 @@ ref: https://lilianweng.github.io/lil-log/2019/11/10/self-supervised-learning.ht
 
 > - Colorization
 >
->   > 《Colorful Image Colorization》
->   > 《Learning Representations for Automatic Colorization》
+>   > 《Colorful Image Colorization》         
+>   > 《Learning Representations for Automatic Colorization》                
 >   > 《Tracking Emerges by Colorizing Videos》
 >
 > - Placing image patches in the right place
@@ -82,7 +82,7 @@ ref: https://lilianweng.github.io/lil-log/2019/11/10/self-supervised-learning.ht
 >
 > - Placing frames in the right order
 >
->   > 《Unsupervised Representation Learning by Sorting Sequences》
+>   > 《Unsupervised Representation Learning by Sorting Sequences》               
 >   > 《Shuffle and Learn: Unsupervised Learning using Temporal Order Verification》
 >
 > - Classify corrupted images
