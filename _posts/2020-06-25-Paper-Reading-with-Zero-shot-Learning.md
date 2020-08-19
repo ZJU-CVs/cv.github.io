@@ -319,13 +319,13 @@ tags:
 > >
 > >   (1) 通过visual-semantic 映射预测嵌入 $k_j$
 > > $$
-> >   f_{s}: \mathcal{X}_{s} \rightarrow \mathcal{K}_{s}
+> >   f_{s}: \mathcal{X}_s \rightarrow \mathcal{K}_s
 > >   $$
 > >   
 > >   
-> >   (2) 通过比较$k_j$与default ZSR setting中的$\mathcal{K}_u$ 
 > >   
-> >   ​      或 default gZSR setting中的 $\mathcal{K}_{s} \cup \mathcal{K}_{u}$
+> >   
+> >   (2) 通过比较$k_j$与default ZSR setting中的$\mathcal{K}_u$ 或 default gZSR setting中的 $\mathcal{K}_s \cup \mathcal{K}_u$
 > >   
 > >   
 > >   
@@ -378,9 +378,9 @@ tags:
 > > >
 > > > 
 > > >
-> > > $\tilde{k}_{c} \in \{\tilde{\mathcal{K}}_s \cup \tilde{\mathcal{K}}_u\}$
+> > > **gZSR:** $\tilde{k}_{c} \in \{\tilde{\mathcal{K}}_s \cup \tilde{\mathcal{K}}_u\}$
 > > >
-> > > **gZSR:**
+> > > 
 
 
 
