@@ -46,11 +46,13 @@ tags:
 > - Optimal assignment
 >
 >   > 损失会在预测的和真实的对象之间产生最佳的二分匹配，然后优化特定与对象的（bounding box） 的损失：
+>   >
+>   > 
 >   > $$
 >   > \hat{\sigma}=\underset{\sigma \in \mathfrak{S}_{N}}{\arg \min } \sum_{i}^{N} \mathcal{L}_{\mathrm{match}}\left(y_{i}, \hat{y}_{\sigma(i)}\right)
 >   > $$
 >   >
->   > - 用$y$表示对象的ground truth set，而$\hat{y}=\{\hat{y}_i\}^N_{i=1}$ 表示$N$个预测的集合，$N$大于图像中的对象数量
+>   > - 用$y$表示对象的ground truth set，而$\hat{y}=\{\hat{y}_i\}^N_{i=1}$ 表示N​个预测的集合，​N​大于图像中的对象数量
 >   > - $y$ 也可以视为大小$N$的集合，并用$\varnothing$表示 no object
 >   > - 为了找到这两个集合之间的二分匹配，通过搜索的到$N$个元素的最小损失置换，其中$L_{match}$是一个**pair-wise matching cost**，最优值利用Hungarian algorithm计算
 >
@@ -63,13 +65,13 @@ tags:
 > $$
 >   \mathcal{L}_{\text {match }}\left(y_{i}, \hat{y}_{\sigma(i)}\right)=-\mathbb{1}_\left\{c_{i} \neq \varnothing\right\} \hat{p}_{\sigma(i)}\left(c_{i}\right)+\mathbb{1}_{\left\{c_{i} \neq \varnothing\right\}} \mathcal{L}_{\mathrm{box}}\left(b_{i}, \hat{b}_{\sigma(i)}\right)
 > $$
-> 
+>
 > > 其中，$c_i$是目标类别标签，$b_i$是向量代表真值BBox中心点坐标及其宽高
-> 
+>
 > > 寻找 matching 的过程类似于匹配 proposal 或者 anchors 机制，主要区别是需要找一个one to one matching，而不需要重复
-> 
+>
 >   
-> 
+>
 > - Hungarian loss
 >
 >   > $$
@@ -139,13 +141,13 @@ tags:
 
 **Detailed architecture**
 
-![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/End-to-End-Object-Detection-with-Transformers/5.png)
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/End-to-End-Object-Detection-with-Transformers/5.png" alt="img" style="zoom:50%;" />
 
 
 
 ### 3. Comparison
 
-![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/End-to-End-Object-Detection-with-Transformers/4.png)
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/End-to-End-Object-Detection-with-Transformers/4.png" alt="img" style="zoom:50%;" />
 
 
 
