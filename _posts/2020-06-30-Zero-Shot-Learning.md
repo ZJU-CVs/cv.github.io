@@ -341,8 +341,8 @@ ref: [A survey of zero-shot learning: Settings, methods, and applications](https
 >
 > - 模型训练时，
 >
->   - GCN的输入是n个类别(包括seen class和unseen class)的语义向量$$\mathcal{X}=\left\{x_{i}\right\}_{i=1}^{n}，\mathcal{X}\in n\times k$$，输出是每个类别的分类器参数$$\mathcal{W}=\left\{\hat{w_{i}}\right\}_{i=1}^{n}, \mathcal{W}\in n\times D$$，GCN每个节点的输出维度$D$和CNN输出的特征维度相等
->   - 训练时用seen类的CNN输出特征向量作为监督信号$w_i$（绿色节点）训练GCN模型的参数监督学习来更新整个GCN，$$\frac{1}{m} \sum_{i=1}^{m} L_{\mathrm{mse}}\left(\hat{w}_{i}, w_{i}\right)$$
+>   - GCN的输入是n个类别(包括seen class和unseen class)的语义向量$\mathcal{X}=\left\{x_{i}\right\}_{i=1}^{n}，\mathcal{X}\in n\times k$，输出是每个类别的分类器参数$\mathcal{W}=\left\{\hat{w_{i}}\right\}_{i=1}^{n}, \mathcal{W}\in n\times D$，GCN每个节点的输出维度$D$和CNN输出的特征维度相等
+>   - 训练时用seen类的CNN输出特征向量作为监督信号$w_i$（绿色节点）训练GCN模型的参数监督学习来更新整个GCN，$\frac{1}{m} \sum_{i=1}^{m} L_{\mathrm{mse}}\left(\hat{w}_{i}, w_{i}\right)$
 >
 > - 模型测试时，gcn中的unseen class节点输出对应的权重向量，同时，与CNN输出的图片特征向量做点乘，得到分类结果
 >
