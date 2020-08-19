@@ -72,12 +72,16 @@ $$
 
 **2).** 训练SIN $f_s(f_E(x;\theta_E);\theta_S)$ ，具有类似对比的损失，使用$\mathcal{D}_N$和$\mathcal{D}_A$达到目标：        
 $$
+x\cdot y
+$$
+
+$$
 f_S(f_E(x\in\mathcal{D}_A;\theta_E);\theta_S)\gt f_S(f_E(x\in \mathcal{D}_N;\theta_E);\theta_S)
 $$
 
 
 
-> - 通过计算 $z=f_E(x\in \mathcal{D}_A \cup \mathcal{D}_{N} ; \theta_{E}^{*})$ 来训练 $ f_S(z;\theta_S) $
+> - 通过计算 $$z=f_E(x\in \mathcal{D}_A \cup \mathcal{D}_{N};\theta_{E}^{*})$$ 来训练 $ f_S(z;\theta_S) $
 > 
 > $$
 > \ell_{S}=\mathbb{I}(y \text { is } \text {Normal})\left|s\left(f_{S}\left(\mathbf{z} ; \theta_{S}\right)\right)\right|+\mathbb{I}(y \text { is } \text {Abnormal}) \max \left(0, a-s\left(f_{S}\left(\mathbf{z} ; \theta_{S}\right)\right)\right)
@@ -102,7 +106,7 @@ $$
 
 ### 4. Conclusion
 
-> 提出了FSAD-NET少样本异常检测框架，通过最大化正常训练图像和嵌入之间全局和局部的互信息，并最小化嵌入和先验分布的差异，训练得到编码器。利用训练好的编码器产生的嵌入，使用类似对比学习的损失来训练Score Inference Network ($f_S$)用于计算异常分数。
+> 提出了FSAD-NET少样本异常检测框架，通过最大化正常训练图像和嵌入之间全局和局部的互信息，并最小化嵌入和先验分布的差异，训练得到编码器。利用训练好的编码器产生的嵌入，使用类似对比学习的损失来训练Score Inference Network ( $f_S$ )用于计算异常分数。
 
 
 
