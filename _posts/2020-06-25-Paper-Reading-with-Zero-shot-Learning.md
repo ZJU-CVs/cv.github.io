@@ -353,7 +353,7 @@ tags:
 >
 > **测试阶段：**
 >
-> > 将$$f_s,\tilde{f}_s,\tilde{\mathcal{K}}_s,\mathcal{K}_s$和$\mathcal{K}_u$$作为输入，对于$n_t$个测试实例$$X_u \in R^{d\times n_t}$$，首先预测它们的语义表示$f_s(X_u)$，然后直接构建$\tilde{\mathcal{K}}_s$，最后，对于每个测试实例$x_j$，得到对应的标签$$y_j=\arg \max_c d\left(\tilde{f}_{s}\left(\mathbf{x}_{j}\right), \tilde{\mathbf{k}}_{c}\right)$$，其中$$\tilde{\mathbf{k}}_{c}\in\tilde{\mathcal{K}}_{u}$$ in **ZSR**；$$\tilde{\mathbf{k}}_{c}\in\{\tilde{\mathcal{K}}_s \cup\tilde{\mathcal{K}}_{u}\}$$ in **gZSR**.
+> > 将$f_s,\tilde{f}_s,\tilde{\mathcal{K}}_s,\mathcal{K}_s$和$\mathcal{K}_u$作为输入，对于$n_t$个测试实例$X_u \in R^{d\times n_t}$，首先预测它们的语义表示$f_s(X_u)$，然后直接构建$\tilde{\mathcal{K}}_s$，最后，对于每个测试实例$x_j$，得到对应的标签$y_j=\arg \max_c d\left(\tilde{f}_{s}\left(\mathbf{x}_{j}\right), \tilde{\mathbf{k}}_{c}\right)$，其中$\tilde{\mathbf{k}}_{c}\in\tilde{\mathcal{K}}_{u}$ in **ZSR**；$\tilde{\mathbf{k}}_{c}\in\{\tilde{\mathcal{K}}_s \cup\tilde{\mathcal{K}}_{u}\}$in **gZSR**.
 
 
 
