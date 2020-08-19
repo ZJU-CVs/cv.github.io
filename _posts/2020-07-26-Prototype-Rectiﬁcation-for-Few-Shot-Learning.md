@@ -21,16 +21,15 @@ tags:
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/model/1.png" alt="img" style="zoom:50%;" />
 
-训练阶段：对于一个包含$\mathcal{C}_{base}$基类的标记数据集$\mathcal{D}$，训练特征提取器$F_\theta(\cdot)$和余弦分类器$C(\cdot \mid W)$
+**训练阶段：**
 
-推理阶段：基于每个类有K个标记的图像集，识别少量的$\mathcal{C}_{few}$类
+> 对于一个包含$\mathcal{C}_{base}$基类的标记数据集$\mathcal{D}$，训练特征提取器$F_\theta(\cdot)$和余弦分类器$C(\cdot \mid W)$
 
-> Episodic采样N-way K-shot tasks，每个episode包含一个support set $\mathcal{S}$ 和一个query set $\mathcal{Q}$
 
-> - 在support set中，所有样本$x$被标记，使用特征提取器提取特征$X=F_\theta(x)$来计算few-shot classes的原型$P$，计算和样本的余弦相似度进行分类
-> - 在query set 中的无标记样本用于测试
-> - 由于基础原型和预期原型存在偏差，需要消除intra-class bias和cross-class bias
->   - intra-class bias：
+
+**推理阶段**：
+
+> 基于每个类有K个标记的图像集，识别少量的$\mathcal{C}_{few}$类
 
 
 
@@ -43,19 +42,25 @@ tags:
 > CSPN用于计算 few-shot classes的basic prototypes
 >
 > - 首先在base classes的基础上训练特征提取器$F_\theta(\cdot)$，该特征提取器具有余弦相似性的分类器$C(.\mid W)$
+>   
+>   
 >   $$
->   C\left(F_{\theta}(x) \mid W\right)=\operatorname{Softmax}\left(\tau \cdot \operatorname{Cos}\left(F_{\theta}(x), W\right)\right)
+> C\left(F_{\theta}(x) \mid W\right)=\operatorname{Softmax}\left(\tau \cdot \operatorname{Cos}\left(F_{\theta}(x), W\right)\right)
 >   $$
->
+>   
 >   > $W$是基类的可学习权重，$\tau$是标量参数
->   >
->   > 目标是尽可能减少监督分类任务的负对数似然损失$$L(\theta, W \mid \mathcal{D})=\mathbb{E}\left[-\log C\left(F_{\theta}(x) \mid W\right)\right]$$
->
+> >
+>   > 目标是尽可能减少监督分类任务的负对数似然损失$L(\theta, W \mid \mathcal{D})=\mathbb{E}\left[-\log C\left(F_{\theta}(x) \mid W\right)\right]$
+>   
+>   
+>   
 > - 在推理阶段，重新训练$F_\theta(\cdot)$和分类权重对$C_{few}$少数类数据可能会出现过拟合，因此直接计算n类的基本原型$P_n$如下:
+>   
+>   
 >   $$
->   P_{n}=\frac{1}{K} \sum_{i=1}^{K} \bar{X}_{i, n}
+> P_{n}=\frac{1}{K} \sum_{i=1}^{K} \bar{X}_{i, n}
 >   $$
->
+>   
 >   > 其中$\bar{X}$是support samples的标准化特征，query samples可以根据余弦相似性找到最近的原型来分类
 
 
