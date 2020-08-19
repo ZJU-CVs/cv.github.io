@@ -62,8 +62,10 @@ tags:
 > - matching cost
 >   
 >   > 考虑了class prediction 和 similarity
+>   >
+>   > ​        
 >   > $$
->   > \mathcal{L}_{\text {match }}\left(y_{i}, \hat{y}_{\sigma(i)}\right)=-\mathbb{1}_\left\{c_{i} \neq \varnothing\right\} \hat{p}_{\sigma(i)}\left(c_{i}\right)+\mathbb{1}_{\left\{c_{i} \neq \varnothing\right\}} \mathcal{L}_{\mathrm{box}}\left(b_{i}, \hat{b}_{\sigma(i)}\right)
+>   > \mathcal{L}_{\text {match }}\left(y_{i}, \hat{y}_{\sigma(i)}\right)=-\mathbb{1}_\left\{c_{i} \neq \varnothing\right\} \hat{p}_{\sigma(i)}\left(c_{i}\right)+\mathbb{1}_{\left\{c_{i} \neq \varnothing\right\}} \mathcal{L}_{box}\left(b_{i}, \hat{b}_{\sigma(i)}\right)
 >   > $$
 >   >
 >   > - 其中，$c_i$是目标类别标签，$b_i$是向量代表真值BBox中心点坐标及其宽高
