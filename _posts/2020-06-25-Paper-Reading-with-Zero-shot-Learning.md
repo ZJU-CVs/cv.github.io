@@ -245,11 +245,16 @@ tags:
 
 > 学习一个线性模型的集合，使每个样本对象可以从中选择一个适合的线性映射，模型思想与ALE相似
 >
-> - 兼容度评判函数为：$F(\mathbf{x}, \mathbf{y})=\max _{1 \leq i \leq K} \tilde{\mathbf{w}}_{i}^{\top}(\mathbf{x} \otimes \mathbf{y})=\max _{1 \leq i \leq K}x^T W_i y $
+> - 兼容度评判函数为：
 >
->   > $K \geq 2, \tilde{\mathbf{w}}_{i} \in \mathbb{R}^{d_x d_{y}}$是模型其中一个线性模型的参数
+>   > $$
+>   > F(\mathbf{x}, \mathbf{y})=\max _{1 \leq i \leq K} \tilde{\mathbf{w}}_{i}^{\top}(\mathbf{x} \otimes \mathbf{y})=\max _{1 \leq i \leq K}x^T W_i y
+>   > $$
 >   >
->   > 隐变量$i$用来选择线性模型
+>   > - $K \geq 2, \tilde{\mathbf{w}}_{i} \in \mathbb{R}^{d_x d_{y}}$是模型其中一个线性模型的参数
+>   > - 隐变量$i$用来选择线性模型
+>
+> 
 >
 > - 损失函数
 >
