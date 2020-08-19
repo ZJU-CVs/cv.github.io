@@ -90,10 +90,14 @@ tags:
 > >
 >   > $\hat{\sigma}$是optimal assignment，matching cost和Hungarian loss对BBox进行打分处理
 > >
+>   > 
+> >
 >   > box loss ($\mathcal{L}_{box}$)采用了L1 loss和generalized IoU loss
-> > $$
+> >
+>   > 
+>   > $$
 >   > \mathcal{L}_{\mathrm{box}}\left(b_{i}, \hat{b}_{\sigma(i)}\right)=\lambda_{\mathrm{iou}} \mathcal{L}_{\mathrm{iou}}\left(b_{i}, \hat{b}_{\sigma(i)}\right)+\lambda_{\mathrm{L} 1}\left\|b_{i}-\hat{b}_{\sigma(i)}\right\|_{1}
-> > $$
+>   > $$
 >   > 
 >   
 
@@ -120,7 +124,7 @@ tags:
 **Transformer encoder**
 
 > - 首先使用$1\times1$将high-level 激活图$f$的通道维度从$C$减少到$d$
-> - 创建一个新的特征图$z_0\in \mathcal{R}^{d\times\H\times W}$，编码器期望一个序列作为输入，因此需要将$z_0$折叠为1维，即生成$d\times HW$特征图
+> - 创建一个新的特征图$z_0\in \mathcal{R}^{d\times H\times W}$，编码器期望一个序列作为输入，因此需要将$z_0$折叠为1维，即生成$d\times HW$特征图
 > - 每个编码器均具有标准体系结构，并包括一个多头自注意力模块（self-attention）和一个前馈网络（FFN）
 > - 由于transformer结构是permutation-invariant，因此用固定位置编码（fixed positional encodings）进行补充，该位置编码被添加到每个attention layer
 
