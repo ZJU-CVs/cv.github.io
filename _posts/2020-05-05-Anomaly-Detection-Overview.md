@@ -319,15 +319,17 @@ Anomaly Detection with Adversarial Dual Autoencoders (2019-02)
 > > $P$为恢复子空间上的正交投影（$$\begin{equation}
 > > x^{(t)} \stackrel{\mathscr{E}}{\longrightarrow} \tilde{ x }^{(t)} \end{equation}$$）
 > >
-> > $q$为$$\begin{equation}
+> > $q$为$\begin{equation}
 > > L( P )=\sum_{t=1}^{N}\left\|( I - P ) y ^{(t)}\right\|_{2}^{ q }
-> > \end{equation}$$的幂次
+> > \end{equation}$的幂次
 >
-> 
->
-> $$\begin{equation}
+> $$
+> \begin{equation}
 > L_{\text {RSRAE }}( E , A , \mathscr{D})=L_{\text {AK }}^{1}( E , A , \mathscr{D})+L_{\text {TSR }}^{1}( A )
-> \end{equation}$$  ($p = 1,q = 1$)
+> \end{equation}
+> $$
+>
+> > p = 1, q = 1
 
 
 
@@ -397,7 +399,7 @@ Discriminative Reconstruction Constrained Generative Adversarial Network for Hyp
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/AD17.png" alt="img" style="zoom:50%;" />
 >
-> 测试时利用Residual image计算得到$D_{spatial}$和$D_{spectral}$，最终得到$$D_{SS}=\lambda_1D_{spatial}+(1-\lambda_1)D_spectral$$
+> 测试时利用Residual image计算得到$D_{spatial}$和$D_{spectral}$，最终得到$D_{SS}=\lambda_1D_{spatial}+(1-\lambda_1)D_{spectral}$
 
 
 
@@ -418,25 +420,43 @@ Attention Guided Anomaly Localization in Images (v1: 2019-11 v2:2020-05)
 > >
 > > - Attention Expansion Loss损失使从卷积潜变量中生成的attention map覆盖正常图像的全图
 >
-> > 损失函数：$$L_{\text {final}}=w_{r} L+w_{a d v} L_{a d v}+w_{a e} L_{a e}$$
+> 
+>
+> > 损失函数：$L_{\text {final}}=w_{r} L+w_{a d v} L_{a d v}+w_{a e} L_{a e}$
 > >
-> > - 重构损失：$$\begin{equation}
-> >   L=L_{R}(x, \hat{x})+K L\left(q_{\phi}(z | x)|| p_{\theta}(z | x)\right)
-> >   \end{equation}$$
+> > 
 > >
-> >   ​     
+> > - 重构损失：
 > >
-> > - 对抗损失：$$L_{a d v}=-\frac{1}{N} \sum_{i=1}^{N} \log \left(D\left(x_{i}\right)\right)+\log \left(1-D\left(\hat{x}_{i}\right)\right)$$
+> > $$
+> > \begin{equation}
+> > L=L_{R}(x, \hat{x})+K L\left(q_{\phi}(z | x)|| p_{\theta}(z | x)\right)
+> > \end{equation}
+> > $$
+> >
+> > 
+> >
+> > ​     
+> >
+> > - 对抗损失：
+> >
+> > $$
+> > L_{a d v}=-\frac{1}{N} \sum_{i=1}^{N} \log \left(D\left(x_{i}\right)\right)+\log \left(1-D\left(\hat{x}_{i}\right)\right)
+> > $$
 > >
 > > ​       
 > >
-> > - 注意力分布损失:$$\begin{equation}
+> > - 注意力分布损失:
+> >
+> > $$
+> > \begin{equation}
 > > L_{a e, 1}=\frac{1}{|A|} \sum_{i, j}\left(1-A_{i, j}\right)
-> >   \end{equation}$$
-> >   
-> >   > 使用Grad-CAM计算A并使用Sigmoid进行归一化，$A_{i,j}\in[0,1]$
-> >   >
-> >   > 对于正常图像，注意力应遍布全图
+> > \end{equation}
+> > $$
+> >
+> > > 使用Grad-CAM计算A并使用Sigmoid进行归一化，$A_{i,j}\in[0,1]$
+> > >
+> > > 对于正常图像，注意力应遍布全图
 >
 > 
 >
@@ -453,29 +473,27 @@ Attention Guided Anomaly Localization in Images (v1: 2019-11 v2:2020-05)
 >
 > > 损失函数：$$L_{\text {final}}=w_{r} L+w_{\text {adv}} L_{a d v}+w_{c} L_{b c e}+w_{\text {cga}} L_{\text {cga}}$$
 > >
-> > (1) $$\begin{equation}
+> > $$\begin{equation}
 > > L=L_{R}(x, \hat{x})+K L\left(q_{\phi}(z | x) \| p_{\theta}(z | x)\right)
 > > \end{equation}$$
 > >
 > > ​     
 > >
-> > (2) $$L_{bce}=-\left[y_{i} \log x_{i}+\left(1-y_{i}\right) \log \left(1-x_{i}\right)\right]$$
+> > $$L_{bce}=-\left[y_{i} \log x_{i}+\left(1-y_{i}\right) \log \left(1-x_{i}\right)\right]$$
 > >
-> > ​     
+> > 
 > >
-> > (3) $$L_{a d v}=-\frac{1}{N} \sum_{i=1}^{N} \log \left(D\left(x_{i}\right)\right)+\log \left(1-D\left(\hat{x}_{i}\right)\right)$$
+> > $$L_{a d v}=-\frac{1}{N} \sum_{i=1}^{N} \log \left(D\left(x_{i}\right)\right)+\log \left(1-D\left(\hat{x}_{i}\right)\right)$$
 > >
-> > ​        
+> > 
 > >
-> > (4) $$
-> > L_{c g a, 1}=\frac{1\left(p=y=c_{n}\right)}{\left|A_{x}^{c_{n}}\right|} \sum_{i, j}\left(1-\left(A_{x}^{c_{n}}\right)_{i, j}+\left(A_{x}^{c_{a}}\right)_{i, j}\right)
-> > $$
+> > $$L_{c g a, 1}=\frac{1\left(p=y=c_{n}\right)}{\left|A_{x}^{c_{n}}\right|} \sum_{i, j}\left(1-\left(A_{x}^{c_{n}}\right)_{i, j}+\left(A_{x}^{c_{a}}\right)_{i, j}\right)$$
 
 
 
 #### ALAE
 
-> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/AD21.png)
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/AD21.png" alt="img" style="zoom:33%;" />
 >
 > 融合了AAE和GAN的最新架构，还未应用到Anomaly Detection中
 >
