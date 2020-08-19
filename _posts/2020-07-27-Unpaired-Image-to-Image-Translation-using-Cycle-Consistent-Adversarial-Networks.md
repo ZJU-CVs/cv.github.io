@@ -158,14 +158,16 @@ $$
 
   
 
-  因此语义一致性损失为：
-  $$
-  \begin{aligned}
-  \mathcal{L}_{sem}\left(G_{S \rightarrow T}, G_{T \rightarrow S}, X_{S}, X_{T}, f_{S}\right) &=\mathcal{L}_{task}\left(f_{S}, G_{T \rightarrow S}\left(X_{T}\right), p\left(f_{S}, X_{T}\right)\right) \\ &+\mathcal{L}_{task}\left(f_{S}, G_{S \rightarrow T}\left(X_{S}\right), p\left(f_{S}, X_{S}\right)\right)
-  \end{aligned}
-  $$
-  
-  
+  - 因此语义一致性损失为：
+
+$$
+\begin{aligned}
+\mathcal{L}_{sem}\left(G_{S \rightarrow T}, G_{T \rightarrow S}, X_{S}, X_{T}, f_{S}\right) &=\mathcal{L}_{task}\left(f_{S}, G_{T \rightarrow S}\left(X_{T}\right), p\left(f_{S}, X_{T}\right)\right) \\ &+\mathcal{L}_{task}\left(f_{S}, G_{S \rightarrow T}\left(X_{S}\right), p\left(f_{S}, X_{S}\right)\right)
+\end{aligned}
+$$
+
+
+
 - 此外，还考虑了特征级域适应，通过任务网络$f_T$的**输出特征**判断是否是来自两个图像集的特征或语义
 
 $$
