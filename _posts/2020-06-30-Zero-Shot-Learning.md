@@ -237,7 +237,7 @@ ref: [A survey of zero-shot learning: Settings, methods, and applications](https
 >
 > 
 >
-> **解决方案**：提出transductive multi-view embedding，将映射到语义空间中的样本再重建回去，目标函数为：$$\min \left\|X_{t r}-W^{T} A_{t r}\right\|^{2}+\lambda\left\|W X_{t r}-A_{t r}\right\|^{2}$$ (类似于一个自编码器)
+> **解决方案**：提出transductive multi-view embedding，将映射到语义空间中的样本再重建回去，目标函数为：$\min \left\|X_{t r}-W^{T} A_{t r}\right\|^{2}+\lambda\left\|W X_{t r}-A_{t r}\right\|^{2}$ (类似于一个自编码器)
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/3.png" alt="img" style="zoom:50%;" />
 
