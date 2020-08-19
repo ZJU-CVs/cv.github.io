@@ -50,6 +50,8 @@ tags:
 >   >
 >   > - $y$ 也可以视为大小$N$的集合，并用$\varnothing$表示 no object
 >
+>   
+>
 > - Optimal assignment
 >
 >   > 损失会在预测的和真实的对象之间产生最佳的二分匹配，然后优化特定与对象的（bounding box） 的损失：
@@ -59,6 +61,7 @@ tags:
 >   > \hat{\sigma}=\underset{\sigma \in \mathfrak{S}_{N}}{\arg \min } \sum_{i}^{N} \mathcal{L}_{\mathrm{match}}\left(y_{i}, \hat{y}_{\sigma(i)}\right)
 >   > $$
 >   >
+>   > - $y_i=(c_i,b_i)$，其中$c_i$是目标类别标签，$b_i$是向量代表真值BBox中心点坐标及其宽高
 >   > - 为了找到这两个集合之间的二分匹配，通过搜索的到$N$个元素的最小损失置换，其中$L_{match}$是一个**pair-wise matching cost**，最优值利用Hungarian algorithm计算
 >
 > 
@@ -71,31 +74,28 @@ tags:
 >   > \mathcal{L}_{\text {match }}\left(y_{i}, \hat{y}_{\sigma(i)}\right)=-\mathbb{1}_\left\{c_{i} \neq \varnothing\right\} \hat{p}_{\sigma(i)}(c_{i})+\mathbb{1}_{\left\{c_{i} \neq \varnothing\right\}} \mathcal{L}_{box}\left(b_{i}, \hat{b}_{\sigma(i)}\right)
 >   > $$
 >   >
->   > 
->   >
-> > 考虑了class prediction 和 similarity
+>   > 考虑了class prediction 和 similarity
 >   >
 >   > - 其中，$c_i$是目标类别标签，$b_i$是向量代表真值BBox中心点坐标及其宽高
-> 	> - 寻找 matching 的过程类似于匹配 proposal 或者 anchors 机制，主要区别是需要找一个one to one matching，而不需要重复
-> 	
+>   > - 寻找 matching 的过程类似于匹配 proposal 或者 anchors 机制，主要区别是需要找一个one to one matching，而不需要重复
+>
+> 
+>
 > - Hungarian loss
 >
 >   > $$
 >   > \mathcal{L}_{\text {Hungarian }}(y, \hat{y})=\sum_{i=1}^{N}\left[-\log \hat{p}_{\hat{\sigma}(i)}\left(c_{i}\right)+\mathbb{1}_{\left\{c_{i} \neq \varnothing\right\}} \mathcal{L}_{\mathrm{box}}\left(b_{i}, \hat{b}_{\hat{\sigma}}(i)\right)\right]
 >   > $$
->
+>   > 
 > >
->   > $\hat{\sigma}$是optimal assignment，matching cost和Hungarian loss对BBox进行打分处理，
->
->   
->
->   
->
->   box loss采用了L1 loss和generalized IoU loss
->
->   > $$
+>   > $\hat{\sigma}$是optimal assignment，matching cost和Hungarian loss对BBox进行打分处理
+> >
+>   > box loss ($\mathcal{L}_{box}$)采用了L1 loss和generalized IoU loss
+> > $$
 >   > \mathcal{L}_{\mathrm{box}}\left(b_{i}, \hat{b}_{\sigma(i)}\right)=\lambda_{\mathrm{iou}} \mathcal{L}_{\mathrm{iou}}\left(b_{i}, \hat{b}_{\sigma(i)}\right)+\lambda_{\mathrm{L} 1}\left\|b_{i}-\hat{b}_{\sigma(i)}\right\|_{1}
->   > $$
+> > $$
+>   > 
+>   
 
 
 
