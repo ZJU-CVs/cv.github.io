@@ -71,9 +71,7 @@ $$
 
 
 **2).** 训练SIN $f_s(f_E(x;\theta_E);\theta_S)$ ，具有类似对比的损失，使用$\mathcal{D}_N$和$\mathcal{D}_A$达到目标：        
-$$
-x\cdot y
-$$
+
 
 $$
 f_S(f_E(x\in\mathcal{D}_A;\theta_E);\theta_S)\gt f_S(f_E(x\in \mathcal{D}_N;\theta_E);\theta_S)
@@ -81,7 +79,7 @@ $$
 
 
 
-> - 通过计算 $$z=f_E(x\in \mathcal{D}_A \cup \mathcal{D}_{N};\theta_{E}^{*})$$ 来训练 $ f_S(z;\theta_S) $
+> - 通过计算 $$z=f_E(x\in \mathcal{D}_A \cup \mathcal{D}_{N};\theta_{E}^{*})$$， 来训练 $ f_S(z;\theta_S) $
 > 
 > $$
 > \ell_{S}=\mathbb{I}(y \text { is } \text {Normal})\left|s\left(f_{S}\left(\mathbf{z} ; \theta_{S}\right)\right)\right|+\mathbb{I}(y \text { is } \text {Abnormal}) \max \left(0, a-s\left(f_{S}\left(\mathbf{z} ; \theta_{S}\right)\right)\right)
