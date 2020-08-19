@@ -89,15 +89,15 @@ $$
 
 - Decoder:
 
-$$
-\operatorname{Decoder}(Z ; \lambda)=\operatorname{rFF}\left(\operatorname{SAB}\left(\operatorname{PMA}_{k}(Z)\right)\right)
-$$
-
-> PMA为Pooling by Multihead Attention,用来聚合多个特征
-> $$
-> \operatorname{PMA}_{k}(Z)=\operatorname{MAB}(S, \operatorname{rFF}(Z)), S\in R^{k\times d}
-> $$
-> SAB用于建模k个输出之间的关系
+  > $$
+  > \operatorname{Decoder}(Z ; \lambda)=\operatorname{rFF}\left(\operatorname{SAB}\left(\operatorname{PMA}_{k}(Z)\right)\right)
+  > $$
+  >
+  > - PMA为Pooling by Multihead Attention，用来聚合多个特征:
+  >
+  >   $$\operatorname{PMA}_{k}(Z)=\operatorname{MAB}(S, \operatorname{rFF}(Z)), S\in R^{k\times d}$$
+  >
+  > - SAB用于建模k个输出之间的关系
 
 
 
