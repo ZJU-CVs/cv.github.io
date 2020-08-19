@@ -66,7 +66,7 @@ tags:
 >
 >   - 每个传感器$s\in \mathcal{S}$与一个可学习的嵌入向量$v_s\in \mathbb{R}^{d_{s}}$相关联，对应于传感器组合$\mathcal{S}$，考虑图$\mathcal{G}(\mathcal{V}, \mathcal{E})$，每个$s\in\mathcal{S}$对应一个节点$v_s\in \mathcal{V}$
 >
->   - 每个节点$v_s$的邻节点用 $\mathcal{N}_\mathcal{G}\left(v_{k}\right)$ 表示
+>   - 每个节点$v_s$的邻节点用 $\mathcal{N}_\mathcal{G}\left(v_{k}\right)$ 表示          
 >
 >   - 只有已知组合$\mathcal{S}_i$的中的对应节点被激活，图中每个active节点都接连接到其他active节点，因此每个边两端的节点都是active的
 >
