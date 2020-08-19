@@ -112,11 +112,11 @@ $$
 
 ##### (3) Amortized Clustering with Mixture of Gaussians
 
-> 给定一个数据集$X = \{x_{1:n}\}$，其混合高斯的最大似然估计为:                          
-> $$
-> \log p(X;\theta)=\sum_{i=1}^{n} \log \sum_{j=1}^{k} \pi_{j} \mathcal{N} \left(x_{i} ; \mu_{j}, diag(\sigma_{j}^{2})\right)
-> $$
-> 
+$$
+\log p(X;\theta)=\sum_{i=1}^{n} \log \sum_{j=1}^{k} \pi_{j} \mathcal{N} \left(x_{i} ; \mu_{j}, diag(\sigma_{j}^{2})\right)
+$$
+
+> 给定一个数据集$X = \{x_{1:n}\}$的混合高斯的最大似然估计                         
 >
 > - 不使用EM算法，直接用神经网络学习到最大值参数的映射
 
