@@ -31,70 +31,64 @@ tags:
 
 普通的GAN loss：
 
-> $$
-> L_{\mathrm{GAN}}\left(F, D_{Y}, X, Y\right)=E_{y \sim p_{\mathrm{data}}(y)}\left[\log D_{Y}(y)\right]+E_{x \sim p_{\mathrm{data}}(x)}\left[\log \left(1-D_{Y}(F(x))\right)\right]
-> $$
->
+$$
+L_{\mathrm{GAN}}\left(F, D_{Y}, X, Y\right)=E_{y \sim p_{\mathrm{data}}(y)}\left[\log D_{Y}(y)\right]+E_{x \sim p_{\mathrm{data}}(x)}\left[\log \left(1-D_{Y}(F(x))\right)\right]
+$$
+
+
 > 映射F完全可以将所有x都映射到y空间的同一张图片，使损失无效化
 
 
 
 CycleGAN Loss:
 
+$$
+\begin{aligned}
+\mathcal{L}\left(G, F, D_{X}, D_{Y}\right)=& \mathcal{L}_{\mathrm{GAN}}\left(G, D_{Y}, X, Y\right)+\mathcal{L}_{\mathrm{GAN}}\left(F, D_{X}, Y, X\right)+\lambda \mathcal{L}_{\mathrm{cyc}}(G, F)
+\end{aligned}
+$$
+
+> CycleGAN Loss = Adversarial loss + Cycle-consistency loss + (Identity loss)            
+>
+> - Adversarial loss：
+>   - 两个分布X, Y，生成器G和F分别是X->Y和Y->X的映射，两个判别器$D_x$和$D_y$可以对转换后的图片进行判别                       
+>
 > $$
 > \begin{aligned}
-> \mathcal{L}\left(G, F, D_{X}, D_{Y}\right)=& \mathcal{L}_{\mathrm{GAN}}\left(G, D_{Y}, X, Y\right)+\mathcal{L}_{\mathrm{GAN}}\left(F, D_{X}, Y, X\right)+\lambda \mathcal{L}_{\mathrm{cyc}}(G, F)
+> \mathcal{L}_{\mathrm{GAN}}\left(G, D_{Y}, X, Y\right) &=\mathbb{E}_{y \sim p_{\text {data }}(y)}\left[\log D_{Y}(y)\right] +\mathbb{E}_{x \sim p_{\text {data }}(x)}\left[\log \left(1-D_{Y}(G(x))\right]\right.
 > \end{aligned}
 > $$
 >
-> CycleGAN Loss = Adversarial loss + Cycle-consistency loss + (Identity loss)            
+> $$
+> \begin{aligned}
+> \mathcal{L}_{\mathrm{GAN}}\left(F, D_{X}, Y, X\right) &=\mathbb{E}_{x \sim p_{\text {data }}(x)}\left[\log D_{X}(x)\right] +\mathbb{E}_{y \sim p_{\text {data }}(y)}\left[\log \left(1-D_{X}(F(y))\right]\right.
+> \end{aligned}
+> $$
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/2.png" alt="img" style="zoom:50%;" />
 
-- Adversarial loss：
+> - Cycle-consistency loss
+>   - 循环一致性损失，保留x中content成分，只改变style             
+>
+> $$
+> \begin{aligned}
+>   \mathcal{L}_{\mathrm{cyc}}(G, F) &=\mathbb{E}_{x \sim p_{\text {data }}(x)}\left[\|F(G(x))-x\|_{1}\right]+\mathbb{E}_{y \sim p_{\text {data }}(y)}\left[\|G(F(y))-y\|_{1}\right]
+>   \end{aligned}
+> $$
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/3.png" alt="img" style="zoom:40%;" />
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/4.png" alt="img" style="zoom:40%;" />
 
-  两个分布X, Y，生成器G和F分别是X->Y和Y->X的映射，两个判别器$D_x$和$D_y$可以对转换后的图片进行判别                       
-
-  > $$
-  > \begin{aligned}
-  > \mathcal{L}_{\mathrm{GAN}}\left(G, D_{Y}, X, Y\right) &=\mathbb{E}_{y \sim p_{\text {data }}(y)}\left[\log D_{Y}(y)\right] +\mathbb{E}_{x \sim p_{\text {data }}(x)}\left[\log \left(1-D_{Y}(G(x))\right]\right.
-  > \end{aligned}
-  > $$
-  >
-  > $$
-  > \begin{aligned}
-  > \mathcal{L}_{\mathrm{GAN}}\left(F, D_{X}, Y, X\right) &=\mathbb{E}_{x \sim p_{\text {data }}(x)}\left[\log D_{X}(x)\right] +\mathbb{E}_{y \sim p_{\text {data }}(y)}\left[\log \left(1-D_{X}(F(y))\right]\right.
-  > \end{aligned}
-  > $$
-  >
-  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/2.png" alt="img" style="zoom:50%;" />
-
-  
-
-- Cycle-consistency loss
-
-  循环一致性损失，保留x中content成分，只改变style             
-  
-  > $$
-  > \begin{aligned}
-  > \mathcal{L}_{\mathrm{cyc}}(G, F) &=\mathbb{E}_{x \sim p_{\text {data }}(x)}\left[\|F(G(x))-x\|_{1}\right]+\mathbb{E}_{y \sim p_{\text {data }}(y)}\left[\|G(F(y))-y\|_{1}\right]
-  > \end{aligned}
-  > $$
-  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/3.png" alt="img" style="zoom:40%;" />
-  >
-  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/4.png" alt="img" style="zoom:40%;" />
-  
-  
-
-
-
-- Identity loss
-
-  > $$
-  > L_{\text {Identity}}(G, F)=\mathbb{E}_{y \sim p_{\text {data}}(y)}\left[\|G(y)-y\|_{1}\right]+\mathbb{E}_{x \sim p_{\text {data}}(x)}\left[\|F(x)-x\|_{1}\right]
-  > $$
-  >
-  > > 生成器G用来生成y风格图像，则把y输入G，应该仍然生成y，只有这样才能证明G具有生成y风格的能力，因此G(y)和y应该尽可能接近。如下图，若无Identity loss，生成器G和F会自主地修改色调，使得整体的颜色产生变化。
-  >
-  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/5.png" alt="img" style="zoom:40%;" />
+> - Identity loss
+>   - 生成器G用来生成y风格图像，则把y输入G，应该仍然生成y，只有这样才能证明G具有生成y风格的能力，因此G(y)和y应该尽可能接近。如下图，若无Identity loss，生成器G和F会自主地修改色调，使得整体的颜色产生变化。
+> $$
+> L_{\text {Identity}}(G, F)=\mathbb{E}_{y \sim p_{\text {data}}(y)}\left[\|G(y)-y\|_{1}\right]+\mathbb{E}_{x \sim p_{\text {data}}(x)}\left[\|F(x)-x\|_{1}\right]
+> $$
+>
+> 
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/5.png" alt="img" style="zoom:40%;" />
 
 
 
@@ -122,10 +116,12 @@ CycleGAN Loss:
 
 
 
-**Step 1:** 首先学习一个源域分类器$f_s$，在源域数据上进行分类判别，损失函数如下：
+**Step 1:**  首先学习一个源域分类器$f_s$，在源域数据上进行分类判别，损失函数如下：        
 $$
 \mathcal{L}_{task}(f_S,X_S,Y_S)=-\mathbb{E}_{\left(x_{s}, y_{s}\right) \sim\left(X_{S}, Y_{S}\right)} \sum_{k=1}^{K} \mathbb{1}_{\left[k=y_{s}\right]} \log \left(\sigma\left(f_{S}^{(k)}\left(x_{s}\right)\right)\right)
 $$
+
+
 **Step 2**: 学习目标域分类器$f_T$
 
 - 使用生成器$G_{S\rightarrow T}$，通过源域样本生成与目标样本类似的结果。对抗判别器$D_t$用于判别是原始的目标样本还是由源域生成的虚假目标样本。进行对抗域适应训练$G_{S\rightarrow T}$和$D_t$，损失函数为：
@@ -162,11 +158,15 @@ $$
   \end{aligned}
   $$
   
-- 此外，还考虑了特征级域适应，通过任务网络$f_T$的**输出特征**判断是否是来自两个图像集的特征或语义
-  $$
-  \mathcal{L}_{\mathrm{GAN}}\left(f_{T}, D_{\mathrm{feat}}, f_{S}\left(G_{S \rightarrow T}\left(X_{S}\right)\right), X_{T}\right)
-  $$
   
+- 此外，还考虑了特征级域适应，通过任务网络$f_T$的**输出特征**判断是否是来自两个图像集的特征或语义
+
+$$
+\mathcal{L}_{\mathrm{GAN}}\left(f_{T}, D_{\mathrm{feat}}, f_{S}\left(G_{S \rightarrow T}\left(X_{S}\right)\right), X_{T}\right)
+$$
+
+
+
 - **Total Loss：**
 
 $$
