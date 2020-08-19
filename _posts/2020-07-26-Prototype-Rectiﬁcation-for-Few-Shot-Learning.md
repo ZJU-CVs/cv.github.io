@@ -23,13 +23,15 @@ tags:
 
 **训练阶段：**
 
-> 对于一个包含$\mathcal{C}_{base}$基类的标记数据集$\mathcal{D}$，训练特征提取器$F_\theta(\cdot)$和余弦分类器$C(\cdot \mid W)$
+> 对于一个包含$\mathcal{C}_{base}$基类的标记数据集$\mathcal{D}$，
+>
+> 训练特征提取器$F_{\theta}(\cdot)$和余弦分类器$C(\cdot\mid W)$
 
 
 
 **推理阶段**：
 
-> 基于每个类有K个标记的图像集，识别少量的$\mathcal{C}_{few}$类
+> 基于每个类有K个标记的图像集，识别少量的 $\mathcal{C}_{few}$类
 
 
 
