@@ -253,9 +253,7 @@ paper: 《ShuffleNet V2: Practical Guidelines for Efficient CNN Architecture Des
 >
 > G4. **Element-wise操作是不可以忽略的，包括ReLU，AddTensor，ADDBias等**
 >
-> ```
-> 根据上述的4条原则，设计一种高效而且轻量化网络的关键是，如何保持大通道数和通道数不变的情况下，即不使用过多卷积，又不过多分组。
-> ```
+> `根据上述的4条原则，设计一种高效而且轻量化网络的关键是，如何保持大通道数和通道数不变的情况下，即不使用过多卷积，又不过多分组。`
 
 ###### channel split
 
