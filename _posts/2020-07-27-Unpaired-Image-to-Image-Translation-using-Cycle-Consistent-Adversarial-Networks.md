@@ -81,9 +81,12 @@ $$
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/4.png" alt="img" style="zoom:40%;" />
 
 > - Identity loss
->   - 生成器G用来生成y风格图像，则把y输入G，应该仍然生成y，只有这样才能证明G具有生成y风格的能力，因此G(y)和y应该尽可能接近。如下图，若无Identity loss，生成器G和F会自主地修改色调，使得整体的颜色产生变化。      
+>
+>   - 生成器G用来生成y风格图像，则把y输入G，应该仍然生成y，只有这样才能证明G具有生成y风格的能力，因此G(y)和y应该尽可能接近。如下图，若无Identity loss，生成器G和F会自主地修改色调，使得整体的颜色产生变化。    
+>
+>       
 > $$
-> L_{\text {Identity}}(G, F)=\mathbb{E}_{y \sim p_{\text {data}}(y)}\left[\|G(y)-y\|_{1}\right]+\mathbb{E}_{x \sim p_{\text {data}}(x)}\left[\|F(x)-x\|_{1}\right]
+> L_{Identity}(G, F)=\mathbb{E}_{y \sim p_{data}(y)}\left[\|G(y)-y\|_{1}\right]+\mathbb{E}_{x \sim p_{data}(x)}\left[\|F(x)-x\|_{1}\right]
 > $$
 >
 > 
@@ -132,7 +135,7 @@ $$
 
 $$
 \begin{aligned}
-\mathcal{L}_{\mathrm{GAN}}\left(G_{S \rightarrow T}, D_{T}, X_{T}, X_{S}\right) &=\mathbb{E}_{x_{t} \sim X_{T}}\left[\log D_{T}\left(x_{t}\right)\right]+\mathbb{E}_{x_{s} \sim X_{S}}\left[\log \left(1-D_{T}\left(G_{S \rightarrow T}\left(x_{s}\right)\right)\right)\right]
+\mathcal{L}_{\mathrm{GAN}}\left(G_{S \rightarrow T}, D_{T}, X_{T}, X_{S}\right) &=\mathbb{E}_{x_{t} \sim X_{T}}\left[\log D_{T}\left(x_{t}\right)\right]\\& +\mathbb{E}_{x_{s} \sim X_{S}}\left[\log \left(1-D_{T}\left(G_{S \rightarrow T}\left(x_{s}\right)\right)\right)\right]
 \end{aligned}
 $$
 
@@ -141,9 +144,9 @@ $$
 - 通过$G_{S\rightarrow T}$让源数据近似于目标数据，但为了**保证源域数据的结构和内容在对齐过程中保留下来**，在CyCADA中加入了一个循环一致性限制，即将目标域映射到源域
 
 $$
-\begin{array}{l}
-\mathcal{L}_{\mathrm{cyc}}\left(G_{S \rightarrow T}, G_{T \rightarrow S}, X_{S}, X_{T}\right)= \mathbb{E}_{x_{s} \sim X_{S}}\left[\left\|G_{T \rightarrow S}\left(G_{S \rightarrow T}\left(x_{s}\right)\right)-x_{s}\right\|_{1}\right]+\mathbb{E}_{x_{t} \sim X_{T}}\left[\left\|G_{S \rightarrow T}\left(G_{T \rightarrow S}\left(x_{t}\right)\right)-x_{t}\right\|_{1}\right]
-\end{array}
+\begin{aligned}
+\mathcal{L}_{cyc}\left(G_{S \rightarrow T}, G_{T \rightarrow S}, X_{S}, X_{T}\right)&= \mathbb{E}_{x_{s} \sim X_{S}}\left[\left\|G_{T \rightarrow S}\left(G_{S \rightarrow T}\left(x_{s}\right)\right)-x_{s}\right\|_{1}\right] \\& +\mathbb{E}_{x_{t} \sim X_{T}}\left[\left\|G_{S \rightarrow T}\left(G_{T \rightarrow S}\left(x_{t}\right)\right)-x_{t}\right\|_{1}\right]
+\end{aligned}
 $$
 
 
@@ -158,7 +161,7 @@ $$
   因此语义一致性损失为：
   $$
   \begin{aligned}
-  \mathcal{L}_{\mathrm{sem}}\left(G_{S \rightarrow T}, G_{T \rightarrow S}, X_{S}, X_{T}, f_{S}\right) &=\mathcal{L}_{\mathrm{task}}\left(f_{S}, G_{T \rightarrow S}\left(X_{T}\right), p\left(f_{S}, X_{T}\right)\right) +\mathcal{L}_{\mathrm{task}}\left(f_{S}, G_{S \rightarrow T}\left(X_{S}\right), p\left(f_{S}, X_{S}\right)\right)
+  \mathcal{L}_{sem}\left(G_{S \rightarrow T}, G_{T \rightarrow S}, X_{S}, X_{T}, f_{S}\right) &=\mathcal{L}_{task}\left(f_{S}, G_{T \rightarrow S}\left(X_{T}\right), p\left(f_{S}, X_{T}\right)\right) \\ &+\mathcal{L}_{task}\left(f_{S}, G_{S \rightarrow T}\left(X_{S}\right), p\left(f_{S}, X_{S}\right)\right)
   \end{aligned}
   $$
   
