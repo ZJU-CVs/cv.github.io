@@ -64,7 +64,9 @@ tags:
 >
 > - **Details**
 >
->   - 每个传感器$s\in \mathcal{S}$与一个可学习的嵌入向量$v_s\in \mathbb{R}^{d_{s}}$相关联，对应于传感器组合$\mathcal{S}$，考虑图$\mathcal{G}(\mathcal{V}, \mathcal{E})$，每个$s\in\mathcal{S}$对应一个节点$v_s\in \mathcal{V}$，每个节点$v_s$的邻节点用 $\mathcal{N}_\mathcal{G}\left(v_{k}\right)$ 表示
+>   - 每个传感器$s\in \mathcal{S}$与一个可学习的嵌入向量$v_s\in \mathbb{R}^{d_{s}}$相关联，对应于传感器组合$\mathcal{S}$，考虑图$\mathcal{G}(\mathcal{V}, \mathcal{E})$，每个$s\in\mathcal{S}$对应一个节点$v_s\in \mathcal{V}$
+>
+>   - 每个节点$v_s$的邻节点用 $\mathcal{N}_\mathcal{G}\left(v_{k}\right)$ 表示
 >
 >   - 只有已知组合$\mathcal{S}_i$的中的对应节点被激活，图中每个active节点都接连接到其他active节点，因此每个边两端的节点都是active的
 >
@@ -80,7 +82,7 @@ tags:
 >     \tilde{\mathbf{v}}_{k} &=f_{n}\left(\left[\mathbf{v}_{k}, \sum_{\forall l} \mathbf{v}_{k l}\right] ; \boldsymbol{\theta}_{n}\right)
 >     \end{aligned}
 >     $$
-> 
+>
 >     > $\theta _e$和$\theta _n$分别为$f_e$和$f_n$的可学习参数，$f_e$将邻节点信息传递到待更新节点，$f_n$利用邻节点的聚合信息更新相应节点
 >
 >     
@@ -90,7 +92,7 @@ tags:
 >     $$
 >    \mathbf{v}_{\mathcal{S}_{i}}=\max \left(\left\{\tilde{\mathbf{v}}_{k}\right\}_{v_{k} \in \mathcal{V}_{i}}\right)\in \mathbb{R}^{d_{s}}
 >     $$
-> 
+>
 >     
 >
 > - 使用GNN的优势在于可以处理除训练过程中传感器组合之外的其他unseen组合，从而实现组合泛化
@@ -107,22 +109,22 @@ tags:
 >
 > - 对于不同多变量组合的时间序列$x_i$转化为固定维度d的$\tilde{\mathbf{x}}_{i}$，对于缺失变量用均值填充
 >
-> - 将$\tilde{\mathbf{x}}_{i}$输入GRU进行训练，在最后一个时间步骤为$T_i$的module的输出特征向量$z^{T_i}$
+> - 将 $\tilde{\mathbf{x}}_{i}$输入GRU进行训练，在最后一个时间步骤为 $T_i$的module的输出特征向量$z^{T_i}$
 >
 >   
->$$
+> $$
 >   \mathbf{z}_{i}^{t}=G R U\left(\left[\tilde{\mathbf{x}}_{i}^{t}, \mathbf{v}_{\mathcal{S}_{i}}\right], \mathbf{z}_{i}^{t-1} ; \boldsymbol{\theta}_{G R U}\right), \quad t: 1, \ldots, T_{i}
 > $$
-> 
+>
 > - 根据下游任务(分类或回归)确定$f_o$，训练得到$\hat{y}_i$
 >
 >   
->$$
+> $$
 > \hat{y}_{i}=f_{o}\left(z_{i}^{T_{i}} ; \theta_{o}\right)
 > $$
-> 
-> 
-><img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/index.png" alt="img" style="zoom:50%;" />
+>
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/index.png" alt="img" style="zoom:50%;" />
 >
 >  
 
