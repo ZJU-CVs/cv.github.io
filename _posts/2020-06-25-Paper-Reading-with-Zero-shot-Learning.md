@@ -348,13 +348,15 @@ tags:
 > 
 >
 > - 提取$\mathcal{X}_s$的底层class-level流型，并生成和$\mathcal{X}_s$同构的$\tilde{\mathcal{K}}_s$
+>   - 对于每个类嵌入$k^i_s$，我们从$\mathcal{K}$中找到它的m个最近邻，然后将这些图像的平均值作为类级原型，即 $\tilde{k}^i_s$
 >
->  > 对于每个类嵌入$k^i_s$，我们从$\mathcal{K}$中找到它的m个最近邻，然后将这些图像的平均值作为类级原型，即 $\tilde{k}^i_s$
->  >
->  > 和$\mathcal{K}_s$相比，$\tilde{\mathcal{K}}_s$在语义上与$\mathcal{X}$更一致                  
->  > $$
->  > \tilde{\mathcal{K}}_s=\{\tilde{k}^i_s\}^k_{i=1}
->  > $$
+> - 和$\mathcal{K}_s$相比，$\tilde{\mathcal{K}}_s$在语义上与$\mathcal{X}$更一致                  
+>
+> $$
+> \tilde{\mathcal{K}}_s=\{\tilde{k}^i_s\}^k_{i=1}
+> $$
+>
+> 
 >
 > - 将$\mathcal{X}_s$和$\tilde{K}_s$进行迭代对齐得到$\tilde{f}_s$，并优化$\tilde{K}_s$使其与$X_s$在语义上更加一致
 >
