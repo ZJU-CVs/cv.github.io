@@ -49,12 +49,12 @@ tags:
 
 - 希望这些特征对在训练任务的分布和测试任务的分布是相同的
 
-  > 即对于任务$T_{i}\sim \left(\mathcal{D}_{train}^m, \mathcal{D}_{train}\right)$，希望其类似于从$\left(\mathcal{D}_{test}^{m}, \mathcal{D}_{test}\right)$中提取的任务
+  > 即对于任务$T_{i}\sim (\mathcal{D}_{train}^m, \mathcal{D}_{train})$，希望其类似于从$(\mathcal{D}_{test}^{m}, \mathcal{D}_{test})$中提取的任务
 
 
 
-> 具体实现：
->
+具体实现：
+
 > - 在元学习阶段，考虑先把meta-training里的图像先通过G转换为meta-testing里面的图像domain，然后再做meta-learning，该步骤通过GAN来训练（**这里用到了meta-testing的数据，有点违背meta learning的基本设定**）
 >
 >   > 特征提取器$F$将$X_{train}$输入映射为$d$维嵌入，$F(x)=\hat{F}(G(x))$，其中$G: \mathcal{X}^{train} \rightarrow \mathcal{X}^{test},\hat{F}=\mathcal{X}^{test} \rightarrow \mathbb{R}^d$
@@ -83,7 +83,7 @@ tags:
 
 本文选择基于原型网络来实现具有域适应的元学习框架
 
-> - 对于给定的任务$T_i \sim (\mathcal{D}_{train}^m,\mathcal{D}_{train})$，原型网络使用特征提取器$F$为每个实例计算得到一个$d$维的嵌入，计算得到原型:
+> - 对于给定的任务$$T_i \sim (\mathcal{D}_{train}^m,\mathcal{D}_{train})$$，原型网络使用特征提取器$F$为每个实例计算得到一个$d$维的嵌入，计算得到原型:
 >
 > $$
 > c_n==\frac{1}{S_{n}^{s u p p o r t}} \sum_{\left(\mathbf{x}_{i}, y_{i}\right) \in S_{n}^{s u p p o r t}} \mathbf{F}\left(\mathbf{x}_{i}\right)
