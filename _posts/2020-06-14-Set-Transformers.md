@@ -107,18 +107,22 @@ $$
 
 > 给定一组实数${x_1,x_2,...,x_N}$,目标为返回$max(x_1,x_2,...,x_N)$
 
+
+
 ##### (2) Counting Unique Characters
 
 > 不同字符计数
 
+
+
 ##### (3) Amortized Clustering with Mixture of Gaussians
 
 > 给定一个数据集$X = \{x_{1:n}\}$，其混合高斯的最大似然估计为:
->
-> 
 > $$
 > \log p(X ; \theta)=\sum_{i=1}^{n} \log \sum_{j=1}^{k} \pi_{j} \mathcal{N}\left(x_{i} ; \mu_{j}, \operatorname{diag}\left(\sigma_{j}^{2}\right)\right)
 > $$
+> 
+>
 > - 不使用EM算法，直接用神经网络学习到最大值参数的映射
 
 ##### (4) Set Anomaly Detection
