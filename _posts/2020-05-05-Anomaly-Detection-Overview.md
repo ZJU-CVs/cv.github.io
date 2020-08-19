@@ -201,6 +201,8 @@ Anomaly Detection for Skin Disease Images Using Variational Autoencoder (2018-07
 ```
 
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/AD8.png" alt="img" style="zoom:50%;" />
+>
+> 
 > $$
 > Anomaly \ score =s_{i w a e}^{k l}(x)+s_{i w a e}^{r e c o n s t}(x)
 > $$
