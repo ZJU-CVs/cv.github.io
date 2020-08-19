@@ -64,7 +64,7 @@ tags:
 > - 损失函数：
 >
 >   - 定义$\mathcal{L}_{fs}$为预测损失，表示仅使用从 $\tau_{train}$ 中的任务所标记的训练数据进行优化
->   - 定义$\mathcal{L}_{da}$为域适应损失，从$\tau_{train}$和$\tau_{test}$中的任务中未标记的数据进行优化，$\mathcal{L}_{da}=\mathcal{L}_{GAN}+\mathcal{L}_{cycle}$
+>   - 定义$\mathcal{L}_{da}=\mathcal{L}_{GAN}+\mathcal{L}_{cycle}$为域适应损失，从$\tau_{train}$和$\tau_{test}$中的任务中未标记的数据进行优化
 >
 > $$
 > \min _{\hat{\mathbf{F}}, \mathbf{G}, \mathbf{G}^{\prime}} \max _{D} \mathcal{L}_{f s}+\mathcal{L}_{d a}
@@ -107,7 +107,9 @@ tags:
 - 使用GAN loss学习生成器$G:\mathcal{X}^{\text {train}} \rightarrow \mathcal{X}^{\text {test}}$和对应的判别器$D$
 
 $$
-\mathcal{L}_{G A N}\left(G, D, \mathcal{X}^{train}, \mathcal{X}^{test}\right)=E_{x^{test} \sim \mathcal{D}_{test}}\left[\log D\left(x^{test}\right)\right]+\mathbb{E}_{x^{train} \sim \mathcal{D}_{ train}}\left[\log \left(1-D\left(G\left(x^{train}\right)\right)\right)\right]
+\begin{aligned}
+\mathcal{L}_{G A N}\left(G, D, \mathcal{X}^{train}, \mathcal{X}^{test}\right)&=E_{x^{test} \sim \mathcal{D}_{test}}\left[\log D\left(x^{test}\right)\right]\\&+\mathbb{E}_{x^{train} \sim \mathcal{D}_{ train}}\left[\log \left(1-D\left(G\left(x^{train}\right)\right)\right)\right]
+\end{aligned}
 $$
 
 
@@ -120,7 +122,13 @@ $$
 
 
 
-- 因此域适应目标为：$\mathcal{L}_{da}=\mathcal{L}_{GAN}+\mathcal{L}_{cycle}$
+- 因此域适应目标为：
+
+$$
+\mathcal{L}_{da}=\mathcal{L}_{GAN}+\mathcal{L}_{cycle}
+$$
+
+
 
 
 
