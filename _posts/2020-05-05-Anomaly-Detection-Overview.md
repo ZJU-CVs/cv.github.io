@@ -479,7 +479,7 @@ Attention Guided Anomaly Localization in Images (v1: 2019-11 v2:2020-05)
 > > L=L_{R}(x, \hat{x})+K L\left(q_{\phi}(z | x) \| p_{\theta}(z | x)\right)
 > > \end{equation}$$
 > >
-> > ​     
+> > 
 > >
 > > $$L_{bce}=-\left[y_{i} \log x_{i}+\left(1-y_{i}\right) \log \left(1-x_{i}\right)\right]$$
 > >
