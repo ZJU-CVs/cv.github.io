@@ -83,7 +83,7 @@ tags:
 
 本文选择基于原型网络来实现具有域适应的元学习框架
 
-> - 对于给定的任务$T_i \sim (\mathcal{D}_{train}^m,\mathcal{D}_{train})$，
+> - 对于给定的任务$T_i \sim (\mathcal{D}^m_{train},\mathcal{D}_{train})$，
 >
 >   原型网络使用特征提取器$F$为每个实例计算得到一个$d$维的嵌入，计算得到原型:
 >
