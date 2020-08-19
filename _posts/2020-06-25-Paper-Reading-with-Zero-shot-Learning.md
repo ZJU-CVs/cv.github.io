@@ -104,13 +104,16 @@ tags:
 > > - 定义$f(x;w)$为预测函数，$f(x;w)=\arg \max _{y \in \mathcal{Y}} F(x, y ; w)$
 > >
 > > - 引入一个评分函数，来衡量视觉特征空间$x$嵌入语义空间的兼容度(compatibility)
-> >   $$
-> >   F(x, y ; W)=\theta(x) W \varphi(y)
-> >   $$
+> >
+> > $$
+> > F(x, y ; W)=\theta(x) W \varphi(y)
+> > $$
 > >
 > > - 当给定一个需要预测类别的数据$x$时，预测函数$f$所做的是从所有类别$y$中，找到一个类别$y$使得$F(x,y;w)$的值最大
 > >
 > > - 算法的核心思想是**让错误分类的得分尽可能比正确分类的得分小**
+>
+> 
 >
 > **损失函数：**
 >
@@ -149,15 +152,18 @@ tags:
 >   - 将两个向量映射到同一维度的空间（两个向量维度一致），进行相似度计算
 >
 > - Loss function (采用hinge rank loss)
->   $$
->   loss(image,label)=\sum_{j \neq label} \max \left[0, margin-\text t_{label } M \vec{v}(image)+\vec{t}_{j} M \vec{v}(image)\right.
->   $$
 >
->   > $t_{label}$表示label的vector，$v_{image}$表示image的vector，$M$表示linear transformation，margin为超参数
+> $$
+> loss(image,label)=\sum_{j \neq label} \max \left[0, margin-\text t_{label } M \vec{v}(image)+\vec{t}_{j} M \vec{v}(image)\right.
+> $$
+>
+> > $t_{label}$表示label的vector，$v_{image}$表示image的vector，$M$表示linear transformation，margin为超参数
+>
+> 
 >
 > - 测试时，可根据语义之间的相似性进行图像分类
 >
-> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/11.png)
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/11.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -172,21 +178,28 @@ tags:
 > 第二层对属性和类之间的关系建模，并使用类的指定属性signatures进行固定。
 
 > - 在训练阶段，对于$z$类，每个有一个signature由$a$个属性组成，可以把这些signatures 表示为一个矩阵$S\in [0,1]^{a\times z}$，语义向量维度为$a$，类别数目为$z$，从而在属性和类之间提供soft link
->
 > - 用$X\in R^{d\times m}$表示训练阶段的实例，其中$d$是数据的维度，$m$是实例数。使用$Y\in \{-1,1\}^{m\times z}$表示属于任一$z$类的每个训练实例的groud truth
->
 > - 优化目标：学习一个线性转换$W$，将视觉向量直接投影出类别概率
->   $$
->   \underset{W \in \mathbb{R}^{d \times z}}{\operatorname{minimise}} L\left(X^{\top} W, Y\right)+\Omega(W)
->   $$
->   
 >
->   - $W=VS$，signatures 矩阵$S$和训练实例的学习矩阵$V$，从特征空间映射到属性空间
-> - $\Omega(W)$是正则项
->   
->   > 由于需要利用属性标签，将知识转移到unseen，因此将$W$替换成$W=VS$，其中$S$是语义向量，$V\in d\times a$是需要学习的转换矩阵。因此损失函数转化为$$\underset{V \in \mathbb{R}^{d \times a}}{\operatorname{minimise}} L\left(X^{\top} VS, Y\right)+\Omega(V)$$。
->   
-> - 在推理阶段，使用矩阵$V$，加上不可见类$S'\in [0,1]^{a\times z'}$的label，得到最终的线性模型$W'$，对于新的实例$x$，可以得到预测值$$\underset{i}{\operatorname{argmax}} x^{\top} V S_{i}^{\prime}$$
+> $$
+> \underset{W \in \mathbb{R}^{d \times z}}{\operatorname{minimise}} L\left(X^{\top} W, Y\right)+\Omega(W)
+> $$
+>
+> > $W=VS$，signatures 矩阵$S$和训练实例的学习矩阵$V$，从特征空间映射到属性空间
+>
+> 
+>
+>
+> - $\Omega(W)$是正则项，由于需要利用属性标签，将知识转移到unseen，因此将$W$替换成$W=VS$，其中$S$是语义向量，$V\in d\times a$是需要学习的转换矩阵。因此损失函数转化为：
+>
+> $$
+> \underset{V \in \mathbb{R}^{d \times a}}{\operatorname{minimise}} L\left(X^{\top} VS, Y\right)+\Omega(V)
+> $$
+>
+> 
+>
+>
+> - 在推理阶段，使用矩阵$V$，加上不可见类$S'\in [0,1]^{a\times z'}$的label，得到最终的线性模型$W'$，对于新的实例$x$，可以得到预测值$\underset{i}{\operatorname{argmax}} x^{\top} V S_{i}^{\prime}$
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/17.png" alt="img" style="zoom:50%;" />
 
