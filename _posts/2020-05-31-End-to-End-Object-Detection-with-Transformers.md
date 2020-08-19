@@ -70,8 +70,9 @@ tags:
 >   > - 寻找 matching 的过程类似于匹配 proposal 或者 anchors 机制，主要区别是需要找一个one to one matching，而不需要重复
 >   
 >
->   
->
+>   $$
+>   \mathcal{L}_{\text {match }}\left(y_{i}, \hat{y}_{\sigma(i)}\right)=-\mathbb{1}_\left\{c_{i} \neq \varnothing\right\} \hat{p}_{\sigma(i)}(c_{i})+\mathbb{1}_{\left\{c_{i} \neq \varnothing\right\}} \mathcal{L}_{box}\left(b_{i}, \hat{b}_{\sigma(i)}\right)
+>	$$
 > - Hungarian loss
 >
 >   > $$
@@ -79,13 +80,13 @@ tags:
 >   > $$
 > >
 >   > $\hat{\sigma}$是optimal assignment，matching cost和Hungarian loss对BBox进行打分处理，
+> 
 >   
+> 
 >   
->   
->   
->   
+> 
 >   box loss采用了L1 loss和generalized IoU loss
->   
+> 
 >   > $$
 >   > \mathcal{L}_{\mathrm{box}}\left(b_{i}, \hat{b}_{\sigma(i)}\right)=\lambda_{\mathrm{iou}} \mathcal{L}_{\mathrm{iou}}\left(b_{i}, \hat{b}_{\sigma(i)}\right)+\lambda_{\mathrm{L} 1}\left\|b_{i}-\hat{b}_{\sigma(i)}\right\|_{1}
 >   > $$
