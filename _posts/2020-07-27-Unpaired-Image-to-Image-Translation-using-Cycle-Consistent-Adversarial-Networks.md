@@ -73,7 +73,7 @@ CycleGAN Loss:
 
 - Cycle-consistency loss
 
-  > 循环一致性损失，保留x中content成分，只改变style
+  > 循环一致性损失，保留x中content成分，只改变style             
   > $$
   > \begin{aligned}
   > \mathcal{L}_{\mathrm{cyc}}(G, F) &=\mathbb{E}_{x \sim p_{\text {data }}(x)}\left[\|F(G(x))-x\|_{1}\right]+\mathbb{E}_{y \sim p_{\text {data }}(y)}\left[\|G(F(y))-y\|_{1}\right]
