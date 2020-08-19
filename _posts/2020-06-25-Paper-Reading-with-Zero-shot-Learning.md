@@ -317,9 +317,11 @@ tags:
 > >
 > > - 对于**typical ZSR**问题，一般分为两步：
 > >
-> >   > (1) 通过visual-semantic $f_{s}: \mathcal{X}_{s} \rightarrow \mathcal{K}_{s}$映射预测嵌入$k_j$
-> > >
-> >   > (2) 通过比较$k_j$与default ZSR setting中的$\mathcal{K}_u$ 或 default gZSR setting中的$\mathcal{K}_{s} \cup \mathcal{K}_{u}$
+> >   (1) 通过visual-semantic $f_{s}: \mathcal{X}_{s} \rightarrow \mathcal{K}_{s}$映射预测嵌入$k_j$
+> >
+> >   (2) 通过比较$k_j$与default ZSR setting中的$\mathcal{K}_u$ 或 default gZSR setting中的 $\mathcal{K}_{s} \cup \mathcal{K}_{u}$
+> >   
+> >   
 > >   
 > >   - **存在问题：**
 > >   
