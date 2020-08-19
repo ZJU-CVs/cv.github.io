@@ -121,7 +121,7 @@ $$
 
 **Step 1:**  首先学习一个源域分类器$f_s$，在源域数据上进行分类判别，损失函数如下：        
 $$
-\mathcal{L}_{task}(f_S,X_S,Y_S)=-\mathbb{E}_{\left(x_{s}, y_{s}\right) \sim\left(X_{S}, Y_{S}\right)} \sum_{k=1}^{K} \mathbb{1}_{\left[k=y_{s}\right]} \log \left(\sigma\left(f_{S}^{(k)}\left(x_{s}\right)\right)\right)
+\mathcal{L}_{task}(f_S,X_S,Y_S)=-\mathbb{E}_{\left(x_{s}, y_{s}\right)\sim\left(X_{S}, Y_{S}\right)}\sum_{k=1}^{K}\mathbb{1}_{\left[k=y_{s}\right]}\log\left(\sigma\left(f_{S}^{(k)}\left(x_{s}\right)\right)\right)
 $$
 
 
