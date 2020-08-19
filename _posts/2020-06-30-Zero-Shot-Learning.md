@@ -295,9 +295,9 @@ ref: [A survey of zero-shot learning: Settings, methods, and applications](https
 >
 > - 具体实现：
 >
->   > - 设输入层到隐层的映射为W，隐层到输出层的映射为$W^*$，$W$和$W^*$是对称的，即$W^* = W^T$。期望输入和输出尽可能相似，目标函数为
+>   > - 设输入层到隐层的映射为W，隐层到输出层的映射为$W^*$，$W$和$W^*$是对称的，即$W^* = W^T$。期望输入和输出尽可能相似，目标函数为:
 >   >
-> > $$
+>   > $$
 >   > \min _{\mathbf{w}, \mathbf{w}^{*}}\left\|\mathbf{X}-\mathbf{W}^{*} \mathbf{W} \mathbf{X}\right\|_{F}^{2}
 >   > $$
 >   >
@@ -310,8 +310,10 @@ ref: [A survey of zero-shot learning: Settings, methods, and applications](https
 >   > $$
 >   >
 >   > 
+>
 > 
->   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/8.png" alt="img" style="zoom:50%;" />
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-06-30-zsl/8.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -349,7 +351,12 @@ ref: [A survey of zero-shot learning: Settings, methods, and applications](https
 >   > $$
 >   > 
 >   >
->   > - GCN的输出是每个类别的分类器参数$\mathcal{W}=\left\{\hat{w}_{i}\right\}_{i=1}^{n},\mathcal{W}\in {n\times D}$，GCN每个节点的输出维度D​和CNN输出的特征维度相等
+>   > - GCN的输出是每个类别的分类器参数
+>   > $$
+>   > \mathcal{W}=\left\{\hat{w}_{i}\right\}_{i=1}^{n},\mathcal{W}\in {n\times D}
+>   > $$
+>   >
+>   >   ，GCN每个节点的输出维度D​和CNN输出的特征维度相等
 >   >
 >   > 
 >   >
