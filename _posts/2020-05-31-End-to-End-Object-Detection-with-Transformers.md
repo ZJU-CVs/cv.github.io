@@ -42,7 +42,12 @@ tags:
 > - 训练的主要困难之一是根据ground truth对预测的对象（类，位置，大小）进行评分。
 >
 >   > - 用$y$表示对象的ground truth set
->   > - $\hat{y}=\{\hat{y}_i\}^N_{i=1}$表示N个预测的集合，N大于图像中的对象数量
+>   > - $\hat{y}$表示N个预测的集合，N大于图像中的对象数量
+>   >
+>   > $$
+>   > \hat{y}=\{\hat{y}_i\}^N_{i=1}
+>   > $$
+>   >
 >   > - $y$ 也可以视为大小$N$的集合，并用$\varnothing$表示 no object
 >
 > - Optimal assignment
