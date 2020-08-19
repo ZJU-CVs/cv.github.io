@@ -84,10 +84,10 @@ tags:
 >
 >     
 >
->     - 最后根据更新后的节点向量得到conditioning vector $\mathbf{v}_{\mathcal{S}_{i}} \in \mathbb{R}^{d_{s}}$
+>     - 最后根据更新后的节点向量得到conditioning vector 
 >
 >     $$
->    \mathbf{v}_{\mathcal{S}_{i}}=\max \left(\left\{\tilde{\mathbf{v}}_{k}\right\}_{v_{k} \in \mathcal{V}_{i}}\right)
+>    \mathbf{v}_{\mathcal{S}_{i}}=\max \left(\left\{\tilde{\mathbf{v}}_{k}\right\}_{v_{k} \in \mathcal{V}_{i}}\right)\in \mathbb{R}^{d_{s}}
 >     $$
 > 
 >     
