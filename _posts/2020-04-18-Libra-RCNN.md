@@ -102,26 +102,26 @@ tags:
 > 
 >
 > 将原来的smooth L1 loss：
->
-> 
 > $$
-> \operatorname{smooth}_{L_{1}}(x)=\left\{\begin{array}{ll}
+> smooth_{L_{1}}(x)=\left\{\begin{array}{ll}
 > 0.5 x^{2} & \text { if }|x|<1 \\
 > |x|-0.5 & \text { otherwise }
 > \end{array}\right.
 > $$
+> 
+>
 > **替换为balanced L1 loss**：
 >
 > > localization loss $L_{loc}$定义为	$L_{l o c}=\sum_{i \in\{x, y, w, h\}} L_{b}\left(t_{i}^{u}-v_{i}\right)$
 > >
-> > 设计一个promoted gradient formulation as:
-> >
-> > 
+> > 设计一个promoted gradient formulation as:                         
 > > $$
 > > L_{b}(x)=\left\{\begin{array}{ll}
 > > \frac{\alpha}{b}(b|x|+1) \ln (b|x|+1)-\alpha|x| & \text { if }|x|<1 \\
 > > \gamma|x|+C & \text { otherwise }
 > > \end{array}\right.
 > > $$
+> > 
+> >
 > > - 其中$\alpha ln(b+1)=\gamma$，$\gamma$用于调整梯度上界，随着$\alpha$的减小，inliers的梯度能够很好的增强
 
