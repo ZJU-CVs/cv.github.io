@@ -51,7 +51,7 @@ tags:
 > > >
 > > > - 然后通过监督学习，得到image-attribute层的概率表示$p(a\mid x)$，是样本$x$对于所有$a_m$的后验概率乘积
 > > >
-> > > - 在测试时，每个类别z可以用一个属性向量$a_z$表示，利用贝叶斯公式得到概率公式$p(z|x)$
+> > > - 在测试时，每个类别z可以用一个属性向量$a_z$表示，利用贝叶斯公式得到概率公式$p(z \mid x)$
 > > >
 > > > $$
 > > > p(z \mid x)=\sum_{a \in\{0,1\}} p(z \mid a) p(a \mid x)=\frac{p(z)}{p\left(a^{z}\right)} \prod_{m=1}^{M} p\left(a_{m}^{z} \mid x\right)
