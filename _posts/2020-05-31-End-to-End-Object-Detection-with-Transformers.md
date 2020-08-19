@@ -52,7 +52,8 @@ tags:
 >   > \hat{\sigma}=\underset{\sigma \in \mathfrak{S}_{N}}{\arg \min } \sum_{i}^{N} \mathcal{L}_{\mathrm{match}}\left(y_{i}, \hat{y}_{\sigma(i)}\right)
 >   > $$
 >   >
->   > - 用$y$表示对象的ground truth set，而$\hat{y}=\{\hat{y}_i\}^N_{i=1}$ 表示N​个预测的集合，​N​大于图像中的对象数量
+>   > - 用$y$表示对象的ground truth set
+>   > - $\hat{y}=\{\hat{y}_i\}^N_{i=1}$表示N个预测的集合，N大于图像中的对象数量
 >   > - $y$ 也可以视为大小$N$的集合，并用$\varnothing$表示 no object
 >   > - 为了找到这两个集合之间的二分匹配，通过搜索的到$N$个元素的最小损失置换，其中$L_{match}$是一个**pair-wise matching cost**，最优值利用Hungarian algorithm计算
 >
