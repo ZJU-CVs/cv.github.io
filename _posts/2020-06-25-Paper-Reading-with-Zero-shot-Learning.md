@@ -454,7 +454,7 @@ tags:
 >   - 测试集中的类别为$\mathcal{C}_{te}$
 >   - 训练集中的类别为$\mathcal{C}_{tr}$
 >
->   - $\mathcal{C}_{t e} \cap \mathcal{C}_{t r}=\emptyset$
+>   - $$\mathcal{C}_{t e} \cap \mathcal{C}_{t r}=\emptyset$$
 >
 > - 使用$S$维的语义表征向量$z\in R^S$表示所有的类别
 > - 训练集中的样本（图像及标签）表示为：
