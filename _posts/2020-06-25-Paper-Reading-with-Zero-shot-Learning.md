@@ -251,7 +251,7 @@ tags:
 >   > F(\mathbf{x}, \mathbf{y})=\max _{1 \leq i \leq K} \tilde{\mathbf{w}}_{i}^{\top}(\mathbf{x} \otimes \mathbf{y})=\max _{1 \leq i \leq K}x^T W_i y
 >   > $$
 >   >
->   > - 其中$K \geq 2, \tilde{\mathbf{w}}_{i} \in \mathbb{R}^{d_{x} d_{y}}$是模型其中一个线性模型的参数
+>   > - 其中$K \geq 2$，$ \tilde{\mathbf{w}}_{i} \in \mathbb{R}^{d_{x} d_{y}}$是模型其中一个线性模型的参数
 >   > - 隐变量$i$用来选择线性模型
 >
 > 
