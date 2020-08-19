@@ -118,7 +118,7 @@ $$
 
 > 给定一个数据集$X = \{x_{1:n}\}$，其混合高斯的最大似然估计为:                          
 > $$
-> \log p(X ; \theta)=\sum_{i=1}^{n} \log \sum_{j=1}^{k} \pi_{j} \mathcal{N}\left(x_{i} ; \mu_{j}, \operatorname{diag}\left(\sigma_{j}^{2}\right)\right)
+> \log p(X;\theta)=\sum_{i=1}^{n} \log \sum_{j=1}^{k} \pi_{j} \mathcal{N} \left(x_{i} ; \mu_{j}, diag(\sigma_{j}^{2})\right)
 > $$
 > 
 >
