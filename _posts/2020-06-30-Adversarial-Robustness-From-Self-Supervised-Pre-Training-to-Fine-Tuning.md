@@ -68,9 +68,9 @@ tags:
 ##### 自监督预训练
 
 >- $\mathcal{T}_p$表示一个预训练任务，$\mathcal{D}_p$表示对应的(未标记)的预训练数据集。自监督预训练的目标是在没有明确的人工监督情况下，从$\mathcal{D}_p$本身学习一个模型。
->
->- 预训练损失$\mathcal{l}_p(\theta_p,\theta_{pc};\mathcal{D}_p)$，通过训练确定$\theta_p$使$l_p$最小化；$\theta_{pc}$表示基于$\mathcal{T}_p$得到的附加参数
->
+>- 预训练损失$\mathcal{l}_p(\theta_p,\theta_{pc};\mathcal{D}_p)$
+>  - 通过训练确定$\theta_p$使$l_p$最小化
+>  - $\theta_{pc}$表示基于$\mathcal{T}_p$得到的附加参数
 >- 预训练任务主要为：
 >
 >  > **Selfie:** 通过masking out图像中选定的patches，selfie构造为一个分类问题，以确定要在被masked位置填充的正确patch
@@ -113,7 +113,7 @@ tags:
 
 ##### 验证AT自监督预训练和fine-tuning对分类鲁棒性的提高
 
-![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ad2.png)
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ad2.png" alt="img" style="zoom:50%;" />
 
 > $\mathcal{P}_1$ (without pre-training)
 >
@@ -128,6 +128,8 @@ tags:
 > $\mathcal{F}_3$(full standard ﬁne-tuning)
 >
 > $\mathcal{F}_4$ (full adversarial ﬁne-tuning).
+
+
 
 ##### 验证AT的fine-tuning和预训练的可分离性
 
