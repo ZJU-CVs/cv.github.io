@@ -351,7 +351,7 @@ tags:
 >
 >  > 对于每个类嵌入$k^i_s$，我们从$\mathcal{K}$中找到它的m个最近邻，然后将这些图像的平均值作为类级原型，即 $\tilde{k}^i_s$
 >  >
->  > 和$\mathcal{K}_s$相比，$\tilde{\mathcal{K}}_s$在语义上与$\mathcal{X}$更一致
+>  > 和$\mathcal{K}_s$相比，$\tilde{\mathcal{K}}_s$在语义上与$\mathcal{X}$更一致                  
 >  > $$
 >  > \tilde{\mathcal{K}}_s=\{\tilde{k}^i_s\}^k_{i=1}
 >  > $$
