@@ -211,9 +211,9 @@ paper: 《ShuffleNet: An Extremely Efficient Convolutional Neural Network for Mo
 
 > Group convolution的实质就是将卷积分为 g 个独立的组，分别计算。即：
 >
-> - 把 input feature 分为 g 组，每组的大小为$H*W*C/g$
-> - 把 kernel 也分为 g 组，每组有 k/g 个 $h*w*C/g$ 的卷积核
-> - 按顺序，每组 input feature 和 kernel 分别做普通卷积，输出 g 组 $H'*W'*k/g$ 的特征图，一共有 g 组，总输出 $H'*W'*k$
+> - 把 input feature 分为 g 组，每组的大小为$H\times W\times C/g$
+> - 把 kernel 也分为 g 组，每组有 k/g 个 $h\times w\times C/g$ 的卷积核
+> - 按顺序，每组 input feature 和 kernel 分别做普通卷积，输出 g 组 $H'\times W'\times k/g$ 的特征图，一共有 g 组，总输出 $H'\times W'\times k$
 >
 > **深度可分离卷积的第一步就是分组卷积的一个特例，分组数等于输入通道数**，因此可以把 pointwise convolution（1x1）用 pointwise group convolution 代替，将卷积运算限制在每个Group内来降低计算量。
 >
