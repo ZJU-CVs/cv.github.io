@@ -29,12 +29,13 @@ tags:
 
 ##### Problem Setting
 
-<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/16.png" alt="img" style="zoom:43%;" />
-$$
-\left(\mathcal{D}_{\text {train}}^{m}, \mathcal{D}_{\text {train}}\right) \sim \tau_{\text {train}},\left(\mathcal{D}_{\text {test}}^{m}, \mathcal{D}_{\text {test}}\right) \sim \tau_{\text {test}}
-$$
-
 > 总体目标是学习一个meta-learner，使其能够利用$ \tau_{train}$获得一个好的少样本先验知识，克服task-level 域偏移，以学习$\tau_{test}$中未观测到的少样本任务
+> $$
+> \left(\mathcal{D}_{train}^{m}, \mathcal{D}_{train}\right) \sim \tau_{train},\left(\mathcal{D}_{test}^{m}, \mathcal{D}_{test}\right) \sim \tau_{test}
+> $$
+> 
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/16.png" alt="img" style="zoom:43%;" />
 
 
 
