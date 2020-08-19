@@ -263,11 +263,17 @@ Skip-ganomaly: Skip connected and adversarially trained encoder-decoder anomaly 
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/AD5.png" alt="img" style="zoom:50%;" />
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/AD6.png" alt="img" style="zoom:40%;" />
 >
-> 损失函数：$$\mathcal{L}=\lambda_{a d v} \mathcal{L}_{a d v}+\lambda_{c o n} \mathcal{L}_{c o n}+\lambda_{l a t} \mathcal{L}_{l a t}$$
+> 
+>
+> 损失函数：
+>
+> $$\mathcal{L}=\lambda_{a d v} \mathcal{L}_{a d v}+\lambda_{c o n} \mathcal{L}_{c o n}+\lambda_{l a t} \mathcal{L}_{l a t}$$
 >
 > 
 >
-> 异常分数：$$\mathcal{A}(\dot{x})=\lambda R(\dot{x})+(1-\lambda) L(\dot{x})$$
+> 异常分数：
+>
+> $$\mathcal{A}(\dot{x})=\lambda R(\dot{x})+(1-\lambda) L(\dot{x})$$
 
 
 
@@ -281,12 +287,12 @@ Anomaly Detection with Adversarial Dual Autoencoders (2019-02)
 >
 > 训练过程：
 >
-> -  $${L}_{D}=\|X-D(X)\|_{1}-\|G(X)-D(G(X))\|_{1}$$ (重建实际输入，但不重建生成输入)
-> -  $${L}_{G}=\|X-G(X)\|_{1}+\|G(X)-D(G(X))\|_{1}$$ (生成器除了重建实际输入之外，还重建生成的数据)
+> -  ${L}_{D}=\|X-D(X)\|_{1}-\|G(X)-D(G(X))\|_{1}$ (重建实际输入，但不重建生成输入)
+> -  ${L}_{G}=\|X-G(X)\|_{1}+\|G(X)-D(G(X))\|_{1}$ (生成器除了重建实际输入之外，还重建生成的数据)
 >
 > 测试过程
 >
-> - 异常分数：$${A}(\hat{x})=\|\hat{x}-{D}({G}(\hat{x}))\|_{2}$$
+> - 异常分数：${A}(\hat{x})=\|\hat{x}-{D}({G}(\hat{x}))\|_{2}$
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/AD14.png" alt="img" style="zoom:50%;" />
 
