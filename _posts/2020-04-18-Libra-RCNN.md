@@ -84,21 +84,26 @@ tags:
 > 思路：从损失函数的角度增大了inliers 对梯度的贡献，实现平衡训练
 >
 > - Fast R-CNN损失函数为例：
->   $$
->   L_{p, u, t^{u}, v}=L_{c l s}(p, u)+\lambda[u \geq 1] L_{l o c}\left(t^{u}, v\right)
->   $$
 >
->   $$
->   L_{\mathrm{cls}}(p, u)=-\log p_{u}
->   $$
+> $$
+> L_{p, u, t^{u}, v}=L_{c l s}(p, u)+\lambda[u \geq 1] L_{l o c}\left(t^{u}, v\right)
+> $$
 >
->   $$
->   L_{\mathrm{loc}}\left(t^{u}, v\right)=\sum_{i \in\{\mathrm{x}, \mathrm{y}, \mathrm{w}, \mathrm{h}\}} \operatorname{smooth}_{L_{1}}\left(t_{i}^{u}-v_{i}\right)
->   $$
+> $$
+> L_{\mathrm{cls}}(p, u)=-\log p_{u}
+> $$
 >
->   > 其中 p为预测类别，u为真实类别，$t^u$为类别 u的回归结果，v为实际回归目标，$\lambda$用于调整多任务学习下的损失权重，其中 $[u\geq1]$为 Iverson bracket indicator function（$u\geq1$时为1，否则为0），因为一般背景的class 标记为 u=0
+> $$
+> L_{\mathrm{loc}}\left(t^{u}, v\right)=\sum_{i \in\{\mathrm{x}, \mathrm{y}, \mathrm{w}, \mathrm{h}\}} \operatorname{smooth}_{L_{1}}\left(t_{i}^{u}-v_{i}\right)
+> $$
+>
+> > 其中 p为预测类别，u为真实类别，$t^u$为类别 u的回归结果，v为实际回归目标，$\lambda$用于调整多任务学习下的损失权重，其中 $[u\geq1]$为 Iverson bracket indicator function（$u\geq1$时为1，否则为0），因为一般背景的class 标记为 u=0
+>
+> 
 >
 > 将原来的smooth L1 loss：
+>
+> 
 > $$
 > \operatorname{smooth}_{L_{1}}(x)=\left\{\begin{array}{ll}
 > 0.5 x^{2} & \text { if }|x|<1 \\
@@ -110,11 +115,13 @@ tags:
 > > localization loss $L_{loc}$定义为	$L_{l o c}=\sum_{i \in\{x, y, w, h\}} L_{b}\left(t_{i}^{u}-v_{i}\right)$
 > >
 > > 设计一个promoted gradient formulation as:
+> >
+> > 
 > > $$
 > > L_{b}(x)=\left\{\begin{array}{ll}
 > > \frac{\alpha}{b}(b|x|+1) \ln (b|x|+1)-\alpha|x| & \text { if }|x|<1 \\
 > > \gamma|x|+C & \text { otherwise }
 > > \end{array}\right.
 > > $$
-> > 其中$\alpha ln(b+1)=\gamma$，$\gamma$用于调整梯度上界，随着$\alpha$的减小，inliers的梯度能够很好的增强
+> > - 其中$\alpha ln(b+1)=\gamma$，$\gamma$用于调整梯度上界，随着$\alpha$的减小，inliers的梯度能够很好的增强
 
