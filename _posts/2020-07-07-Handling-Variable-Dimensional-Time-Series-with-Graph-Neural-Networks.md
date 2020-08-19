@@ -57,13 +57,13 @@ tags:
 
 ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/31.png)
 
-> **conditioning module:**
->
+**conditioning module:**
+
 > > 该模型基于GNN构建，能够生成一个"conditioning vector"并作为附加输入传递给core dynamics module
 >
 > - **Details**
 >
->   - 每个传感器$s\in \mathcal{S}$与一个可学习的嵌入向量$v_s\in \mathbb{R}^{d_{s}}$相关联，对应于传感器组合$\mathcal{S}$，考虑图$\mathcal{G}(\mathcal{V}, \mathcal{E})$，每个$s\in\mathcal{S}$对应一个节点$v_s\in \mathcal{V}$，每个节点$v_s$的邻节点用$\mathcal{N}_{\mathcal{G}}\left(v_{s}\right)$表示
+>   - 每个传感器$s\in \mathcal{S}$与一个可学习的嵌入向量$v_s\in \mathbb{R}^{d_{s}}$相关联，对应于传感器组合$\mathcal{S}$，考虑图$\mathcal{G}(\mathcal{V}, \mathcal{E})$，每个$s\in\mathcal{S}$对应一个节点$v_s\in \mathcal{V}$，每个节点$v_s$的邻节点用 $\mathcal{N}_{\mathcal{G}}(v_{s})$ 表示
 >
 >   - 只有已知组合$\mathcal{S}_i$的中的对应节点被激活，图中每个active节点都接连接到其他active节点，因此每个边两端的节点都是active的
 >
@@ -74,12 +74,12 @@ tags:
 >     - 对于任意active 节点$v_k$，对应的节点向量$\mathbf{v}_{k}$更新如下：
 >
 >     $$
->     \begin{aligned}
+>    \begin{aligned}
 >     \mathbf{v}_{k l} &=f_{e}\left(\left[\mathbf{v}_{k}, \mathbf{v}_{l}\right] ; \boldsymbol{\theta}_{e}\right), \quad \forall v_{l} \in \mathcal{N}_{\mathcal{G}}\left(v_{k}\right) \\
 >     \tilde{\mathbf{v}}_{k} &=f_{n}\left(\left[\mathbf{v}_{k}, \sum_{\forall l} \mathbf{v}_{k l}\right] ; \boldsymbol{\theta}_{n}\right)
 >     \end{aligned}
 >     $$
->
+> 
 >     > $\theta _e$和$\theta _n$分别为$f_e$和$f_n$的可学习参数，$f_e$将邻节点信息传递到待更新节点，$f_n$利用邻节点的聚合信息更新相应节点
 >
 >     
@@ -87,9 +87,9 @@ tags:
 >     - 最后根据更新后的节点向量得到conditioning vector $\mathbf{v}_{\mathcal{S}_{i}} \in \mathbb{R}^{d_{s}}$
 >
 >     $$
->     \mathbf{v}_{\mathcal{S}_{i}}=\max \left(\left\{\tilde{\mathbf{v}}_{k}\right\}_{v_{k} \in \mathcal{V}_{i}}\right)
+>    \mathbf{v}_{\mathcal{S}_{i}}=\max \left(\left\{\tilde{\mathbf{v}}_{k}\right\}_{v_{k} \in \mathcal{V}_{i}}\right)
 >     $$
->
+> 
 >     
 >
 > - 使用GNN的优势在于可以处理除训练过程中传感器组合之外的其他unseen组合，从而实现组合泛化
@@ -109,19 +109,19 @@ tags:
 > - 将$\tilde{\mathbf{x}}_{i}$输入GRU进行训练，在最后一个时间步骤为$T_i$的module的输出特征向量$z^{T_i}$
 >
 >   
-> $$
+>$$
 >   \mathbf{z}_{i}^{t}=G R U\left(\left[\tilde{\mathbf{x}}_{i}^{t}, \mathbf{v}_{\mathcal{S}_{i}}\right], \mathbf{z}_{i}^{t-1} ; \boldsymbol{\theta}_{G R U}\right), \quad t: 1, \ldots, T_{i}
 > $$
->
+> 
 > - 根据下游任务(分类或回归)确定$f_o$，训练得到$\hat{y}_i$
 >
 >   
-> $$
+>$$
 > \hat{y}_{i}=f_{o}\left(z_{i}^{T_{i}} ; \theta_{o}\right)
 > $$
->
->
-> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/index.png" alt="img" style="zoom:50%;" />
+> 
+> 
+><img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/index.png" alt="img" style="zoom:50%;" />
 >
 >  
 
@@ -140,6 +140,8 @@ tags:
 >   
 >
 > 值得注意的是：模型参数学习方式为mini-batch SGD，在每个小批量内输入为具有相同可用传感器集的时间序列，即每个小批量中所有时间序列的活动节点都相同。(可以看这篇blog：https://www.imooc.com/article/details/id/48566)
+
+
 
 ### 4. Experiments
 
