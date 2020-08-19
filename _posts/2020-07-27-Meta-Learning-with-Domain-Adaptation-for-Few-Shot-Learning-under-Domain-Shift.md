@@ -60,13 +60,12 @@ tags:
 >
 > - 损失函数：
 >
+>   - $\mathcal{L}_{fs}$为预测损失，表示仅使用从$\tau_{train}$中的任务所标记的训练数据进行优化
+>   - $\mathcal{L}_{da}$表示域适应损失，从$\tau_{train}$和$\tau_{test}$中的任务中未标记的数据进行优化，$\mathcal{L}_{da}=\mathcal{L}_{GAN}+\mathcal{L}_{cycle}$
+>
 > $$
 > \min _{\hat{\mathbf{F}}, \mathbf{G}, \mathbf{G}^{\prime}} \max _{D} \mathcal{L}_{f s}+\mathcal{L}_{d a}
 > $$
->
-> > $\mathcal{L}_{fs}$为预测损失，表示仅使用从$\tau_{train}$中的任务所标记的训练数据进行优化
-> >
-> > $\mathcal{L}_{da}$表示域适应损失，从$\tau_{train}$和$\tau_{test}$中的任务中未标记的数据进行优化，$\mathcal{L}_{da}=\mathcal{L}_{GAN}+\mathcal{L}_{cycle}$
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/2020-07-07-fsl/17.png" alt="img" style="zoom:43%;" />
 
