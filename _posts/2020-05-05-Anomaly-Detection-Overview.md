@@ -142,7 +142,15 @@ Adversarially Learned One-Class Classifier for Novelty Detection (2018-05)
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/AD3.png" alt="img" style="zoom:50%;" />
 >
-> 损失函数：$\mathcal{L}=\mathcal{L}_{\mathcal{R}+\mathcal{D}}+\lambda \mathcal{L}_{\mathcal{R}}$
+> 
+>
+> 损失函数：
+> $$
+> \mathcal{L}=\mathcal{L}_{\mathcal{R}+\mathcal{D}}+\lambda \mathcal{L}_{\mathcal{R}}
+> $$
+> 
+>
+> 
 >
 > - 生成对抗损失
 >
@@ -168,7 +176,7 @@ Adversarially Learned One-Class Classifier for Novelty Detection (2018-05)
 > \text { Novelty (Outlier) } & \text { otherwise }
 > \end{array}\right.
 > $$
-> 
+>
 
 
 
