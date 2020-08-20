@@ -80,7 +80,8 @@ tags:
 >> - 提出了一种基于深度学习的新算法，主要解决传统方法中只有low-level features和缺乏high-level context的问题。                    
 >> - 该深度模型分为两个阶段，第一阶段是深度卷积编码-解吗网络，将原图和对应的三分图（前景、背景和未知区域三色分开的图，trimap）作为输入，并预测图像的alpha matte（蒙版）。第二阶段是一个小型卷积神经网络，对第一个网络预测的alpha matte进行精炼，从而拥有更精准的$\alpha$值和锐化边缘。     
 >> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/deep-image-matting.png)
----
+
+
 
 
 ##### 语义分割
