@@ -118,9 +118,9 @@ tags:
 > >
 > >   $$
 > >   \left(\frac{\partial L_{S}}{\partial w_{i j}}, \frac{\partial L_{S}}{\partial a_{i}}, \frac{\partial L_{S}}{\partial b_{i}}\right)\\
-> >   \frac{\partial \ln P(\mathbf{v})}{\partial w_{i, j}} \approx P\left(h_{i}=1 | \mathbf{v}^{(0)}\right) v_{j}^{(0)}-P\left(h_{i}=1 | \mathbf{v}^{(k)}\right) v_{j}^{(k)}\\
+> >   \frac{\partial \ln P(\mathbf{v})}{\partial w_{i, j}} \approx P\left(h_{i}=1 \mid \mathbf{v}^{(0)}\right) v_{j}^{(0)}-P\left(h_{i}=1 \mid \mathbf{v}^{(k)}\right) v_{j}^{(k)}\\
 > >   \frac{\partial \ln P(\mathbf{v})}{\partial a_{i}} \approx v_{i}^{(0)}-v_{i}^{(k)}\\
-> >   \frac{\partial \ln P(\mathbf{v})}{\partial b_{i}} \approx P\left(h_{i}=1 | \mathbf{v}^{(0)}\right)-P\left(h_{i}=1 | \mathbf{v}^{(k)}\right)
+> >   \frac{\partial \ln P(\mathbf{v})}{\partial b_{i}} \approx P\left(h_{i}=1 \mid \mathbf{v}^{(0)}\right)-P\left(h_{i}=1 \mid \mathbf{v}^{(k)}\right)
 > >   $$
 > >
 > >   注：**CD-K目前已成为训练RBM的标准算法**
