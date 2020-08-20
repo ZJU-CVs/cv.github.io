@@ -143,9 +143,9 @@ tags:
 > Ref：[《Tutorial: GAN Overview》](https://github.com/jyniki/Learn2019/blob/master/research/tutorials/GAN%20overview.pdf)
 > - GAN不在考虑显式密度函数，而是利用博弈思想不断的优化生成器和判别器从而使得生成的图像与真实图像在分布上越来越相近。
 > - GAN的思想提出过程:
->   - 采用**Maximum Likelihood Estimation**训练生成器学习分布规律：首先有一个生成器$P_G$和一组参数$\theta$，以及从真实分布$P_data(x)$中采样出来的数据${x^1,x^2,...x^m}$
+>   - 采用**Maximum Likelihood Estimation**训练生成器学习分布规律：首先有一个生成器$P_G$和一组参数$\theta$，以及从真实分布$P_{data}(x)$中采样出来的数据${x^1,x^2,...x^m}$
 >   - 希望通过不断地调整$P_G$和$\theta$，让$P_G(x;\theta)$越接近$P_{data}(x)$越好。具体做法如下：
->       - 找到一个最佳的参数组$${\theta}^*$$，使生成器的结果最接近$P_{data}(x)$，即对于每个真实抽样$x^i$的likelihood都最大，等价于所有真实抽样$x^i$的likelihood的乘积最大：$L=\prod_{i=1}^{m} P_{G}\left(x^{i} ; \theta\right)$
+>       - 找到一个最佳的参数组${\theta}^*$，使生成器的结果最接近$P_{data}(x)$，即对于每个真实抽样$x^i$的likelihood都最大，等价于所有真实抽样$x^i$的likelihood的乘积最大：$L=\prod_{i=1}^{m} P_{G}\left(x^{i} ; \theta\right)$
 >       
 >       - 上述求解${\theta}^*$以最大化likelihood问题等价于求解${\theta}^*$以最小化KL Divergence问题（证明过程略）
 >       
@@ -153,9 +153,9 @@ tags:
 >       
 >         
 >       
->       - **对于KL Divergence的最小化问题，引入神经网络G进行求解**。$$G^{*}=\arg \min _{G} \operatorname{Div}\left(P_{G}, P_{d a t a}\right)$$，该神经网络即为生成网络（能够实现对于已知分布的数据z，可以把数据z转化成一个未知分布的数据x，并希望这个未知分布$P_G(x)$与$P_{data}(x)$之间的散度距离Divergence越小越好）
+>       - **对于KL Divergence的最小化问题，引入神经网络G进行求解**。$G^{*}=\arg \min _{G} \operatorname{Div}\left(P_{G}, P_{d a t a}\right)$，该神经网络即为生成网络（能够实现对于已知分布的数据z，可以把数据z转化成一个未知分布的数据x，并希望这个未知分布$P_G(x)$与$P_{data}(x)$之间的散度距离Divergence越小越好）
 >       
->       - 然而理论上并不知道$P_G(x)$和$P_data(x)$是什么，因此Divergence往往无法计算，因此**新建了一个神经网络D专门用来衡量$P_G(x)$和$P_data(x)$之间的Divergence**，该神经网络即为判别网络
+>       - 然而理论上并不知道$P_G(x)$和$P_{data}(x)$是什么，因此Divergence往往无法计算，因此**新建了一个神经网络D专门用来衡量$P_G(x)$和$P_{data}(x)$之间的Divergence**，该神经网络即为判别网络
 >   
 > - **训练过程:**
 > > 前向传播过程：
@@ -163,23 +163,32 @@ tags:
 > > > - 模型输出：将Fake Image和Real Image两个向量分别输入判别网络，分别输出一个0~1之间的数，用于表示输入向量为Real Image的概率，使用得到两个输出值计算损失函数。  
 > >
 > > 反向传播过程：
-> > > 通过Minimax博弈公式联合训练生成器和判别器两个网络          
+> > > 通过Minimax博弈公式联合训练生成器和判别器两个网络     
+> > >
+> > > ​     
 > > > $$
 > > > \begin{equation}
 > > > \tilde{ V }_{D}=\max _{\theta}\left[E_{x \sim p_{\text {data }}} \log D_{\theta_{d}}(x)+E_{z \sim p_{(z)}} \log \left(1-D_{\theta_{d}}\left(G_{\theta_{g}}(z)\right)\right)\right]
 > > > \end{equation}
 > > > $$
 > > >
+> > > 
+> > >
 > > >
 > > > - 第一部分是训练判别器D，先从真实数据分布$p_{data}(x)$中抽样$x$,然后从先验分布中抽样z，并通过确定的生成器产生仿造数据$\tilde{\mathcal{x}}=G_{\theta_g}(z)$，然后把$x$和$\tilde{\mathcal{x}}$输入判别器中训练，使得目标函数$\tilde{\mathcal{V}}_D$最大。 
 > > >   `使用梯度上升法(Gradient ascent on discriminator):`
 > > >   
-> > > > $$
-> > > > \begin{equation}
-> > > > \tilde{ V }_{D}=\max _{\theta}\left[E_{x \sim p_{\text {data }}} \log D_{\theta_{d}}(x)+E_{z \sim p_{(z)}} \log \left(1-D_{\theta_{d}}\left(G_{\theta_{g}}(z)\right)\right)\right]
-> > > > \end{equation}
-> > > > $$
-> > > > （其实最大化$\tilde{\mathcal{V}}_D$问题的求解实际上是在求解$p_{data}$与$p_G$之间的**JS散度**，推导过程略）
+> > >   > $$
+> > >   > \begin{equation}
+> > >   > \tilde{ V }_{D}=\max _{\theta}\left[E_{x \sim p_{\text {data }}} \log D_{\theta_{d}}(x)+E_{z \sim p_{(z)}} \log \left(1-D_{\theta_{d}}\left(G_{\theta_{g}}(z)\right)\right)\right]
+> > >   > \end{equation}
+> > >   > $$
+> > >   >
+> > >   > 
+> > >   >
+> > >   > - 其实最大化$\tilde{\mathcal{V}}_D$问题的求解实际上是在求解$p_{data}$与$p_G$之间的**JS散度**，推导过程略
+> > >
+> > > 
 > > >
 > > > - 第二部分是训练生成器（此时判别器已经确定），先从先验分布中抽样新的z，然后将z输入生成器中训练，使得目标函数$\tilde{\mathcal{V}}_G$最小。    
 > > >
@@ -190,7 +199,9 @@ tags:
 > > >   > \tilde{ V }_{G}=\min _{\theta_{g}}\left[E_{z \sim p_{(z)}} \log \left(1-D_{\theta_{d}}\left(G_{\theta_{g}}(z)\right)\right)\right]
 > > >   > \end{equation}
 > > >   > $$
-> > >   > 这样循环交替，最终生成器产生的数据$\tilde{\mathcal{x}}$就会越来越接近真实数据$x$
+> > >   > - 这样循环交替，最终生成器产生的数据$\tilde{\mathcal{x}}$就会越来越接近真实数据$x$
+> > >   
+> > >   
 > > >   
 > > > - **生成过程：**  
 > > >
@@ -249,8 +260,8 @@ tags:
 
 
 
+##### **基于散度(Divergence)的改进**
 
-- **基于散度(Divergence)的改进**
 > JS Divergence距离偏差问题：
 > - 大多数情况下$P_G$和$P_{data}$没有重合，对于与$P_{data}$都没有交集的$P_{G_0}$和$P_{G_1}$，用Js散度去衡量二者的距离时，都是一样的。但实际$P_{G_1}$与$P_{data}$的距离比$P_{G_0}$与$P_{data}$的距离近，无法用Js散度体现。     
 >
@@ -259,16 +270,23 @@ tags:
 (I). LSGAN
 
 > - 将判别器最后的sigmoid激活层变为linear激活层，即将二分类问题转换为回归问题。
-> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/LSGAN.png)
+>   ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/LSGAN.png)
+>
 > - 使用了最小二乘损失函数代替了GAN的损失函数:
 >
-> $$
-> V(D)=\min _{D}\{\frac{1}{2} E_{x \sim P_{data}}[D(x)-a]^{2}+\frac{1}{2} E_{z \sim P_{z}}[D(G(z))-b]^{2}\}\\
-> V(G)=\min _{G}\{\frac{1}{2} E_{z \sim P_{z}}[D(G(z))-c) ]^{2}\}
-> $$
-> > （其中常数a、b分别表示真实图像和生成图像的标记；c是生成器为了让判别器认为生成图片是真实图片而定的值。常设a=c=1，b=0）
-> >
-> > - 交叉熵虽然会使分类正确，但导致那些在决策边界被分类为真的、但是仍远离真实数据的生成样本不会继续迭代；而最小二乘损失函数会对处于判别为真但仍然远离决策边界的样本进行惩罚，把远离决策边界的假样本迭代进入决策边界，从而提高生成图像的质量。   
+>   > $$
+>   > V(D)=\min _{D}\{\frac{1}{2} E_{x \sim P_{data}}[D(x)-a]^{2}+\frac{1}{2} E_{z \sim P_{z}}[D(G(z))-b]^{2}\}\\
+>   > V(G)=\min _{G}\{\frac{1}{2} E_{z \sim P_{z}}[D(G(z))-c) ]^{2}\}
+>   > $$
+>   >
+>   > - 其中常数a、b分别表示真实图像和生成图像的标记；c是生成器为了让判别器认为生成图片是真实图片而定的值。常设a=c=1，b=0）
+>
+> 
+>
+> - 交叉熵虽然会使分类正确，但导致那些在决策边界被分类为真的、但是仍远离真实数据的生成样本不会继续迭代；而最小二乘损失函数会对处于判别为真但仍然远离决策边界的样本进行惩罚，把远离决策边界的假样本迭代进入决策边界，从而提高生成图像的质量。   
+>
+> 
+>
 > - sigmoid交叉熵损失很容易达到饱和状态（梯度为0），而最小二乘损失只在一点达到饱和,因此使用最小二乘损失使得GAN训练更稳定。
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/LSGAN(1).png)    
 >
@@ -283,15 +301,22 @@ tags:
 > V(D)=\max _{D \in 1-L i p s c h i t z}\left\{E_{x \sim P_{d a t a}}[D(x)]-E_{\tilde{\mathcal{x}} \sim P_{G}}[D(x)]\right\}
 > $$
 >
-> > 该判别器目标表达式的求解结果就是$P_G$与$P_data$之间的wasserstein距离，目标函数没有log项； 
-> > 其中 $D \in 1-L i p s c h i t z$等价于$\left\|\nabla_{x} D(x)\right\| \leq 1$ for all $x$
+> > 该判别器目标表达式的求解结果就是$P_G$与$P_{data}$之间的wasserstein距离，目标函数没有log项； 
+> > 其中 $D \in 1-L i p s c h i t z$等价于$\left\Vert\nabla_{x} D(x)\right\Vert \leq 1$ for all $x$
 > - 传统GAN的判别器输出的结果是在(0,1)区间内，但在WGAN中输出的结果是Wasserstein距离，没有上下界，因此随着训练的进行，$P_G$的Wasserstein值会越来越小，$P_{data}$的Wasserstein值会越来越大，使得判别器永远无法收敛。
 >   - 为了解决上述问题，需要给判别器加上限制，让$P_G$不会持续地一直降低，$P_{data}$也不会持续地一直升高（让D函数变得更平滑）。
 >   - 因此，WGAN中的判别器D被加上了1-Lipschitz function的限制：
-> $$\|f(x_{1})-f(x_{2})\| \leq K\|x_{1}-x_{2}\| \ (\mathrm{K}=1)$$
+>
+> $$
+> \|f(x_{1})-f(x_{2})\| \leq K\|x_{1}-x_{2}\| \ (\mathrm{K}=1)
+> $$
+>
+> 
+>
 > - 由于判别网络D输出的是一般意义上的分数，而不是概率，因此最后一层**去掉了sigmoid操作**
 >
 > **优点：**
+>
 >  - 解决了模式崩溃（collapse mode）的问题，生成结果多样性更丰富 
 >
 > **缺点：**
@@ -304,12 +329,31 @@ tags:
 
 > - WGAN-GP是WGAN之后的改进版，主要改进了连续性限制的条件，解决了梯度消失和梯度爆炸的问题。
 > - 在WGAN-GP中提出了梯度惩罚（gradient penalty）的方式以满足lipschitz连续性条件，并通过建立损失函数来满足判别器的梯度不超过K的Lipschitz限制。判断器的目标表达式如下：
-> $$V(G, D) \approx \max _{D}\left\{[E_{x \sim P_{\text {data}}}[D(x)]-E_{x \sim P_{G}}[D(x)]\right.-\lambda \int_{x} \max \left(0,\left\|\nabla_{x} D(x)\right\|-1\right) d x \}$$
-> > 对目标表达式增添了一个条件（第三项），实际上统计的就是所有梯度的模不满足小于或等于1的项，并给这些项分配一个惩罚参数$\lambda$，计算出惩罚值，并将所有惩罚值累加起来。当累加惩罚够大时，会影响$\max_D\{\mathrm{V}(D, G)\}$的取值，导致这样的$D$不再是最优解。  
+>
+>   > $$
+>   > V(G, D) \approx \max _{D}\left\{[E_{x \sim P_{\text {data}}}[D(x)]-E_{x \sim P_{G}}[D(x)]\right.-\lambda \int_{x} \max \left(0,\left\|\nabla_{x} D(x)\right\|-1\right) d x \}
+>   > $$
+>   >
+>   > 
+>   >
+>   > - 对目标表达式增添了一个条件（第三项），实际上统计的就是所有梯度的模不满足小于或等于1的项，并给这些项分配一个惩罚参数$\lambda$，计算出惩罚值，并将所有惩罚值累加起来。当累加惩罚够大时，会影响$\max_D\{\mathrm{V}(D, G)\}$的取值，导致这样的$D$不再是最优解。  
 > - 上述D(x)的数值空间是整个样本空间，由于这个增添的条件对于所用的x有效，会导致惩罚变得非常高，也带来很多没必要的计算。因此将惩罚项中x的范围缩小为$P_{penalty}$，$P_{penalty}$是介于$P_G$和$P_{data}$之间的区域。目标表达式转化为如下：
-> $$V(G, D) \approx \max _{D} \{E_{x \sim P_{\text {data}}}[D(x)]-E_{x \sim P_{G}}[D(x)]-\lambda E_{x \sim P_{\text {penalty}}}\left[\max \left(0,\left\|\nabla_{x} D(x)\right\|-1\right)\right] \}$$
-> > 在实验中，发现$\left\|\nabla_{x} D(x)\right\|$越接近1，训练得越快，效果也越好，于是表达式可简化成：
-> >$$V(G, D) \approx \max _{D}\{ E_{x \sim P_{\text {data}}}[D(x)]-E_{x \sim P_{G}}[D(x)]-\lambda E_{x \sim P_{\text {penalty}}}[(\|\nabla_{x}D(x)\|-1)^2]\}$$
+>
+>   > $$
+>   > V(G, D) \approx \max _{D} \{E_{x \sim P_{\text {data}}}[D(x)]-E_{x \sim P_{G}}[D(x)]-\lambda E_{x \sim P_{\text {penalty}}}\left[\max \left(0,\left\|\nabla_{x} D(x)\right\|-1\right)\right] \}
+>   > $$
+>   >
+>   > 
+>   >
+>   > 
+>   >
+>   > - 在实验中，发现$\left\|\nabla_{x} D(x)\right\|$越接近1，训练得越快，效果也越好，于是表达式可简化成：
+>   >
+>   > $$
+>   > V(G, D) \approx \max _{D}\{ E_{x \sim P_{\text {data}}}[D(x)]-E_{x \sim P_{G}}[D(x)]-\lambda E_{x \sim P_{\text {penalty}}}[(\|\nabla_{x}D(x)\|-1)^2]\}
+>   > $$
+>   >
+>   > 
 >
 > **优点：**
 > - WGAN-GP比WGAN有更快的收敛速度，并能生成更高质量的样本
@@ -319,64 +363,82 @@ tags:
 >
 
 
-(IV).SNGAN
+(IV). SNGAN
 
 > - SNGAN(频谱归一化GAN)提出了用谱范数标准化神经网络的参数矩阵W，从而让神经网络的梯度被限制在一个范围内。
 >
->   
 ---
-- **基于网络(Network)的改进**
-> (I). DCGAN
+
+
+##### **基于网络(Network)的改进**
+
+(I). DCGAN
 > - DCGAN将GAN和CNN结合起来，DCGAN中的Generator和Discriminator都采用CNN，同时取消了池化层Pooling，使用带步长的卷积层（strided convolution）代替。对Generator来说，要做上采样，采用的是分数步长的卷积（fractionally-strideconvolution），即反卷积（DeConv2D）；对Discriminator来说，一般采用整数步长的卷积，即普通卷积Conv2D。  
 > - 避免在卷积层之后使用全连接层（全连接层虽然增加了模型的稳定性，但也减缓了收敛速度）。一般来说，Generator的输入（噪声）采用均匀分布；discriminator的最后一个卷积层一般先摊平（flatten），然后连接一个单节点的softmax。  
 > - 除了Generator的输出层和Discriminator的输入曾外，其他层都使用了Batch Normalization，将特征层的输出归一化。即使初始化很差，也能保证网络中有足够强的梯度，加速了训练，提高了训练的稳定性。
 > - 对于Generator，输出层采用Tanh激活函数，其他层使用ReLU激活函数；而在Discriminator中使用LeakyReLU激活函数，防止梯度稀疏。     
 > **缺点：** 由于DCGAN的生成器中使用了反卷积，而反卷积固有地存在“棋盘效应（Checkerboard Artifacts）”，约束力DCGAN生成能力的上限。
->
-> (II). ImproveDCGAN     
+> 
+
+
+(II). ImproveDCGAN     
 > - DCGAN做了结构细化，但是未解决在训练过程中GAN收敛性不稳定的问题
 > - 为解决收敛性不稳定的问题，ImproveDCGAN针对DCGAN训练过程提出了不同的增强方法：
 >   - 特征匹配（feature mapping）：生成器把判别器的中间层输出作为目标（一般中间层都是D的最后几层），让生成的中间层输出和真实数据的中间层输出尽可能相同。
 >   - 批次判别（minibatch discrimination）：每次不是判别单张图片，而是判别一批图片
 >   - 历史平均（historical averaging）：在更新参数值时，把过去的值也纳入考虑
 >   - 单侧标签平滑（one-sided label smoothing）：将判别式的目标函数中正负样本的系数不再是0-1，而是$\alpha$和$\beta$。原本判别器的目标输出值是[0=假图像，1=真图像]，现在可能变成[0=假图像，0.9=真图像]    
->   - 虚拟批次正态化（virtual batch normalizaiton）：在训练前提取一个batch，根据这个batch做normalize。（由于该方法计算成本很高，所以仅仅被用在生成器当中）
->
+>  - 虚拟批次正态化（virtual batch normalizaiton）：在训练前提取一个batch，根据这个batch做normalize。（由于该方法计算成本很高，所以仅仅被用在生成器当中）
+> 
 > **优点：**
 > - 能够让模型在**生成高分辨率图像**时表现得更好。 
 >       
->
-> (III).SAGAN    
+> 
+
+
+(III).SAGAN    
+
 > - 由于卷积网络的局部感受野的限制，如果要生成大范围相关（Long-range dependency）的区域，卷积网络就会出现问题。因此需要找到一种能够利用全局信息的方法。传统的做法有：用更深的卷积网络，或者直接采用全连接层获取全局信息，但是**参数量太大导致计算量太大**。
 > - SAGAN将Attention机制引入了GAN的图像生成中，用带有自注意力的特征图去代替传统的卷积特征图。
 >   - 首先，f(x),g(x),h(x)都是普通的$1{\times}1$卷积，其作用是减少图像中的通道数量。差别只在于输出通道大小不同
 >   - 将f(x)的输出转置并和g(x)的输出相乘，再经过softmax归一化得到一个attention map
 >   - 将得到的attention map和h(x)逐像素点相乘，得到自适应注意力的特征图
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/SAGAN.png) 
-> - SAGAN的优化：
+>- SAGAN的优化：
 >   - Spectral Normalization：稳定了训练和生成过程
 >   - TTUR：平衡了判别器D和生成器G的训练速度
 > **优点：**
 > - 可以很好的处理长范围、多层次的依赖
 > - 生成图像时每一个位置的细节和远端的细节协调好
 > - 判别器还可以更准确地对全局图像结构实施复杂的几何约束  
->
+> 
 > 
 ---
 
-- **基于生成器(Generator)和判别器(Discriminator)的改进**
-> (I). RGAN
+
+
+##### **基于生成器(Generator)和判别器(Discriminator)的改进**
+
+(I). RGAN
 > - RGAN在提升伪数据是真实的概率的同时，降低了真实数据是真实的概率
 > - 提出了相对判断器，采用评估给定的实际数据比随机抽样的假数据更真实的概率。在训练过程中，不仅让$D_{fake}$向$D_{real}$移动，而且让$D_{real}$向$D_{fake}$移动
 > 
-> (II).EBGAN    
+
+
+
+(II).EBGAN    
+
 > - EBGAN改动了判别器，使其不再去鉴别输入图像是来自于$P_{data}$还是$P_g$，而是去鉴别输入图像的重构性高不高
 > - AutoEncoder是提前用真实图片训练好的，如果输入是来自真实数据集的图片，这个autoencoder就能产生和输入非常相似的图片，但如果输入的是其他图片，autoencoder的输出就不会和输入相似。
 > - 把这个autoencoder放入判别器中，每当判别器输入x，通过这个autoencoder得到重构图像x’,通过x与x'的差值作为评判输入图像x质量好坏的标准，当差值越低的时候，意味着输入图片越符合真实图片的特征。 
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/EBGAN.png)  
 > - EBGAN的最大特点就是discriminator一开始就非常强（因为有pretrain），因此generator在一开始就能获得比较大的“能量驱动”（energy based），使得在一开始generator就进步非常快，能够在短期内获得一个比较不错的generator。
 > 
-> (VII). BEGAN
+
+
+
+(III). BEGAN
+
 > - 提出了一种新的评价生成器生成质量的方式，使GAN使用很简单网络结构，不加一些trick（如BN、minibatch、SeLU激活函数等），也能够很好的实现训练效果，能够很快且稳定的收敛，完全不用担心模式崩溃和训练不平衡的问题。   
 >   - 以往的生成器生成质量评估使用估计概率分布的方法，希望生成器生成的数据分布尽可能的接近真实数据的分布。
 >   - BEGAN中提出的新的评价方式：估计分布的分布误差之间的相似度，如果分布的误差接近，那么分布肯定也接近。  
@@ -385,20 +447,23 @@ tags:
 > - 在训练中添加额外的均衡过程来平衡生成器和判别器
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/BEGAN.png)
 
-- **基于应用(application)的改进**   
-> <u>在图像生成上的应用:</u>    
->
-> (I). CGAN
+
+
+##### **基于应用(application)的改进**   
+
+<u>在图像生成上的应用:</u>    
+
+(I). CGAN
 > - GAN中输出仅依赖随机噪声，无法控制生成内容；但CGAN将条件输入c添加到随机噪声中，条件c可以是任何信息，如图像标注、对象的属性、文本描述甚至是图片。<u>判别器需要判断$x$是否是真实图片，同时要判断$x$和$c$是否匹配。</u>
-> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/CGAN.png)    
+>![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/CGAN.png)    
 > - CGAN是有监督学习，如引入图像作为监督信息，CGAN就可以完成一些**paired data**才能完成的任务：如把轮廓图转化为真实图片，把mask转化成真实图，把黑白图转化为真实图等。其中 最具代表性的工作为pix2pix：
 >   - pix2pix提出将CGAN的损失与L1正则化损失相结合（L1相比L2产生比较少的模糊图像），使得生成器不仅被训练以欺骗判别器，而且还生成尽可能接近真实标注的图像。 
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/Pix2Pix.png) 
 >   
->
+> 
 > (II). TripleGAN 
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/TripleGAN.jpg)
-> (III). StackGAN 
+>(III). StackGAN 
 > (IV). LapGAN 
 > (V). ProGAN 
 > (VI). StyleGAN 
