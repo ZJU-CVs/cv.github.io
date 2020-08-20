@@ -114,6 +114,7 @@ tags:
 > >   - Gibbs采样：             
 > >     
 > >   - Gibbs采用可以从一个复杂的概率分布下生成数据，因此只要知道每一个分量相对其他分量的条件概率，即可对其进行采样。利用RBM中的条件概率公式，通过输入训练样本（$v_0$）可以计算得到隐含层的条件概率h，进行一次Gibbs采样得到$h_{0} \sim P\left(h \mid v_{0}\right)$。
+> >     
 > >     - 同理，根据得到的$h_0$,得到$v_{1} \sim P\left(v \mid h_{0}\right)$，迭代足够多次后，就可以得到满足联合概率分布$P(v,h)$下的样本$(v,h)$，其中样本v可以近似认为是$P(v)$下的样本，从而求出梯度$\left(\frac{\partial L_{S}}{\partial w_{i j}}, \frac{\partial L_{S}}{\partial a_{i}}, \frac{\partial L_{S}}{\partial b_{i}}\right)$，实现参数更新
 > >   - **由于通常需要多步采样才可以采集到符合真实分布的样本，因此训练速度非常慢。**      
 > >     
@@ -148,7 +149,7 @@ tags:
 
 
 
-### 3.Application 应用
+### 3. Application 应用
 (1). Object detection
 > Ref:[Towards Human-Machine Cooperation: Self-supervised Sample Mining for Object Detection](https://github.com/jyniki/Learn2019/blob/master/research/reference/Towards%20Human-Machine%20Cooperation-Self-supervised%20Sample%20Mining%20for%20Object%20Detection.pdf)  
 
