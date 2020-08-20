@@ -28,7 +28,11 @@ Ref: [Few-shot Learning: A Survey](https://github.com/jyniki/Learn2019/blob/mast
 
 (2). 定义 Definition   
 
-- 考虑一个监督学习任务T，FSL处理的数据集$D=\left\{D^{ train}, D^{test}\right\}$中包括训练集$D^{\mathrm{train}}=\left\{\left(x^{(i)}, y^{(i)}\right)\right\}_{i=1}^{I}$和测试集$D^{test }=\left\{x^{test}\right\}$
+- 考虑一个监督学习任务T，FSL处理的数据集$D=\{D^{ train}, D^{test}\}$
+
+  > 包括训练集$D^{train}=\{(x^{(i)}, y^{(i)})\}_{i=1}^{I}$
+  >
+  > 测试集$D^{test }=\{x^{test}\}$
 
 
 
