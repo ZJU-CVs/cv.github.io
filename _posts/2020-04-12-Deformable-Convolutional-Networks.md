@@ -69,6 +69,8 @@ tags:
 - 可变形的ROI Pooling
 
   > - 传统的ROI Pooling可以定义为以下公式，整个ROI被分为$k*k$个bin，每个bin左上角的坐标是$p_0$，p是bin中每个点相对于$p_0$的坐标偏移量，$n_{ij}$是第ij个bin中的点数。
+  >
+  >   
   > $$
   > \mathbf{y}(i, j)=\sum_{\mathbf{p} \in \operatorname{bin}(i, j)} \mathbf{x}\left(\mathbf{p}_{0}+\mathbf{p}\right) / n_{i j}
   > $$
