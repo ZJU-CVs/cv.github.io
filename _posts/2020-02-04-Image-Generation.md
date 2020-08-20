@@ -34,8 +34,11 @@ tags:
 ### 2. Generative Models 生成模型
 
 `生成模型：对于给定训练数据，这些训练数据从某种分布$p_{data}$中生成，目标是从中学习到一个模型$p_{model}$，来以相同的数据分布生成新的样本` 
+
+
+
 **Taxonomy of Generative Models**
-![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/Generative-model.png)     
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/Generative-model.png" alt="img" style="zoom:50%;" />     
 
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/generate-model.png) 
 
@@ -46,7 +49,11 @@ tags:
 >
 > - 根据图像数据x，对图像的概率分布或者似然p(x)建模。
 > - 方法：通过使用链式法则(chain rule)将似然分解为一维分布的乘积。在给定所有下标小于i的像素($x_1$到$x_{i-1}$)的条件下，有每个像素$x_i$的条件概率，这时图像中所有像素(n{\times}n)的联合概率(图像的似然)就是所有这些像素点<u>似然的乘积</u>，是一个易处理的密度函数（tractable density function）
-> $$p_{\theta}(x)=\prod_{i=1}^{n^2}{p_{\theta}(x_i|x_1,...x_{i-1}})$$  
+>
+> $$
+> p_{\theta}(x)=\prod_{i=1}^{n^2}{p_{\theta}(x_i|x_1,...x_{i-1}})
+> $$
+>
 > - 在训练过程中，需要最大化训练样本图像的似然p(x)来训练模型    
 >
 > **PixelRNN:** 从左上角一个一个生成像素，每一个对之前像素依赖的关系都通过RNN(LSTM)来建模。
@@ -71,31 +78,31 @@ tags:
 > **VAE(Variational Autoencoders)**： 
 > - 编码-解码过程解析：        
 >   - 输入数据x，经过编码器得到特征z
->   - 将隐向量z限制为一个近似的正态分布(先验假设)，在编码器网络$$\begin{equation}
->     q_{\phi}(z | x)
->     \end{equation}$$中，会输出一个关于z的均值和对角协方差矩阵。 
->   - 在解码器网络$$p_{\theta}(x|z)$$中，同样会输出一个关于x的均值和的对角协方差矩阵，这里的x维度和输入的x维度相同       
->   - 为了真正得到z（给定x下的z和给定z下的x），将会从上述分布$$q_{\phi}(z|x)$$和$$p_{\theta}(x|z)$$中采样。
+>   - 将隐向量z限制为一个近似的正态分布(先验假设)，在编码器网络$\begin{equation}
+>     q_{\phi}(z \mid x)
+>     \end{equation}$中，会输出一个关于z的均值和对角协方差矩阵。 
+>   - 在解码器网络$p_{\theta}(x\mid z)$中，同样会输出一个关于x的均值和的对角协方差矩阵，这里的x维度和输入的x维度相同       
+>   - 为了真正得到z（给定x下的z和给定z下的x），将会从上述分布$q_{\phi}(z\mid x)$和$p_{\theta}(x \mid z)$中采样。
 >   
 > - 对于给定z的x的条件概率分布p(x|z)是复杂的（使用神经网络来表示），得到了一个带有隐函数z的难解的密度函数：
 >   $$
->   p_{\theta}(x)={\int}p_{\theta}(z)p_{\theta}(x|z)dz
+>   p_{\theta}(x)={\int}p_{\theta}(z)p_{\theta}(x\mid z)dz
 >   $$
 >   
 >- 该密度函数无法直接优化，需要通过推导出似然函数的下界然后对该下界进行优化
 > 
 >- 推导过程： 
->   Data likelihood: $p_{\theta}(x)={\int}p_{\theta}(z)p_{\theta}(x|z)dz$      
-> Posterior density: $p_{\theta}(z|x)=p_{\theta}(z)p_{\theta}(x|z)/p_{\theta}(x)$        
-> 利用编码器网络$q_{\phi}(z|x)$估计出$p_{\theta}(z|x)$     
+>   Data likelihood: $p_{\theta}(x)={\int}p_{\theta}(z)p_{\theta}(x\mid z)dz$      
+> Posterior density: $p_{\theta}(z\mid x)=p_{\theta}(z)p_{\theta}(x\mid z)/p_{\theta}(x)$        
+> 利用编码器网络$q_{\phi}(z\mid x)$估计出$p_{\theta}(z\mid x)$     
 > 使用对数似然：  ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/VAE_function.png)
 >   
-> - 由上推导可以看到，真正的损失函数$\mathcal{L}$由两部分构成:输入输出差异与分布差异，其中分布差异用的是KL散度。要让似然变大，需要让$$p(x|z)$$变大（最大限度地重构数据），同时让KL散度值变小（让后验概率与前验概率分布相似），在训练过程中根据损失函数，使用优化算法进行参数更新
+> - 由上推导可以看到，真正的损失函数$\mathcal{L}$由两部分构成:输入输出差异与分布差异，其中分布差异用的是KL散度。要让似然变大，需要让$p(x\mid z)$变大（最大限度地重构数据），同时让KL散度值变小（让后验概率与前验概率分布相似），在训练过程中根据损失函数，使用优化算法进行参数更新
 > 
 >- **优点：** 就生成模型来说，是一种有据可循的方法，使得查询推断成为可能
 > 
 >- **缺点：** 只能推断真实分布的近似值，而隐变量分布和真实分布之间的gap不可度量，因此导致VAE存在着生成图像模糊的问题。 
-> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/VAE.png)      
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/VAE.png" alt="img" style="zoom:50%;" />      
 
 
 
@@ -105,7 +112,7 @@ tags:
 >
 > 对输入的复杂的高维数据进行一个非线性变换，通过这个变换将输入的高维数据映射到潜在空间，产生独立的潜在变量。同时这个变换是可逆的，反之亦然。
 > - 假设定义x是一个高维的随机向量，并且x的真实分布p(x)未知，模型为$p_{\theta}(x)$，则需要最小化的对数似然函数为： 
-> $$\frac{1}{N}\sum^N_{i=1}{-logp_\theta(x_i)}$$
+> $\frac{1}{N}\sum^N_{i=1}{-logp_\theta(x_i)}$
 > - 为了实现空间之间的映射，可以找一个可逆的映射函数，使得$z=f_\theta(x)$，同时$x=g_\theta(z)$，$g_{\theta}^-1=f_\theta$
 > - Glow采用分层变换的思想， 将映射$f$函数变换为$f_1{\odot}f_2{\odot}...{\odot}f_k$   
 > - 可以将其想象成一个flow: 
