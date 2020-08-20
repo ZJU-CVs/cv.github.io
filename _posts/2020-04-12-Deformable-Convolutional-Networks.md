@@ -93,7 +93,11 @@ tags:
   > $$
   > \mathbf{y}(i, j)=\sum_{\mathbf{p} \in \operatorname{bin}(i, j)} \mathbf{x}\left(\mathbf{p}_{0}+\mathbf{p}+\Delta p_{n_{ij}}\right) / n_{i j}
   > $$
-  > - 需要做ROI Pooling处理的区域首先完成没有偏移下的pooling过程，输出$k\times k \times channel$个数据，再用一个全连接层 full connect layer输出$k\times k\times channel\times 2$个点表示在 x和 y方向上的偏移$\Delta{\hat{p}_{ij}}$，再按$\Delta \mathbf{p}_{i j}=\gamma \cdot \Delta \widehat{\mathbf{p}}_{i j} \circ(w, h)$获得真正的偏移量$\Delta \mathbf{p}_{i j}$
+  > - 需要做ROI Pooling处理的区域首先完成没有偏移下的pooling过程，输出$k\times k \times channel$个数据，
+  >   
+  >   再用一个全连接层 full connect layer输出$k\times k\times channel\times 2$个点表示在 x和 y方向上的偏移$\Delta{\hat{p}_{ij}}$，
+  >   
+  >   再按$\Delta \mathbf{p}_{i j}=\gamma \cdot \Delta \widehat{\mathbf{p}}_{i j} \circ(w, h)$获得真正的偏移量$\Delta \mathbf{p}_{i j}$
   >   
   >   > 其中 $\gamma$是一个增益，与(w,h)进行点乘是**为了让偏移量的调整幅度能适配 ROI的尺寸**。（$\Delta{\hat{p}_{ij}}$也是一个小数，需要通过双线性插值来得到真正的值）
   >   
