@@ -62,7 +62,7 @@ tags:
 >
 > **优点**：GAN只善于处理连续数据，pixelCNN对连续数据和非连续数据都能很好perform；且通过链式显示计算likehood，使得训练稳定；给出了很好的评估度量，通过所能计算的数据的似然来度量样本的质量。
 >
-> **缺点**：由于PixelRNN和PixelCNN是按照像素点去生成图像，导致计算成本高，生成速度慢；且PixelRNN和PixelCNN目前还没有成功做出unsupervised/semi-supervised feature learning
+> **缺点**：由于PixelRNN和PixelCNN是按照像素点去生成图像，导致计算成本高，生成速度慢；且PixelRNN和PixelCNN目前还没有成功做出`unsupervised`/`semi-supervised feature learning`
 
 
 
@@ -89,7 +89,7 @@ tags:
 >   - 在解码器网络$p_{\theta}(x\mid z)$中，同样会输出一个关于x的均值和的对角协方差矩阵，这里的x维度和输入的x维度相同       
 >  - 为了真正得到z（给定x下的z和给定z下的x），将会从上述分布$q_{\phi}(z\mid x)$和$p_{\theta}(x \mid z)$中采样。
 >   
-> - 对于给定z的x的条件概率分布p(x|z)是复杂的（使用神经网络来表示），得到了一个带有隐函数z的难解的密度函数：
+> - 对于给定z的x的条件概率分布$p(x\mid z)$是复杂的（使用神经网络来表示），得到了一个带有隐函数z的难解的密度函数：
 > 
 > $$
 > p_{\theta}(x)={\int}p_{\theta}(z)p_{\theta}(x\mid z)dz
