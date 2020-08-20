@@ -106,10 +106,15 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
     
       
     
-    - 用$X^{t e}=\left\{\mathbf{x}_{i}^{t e} \in X\right\}_{i=1}^{N_{te}}$表示测试实例集合，每个$\mathbf{x}_{i}^{t e}$是特征空间中的测试例
+    - 用$X^{t e}=\left\{\mathbf{x}_{i}^{t e} \in X\right\}_{i=1}^{N_{te}}$表示测试实例集合
     
-    - 用$Y^{t e}=\left\{y_{i}^{t e} \in \mathcal{U}\right\}_{i=1}^{N{t e}}$表示需要被预测的$X^{t e}$对应的类标签         
-    ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS2.png)
+      > 每个$\mathbf{x}_{i}^{t e}$是特征空间中的测试例
+    
+    - 需要被预测的$X^{t e}$对应的类标签表示为：
+      > $$
+      > Y^{te}=\left\{y_{i}^{te} \in \mathcal{U}\right\}_{i=1}^{N{te}}
+      > $$
+      > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS2.png)
     
   - **Definition 1.1**：对于给定所属类别在seen classes集合$S$中的训练标签实例$D^{t r}$，zero-shot learning的目标是学习一个分类器$f^{u}(\cdot) : X \rightarrow \mathcal{U}$，能够对所述类别在unseen classes集合$\mathcal{U}$的测试实例$X^{t e}$进行分类。
     - 从Definition 1.1可以看出，zero-shot learning的一般思想是将训练实$D^{t r}$中包含的知识转移到测试实例的分类任务中。
@@ -123,41 +128,43 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
       - 目前zero-shot learning方法所涉及的辅助信息通常是一些语义信息(semantic information)，它形成了一个包含可见类和不可见类的空间。由于这个空间包含语义信息，所以通常称为语义空间。
 
   - **语义空间**：
+    
       - 与特征空间相似，语义空间通常也是实数空间。
       - 在语义空间中，每个类都有一个相应的向量表示，被称为这个类的类原(class prototype)
       - 用$\mathcal{T}$表示语义空间，是一个M维的实数空间$\mathbb{R}^{M}$
-- $\mathbf{t}_{i}^{s} \in \mathcal{T}$是seen类别$\mathcal{c}{i}^{s}$的类原型
-      - $t_{i}^{u} \in \mathcal{T}$是unseen类别$\mathcal{c}_{i}^{u}$的类原型
-      - $T^{s}=\left\{t_{i}^{s}\right\}_{i=1}^{N_{s}}$表示seen classes的类原型集
-      - $T^{u}=\left\{t_{i}^{u}\right\}_{i=1}{N_{u}}$表示unseen classes的类原型集
-      - 用$\pi(\cdot) : \mathcal{S} \cup \mathcal{U} \rightarrow\mathcal{T}$表示类原型函数，输入类标签，输出相应的类原型
-  - 在zero-shot learning中，除了训练实例$D^{t r}$，类原型$T^{s}$和$T^{u}$也参与zero-shot 分类器$f^{u}(\cdot)$的学习获取。
-      ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS4.png)
-
-  - Zero-shot classifier **learning setting**：   
-    - **Definition 1.2**：(Class-Inductive Instance-Inductive Setting, CIII):
-    
-      > 模型学习只使用标记的训练实例集$D^{t r}$和seen class类原型集$T^{s}$
-    
-    - **Definition 1.3**：(Class-Transductive Instance-Inductive Setting, CTII):
-    
-      > 模型学习使用了训练实例集$D^{t r}$、seen class类原型集$T^{s}$和unseen class类原型集$T^{u}$
-    
-    - **Definition 1.4**：(Class-Transductive Instance-Transductive Setting, CTIT):
+      - $t_{i}^{s} \in \mathcal{T}$是seen类别$\mathcal{c}{i}^{s}$的类原型
+          - $t_{i}^{u} \in \mathcal{T}$是unseen类别$\mathcal{c}_{i}^{u}$的类原型
+         - $T^{s}=\left\{t_{i}^{s}\right\}_{i=1}^{N_{s}}$表示seen classes的类原型集
+         - $T^{u}=\left\{t_{i}^{u}\right\}_{i=1}{N_{u}}$表示unseen classes的类原型集
+         - 用$\pi(\cdot) : \mathcal{S} \cup \mathcal{U} \rightarrow\mathcal{T}$表示类原型函数，输入类标签，输出相应的类原型
       
-      > 模型学习使用了训练实例集$D^{t r}$、seen class类原型集$T^{s}$、unseen class类原型集$T^{u}$和未标签的测试实例   
+      - 在zero-shot learning中，除了训练实例$D^{t r}$，类原型$T^{s}$和$T^{u}$也参与zero-shot 分类器$f^{u}(\cdot)$的学习获取。
+          ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS4.png)
       
-      - `从CIII到CTIT，分类器模型学习了越来越多测试实例的信息`
-      ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS5.png)
-      - `在CIII设置下(one-order transformation)，由于模型学习不涉及测试实例的信息，因此在该设置下的一些方法中，域偏移的问题比较严重。但是由于该设置下的模型没有针对特定的unseen classes和测试实例进行优化，当需要对新的unseen class或测试实例进行分类时，模型的泛化能力通常要优于CTII或CTIT设置下学习的模型`      
-      
-      
-      
-      - `在CTII设置下(two-order transformation)，由于模型涉及到unseen class类原型，因此域偏移问题不那么严重，然而此学习设置下的模型泛化到新的unseen classes的能力有限`
-      
-      
-      
-      - `在CTIT设置下(high-order transformation)，由于模型对特定的unseen classes和测试实例进行了优化，领域偏移问题最不严重，但模型泛化能力最有限 `    
+      - Zero-shot classifier **learning setting**：   
+        - **Definition 1.2**：(Class-Inductive Instance-Inductive Setting, CIII):
+        
+          > 模型学习只使用标记的训练实例集$D^{t r}$和seen class类原型集$T^{s}$
+        
+        - **Definition 1.3**：(Class-Transductive Instance-Inductive Setting, CTII):
+        
+          > 模型学习使用了训练实例集$D^{t r}$、seen class类原型集$T^{s}$和unseen class类原型集$T^{u}$
+        
+        - **Definition 1.4**：(Class-Transductive Instance-Transductive Setting, CTIT):
+          
+          > 模型学习使用了训练实例集$D^{t r}$、seen class类原型集$T^{s}$、unseen class类原型集$T^{u}$和未标签的测试实例   
+          
+          - `从CIII到CTIT，分类器模型学习了越来越多测试实例的信息`
+          ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS5.png)
+          - `在CIII设置下(one-order transformation)，由于模型学习不涉及测试实例的信息，因此在该设置下的一些方法中，域偏移的问题比较严重。但是由于该设置下的模型没有针对特定的unseen classes和测试实例进行优化，当需要对新的unseen class或测试实例进行分类时，模型的泛化能力通常要优于CTII或CTIT设置下学习的模型`      
+          
+          
+          
+          - `在CTII设置下(two-order transformation)，由于模型涉及到unseen class类原型，因此域偏移问题不那么严重，然而此学习设置下的模型泛化到新的unseen classes的能力有限`
+          
+          
+          
+          - `在CTIT设置下(high-order transformation)，由于模型对特定的unseen classes和测试实例进行了优化，领域偏移问题最不严重，但模型泛化能力最有限 `    
 
 
 
@@ -187,8 +194,13 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
     - 在特征空间中，可以利用可用数据（根据不同的学习设置，可用数据是不同的）学习seen classes的binary one-versus-rest分类器$\left\{f_{i}^{s}(\cdot)\right\}_{i=1}^{N_{s}}$；同时通过计算相应原型之间的关系或通过其他方法获得seen classes和unseen classes之间的关系
     - Aim：学习seen classes这些binary one-versus-rest分类器和这些类的关系   
     - General procedure：
-      - step1：利用可用数据学习seen classes的这些二元分类器$\left\{f_{i}^{s}(\cdot)\right\}_{i=1}^{N_{s}}$    
+      - step1：利用可用数据学习seen classes的这些二元分类器
+        > $$
+        > \left\{f_{i}^{s}(\cdot)\right\}_{i=1}^{N_{s}}
+        > $$
+      
       - step2：通过计算相应原型之间的关系或通过其他方法获得seen classes和unseen classes之间的关系$\delta$
+      
       - step3：利用得到的seen classes分类器$\left\{f_{i}^{s}(\cdot)\right\}_{i=1}^{N_{s}}$和关系$\delta$，构建unseen classes的分类器$f^{u}(\cdot)=\left\{f_{i}^{u}(\cdot)\right\}_{i=1}^{N_{u}}$，实现对测试实例的分类  
       
       
