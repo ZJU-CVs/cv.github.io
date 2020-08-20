@@ -509,6 +509,8 @@ Attention Guided Anomaly Localization in Images (v1: 2019-11 v2:2020-05)
 > 
 >
 > 损失函数：
+>
+> 
 > $$
 > L_{\text {final}}=w_{r} L+w_{\text {adv}} L_{a d v}+w_{c} L_{b c e}+w_{\text {cga}} L_{\text {cga}}
 > $$
