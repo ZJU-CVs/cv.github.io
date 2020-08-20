@@ -147,13 +147,25 @@ tags:
 >   - 希望通过不断地调整$P_G$和$\theta$，让$P_G(x;\theta)$越接近$P_{data}(x)$越好。具体做法如下：
 >       - 找到一个最佳的参数组${\theta}^*$，使生成器的结果最接近$P_{data}(x)$，即对于每个真实抽样$x^i$的likelihood都最大，等价于所有真实抽样$x^i$的likelihood的乘积最大：$L=\prod_{i=1}^{m} P_{G}\left(x^{i} ; \theta\right)$
 >       
->       - 上述求解${\theta}^*$以最大化likelihood问题等价于求解${\theta}^*$以最小化KL Divergence问题（证明过程略）
+>       - 上述求解${\theta}^*$以最大化likelihood问题**等价于** 求解${\theta}^*$以最小化KL Divergence问题（证明过程略）
 >       
->       $${\theta}^*=\arg \max _{\theta} \prod_{i=1}^{m} P_{G}\left(x^{i} ; \theta\right)=\arg \min _{\theta} KL\left(P_{d a t a} \| P_{G}\right)$$
+>         > $$
+>         > {\theta}^*=\arg \max _{\theta} \prod_{i=1}^{m} P_{G}\left(x^{i} ; \theta\right)=\arg \min _{\theta} KL\left(P_{d a t a} \| P_{G}\right)
+>         > $$
+>         >
+>         > 
 >       
 >         
 >       
->       - **对于KL Divergence的最小化问题，引入神经网络G进行求解**。$G^{*}=\arg \min _{G} \operatorname{Div}\left(P_{G}, P_{d a t a}\right)$，该神经网络即为生成网络（能够实现对于已知分布的数据z，可以把数据z转化成一个未知分布的数据x，并希望这个未知分布$P_G(x)$与$P_{data}(x)$之间的散度距离Divergence越小越好）
+>       - **对于KL Divergence的最小化问题，引入神经网络G进行求解**。
+>       
+>         > $$
+>         > G^{*}=\arg \min _{G} \operatorname{Div}\left(P_{G}, P_{d a t a}\right)
+>         > $$
+>         >
+>         > 
+>         >
+>         > - 该神经网络即为生成网络（能够实现对于已知分布的数据z，可以把数据z转化成一个未知分布的数据x，并希望这个未知分布$P_G(x)$与$P_{data}(x)$之间的散度距离Divergence越小越好）
 >       
 >       - 然而理论上并不知道$P_G(x)$和$P_{data}(x)$是什么，因此Divergence往往无法计算，因此**新建了一个神经网络D专门用来衡量$P_G(x)$和$P_{data}(x)$之间的Divergence**，该神经网络即为判别网络
 >   
@@ -461,13 +473,18 @@ tags:
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/Pix2Pix.png) 
 >   
 > 
-> (II). TripleGAN 
-> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/TripleGAN.jpg)
->(III). StackGAN 
-> (IV). LapGAN 
-> (V). ProGAN 
-> (VI). StyleGAN 
-> (VII). SRGAN
+
+
+
+(II). TripleGAN 
+![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/TripleGAN.jpg)
+(III). StackGAN 
+(IV). LapGAN 
+(V). ProGAN 
+(VI). StyleGAN 
+(VII). SRGAN
+
+
 
 ​        
 
