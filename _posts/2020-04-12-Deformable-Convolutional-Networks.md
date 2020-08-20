@@ -105,7 +105,7 @@ tags:
 
   >- PS ROI Pooling 不同于ROI Pooling，通过一个卷积层，所有的输入特征映射首先被转换为每个目标类的$k^2$个分数映射（对于 C个目标类，总共 C+1个），分数映射被表示为{$x_{i,j}$}，其中(i, j)枚举所有的组块，池化是在这些分数映射上进行的。第(i,j)个组块的输出值是通过对分数映射$x_{i,j}$对应的组块求和得到的。
   >
-  >  
+  > 
   >
   >---
   >
@@ -119,11 +119,13 @@ tags:
   >
   >
   >
-  > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/DCN5.png" alt="img" style="zoom:100%;" />
+  ><img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/DCN5.png" alt="img" style="zoom:100%;" />
   >
-  >- 与ROI Pooling相比，通用特征映射x被特定的位置敏感的分数映射$x_{i,j}$所取代。
+  >- 与ROI Pooling相比，通用特征映射x被特定的位置敏感的分数映射$x_{i,j}$所取代
+  >
+  >  
   >$$
-  > \mathbf{y}(i, j)=\sum_{\mathbf{p} \in \operatorname{bin}(i, j)} \mathbf{x_{i,j}}\left(\mathbf{p}_{0}+\mathbf{p}+\Delta p_{n_{ij}}\right) / n_{i j}
+  >\mathbf{y}(i, j)=\sum_{\mathbf{p} \in \operatorname{bin}(i, j)} \mathbf{x_{i,j}}\left(\mathbf{p}_{0}+\mathbf{p}+\Delta p_{n_{ij}}\right) / n_{i j}
   >$$
   >
   >
