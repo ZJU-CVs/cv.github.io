@@ -56,9 +56,13 @@ $$
 > Test
 
 - 在测试时，原型网络使用softmax作用在embedding后的测试向量点$f_\phi(x)$到$c_k$的距离
-- 分类问题转化为在embedding空间中的最近邻，即将测试样本embedding后，与三个原型进行距离计算，并经过softmax得到$\begin{equation}
-  p_{\phi}(y=k | x )=\frac{\exp \left(-d\left(f_{\phi}( x ), c _{k}\right)\right)}{\sum_{k^{\prime}} \exp \left(-d\left(f_{\phi}( x ), c _{k^{\prime}}\right)\right)}
-  \end{equation}$，从而获得测试样本的类别概率
+- 分类问题转化为在embedding空间中的最近邻，即将测试样本embedding后，与三个原型进行距离计算，并经过softmax得到$p_{\phi}(y=k | x )$，即测试样本的类别概率：
+
+$$
+\begin{equation}
+p_{\phi}(y=k | x )=\frac{\exp \left(-d\left(f_{\phi}( x ), c _{k}\right)\right)}{\sum_{k^{\prime}} \exp \left(-d\left(f_{\phi}( x ), c _{k^{\prime}}\right)\right)}
+\end{equation}
+$$
 
 
 
