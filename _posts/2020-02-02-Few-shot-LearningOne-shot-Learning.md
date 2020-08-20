@@ -106,14 +106,27 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
     
       
     
-    - 用$X^{t e}=\left\{\mathbf{x}_{i}^{t e} \in X\right\}_{i=1}^{N_{te}}$表示测试实例集合
+    - 测试实例集合表示为：
     
+      
+    
+      > $$
+      > X^{t e}=\left\{\mathbf{x}_{i}^{t e} \in X\right\}_{i=1}^{N_{te}}
+      > $$
+      >
       > 每个$\mathbf{x}_{i}^{t e}$是特征空间中的测试例
     
+      
+    
     - 需要被预测的$X^{t e}$对应的类标签表示为：
+      
+      
+      
       > $$
       > Y^{te}=\left\{y_{i}^{te} \in \mathcal{U}\right\}_{i=1}^{N{te}}
       > $$
+      > 
+      >
       > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS2.png)
     
   - **Definition 1.1**：对于给定所属类别在seen classes集合$S$中的训练标签实例$D^{t r}$，zero-shot learning的目标是学习一个分类器$f^{u}(\cdot) : X \rightarrow \mathcal{U}$，能够对所述类别在unseen classes集合$\mathcal{U}$的测试实例$X^{t e}$进行分类。
