@@ -68,40 +68,48 @@ tags:
 
 #### (2). 变分自编码器（VAE）    
 
-> **Basic Knowledge: 自编码器 AutoEncoder**：
+**Basic Knowledge: 自编码器 AutoEncoder**：
+
 > - 自编码器的主要目的是将高维矩阵$x$经过Encoder压缩到低维矩阵$z$，然后再经过Decoder将$z$还原成$\widehat{x}$，尽量使得$x=\widehat{x}$，即<u>无损</u> 。
 > - 在训练过程中，损失函数常常为像素级别的MSE操作（对比输入输出的每个像素点的差异，然后累加求和再求平均），获取损失函数值对模型参数的变化，利用梯度下降法更新参数，以达到降低损失函数值的需求，从而完成训练，得到Encoder和Decoder。  
 > - 编码器和解码器可以有多种形式，最先提出的是非线性层的线性组合，又有了深层的全连接网络，目前常用的是CNN。
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/Autoencoder.png)
 > - AutoEncoder能够重构数据，学习数据特征（这些学习到的特征具有捕捉训练数据中蕴含的变化因素的能力，即获得一个含有训练数据中变化因子的隐变量z），初始化监督学习模型。
->
-> **VAE(Variational Autoencoders)**： 
+> 
+
+
+
+**VAE(Variational Autoencoders)**： 
+
 > - 编码-解码过程解析：        
 >   - 输入数据x，经过编码器得到特征z
 >   - 将隐向量z限制为一个近似的正态分布(先验假设)，在编码器网络$\begin{equation}
 >     q_{\phi}(z \mid x)
 >     \end{equation}$中，会输出一个关于z的均值和对角协方差矩阵。 
 >   - 在解码器网络$p_{\theta}(x\mid z)$中，同样会输出一个关于x的均值和的对角协方差矩阵，这里的x维度和输入的x维度相同       
->   - 为了真正得到z（给定x下的z和给定z下的x），将会从上述分布$q_{\phi}(z\mid x)$和$p_{\theta}(x \mid z)$中采样。
+>  - 为了真正得到z（给定x下的z和给定z下的x），将会从上述分布$q_{\phi}(z\mid x)$和$p_{\theta}(x \mid z)$中采样。
 >   
 > - 对于给定z的x的条件概率分布p(x|z)是复杂的（使用神经网络来表示），得到了一个带有隐函数z的难解的密度函数：
->   $$
->   p_{\theta}(x)={\int}p_{\theta}(z)p_{\theta}(x\mid z)dz
->   $$
->   
->- 该密度函数无法直接优化，需要通过推导出似然函数的下界然后对该下界进行优化
 > 
->- 推导过程： 
+> $$
+> p_{\theta}(x)={\int}p_{\theta}(z)p_{\theta}(x\mid z)dz
+> $$
+> 
+> 
+> 
+> - 该密度函数无法直接优化，需要通过推导出似然函数的下界然后对该下界进行优化
+> 
+> - 推导过程： 
 >   Data likelihood: $p_{\theta}(x)={\int}p_{\theta}(z)p_{\theta}(x\mid z)dz$      
 > Posterior density: $p_{\theta}(z\mid x)=p_{\theta}(z)p_{\theta}(x\mid z)/p_{\theta}(x)$        
-> 利用编码器网络$q_{\phi}(z\mid x)$估计出$p_{\theta}(z\mid x)$     
+>利用编码器网络$q_{\phi}(z\mid x)$估计出$p_{\theta}(z\mid x)$     
 > 使用对数似然：  ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/VAE_function.png)
->   
+> 
 > - 由上推导可以看到，真正的损失函数$\mathcal{L}$由两部分构成:输入输出差异与分布差异，其中分布差异用的是KL散度。要让似然变大，需要让$p(x\mid z)$变大（最大限度地重构数据），同时让KL散度值变小（让后验概率与前验概率分布相似），在训练过程中根据损失函数，使用优化算法进行参数更新
 > 
->- **优点：** 就生成模型来说，是一种有据可循的方法，使得查询推断成为可能
+> - **优点：** 就生成模型来说，是一种有据可循的方法，使得查询推断成为可能
 > 
->- **缺点：** 只能推断真实分布的近似值，而隐变量分布和真实分布之间的gap不可度量，因此导致VAE存在着生成图像模糊的问题。 
+> - **缺点：** 只能推断真实分布的近似值，而隐变量分布和真实分布之间的gap不可度量，因此导致VAE存在着生成图像模糊的问题。 
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/VAE.png" alt="img" style="zoom:50%;" />      
 
 
@@ -113,7 +121,7 @@ tags:
 > 对输入的复杂的高维数据进行一个非线性变换，通过这个变换将输入的高维数据映射到潜在空间，产生独立的潜在变量。同时这个变换是可逆的，反之亦然。
 > - 假设定义x是一个高维的随机向量，并且x的真实分布p(x)未知，模型为$p_{\theta}(x)$，则需要最小化的对数似然函数为： 
 > $\frac{1}{N}\sum^N_{i=1}{-logp_\theta(x_i)}$
-> - 为了实现空间之间的映射，可以找一个可逆的映射函数，使得$z=f_\theta(x)$，同时$x=g_\theta(z)$，$g_{\theta}^-1=f_\theta$
+> - 为了实现空间之间的映射，可以找一个可逆的映射函数，使得$z=f_\theta(x)$，同时$x=g_\theta(z)$，$g_{\theta}^{-1}=f_\theta$
 > - Glow采用分层变换的思想， 将映射$f$函数变换为$f_1{\odot}f_2{\odot}...{\odot}f_k$   
 > - 可以将其想象成一个flow: 
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/flow.png)
@@ -138,10 +146,17 @@ tags:
 >   - 采用**Maximum Likelihood Estimation**训练生成器学习分布规律：首先有一个生成器$P_G$和一组参数$\theta$，以及从真实分布$P_data(x)$中采样出来的数据${x^1,x^2,...x^m}$
 >   - 希望通过不断地调整$P_G$和$\theta$，让$P_G(x;\theta)$越接近$P_{data}(x)$越好。具体做法如下：
 >       - 找到一个最佳的参数组$${\theta}^*$$，使生成器的结果最接近$P_{data}(x)$，即对于每个真实抽样$x^i$的likelihood都最大，等价于所有真实抽样$x^i$的likelihood的乘积最大：$L=\prod_{i=1}^{m} P_{G}\left(x^{i} ; \theta\right)$
->       - 上述求解${\theta}^*$以最大化likelihood问题等价于求解$${\theta}^*$$以最小化KL Divergence问题（证明过程略）$${\theta}^*=\arg \max _{\theta} \prod_{i=1}^{m} P_{G}\left(x^{i} ; \theta\right)=\arg \min _{\theta} KL\left(P_{d a t a} \| P_{G}\right)$$
+>       
+>       - 上述求解${\theta}^*$以最大化likelihood问题等价于求解${\theta}^*$以最小化KL Divergence问题（证明过程略）
+>       
+>       $${\theta}^*=\arg \max _{\theta} \prod_{i=1}^{m} P_{G}\left(x^{i} ; \theta\right)=\arg \min _{\theta} KL\left(P_{d a t a} \| P_{G}\right)$$
+>       
+>         
+>       
 >       - **对于KL Divergence的最小化问题，引入神经网络G进行求解**。$$G^{*}=\arg \min _{G} \operatorname{Div}\left(P_{G}, P_{d a t a}\right)$$，该神经网络即为生成网络（能够实现对于已知分布的数据z，可以把数据z转化成一个未知分布的数据x，并希望这个未知分布$P_G(x)$与$P_{data}(x)$之间的散度距离Divergence越小越好）
+>       
 >       - 然而理论上并不知道$P_G(x)$和$P_data(x)$是什么，因此Divergence往往无法计算，因此**新建了一个神经网络D专门用来衡量$P_G(x)$和$P_data(x)$之间的Divergence**，该神经网络即为判别网络
->
+>   
 > - **训练过程:**
 > > 前向传播过程：
 > > > - 模型输入：随机产生一个随机向量作为生成模型的数据，然后经过生成模型后产生一个新的向量，作为Fake Image；同时，从数据集中随机选择一张图片，将图片转化成向量，作为Real Image
@@ -149,30 +164,38 @@ tags:
 > >
 > > 反向传播过程：
 > > > 通过Minimax博弈公式联合训练生成器和判别器两个网络          
-> > > $$\begin{equation}
+> > > $$
+> > > \begin{equation}
 > > > \tilde{ V }_{D}=\max _{\theta}\left[E_{x \sim p_{\text {data }}} \log D_{\theta_{d}}(x)+E_{z \sim p_{(z)}} \log \left(1-D_{\theta_{d}}\left(G_{\theta_{g}}(z)\right)\right)\right]
-> > > \end{equation}$$
+> > > \end{equation}
+> > > $$
+> > >
 > > >
 > > > - 第一部分是训练判别器D，先从真实数据分布$p_{data}(x)$中抽样$x$,然后从先验分布中抽样z，并通过确定的生成器产生仿造数据$\tilde{\mathcal{x}}=G_{\theta_g}(z)$，然后把$x$和$\tilde{\mathcal{x}}$输入判别器中训练，使得目标函数$\tilde{\mathcal{V}}_D$最大。 
 > > >   `使用梯度上升法(Gradient ascent on discriminator):`
-> > >   $$\begin{equation}
-> > > \tilde{ V }_{D}=\max _{\theta}\left[E_{x \sim p_{\text {data }}} \log D_{\theta_{d}}(x)+E_{z \sim p_{(z)}} \log \left(1-D_{\theta_{d}}\left(G_{\theta_{g}}(z)\right)\right)\right]
-> > > \end{equation}$$
-> > >   （其实最大化$\tilde{\mathcal{V}}_D$问题的求解实际上是在求解$p_{data}$与$p_G$之间的**JS散度**，推导过程略）
+> > >   
+> > > > $$
+> > > > \begin{equation}
+> > > > \tilde{ V }_{D}=\max _{\theta}\left[E_{x \sim p_{\text {data }}} \log D_{\theta_{d}}(x)+E_{z \sim p_{(z)}} \log \left(1-D_{\theta_{d}}\left(G_{\theta_{g}}(z)\right)\right)\right]
+> > > > \end{equation}
+> > > > $$
+> > > > （其实最大化$\tilde{\mathcal{V}}_D$问题的求解实际上是在求解$p_{data}$与$p_G$之间的**JS散度**，推导过程略）
 > > >
 > > > - 第二部分是训练生成器（此时判别器已经确定），先从先验分布中抽样新的z，然后将z输入生成器中训练，使得目标函数$\tilde{\mathcal{V}}_G$最小。    
 > > >
 > > >   `使用梯度下降法(Gradient descent on generator):`
 > > >
-> > >   $$\begin{equation}
-> > >   \tilde{ V }_{G}=\min _{\theta_{g}}\left[E_{z \sim p_{(z)}} \log \left(1-D_{\theta_{d}}\left(G_{\theta_{g}}(z)\right)\right)\right]
-> > >   \end{equation}$$
-> > >   这样循环交替，最终生成器产生的数据$\tilde{\mathcal{x}}$就会越来越接近真实数据$x$
-> > >
+> > >   > $$
+> > >   > \begin{equation}
+> > >   > \tilde{ V }_{G}=\min _{\theta_{g}}\left[E_{z \sim p_{(z)}} \log \left(1-D_{\theta_{d}}\left(G_{\theta_{g}}(z)\right)\right)\right]
+> > >   > \end{equation}
+> > >   > $$
+> > >   > 这样循环交替，最终生成器产生的数据$\tilde{\mathcal{x}}$就会越来越接近真实数据$x$
+> > >   
 > > > - **生成过程：**  
 > > >
-> > > - 指定维度的噪声向量作为输入生成器网络,从训练分布中采样并将结果直接作为输出
-> > > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/gan7.png)  
+> > >   - 指定维度的噪声向量作为输入生成器网络,从训练分布中采样并将结果直接作为输出
+> > >   ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/gan7.png)  
 >
 > **优点：**
 > - GAN生成的图像比较清晰，在很多GAN的拓展工作中也取得了很大的提高。     
@@ -229,24 +252,37 @@ tags:
 
 - **基于散度(Divergence)的改进**
 > JS Divergence距离偏差问题：
-> - 大多数情况下$P_G$和$P_data$没有重合，对于与$P_data$都没有交集的$P_{G_0}$和$P_{G_1}$，用Js散度去衡量二者的距离时，都是一样的。但实际$P_{G_1}与$P_data$的距离比$P_{G_0}与$P_data$的距离近，无法用Js散度体现。     
+> - 大多数情况下$P_G$和$P_{data}$没有重合，对于与$P_{data}$都没有交集的$P_{G_0}$和$P_{G_1}$，用Js散度去衡量二者的距离时，都是一样的。但实际$P_{G_1}$与$P_{data}$的距离比$P_{G_0}$与$P_{data}$的距离近，无法用Js散度体现。     
 >
-> (I). LSGAN
+
+
+(I). LSGAN
+
 > - 将判别器最后的sigmoid激活层变为linear激活层，即将二分类问题转换为回归问题。
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/LSGAN.png)
 > - 使用了最小二乘损失函数代替了GAN的损失函数:
-> $$V(D)=\min _{D}\{\frac{1}{2} E_{x \sim P_{data}}[D(x)-a]^{2}+\frac{1}{2} E_{z \sim P_{z}}[D(G(z))-b]^{2}\}$$
-> $$V(G)=\min _{G}\{\frac{1}{2} E_{z \sim P_{z}}[D(G(z))-c) ]^{2}\}$$
+>
+> $$
+> V(D)=\min _{D}\{\frac{1}{2} E_{x \sim P_{data}}[D(x)-a]^{2}+\frac{1}{2} E_{z \sim P_{z}}[D(G(z))-b]^{2}\}\\
+> V(G)=\min _{G}\{\frac{1}{2} E_{z \sim P_{z}}[D(G(z))-c) ]^{2}\}
+> $$
 > > （其中常数a、b分别表示真实图像和生成图像的标记；c是生成器为了让判别器认为生成图片是真实图片而定的值。常设a=c=1，b=0）
 > >
 > > - 交叉熵虽然会使分类正确，但导致那些在决策边界被分类为真的、但是仍远离真实数据的生成样本不会继续迭代；而最小二乘损失函数会对处于判别为真但仍然远离决策边界的样本进行惩罚，把远离决策边界的假样本迭代进入决策边界，从而提高生成图像的质量。   
 > - sigmoid交叉熵损失很容易达到饱和状态（梯度为0），而最小二乘损失只在一点达到饱和,因此使用最小二乘损失使得GAN训练更稳定。
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/LSGAN(1).png)    
 >
-> (II). WGAN
+
+
+(II). WGAN
+
 > - WGAN计算损失函数时使用**Wasserstein距离**去衡量生成数据分布和真实数据分布之间的距离，其生成器和判别器的目标表达式为：
-> $$V(G)=\min _{D \in 1-L i p s c h i t z}\left\{-E_{\tilde{\mathcal{x}} \sim P_{G}}[D(x)]\right\}$$
-> $$V(D)=\max _{D \in 1-L i p s c h i t z}\left\{E_{x \sim P_{d a t a}}[D(x)]-E_{\tilde{\mathcal{x}} \sim P_{G}}[D(x)]\right\}$$
+>
+> $$
+> V(G)=\min _{D \in 1-L i p s c h i t z}\left\{-E_{\tilde{\mathcal{x}} \sim P_{G}}[D(x)]\right\}\\
+> V(D)=\max _{D \in 1-L i p s c h i t z}\left\{E_{x \sim P_{d a t a}}[D(x)]-E_{\tilde{\mathcal{x}} \sim P_{G}}[D(x)]\right\}
+> $$
+>
 > > 该判别器目标表达式的求解结果就是$P_G$与$P_data$之间的wasserstein距离，目标函数没有log项； 
 > > 其中 $D \in 1-L i p s c h i t z$等价于$\left\|\nabla_{x} D(x)\right\| \leq 1$ for all $x$
 > - 传统GAN的判别器输出的结果是在(0,1)区间内，但在WGAN中输出的结果是Wasserstein距离，没有上下界，因此随着训练的进行，$P_G$的Wasserstein值会越来越小，$P_{data}$的Wasserstein值会越来越大，使得判别器永远无法收敛。
@@ -262,7 +298,10 @@ tags:
 >   - 由于Wasserstein距离需要满足Lipschitz限制，因此直接将网络的参数（权重）限制在了一定范围。
 >   - WGAN在处理Lipschitz限制条件时，直接采用了weight clipping独立地限制每个网络参数的取值范围，其最优策略是尽可能让所有参数走极端，由于将权重剪切到一定范围，造成判别器的参数几乎都集中在最大值和最小值上，不能充分发挥深度神经网络的拟合能力。且weight clipping导致训练时容易造成梯度消失或梯度爆炸（选择过小的话会导致梯度消失，选择过大的话会导致梯度爆炸）。
 >
-> (III). WGAN-GP
+
+
+(III). WGAN-GP
+
 > - WGAN-GP是WGAN之后的改进版，主要改进了连续性限制的条件，解决了梯度消失和梯度爆炸的问题。
 > - 在WGAN-GP中提出了梯度惩罚（gradient penalty）的方式以满足lipschitz连续性条件，并通过建立损失函数来满足判别器的梯度不超过K的Lipschitz限制。判断器的目标表达式如下：
 > $$V(G, D) \approx \max _{D}\left\{[E_{x \sim P_{\text {data}}}[D(x)]-E_{x \sim P_{G}}[D(x)]\right.-\lambda \int_{x} \max \left(0,\left\|\nabla_{x} D(x)\right\|-1\right) d x \}$$
@@ -278,8 +317,10 @@ tags:
 > **缺点：**
 > - 只是对梯度的模大于1的区域的x作出了惩罚，并没有保证每个x的梯度的模都小于或等于1
 >
-> (IV).SNGAN
->
+
+
+(IV).SNGAN
+
 > - SNGAN(频谱归一化GAN)提出了用谱范数标准化神经网络的参数矩阵W，从而让神经网络的梯度被限制在一个范围内。
 >
 >   
