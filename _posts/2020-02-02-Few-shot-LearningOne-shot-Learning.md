@@ -148,9 +148,21 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
       - 用$\mathcal{T}$表示语义空间，是一个M维的实数空间$\mathbb{R}^{M}$
       - $t_{i}^{s} \in \mathcal{T}$是seen类别$\mathcal{c}{i}^{s}$的类原型
       - $t_{i}^{u} \in \mathcal{T}$是unseen类别$\mathcal{c}_{i}^{u}$的类原型
-      - $T^{s}=\left\{t_{i}^{s}\right\}_{i=1}^{N_{s}}$表示seen classes的类原型集
+      - seen classes的类原型集表示为：
       
-      - $T^{u}=\left\{t_{i}^{u}\right\}_{i=1}{N_{u}}$表示unseen classes的类原型集
+      $$
+      T^{s}=\left\{t_{i}^{s}\right\}_{i=1}^{N_{s}}
+      $$
+      
+      
+      
+      - unseen classes的类原型集表示：
+      
+      $$
+      T^{u}=\left\{t_{i}^{u}\right\}_{i=1}{N_{u}}
+      $$
+      
+      
       
       - 用$\pi(\cdot) : \mathcal{S} \cup \mathcal{U} \rightarrow\mathcal{T}$表示类原型函数，输入类标签，输出相应的类原型
       
