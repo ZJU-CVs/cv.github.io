@@ -255,7 +255,6 @@ tags:
 > >     使用了RPN网络代替滑窗操作，RPN会产生ROI。RPN与FCIS共享卷积，RPN产生的ROI会作用在score maps上，同时产生分类和分割预测。 
 > >     FCIS使用ResNet模型，去除最后一层全连接层，仅训练卷积层，使用RPN生成ROIs，从Conv5层，生成$2k^2{\times}(C+1)$个得分图，计算分割概率图和分割得分。     
 > > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/FCIS-1.jpg)   
----
 
 
 *(2) Mask R-CNN*          
@@ -270,7 +269,8 @@ tags:
 >>
 >> - 针对尺度同变性、像素到像素的平移同变性等情况，Mask R-CNN将Faster R-CNN中的ROI Pooling进行改良，提出了ROI Align，主要使用了双线性插值，而原始的ROI Pooling操作会破坏像素到像素的平移同变性（池化后的特征图谱与ROI中的信息不能很好的对齐）。
 >> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ROIAlign.png)   
----
+
+
 
 
 *(3) MaskLab*                     
@@ -287,7 +287,6 @@ tags:
 >> - 采用hypercolumn feature对得到的粗分割Mask进行细化（Mask refinement）：仅用方向和语义回归的到的粗分割Mask与ResNet-101中的低层次特征进行并联，在经过一个小型的卷积网络（3层），便可以得到细化后的Mask。
 >>
 >> 
----
 
 
 *(4) PANet*              
