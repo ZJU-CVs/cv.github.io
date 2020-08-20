@@ -147,10 +147,12 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
       - 在语义空间中，每个类都有一个相应的向量表示，被称为这个类的类原(class prototype)
       - 用$\mathcal{T}$表示语义空间，是一个M维的实数空间$\mathbb{R}^{M}$
       - $t_{i}^{s} \in \mathcal{T}$是seen类别$\mathcal{c}{i}^{s}$的类原型
-          - $t_{i}^{u} \in \mathcal{T}$是unseen类别$\mathcal{c}_{i}^{u}$的类原型
-         - $T^{s}=\left\{t_{i}^{s}\right\}_{i=1}^{N_{s}}$表示seen classes的类原型集
-         - $T^{u}=\left\{t_{i}^{u}\right\}_{i=1}{N_{u}}$表示unseen classes的类原型集
-         - 用$\pi(\cdot) : \mathcal{S} \cup \mathcal{U} \rightarrow\mathcal{T}$表示类原型函数，输入类标签，输出相应的类原型
+      - $t_{i}^{u} \in \mathcal{T}$是unseen类别$\mathcal{c}_{i}^{u}$的类原型
+      - $T^{s}=\left\{t_{i}^{s}\right\}_{i=1}^{N_{s}}$表示seen classes的类原型集
+      
+      - $T^{u}=\left\{t_{i}^{u}\right\}_{i=1}{N_{u}}$表示unseen classes的类原型集
+      
+      - 用$\pi(\cdot) : \mathcal{S} \cup \mathcal{U} \rightarrow\mathcal{T}$表示类原型函数，输入类标签，输出相应的类原型
       
       - 在zero-shot learning中，除了训练实例$D^{t r}$，类原型$T^{s}$和$T^{u}$也参与zero-shot 分类器$f^{u}(\cdot)$的学习获取。
           ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS4.png)
