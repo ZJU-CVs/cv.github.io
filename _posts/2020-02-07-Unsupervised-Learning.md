@@ -15,7 +15,7 @@ tags:
 
 |      | Supervised Learning | Unsupervised Learning |
 | ---- | ---- | ---- |
-| Data |(x,y) `x is data, y is label`      | x  `just data, no labels`    |
+| Data |(x,y) ---- `x is data, y is label`      | x ----  `just data, no labels` |
 | Goal |Learning a function to map x${\to}$y | Learning some underlying hidden structure of the data|
 | Example | Classification, Regression, Object Detection, Semantic Segmentation, image caption, etc     | Clustering, Dimensionality Reduction, Feature Learning, Density Estimation, etc     |
 
@@ -43,23 +43,40 @@ tags:
 #### (2). *特征学习 Representation Learning*   
 > **I. 自编码器 AutoEncoder**
 > - [变分自编码器 VAE](https://github.com/jyniki/Learn2019/blob/master/research/Image-Generation.md#2-%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8vae)  
-> 
+>
 > - 降噪自编码器 DAE
 >   - 降噪自编码器的训练过程中，输入的数据有一部分是“损坏”的。其核心思想是：一个能有从中恢复原始信号的神经网络表达未必是最好的，能够对“损坏”的原始数据编码、解码，然后还能恢复到真正的原始数据，这样的特征才是好的。 
 >   - 具体操作过程：对于输入的数据$x$按照$q_D$分布加入随机噪声，加噪过程其本质是按照一定的概率将输入层的某些节点清0，然后将$\hat{x}$作为自编码器的输入进行训练。
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/DAE.png)   
-> 
+>
 > - 栈式自编码器 SAE
 >   - 在介绍SAE之前，需要先介绍Spase AutoEncoder(稀疏自编码器)：
 >       - 稀疏自编码器输入层节点数（不包括bias节点）和输出层节点数相同，并在自动编码的基础上加上稀疏性限制（使得神经元大部分的时间都是被抑制的限制则被称作稀疏性限制），使隐藏层节点数少于输入层和输出层节点的个数。
 >       - 损失函数定义： 
->           - 用$a_{j}^{(2)}$表示输入向量对隐藏层单元$j$的激活值，则$j$的平均激活值为：$\hat{\rho}_{j}=\frac{1}{m} \sum_{i=1}^{m}\left[a_{j}^{(2)}\left(x^{(i)}\right)\right]$。为了达到稀疏性（用最少的隐藏单元来表示输入层的特征），希望$\hat{\rho}_{j}$接近于0。因此应用KL散度：$\sum_{j=1}^{s_{2}} \rho \log \frac{\rho}{\hat{\rho}_{j}}+(1-\rho) \log \frac{1-\rho}{1-\hat{\rho}_{j}}$，其中$\rho$为稀疏参数，一般选很小的数。
+>           - 用$a_{j}^{(2)}$表示输入向量对隐藏层单元$j$的激活值，则$j$的平均激活值为：
+>
+>             > $$
+>             > \hat{\rho}_{j}=\frac{1}{m} \sum_{i=1}^{m}\left[a_{j}^{(2)}\left(x^{(i)}\right)\right]
+>             > $$
+>
+>             
+>
+>           - 为了达到稀疏性（用最少的隐藏单元来表示输入层的特征），希望$\hat{\rho}_{j}$接近于0。因此应用KL散度：
+>
+>             > $$
+>             > \sum_{j=1}^{s_{2}} \rho \log \frac{\rho}{\hat{\rho}_{j}}+(1-\rho) \log \frac{1-\rho}{1-\hat{\rho}_{j}}
+>             > $$
+>             >
+>             > 
+>             >
+>             > - 其中$\rho$为稀疏参数，一般选很小的数。
+>
 >           - 整体损失函数为：$J_{\text { sparse }}(W, b)=J(W, b)+\beta \sum_{j=1}^{s_{2}} \mathrm{KL}\left(\rho \| \hat{\rho}_{j}\right)$，其中$J(W, b)$用于恒量输入数据和输出数据的差异性。      
-> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/Sparse-Autoencoder.png)
+>           ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/Sparse-Autoencoder.png)
 >   - Stacked Autoencoder(SAE)模型是由多层**Sparse AutoEncoder(稀疏自编码器)** 组成的深度神经网络模型。
 >       - 其前一层自编码器的输出作为其后一层自编码器的输入，最后一层是一个分类器（logistic分类器或softmax分类器，其中logistic回归模型适用于二分类，softmax回归模型适用于多分类）
 >       - 栈式自编码器网络参数是通过逐层**贪婪训练**获得的。  
-> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/SAE.png)  
+>   ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/SAE.png)  
 ---
 > **II. 深度置信网络 DBN**
 > - 从非监督学习来讲，其目的是尽可能保留原始特征的特点，同时降低特征的维度。从监督学习来讲，其目的在于使得分类错误率尽可能地小。DBN的本质是特征学习的过程，既可以用于非监督学习，类似于一个自编码器，也可以用于监督学习，作为分类器来使用。
@@ -82,7 +99,7 @@ tags:
 > >       - 首先，要确定可见层和隐藏层节点的个数，其中可见层节点个数即为输入数据维度，而隐藏层节点个数需要**根据使用而定或者在参数一定的情况下，使得模型能量最小时的隐藏层节点个数**   
 > >       - 其次，求解三个参数$\theta=\{\mathrm{W_{ij}}, \mathrm{a_i}, \mathrm{b_j}\}$
 > >          - 最大化似然对数：$L(W, a, b)=\sum_{i=1}^{m} \ln \left(P\left(v\mid{\theta}\right)\right)$，$m$为训练样本数目。最大化常常采用梯度上升法，通过迭代求出$\mathrm{W}, \mathrm{a}, \mathrm{b}$。但该方法由于涉及到归一化因子$Z$，计算复杂度高，因此需要采用近似方法来评估。
-> >          
+> >       
 > >   - Gibbs采样：Gibbs采用可以从一个复杂的概率分布下生成数据，因此只要知道每一个分量相对其他分量的条件概率，即可对其进行采样。利用RBM中的条件概率公式，通过输入训练样本（$v_0$）可以计算得到隐含层的条件概率h，进行一次Gibbs采样得到$\mathbf{h}_{0} \sim P\left(\mathbf{h} | \mathbf{v}_{0}\right)$。同理，根据得到的$h_0$,得到$\mathbf{v}_{1} \sim P\left(\mathbf{v} \mid \mathbf{h}_{0}\right)$，迭代足够多次后，就可以得到满足联合概率分布$P(v,h)$下的样本$(v,h)$，其中样本v可以近似认为是$P(v)$下的样本，从而求出梯度$\left(\frac{\partial L_{S}}{\partial w_{i j}}, \frac{\partial L_{S}}{\partial a_{i}}, \frac{\partial L_{S}}{\partial b_{i}}\right)$，实现参数更新。**但由于通常需要多步采样才可以采集到符合真实分布的样本，因此训练速度非常慢。** 
 > >          
 > >
@@ -91,15 +108,17 @@ tags:
 > >   - CD-K算法：使用训练样本（$v_0$），执行$k$步（一般$k=1$）Gibbs采样。利用$k$步Gibbs采样后得到的$v_k$来近似估计梯度，实现参数更新
 > >          
 > >            $$\left(\frac{\partial L_{S}}{\partial w_{i j}}, \frac{\partial L_{S}}{\partial a_{i}}, \frac{\partial L_{S}}{\partial b_{i}}\right)$$
-> >          
-> >            
-> >          
+> >        
+> >        
+> >        ​    
+> >        
 > >            $\frac{\partial \ln P(\mathbf{v})}{\partial w_{i, j}} \approx P\left(h_{i}=1 | \mathbf{v}^{(0)}\right) v_{j}^{(0)}-P\left(h_{i}=1 | \mathbf{v}^{(k)}\right) v_{j}^{(k)}$
 > >            $\frac{\partial \ln P(\mathbf{v})}{\partial a_{i}} \approx v_{i}^{(0)}-v_{i}^{(k)}$   
 > >            $\frac{\partial \ln P(\mathbf{v})}{\partial b_{i}} \approx P\left(h_{i}=1 | \mathbf{v}^{(0)}\right)-P\left(h_{i}=1 | \mathbf{v}^{(k)}\right)$    
-> >          
-> >            
-> >          
+> >        
+> >        
+> >        ​    
+> >        
 > >            **CD-K目前已成为训练RBM的标准算法**
 >
 > - 一定数量的RBM堆叠成一个DBN，然后从底向上逐层预训练(充分训练一个RBM后，将隐单元的激活概率作为下一层RBM的输入数据,各层以此类推），**该学习过程是无监督的，不需要标签信息**
