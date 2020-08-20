@@ -85,9 +85,27 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
     ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS1.png)
     
     - 用$S=\{c_{i}^{S} \mid i=1, \ldots, N_{s}\}$表示所有seen的类别的集合其中每个$c_{\dot{i}}^{S}$表示一个seen类别
+    
     - 用$\mathcal{U}=\{c_{i}^{u} \mid i=1, \ldots, N_{u}\}$表示所有unseen别的集合，其中每个$c_{i}^{u}$表示一个unseen类别。其中$S \cap \mathcal{U}=\varnothing$  
+    
     - 用$\mathcal{X}$表示特征空间，是一个D维的实数空间$\mathbb{R}^{D}$
-    - 用$D^{t r}=\left\{\left(\mathrm{x}_{i}^{t r}, y_{i}^{t r}\right)\in X \times \mathcal{S}\right\}_{i=1}^{N_{t r}}$表示所属类别为seenclassesd的的训练标签实例集合。每个标签实例$\left(x_{i}^{t r} y_{i}^{t r}\right)$，$x_{i}^{t r}$是特征空间中的实例，$y{i}^{t r}$是对应的类标签
+    
+    - 表示所属类别为seenclassesd的的训练标签实例集合表示为：
+    
+      > $$
+      > D^{t r}=\left\{\left(\mathrm{x}_{i}^{t r}, y_{i}^{t r}\right)\in X \times \mathcal{S}\right\}_{i=1}^{N_{t r}}
+      > $$
+      >
+      > 
+      >
+      > 每个标签实例$\left(x_{i}^{t r} y_{i}^{t r}\right)$
+      >
+      > $x_{i}^{t r}$是特征空间中的实例
+      >
+      > $y{i}^{t r}$是对应的类标签
+    
+      
+    
     - 用$X^{t e}=\left\{\mathbf{x}_{i}^{t e} \in X\right\}_{i=1}^{N_{te}}$表示测试实例集合，每个$\mathbf{x}_{i}^{t e}$是特征空间中的测试例，用$Y^{t e}=\left\{y_{i}^{t e} \in \mathcal{U}\right\}_{i=1}^{N{t e}}$表示需要被预测的$X^{t e}$对应的类标签。
     ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS2.png)   
   - **Definition 1.1**：对于给定所属类别在seen classes集合$S$中的训练标签实例$D^{t r}$，zero-shot learning的目标是学习一个分类器$f^{u}(\cdot) : X \rightarrow \mathcal{U}$，能够对所述类别在unseen classes集合$\mathcal{U}$的测试实例$X^{t e}$进行分类。
