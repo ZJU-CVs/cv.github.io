@@ -108,8 +108,6 @@ tags:
 > > - FCN缺点：对细节处理不够好，没有充分考虑像素间的空间相关性；忽略了空间规整（spatial regularization）步骤，缺乏空间一致性。
 > >
 > > 
----
-
 
 
 
@@ -122,7 +120,6 @@ tags:
 >>- 上采样部分：每上采样一次，就和特征提取部分对应的通道数相同尺度融合，*但融合前要将其crop* 
 >> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/unet.png" alt="img" style="zoom:50%;" />
 
----
 
 
 
@@ -143,7 +140,7 @@ tags:
 >>     ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/decoder.png) 
 >>   - 最后使用softmax分类器来预测每个像素的类别      
 >>     ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/SegNet.png)
----
+
 
 
 
@@ -174,8 +171,6 @@ tags:
 >>
 >> - 对于ResNet残差网络，除了使用softmax loss（图中loss1），还引入了res4b22残差块，构造另一个辅助分类器（图中loss2），并引入一个权重参数来控制loss2的权重，辅助分类器能够优化学习过程。
 >> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ResNet101.png)
----
-
 
 
 
@@ -187,25 +182,27 @@ tags:
 >>      - 膨胀空间金字塔池化主要利用不同扩张因子的卷积操作获取多尺度的特征信息，同时为了利用全局的信息，最后使用了全局平均池化获取图像级别的特征
 >>      - 最后将综合的结果送入条件随机场（CRF）进行精细调整（CRF会尝试取寻找像素之间的关系：相邻且相似的像素属于同一类别是大概率事件，CRF考虑了像素级别分类的概率，通过迭代完成细化分割操作），完成最终结果输出。      
 
->> **DeepLab v1**                           
->> [《Semantic Image Segmentation with Deep Convolutional Nets and Fully Connected CRFs》](https://arxiv.org/abs/1412.7062)   
->>
+>**DeepLab v1**                           
+>[《Semantic Image Segmentation with Deep Convolutional Nets and Fully Connected CRFs》](https://arxiv.org/abs/1412.7062)   
+>
 >> - 是结合了深度卷积神经网络（DCNN）和概率图模型（DenseCRF）的方法。主要使用DCNN 进行密集的分类任务，产生比较粗糙的分割结束，然后使用完全连接的条件随机场(CRF)对分割进行细化。  
 >> - 缺点：
->>      - DCNN的高级特征具有内在不变性
+>>     - DCNN的高级特征具有内在不变性
 >>      - DCNN连续池化和下采样造成分辨率降低    
 >>      - 对于物体存在多尺度的问题，是用多个MLP（多层感知器）结合多尺度特征解决，增加了特征计算量和存储空间。    
 
->> **DeepLab v2**                       
->> [《DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs》](https://arxiv.org/abs/1606.00915)  
+>**DeepLab v2**                       
+>[《DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs》](https://arxiv.org/abs/1606.00915)  
+>
 >> - 在最后几个最大池化层中去除下采样，使用空洞卷积代替，以更高的采样密度计算特征映射。
 >> - 提出ASPP（atrous spatial pyramid pooling）模块，在给定的输入上以不同采样率的空洞卷积并行采样，以获得了更好的分割效果。
 >>     - DeepLabv2中提出的ASPP模块，在特征顶部映射图中并行使用了四种采样率的空洞卷积。
 >> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ASPP.png)
 >> - DCNN的高层特征具有内在不变性，采用全连接的CRF增强模型捕捉细节的能力。        
 
->> **DeepLab v3**                         
->> [《Rethinking Atrous Convolution for Semantic Image Segmentation》](https://arxiv.org/pdf/1706.05587.pdf)    
+>**DeepLab v3**                         
+>[《Rethinking Atrous Convolution for Semantic Image Segmentation》](https://arxiv.org/pdf/1706.05587.pdf)    
+>
 >> - 比较了多种捕获多尺度信息的方式：
 >>      - 图像金字塔（Image Pyramid）:将输入图像放缩成不同比例，分别应用到DCNN上，将预测结果融合到最终输出，如DeepMedic、2-scale-RefineNet
 >>      - 编解码结构（Encoder-Decoder）：利用Encoder阶段的多尺度特征，运用到Decoder阶段上恢复空间分辨率，如FCN、SegNet、PSPNet等
@@ -219,8 +216,9 @@ tags:
 >>      - 以并行方式设计atrous convolution模块时，DeepLabv3使用ASPP结构对feature map进行处理，将**BN层**添加到ASPP中，不同采样率的空洞卷积可以有效捕获多尺度信息。但随着采样率（rate）的增加，有效的卷积核参数下降($3{\times}3$的卷积退化为$1{\times}1$的卷积，只有中心的权重有效，即滤波器有效权重逐渐变小)，因此采用了全局平均池化对模型的feature map进行处理，将特征输入到$1{\times}1$卷积，然后将特征进行双线性上采样（bilinearly upsample）到特定的空间维度。      
 >>        ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/Atrous-Convolution1.png)
 
->> **DeepLab v3＋**                  
->> [《Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation》](https://arxiv.org/abs/1802.02611)    
+>**DeepLab v3＋**                  
+>[《Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation》](https://arxiv.org/abs/1802.02611)    
+>
 >> - Deeplabv1、Deeplabv2当前存在的缺陷：输出图放大的效果不好，信息太少
 >> - Deeplabv3+应用了编码-解码结构（这是一种比较快的输出图信息扩充方法），把中间一层的特征图用于输出图方法   
 >> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/deeplabv3_2.png)      
@@ -235,9 +233,6 @@ tags:
 >> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/deeplabv3.png" alt="img" style="zoom:67%;" />
 >> - 采用**Xception**模型，并对Xception进行了改进，Entry flow保持不变，添加了更多的Middle flow。所有的max pooling被depthwise separable convolution代替。在每个$3{\times}3$depthwise convolution之外，添加了BN和ReLU。
 >> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/deeplab3_1.png" alt="img" style="zoom:70%;" />
----
----
-
 
 
 ##### 实例分割
