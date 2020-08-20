@@ -26,15 +26,23 @@ tags:
 > - 即用soft target来辅助hard target一起训练，而soft target来自于大模型的预测输出
 
 > - hard target 包含的信息量（信息熵）很低，soft target包含的信息量大，拥有不同类之间关系的信息
->   - 在softmax层$\frac{\exp \left(z_{i}\right)}{\sum_{j} \exp \left(z_{j}\right)}$中引入了一个“温度”参数T，softmax函数随着温度变量的升高分布更加均匀。
->   $$
->   q_{i}=\frac{\exp \left(z_{i} / T\right)}{\sum_{j} \exp \left(z_{j} / T\right)}
->   $$
+>   - 在softmax层$\frac{\exp \left(z_{i}\right)}{\sum_{j} \exp \left(z_{j}\right)}$中引入了一个“温度”参数T，softmax函数随着温度变量的升高分布更加均匀
+>   
+>     
+>
+> $$
+> q_{i}=\frac{\exp \left(z_{i} / T\right)}{\sum_{j} \exp \left(z_{j} / T\right)}
+> $$
+>
+> 
 
 > - Loss是soft target和hard target的结合，并且第一个目标函数的权重要大一些
->   $$
->   L=\lambda L^{(s o f t)}+(1-\lambda) L^{(h a r d)}
->   $$
+>
+> $$
+> L=\lambda L^{(s o f t)}+(1-\lambda) L^{(h a r d)}
+> $$
+>
+> 
 
 > 算法示意图如下：
 >
