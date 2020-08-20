@@ -212,8 +212,14 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
     - Aim：学习这两种表示形式之间的对应函数（correspondence function）
   - General procedure：
       - step1：利用可用数据（根据不同的学习设置，可用数据是不同的），学习对应函数    
-      - step2：对于每个unseen class，根据对应类原型和学习得到的对应函数，构建该类的binary one-versus-rest分类器
-    - step3：利用得到的这些二元分类器$\left\{f_{i}^{u}(\cdot)\right\}_{i=1}^{N_{u}}$，实现对测试实例的分类       
+      
+    - step2：对于每个unseen class，根据对应类原型和学习得到的对应函数，构建该类的binary one-versus-rest分类器
+    
+    - step3：利用得到的这些二元分类器，实现对测试实例的分类 
+      
+      > unseen的二元分类器表示为：
+      >
+      > $$\left\{f_{i}^{u}(\cdot)\right\}_{i=1}^{N_{u}}$$   
       
       
     
