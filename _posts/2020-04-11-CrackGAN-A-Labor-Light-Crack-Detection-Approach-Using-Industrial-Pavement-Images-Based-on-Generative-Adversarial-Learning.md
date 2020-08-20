@@ -66,15 +66,20 @@ tags:
   >
   >   
   >
-  > $$
-  > \begin{aligned} \max _{D} V(D, G) &=E_{x \sim p_{d}(x)}[\log D(x)] +E_{z \sim p_{d}(z)}[\log (1-D(G(z)))] \\ \max _{G} V(D, G) &=E_{z \sim p_{d}(z)}[\log (D(G(z)))] \end{aligned}
-  > $$
-  > > *其中$x$是来自真实数据的图像（crack-GT patch)，分布为$p_d(x)$;$z$是从高斯分布$p_d(z)$的噪声中随机生成的向量；D是判别器，G是用卷积和反卷积kernels建立的生成器。*
+  >   > $$
+  >   > \begin{aligned} 
+  >   > \max _{D} V(D, G) &=E_{x \sim p_{d}(x)}[\log D(x)] +E_{z \sim p_{d}(z)}[\log (1-D(G(z)))] \\ \max _{G} V(D, G) &=E_{z \sim p_{d}(z)}[\log (D(G(z)))] 
+  >   > \end{aligned}
+  >   > $$
+  >   >
+  >   > 
+  >   >
+  >   > - *其中$x$是来自真实数据的图像（crack-GT patch)，分布为$p_d(x)$;$z$是从高斯分布$p_d(z)$的噪声中随机生成的向量；D是判别器，G是用卷积和反卷积kernels建立的生成器。*
   >
   > - 训练好的判别器D能够将crack-GT patch判定为真，All black patch判定为假
-  
+
   ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/CrackGAN3.png)
-  
+
 - **非对称U-net引入**
 
   - 由于网络仅采用裂痕patch进行训练，因此引入非对称U型结构，以实现裂痕和非裂痕图像的平移能力
