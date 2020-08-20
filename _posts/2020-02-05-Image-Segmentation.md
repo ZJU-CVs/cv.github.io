@@ -56,7 +56,7 @@ tags:
 >       - 首先将图像中的像素点转换为无向图$＜V,E＞$中的顶点（Vertex)，相邻像素间用实边连接。   
 >        - 在图中添加两个Terminal顶点，分别用S和T表示，可理解为代表前景和背景，这两个点之外的其他点都会与这两个顶点相连。每条边都有一个非负的权值We，可理解为cost。
 >       - 一个cut（割集）就是图中边集合E的一个子集，这个cut的cost就是子集内所有边权值的总和，如果一个cut内所有边的权值之和最小，那么它就是min cut。       
-![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/graph-cut.png)
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/graph-cut.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -80,7 +80,6 @@ tags:
 >> - 提出了一种基于深度学习的新算法，主要解决传统方法中只有low-level features和缺乏high-level context的问题。                    
 >> - 该深度模型分为两个阶段，第一阶段是深度卷积编码-解吗网络，将原图和对应的三分图（前景、背景和未知区域三色分开的图，trimap）作为输入，并预测图像的alpha matte（蒙版）。第二阶段是一个小型卷积神经网络，对第一个网络预测的alpha matte进行精炼，从而拥有更精准的$\alpha$值和锐化边缘。     
 >> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/deep-image-matting.png)
----
 ---
 
 
@@ -107,6 +106,8 @@ tags:
 > >   
 > >
 > > - FCN缺点：对细节处理不够好，没有充分考虑像素间的空间相关性；忽略了空间规整（spatial regularization）步骤，缺乏空间一致性。
+> >
+> > 
 ---
 
 
