@@ -61,15 +61,21 @@ tags:
   > （1）固定参数$\theta$，采样一个神经网络架构，通过训练集训练共享参数$w$
   >
   > - 执行随机梯度下降(SGD)以最小化期望损失函数
+  >   
+  >   
   >   $$
-  >   \nabla_{\omega} \mathbb{E}_{\mathbf{m} \sim \pi(\mathbf{m} ; \theta)}[\mathcal{L}(\mathbf{m} ; \omega)] \approx \frac{1}{M} \sum_{i=1}^{M} \nabla_{\omega} \mathcal{L}\left(\mathbf{m}_{i}, \omega\right)
+  > \nabla_{\omega} \mathbb{E}_{\mathbf{m} \sim \pi(\mathbf{m} ; \theta)}[\mathcal{L}(\mathbf{m} ; \omega)] \approx \frac{1}{M} \sum_{i=1}^{M} \nabla_{\omega} \mathcal{L}\left(\mathbf{m}_{i}, \omega\right)
   >   $$
-  >
+  >   
+  >   
+  >   
   >   > $\mathcal{L}(\mathbf{m} ; \omega)$是标准的交叉熵损失
   >   >
   >   > 根据一个minibatch的训练数据计算，模型$m_i$从$\pi(m;\theta)$采样
   >   >
   >   > 梯度用蒙特卡罗估计来计算
+  >   
+  >   
   >
   > （2）固定参数$w$并更新参数$\theta$，以最大化预期reward: $\mathbb{E}_{\mathbf{m} \sim \pi(\mathbf{m} ; \theta)}[\mathcal{R}(\mathbf{m}, \omega)]$
   >
@@ -120,15 +126,20 @@ tags:
 Convolutional Cells（以B=4为例）：
 
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/Nas10.png" alt="img" style="zoom:80%;" />
->- 节点1、2是输入节点，因此不需要对它们进行决策，$h_1,h_2$为这些节点的输出
-> 
+> - 节点1、2是输入节点，因此不需要对它们进行决策，$h_1,h_2$为这些节点的输出
+>
 > - 在节点3：控制器采样两个之前的节点和两个操作。它采样node 2、node 2、separable_conv_5x5和identity（虚线箭头表示skip）
 >
->   $$h 3=\operatorname{sep}_{-} \operatorname{con} v_{ 5 \times 5}\left(h_{2}\right)+i d\left(h_{2}\right)$$
+>   $$h_3=sep_{-} conv_{-}{ 5 \times 5}\left(h_{2}\right)+i d\left(h_{2}\right)$$
 >
 > - 在节点4：控制器采样node 3、node 1、avg_pool_3x3和sep_conv_3x3。这意味着
->  $$h 4=\operatorname{avg}_{-} \operatorname{pool}_{-} 3 \times 3\left(h_{3}\right)+sep\_conv_{3\times 3}(h1)$$
+>
+> $$
+> h_4=avg_{-} pool_{-} { 3 \times 3}\left(h_{3}\right)+sep\_conv_{-}{3\times 3}(h_1)
+> $$
+>
 > 
+>
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/Nas11.png)
 >
 > - 由于除了$h_4$的所有节点都被用作至少另一个节点的输入，因此唯一的松散端$h_4$被视为单元的输出。如果有多个松散的端点，它们将沿着深度维度concat起来，以形成cell的输出。
