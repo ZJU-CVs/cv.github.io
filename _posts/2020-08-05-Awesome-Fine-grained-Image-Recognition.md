@@ -2,7 +2,7 @@
 layout:     post
 title:      Awesome Fine-grained Image Analysis (FGIA)
 subtitle:   细粒度图像分析总结
-date:       2020-08-04
+date:       2020-08-05
 author:     JY
 header-img: img/post-bg.jpg
 catalog: true
@@ -13,10 +13,15 @@ tags:
 ---
 
 [**Introduction**](# Introduction)
+
 [**Tutorials**](#Tutorials)
+
 [**Survey papers**](#Survey papers)
+
 [**Benchmark datasets**](#Benchmark datasets)
+
 [**Fine-grained image recognition**](#Fine-grained image recognition)
+
 
    - [Fine-grained recognition by localization-classification subnetworks](#Fine-grained recognition by localization-classification subnetworks)
 
@@ -30,7 +35,7 @@ tags:
      
         - Fine-grained recognition with web data / auxiliary data
         - Fine-grained recognition with multi-modality data
-         - Fine-grained recognition with humans in the loop
+        - Fine-grained recognition with humans in the loop
         
  - [Fine-grained image recognition with limited data](#Fine-grained image recognition with limited data)
 
