@@ -21,7 +21,7 @@ tags:
 
 - 细粒度图像，相对于通用图像(general/generic images)的区别和难点在于其图像所属类别的粒度更为精细，是计算机视觉领域比较热门的一个方向，包括了分类、检索以及图像生成等
 
-<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/FGIA/1.png" alt="img" style="zoom: 25%;" />
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/FGIA/1.png" alt="img" style="zoom: 30%;" />
 
 - 细粒度图像识别的难点和挑战主要在于：
   - **类间差异小** (small inter-class variance)：都属于同一个物种下的小类
