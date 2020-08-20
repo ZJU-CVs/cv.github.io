@@ -36,7 +36,7 @@ Ref: [Few-shot Learning: A Survey](https://github.com/jyniki/Learn2019/blob/mast
 
 
 
-- 通常考虑N类K-shot分类任务，其中$D^{train}$包括N个类，每个类有K个示例，I=KN。$p(x, y)$表示输入$x$和输出$y$之间的真实联合分布。FSL通过拟合$D^{train}$学习从$x$到$y$发现最优解$\begin{equation}o^{*}\end{equation}$，并且在$D_{test}$应用上有良好表现。为了近似$\begin{equation}o^{*}\end{equation}$，Model 训练集中，每个类别都有样本，但都只是少量样本（只有一个或几个） 
+- 通常考虑N类K-shot分类任务，其中$D^{train}$包括N个类，每个类有K个示例，I=KN。$p(x, y)$表示输入$x$和输出$y$之间的真实联合分布。FSL通过拟合$D^{train}$学习从$x$到$y$发现最优解$o^{best}$，并且在$D_{test}$应用上有良好表现。为了近似$o^{best}$，Model 训练集中，每个类别都有样本，但都只是少量样本（只有一个或几个） 
 
 
 
