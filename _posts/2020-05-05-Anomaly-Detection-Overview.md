@@ -506,12 +506,18 @@ Attention Guided Anomaly Localization in Images (v1: 2019-11 v2:2020-05)
 > > - $L_{cga}$使异常attention map注意的区域最小化，同时正常attention map尽可能覆盖全图
 > > - 仅在$p=y=c_n$即正常图像分类正确的时候计算互补引导注意损失项
 >
-> > 损失函数：$$L_{\text {final}}=w_{r} L+w_{\text {adv}} L_{a d v}+w_{c} L_{b c e}+w_{\text {cga}} L_{\text {cga}}$$
-> >
+> 
+>
+> 损失函数：
+> $$
+> L_{\text {final}}=w_{r} L+w_{\text {adv}} L_{a d v}+w_{c} L_{b c e}+w_{\text {cga}} L_{\text {cga}}
+> $$
+> 
+>
 > > $$\begin{equation}
-> > L=L_{R}(x, \hat{x})+K L\left(q_{\phi}(z | x) \| p_{\theta}(z | x)\right)
+> >L=L_{R}(x, \hat{x})+K L\left(q_{\phi}(z | x) \| p_{\theta}(z | x)\right)
 > > \end{equation}$$
-> >
+> > 
 > > 
 > >
 > > $$L_{bce}=-\left[y_{i} \log x_{i}+\left(1-y_{i}\right) \log \left(1-x_{i}\right)\right]$$
