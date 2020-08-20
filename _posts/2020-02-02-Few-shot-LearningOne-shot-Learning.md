@@ -246,9 +246,13 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
     
     - 由于该方法目前是基于二元属性空间（binary attribute spaces）发展的，因此基本元素在该空间中称为属性(attribute)。在binary attribute spaces中，seen classes 和unseen classes的类原型由属性组成，每个维度都是一个属性。因此对于类$c_i$对应的类原型$t_i$，使用$a_i$表示类原型由属性组成。
     
-      > 将seen classes对应的类原型集表示为$A^{s}=\left\{\mathbf{a}_{i}^{s}\right\}_{i=1}^{\dot{N}_{s}}$
+      > 将seen classes对应的类原型集表示为：
       >
-      > 将unseen classes对应的类原型集表示为$A^{u}=\left\{\mathbf{a}_{i}^{u}\right\}_{i=1}^{N_{u}}$              
+      > $$A^{s}=\left\{\mathbf{a}_{i}^{s}\right\}_{i=1}^{\dot{N}_{s}}$$
+      >
+      > 将unseen classes对应的类原型集表示为:
+      >
+      > $$A^{u}=\left\{\mathbf{a}_{i}^{u}\right\}_{i=1}^{N_{u}}$$              
     
     - General procedure：
       - step1：利用可用数据（根据不同的学习设置，可用数据是不同的），首先学习属性(attributes)的分类器
@@ -277,10 +281,8 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
     - General procedure:
       - step1：通过映射函数$\theta(\cdot)$和$\xi(\cdot)$将在特征空间$\mathcal(X)$的实例$x_i$和在语义空间$\mathcal(T)$的类原型$t_j$映射到公共空间$\mathcal{P}$
     
-       > $$
-     > X \rightarrow \mathcal{P} : \mathbf{z}_{i}=\theta\left(\mathbf{x}_{i}\right)\\
-       > \mathcal{T} \rightarrow \mathcal{P} : \mathbf{b}_{j}=\xi\left(\mathbf{t}_{j}\right)
-       > $$
+       > $$X \rightarrow \mathcal{P} : \mathbf{z}_{i}=\theta\left(\mathbf{x}_{i}\right)\\
+       > \mathcal{T} \rightarrow \mathcal{P} : \mathbf{b}_{j}=\xi\left(\mathbf{t}_{j}\right)$$
     
        
     
@@ -292,7 +294,9 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
     - General procedure:
       - step1：在实例借用前，需要确定unseen classes，因此在模型优化时涉及到unseen classes对应的类原型。所以不能用CIII学习设置。
       - step2：对于每个unseen class。从训练实例中借用一些实例，并分配该类的标签
-  - step3：利用所有unseen class的借用实例，学习unseen classes分类器，实现对测试实例的分类。
+      - step3：利用所有unseen class的借用实例，学习unseen classes分类器，实现对测试实例的分类。
+      
+      
     
   - **synthesizing methods**：通过合成一些伪实例获取unseen classes的标签实例，从而学习unseen classes分类器实现分类
     - step1：在实例合成前，需要确定unseen classes，因此在模型优化时涉及到unseen classes对应的类原型。所以不能用CIII学习设置。
