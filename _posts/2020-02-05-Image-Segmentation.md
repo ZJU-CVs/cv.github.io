@@ -110,6 +110,8 @@ tags:
 ---
 
 
+
+
 >*(2) UNet*  
 >[https://arxiv.org/pdf/1505.04597v1.pdf](https://arxiv.org/pdf/1505.04597v1.pdf)     
 >U-Net整体的流程是编码和解码（encoder-decoder）
@@ -120,6 +122,8 @@ tags:
 >> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/unet.png" alt="img" style="zoom:50%;" />
 
 ---
+
+
 
 
 >*(3) SegNet*               
@@ -141,25 +145,37 @@ tags:
 ---
 
 
+
+
 >*(4) PSPNet*                         
 >[《Pyramid Scene Parsing Network》](https://arxiv.org/pdf/1612.01105.pdf)
 >
->> ##### **主要贡献：**
+>> **主要贡献：**
 >> - 考虑更多的上下文信息以及不同的全局信息，提出了一个金字塔场景分析网络。使用了多尺度Pooling得到不同尺度的特征图，Concat起来得到多尺度特征。
+>>
 >> - 对基于深度监督损失函数的ResNet(残差网络)提出了一种有效的优化策略
+>>
 >> - 构建了一个用于state of the art的场景解析和语义分割的实践系统
->> ##### 金字塔池化模块
+>>
+>>   
+>>
+>> **金字塔池化模块:**
+>>
 >> - 融合了四种不同尺度下的特征。由于不同层级输出不同尺寸的特征图，为了保持全局特征的权重，在每个金字塔层级后使用$1{\times}1$的卷积核。当某个层级维度为n时，可将语境特征的维数降到原始特征的1/n，然后通过双线性插值直接对低维特征图进行上采样，使其与原始特征图尺度相同，最终将不同层级的特征图拼接为最终的金字塔池化全局特征。   
->> ##### 金字塔场景分析网络（PSPNet） 
+>> 金字塔场景分析网络（PSPNet） 
 >> - 对于输入图像，使用一个带有拓展网络策略（dilated network）且预训练过的ResNet模型来提取特征图（feature map）
 >> - 对特征图使用金字塔池化模块来获取语境信息
 >> - 将融合得到的全局特征与原始特征图连接起来
 >> - 通过一层卷积生成最终的预测图      
 >> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/PSPNet.png)
->> ##### 残差网络优化
+>>
+>> **残差网络优化:**
+>>
 >> - 对于ResNet残差网络，除了使用softmax loss（图中loss1），还引入了res4b22残差块，构造另一个辅助分类器（图中loss2），并引入一个权重参数来控制loss2的权重，辅助分类器能够优化学习过程。
 >> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ResNet101.png)
 ---
+
+
 
 
 >*(5) DeepLab系列*
@@ -172,6 +188,7 @@ tags:
 
 >> **DeepLab v1**                           
 >> [《Semantic Image Segmentation with Deep Convolutional Nets and Fully Connected CRFs》](https://arxiv.org/abs/1412.7062)   
+>>
 >> - 是结合了深度卷积神经网络（DCNN）和概率图模型（DenseCRF）的方法。主要使用DCNN 进行密集的分类任务，产生比较粗糙的分割结束，然后使用完全连接的条件随机场(CRF)对分割进行细化。  
 >> - 缺点：
 >>      - DCNN的高级特征具有内在不变性
