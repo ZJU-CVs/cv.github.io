@@ -77,8 +77,6 @@ tags:
   >
   > 
   >
-  > 
-  >
   > ---
   >
   > > ROI Pooling:
@@ -93,8 +91,10 @@ tags:
   >
   >   
   > $$
-  > \mathbf{y}(i, j)=\sum_{\mathbf{p} \in \operatorname{bin}(i, j)} \mathbf{x}\left(\mathbf{p}_{0}+\mathbf{p}+\Delta p_{n_{ij}}\right) / n_{i j}
+  > y(i, j)=\sum_{p \in bin(i, j)} x\left(p_{0}+p+\Delta p_{n_{ij}}\right) / n_{ij}
   > $$
+  > 
+  >
   > - 需要做ROI Pooling处理的区域首先完成没有偏移下的pooling过程，输出$k\times k \times channel$个数据，
   >   
   >   再用一个全连接层 full connect layer输出$k\times k\times channel\times 2$个点表示在 x和 y方向上的偏移$\Delta{\hat{p}_{ij}}$，
@@ -110,7 +110,7 @@ tags:
   >   
   >   
   >   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/DCN2.png" alt="img" style="zoom:67%;" />
-  
+
 - Position-Sensitive(PS) ROI Pooling 
 
   >- PS ROI Pooling 不同于ROI Pooling，通过一个卷积层，所有的输入特征映射首先被转换为每个目标类的$k^2$个分数映射（对于 C个目标类，总共 C+1个），分数映射被表示为{$x_{i,j}$}，其中(i, j)枚举所有的组块，池化是在这些分数映射上进行的。第(i,j)个组块的输出值是通过对分数映射$x_{i,j}$对应的组块求和得到的。
