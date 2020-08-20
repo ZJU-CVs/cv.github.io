@@ -103,14 +103,14 @@ tags:
   - 目标领域的类别空间可以表示为$\mathcal{Y_t}$   
 
 (3). Transfer Learning 迁移学习定义
-- **迁移学习 (Transfer Learning)**： 给定一个有标记的源域$\mathcal{D_s}$=$\{x_i,y_i$${\}}^n_{i=1}$和一个无标记的目标域$\mathcal{D_t}$=${\{}x_j{\}}^{n+m}_{j=n+1}$。这两个领域的数据分布$\mathcal{P}(x_s)$和$\mathcal{P}(x_t)$不同，即$\mathcal{P}(x_s)\neq\mathcal{P}(x_t)$。迁移学习的目的就是要借助$\mathcal{D_s}$的知识，来学习目标域$\mathcal{D_t}$的知识 (标签)。
+- **迁移学习 (Transfer Learning)**： 给定一个有标记的源域$\mathcal{D_s}=\{x_i,y_i{\}}^n_{i=1}$和一个无标记的目标域$\mathcal{D_t}={\{}x_j{\}}^{n+m}_{j=n+1}$。这两个领域的数据分布$\mathcal{P}(x_s)$和$\mathcal{P}(x_t)$不同，即$\mathcal{P}(x_s)\neq\mathcal{P}(x_t)$。迁移学习的目的就是要借助$\mathcal{D_s}$的知识，来学习目标域$\mathcal{D_t}$的知识 (标签)。
 - 迁移学习的定义需要考虑：
   - 特征空间的异同，即$\mathcal{X_s}$和$\mathcal{X_t}$是否相等
   - 类别空间的异同，即$\mathcal{Y_s}$和$\mathcal{Y_t}$是否相等
-  - 条件概率分布的异同，即$\mathcal{Q_s(y_s|x_s)}$和$\mathcal{Q_s(y_t|x_t)}$是否相等     
+  - 条件概率分布的异同，即$\mathcal{Q_s(y_s\mid x_s)}$和$\mathcal{Q_s(y_t\mid x_t)}$是否相等     
 
 - 利用上述形式化，给出领域自适应（即<u>同构迁移学习</u>）的定义为：
-  - **领域自适应（Domain Adaptation）**：给定一个有标记的源域$\mathcal{D_s}$=$\{x_i,y_i$${\}}^n_{i=1}$和一个无标记的目标域$\mathcal{D_t}$=${\{}x_j{\}}^{n+m}_{j=n+1}$。假定它们的特征空间相同，即$\mathcal{X_s}=\mathcal{X_t}$，并且它们的类别空间也相同，即$\mathcal{Y_s}=\mathcal{Y_t}$。但是这两个域的边缘分布不同，即$\mathcal{P_s(y_s|x_s)}{\neq}\mathcal{P_s(y_t|x_t)}$，条件概率分布也不同，$\mathcal{Q_s(y_s|x_s)}{\neq}\mathcal{Q_s(y_t|x_t)}$。迁移学习的目标就是利用有标记的数据$\mathcal{D_s}$去学习一个分类器$f:\mathcal{x_t}{\to}\mathcal{y_t}$来预测目标域$\mathcal{D_t}$的标签$\mathcal{y_t}{\in}\mathcal{Y_t}$
+  - **领域自适应（Domain Adaptation）**：给定一个有标记的源域$\mathcal{D_s}$=$\{x_i,y_i$${\}}^n_{i=1}$和一个无标记的目标域$\mathcal{D_t}$=${\{}x_j{\}}^{n+m}_{j=n+1}$。假定它们的特征空间相同，即$\mathcal{X_s}=\mathcal{X_t}$，并且它们的类别空间也相同，即$\mathcal{Y_s}=\mathcal{Y_t}$。但是这两个域的边缘分布不同，即$\mathcal{P_s(y_s\mid x_s)}{\neq}\mathcal{P_s(y_t\mid x_t)}$，条件概率分布也不同，$\mathcal{Q_s(y_s\mid x_s)}{\neq}\mathcal{Q_s(y_t\mid x_t)}$。迁移学习的目标就是利用有标记的数据$\mathcal{D_s}$去学习一个分类器$f:\mathcal{x_t}{\to}\mathcal{y_t}$来预测目标域$\mathcal{D_t}$的标签$\mathcal{y_t}{\in}\mathcal{Y_t}$
 - 总结：**相似性是核心，度量准则是重要手段**
   - 总体思路：开发算法来最大限度地利用有标注的领域的知识，来辅助目标领域的知识获取和学习
   - 迁移学习的核心是找到源领域和目标领域之间的**相似性**，并加以合理利用。      
