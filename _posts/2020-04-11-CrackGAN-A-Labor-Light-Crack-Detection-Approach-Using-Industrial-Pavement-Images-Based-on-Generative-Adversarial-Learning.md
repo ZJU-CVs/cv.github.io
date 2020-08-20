@@ -44,23 +44,16 @@ tags:
 
 - **Loss定义**
 
-  > $$
-  > L_{\text {final}}=L_{a d v}+\lambda L_{\text {pixel}}
-  > $$
-  > $$
-  > L_ {a d v} =  -  E_ {x \in I} [\ log D(G(x))]
-  > $$
-  >
-  > $$
-  > L_{p i x e l}=-E_{x \in I, y}\left[\|y-G(x)\|_{1}\right]
-  > $$
-  >
-  > 
-  >
+  $$
+  L_{\text {final}}=L_{a d v}+\lambda L_{\text {pixel}}\\
+  L_ {a d v} =  -  E_ {x \in I} [\ log D(G(x))]\\
+  L_{p i x e l}=-E_{x \in I, y}\left[\|y-G(x)\|_{1}\right]
+  $$
+  
   > $I$是仅包含裂痕patch的训练集
-  >
+  > 
   > $L_{pixel}$: pixel-level loss基于优化L1距离，保证生成裂痕图案与输入patch的裂痕图案相同
-  >
+  > 
   > $L_{adv}$：由预训练的鉴别器产生的对抗损失
 
 
@@ -71,10 +64,12 @@ tags:
   >
   > - 生成对抗模型训练数据仅使用有裂痕的patch（CPO supervision)预训练DCGAN获得one-class是鉴别器
   >
+  >   
+  >
   > $$
   > \begin{aligned} \max _{D} V(D, G) &=E_{x \sim p_{d}(x)}[\log D(x)] +E_{z \sim p_{d}(z)}[\log (1-D(G(z)))] \\ \max _{G} V(D, G) &=E_{z \sim p_{d}(z)}[\log (D(G(z)))] \end{aligned}
   > $$
-  > ​	*其中$x$是来自真实数据的图像（crack-GT patch)，分布为$p_d(x)$;$z$是从高斯分布$p_d(z)$的噪声中随机生成的向量；D是判别器，G是用卷积和反卷积kernels建立的生成器。*
+  > > *其中$x$是来自真实数据的图像（crack-GT patch)，分布为$p_d(x)$;$z$是从高斯分布$p_d(z)$的噪声中随机生成的向量；D是判别器，G是用卷积和反卷积kernels建立的生成器。*
   >
   > - 训练好的判别器D能够将crack-GT patch判定为真，All black patch判定为假
   
@@ -82,36 +77,38 @@ tags:
   
 - **非对称U-net引入**
 
-  > 由于网络仅采用裂痕patch进行训练，因此引入非对称U型结构，以实现裂痕和非裂痕图像的平移能力
-  >
-  > 
-  >
-  > 训练好的DCGAN中鉴别器被连接到不对称U-net发生器的末端，以提供端对端训练的对抗性损失
-  > $$
-  > L_{a d v}=-E_{x \in I}[\log D(G(x))]
-  > $$
-  > *其中$I$是仅包含裂痕patch的训练集*
+  - 由于网络仅采用裂痕patch进行训练，因此引入非对称U型结构，以实现裂痕和非裂痕图像的平移能力
 
-	> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/CrackGAN1.png)
+  - 训练好的DCGAN中鉴别器被连接到不对称U-net发生器的末端，以提供端对端训练的对抗性损失
 
-	> **Receptive field analysis under larger field of view**
-	>
-	> - 尺寸大于判别器的输入尺寸的裂缝图像，输入到非对称U-Net。并通过网络时，网络将生成一个下采样图像patch，它与判别器的输入大小完全匹配。
-	>
-	> - U-net生成的图像将输入训练好的one-class判别器（具有保持COP监督的工作机制。
-	> - 由于网络被训练以将较大的裂缝图像转换为下采样的裂缝图像，因此其包括固有地裂缝和非裂缝图像样本的平移。**通过这种方式，可以训练网络以处理裂缝和BG图像。**
-	
-	
+    > $$
+    > L_{a d v}=-E_{x \in I}[\log D(G(x))]
+    > $$
+    >
+    > *其中$I$是仅包含裂痕patch的训练集*
+
+  ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/CrackGAN1.png)
+
+  > **Receptive field analysis under larger field of view**
+  >
+  > - 尺寸大于判别器的输入尺寸的裂缝图像，输入到非对称U-Net。并通过网络时，网络将生成一个下采样图像patch，它与判别器的输入大小完全匹配。
+  >
+  > - U-net生成的图像将输入训练好的one-class判别器（具有保持COP监督的工作机制。
+  > - 由于网络被训练以将较大的裂缝图像转换为下采样的裂缝图像，因此其包括固有地裂缝和非裂缝图像样本的平移。**通过这种方式，可以训练网络以处理裂缝和BG图像。**
+
+  
 
 - **L1 loss with dilated GTs**
 
-  > 用半径为3的disk structure将1像素宽度的GT扩张3次以产生扩张的GT
-  >
-  > 引入扩张的GT来指定相对较大的裂缝区域，以确保其覆盖实际的裂痕位置
-  > $$
-  > L_{p i x e l}=-E_{x \in I, y}\left[\|y-G(x)\|_{1}\right]
-  > $$
-  > *其中x是输入裂痕，y是扩张的GT*
+  - 用半径为3的disk structure将1像素宽度的GT扩张3次以产生扩张的GT
+  
+  - 引入扩张的GT来指定相对较大的裂缝区域，以确保其覆盖实际的裂痕位置
+  
+    > $$
+    > L_{p i x e l}=-E_{x \in I, y}\left[\|y-G(x)\|_{1}\right]
+    > $$
+    >
+    > *其中x是输入裂痕，y是扩张的GT*
 
 
 
