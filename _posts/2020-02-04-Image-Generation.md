@@ -491,23 +491,26 @@ tags:
 
 <u>在风格迁移上的应用: </u>    
 
-> (I). CycleGAN
-> (II). CoGAN
+(I). CycleGAN          
+(II). CoGAN
 
 
 
 <u>在特征提取上的应用:</u>        
 
->(I). InfoGAN
-> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/infogan.png)
-> (II). VAEGAN
-> 
-> - VAE中的解码器可以单独被提取出来作为生成器使用。
+(I). InfoGAN
+![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/infogan.png)
+(II). VAEGAN
+
+>- VAE中的解码器可以单独被提取出来作为生成器使用。
 >   - 但是VAE解码产生的图片往往比较模糊，因为
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/VAEGAN.png)
 > 
->(III). BiGAN    
-> 
+
+
+
+(III). BiGAN    
+
 >- BiGAN的提出，将encoder与decoder的训练可以分开进行
 > - 学习了生成器$E=G^{-1}$的逆，在训练过程中允许学习从潜在空间到数据的映射
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/BiGAN.jpg)      
