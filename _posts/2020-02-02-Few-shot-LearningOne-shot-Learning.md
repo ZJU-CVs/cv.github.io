@@ -59,7 +59,8 @@ Few-shot Learning 算法大致可分为三类：
 #### 2. Zero-shot learning
 
 Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https://github.com/jyniki/Learn2019/blob/master/research/reference/A%20Survey%20of%20Zero-Shot%20Learning.pdf)               
-- 在实际场景中，数据集每类可能没有足够的训练实例，且应用时需要对之前未见过的实例进行分类（训练实例中没有覆盖的类会出现在测试实例中）。Zero-shot learning是一种极具应用前景的学习范式，其训练实例所涵盖的类与应用时需要分类的类是不相交的。
+- 在实际场景中，数据集每类可能没有足够的训练实例，且应用时需要对之前未见过的实例进行分类（训练实例中没有覆盖的类会出现在测试实例中）
+- Zero-shot learning是一种极具应用前景的学习范式，其训练实例所涵盖的类与应用时需要分类的类是不相交的。
 
 (1). 介绍 Introduction
 - <u>监督分类方法</u>存在如下限制 restrictions：
