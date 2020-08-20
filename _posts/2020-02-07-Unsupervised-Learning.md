@@ -109,7 +109,7 @@ tags:
 > >       - 其次，求解三个参数$\theta=\{\mathrm{W_{ij}}, \mathrm{a_i}, \mathrm{b_j}\}$
 > >          - 最大化似然对数：$L(W, a, b)=\sum_{i=1}^{m} \ln \left(P\left(v\mid{\theta}\right)\right)$，$m$为训练样本数目。最大化常常采用梯度上升法，通过迭代求出$\mathrm{W}, \mathrm{a}, \mathrm{b}$。但该方法由于涉及到归一化因子$Z$，计算复杂度高，因此需要采用近似方法来评估。
 > >       
-> >   - Gibbs采样：Gibbs采用可以从一个复杂的概率分布下生成数据，因此只要知道每一个分量相对其他分量的条件概率，即可对其进行采样。利用RBM中的条件概率公式，通过输入训练样本（$v_0$）可以计算得到隐含层的条件概率h，进行一次Gibbs采样得到$\mathbf{h}_{0} \sim P\left(\mathbf{h} | \mathbf{v}_{0}\right)$。同理，根据得到的$h_0$,得到$\mathbf{v}_{1} \sim P\left(\mathbf{v} \mid \mathbf{h}_{0}\right)$，迭代足够多次后，就可以得到满足联合概率分布$P(v,h)$下的样本$(v,h)$，其中样本v可以近似认为是$P(v)$下的样本，从而求出梯度$\left(\frac{\partial L_{S}}{\partial w_{i j}}, \frac{\partial L_{S}}{\partial a_{i}}, \frac{\partial L_{S}}{\partial b_{i}}\right)$，实现参数更新。**但由于通常需要多步采样才可以采集到符合真实分布的样本，因此训练速度非常慢。** 
+> >   - Gibbs采样：Gibbs采用可以从一个复杂的概率分布下生成数据，因此只要知道每一个分量相对其他分量的条件概率，即可对其进行采样。利用RBM中的条件概率公式，通过输入训练样本（$v_0$）可以计算得到隐含层的条件概率h，进行一次Gibbs采样得到$\mathbf{h}_{0} \sim P\left(\mathbf{h} \mid \mathbf{v}_{0}\right)$。同理，根据得到的$h_0$,得到$\mathbf{v}_{1} \sim P\left(\mathbf{v} \mid \mathbf{h}_{0}\right)$，迭代足够多次后，就可以得到满足联合概率分布$P(v,h)$下的样本$(v,h)$，其中样本v可以近似认为是$P(v)$下的样本，从而求出梯度$\left(\frac{\partial L_{S}}{\partial w_{i j}}, \frac{\partial L_{S}}{\partial a_{i}}, \frac{\partial L_{S}}{\partial b_{i}}\right)$，实现参数更新。**但由于通常需要多步采样才可以采集到符合真实分布的样本，因此训练速度非常慢。** 
 > >          
 > >
 > >     ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/Gibbs.png)   
