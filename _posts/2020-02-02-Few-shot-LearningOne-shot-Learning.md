@@ -111,12 +111,11 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
     - 用$Y^{t e}=\left\{y_{i}^{t e} \in \mathcal{U}\right\}_{i=1}^{N{t e}}$表示需要被预测的$X^{t e}$对应的类标签         
     ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS2.png)
     
-    
   - **Definition 1.1**：对于给定所属类别在seen classes集合$S$中的训练标签实例$D^{t r}$，zero-shot learning的目标是学习一个分类器$f^{u}(\cdot) : X \rightarrow \mathcal{U}$，能够对所述类别在unseen classes集合$\mathcal{U}$的测试实例$X^{t e}$进行分类。
     - 从Definition 1.1可以看出，zero-shot learning的一般思想是将训练实$D^{t r}$中包含的知识转移到测试实例的分类任务中。
     - zero-shot learning中，有相同的特征空间，但由于训练和测试实例所涵盖标签空间是不相交的，因此zero-shot learning其本质属于transfer learnin中的heterogeneous(异构) transfer learning。（迁移学习相关内容详见[Transfer-Learning.md](https://github.com/jyniki/Learn2019/blobmaster/research/Transfer-Learning.md)）     
-    ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS3.png)
-    - 与HTL-DLS(heterogeneous transfer learning with different labelspaces)方法比较：HTL-DLS方法中，存在一些标签实例所属的类在目标标签空中，而zero-shot learning中，不存在所属的类在在目标标签空间（unseenclasses）中的已标记实例。
+      ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS3.png)
+      - 与HTL-DLS(heterogeneous transfer learning with different labelspaces)方法比较：`HTL-DLS`方法中，存在一些标签实例所属的类在目标标签空中，而zero-shot learning中，不存在所属的类在在目标标签空间（unseenclasses）中的已标记实例。
   
   - **Auxiliary information 辅助信息**：由于zero-shot learning中不存属于unseen classes的已标记实例，因此在解决zero-shot learning问题中需一些辅助信息。
       - 辅助信息应该包含所有unseen classes的信息
@@ -127,10 +126,10 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
       - 与特征空间相似，语义空间通常也是实数空间。
       - 在语义空间中，每个类都有一个相应的向量表示，被称为这个类的类原(class prototype)
       - 用$\mathcal{T}$表示语义空间，是一个M维的实数空间$\mathbb{R}^{M}$
-
-        $\mathbf{t}_{i}^{s} \in \mathcal{T}$是seen类别$\mathcal{c}{i}^{s}$的类原型
-      - $\mathfrak{t}_{i}^{u} \in \mathcal{T}$是unseen类别$\mathcal{c}_{i}^{u}$的类原型
-      - $T^{s}=\left\{\mathbf{t}_{i}^{s}\right\}_{i=1}^{N_{s}}$表示seen classes的类原型集，$T^{u}=\left\{t_{i}^{u}\right\}_{i=1}{N_{u}}$表示unseen classes的类原型集
+- $\mathbf{t}_{i}^{s} \in \mathcal{T}$是seen类别$\mathcal{c}{i}^{s}$的类原型
+      - $t_{i}^{u} \in \mathcal{T}$是unseen类别$\mathcal{c}_{i}^{u}$的类原型
+      - $T^{s}=\left\{t_{i}^{s}\right\}_{i=1}^{N_{s}}$表示seen classes的类原型集
+      - $T^{u}=\left\{t_{i}^{u}\right\}_{i=1}{N_{u}}$表示unseen classes的类原型集
       - 用$\pi(\cdot) : \mathcal{S} \cup \mathcal{U} \rightarrow\mathcal{T}$表示类原型函数，输入类标签，输出相应的类原型
   - 在zero-shot learning中，除了训练实例$D^{t r}$，类原型$T^{s}$和$T^{u}$也参与zero-shot 分类器$f^{u}(\cdot)$的学习获取。
       ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS4.png)
@@ -168,15 +167,20 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
 
 **I. Classifier-Based Methods**       
 `focus:直接学习一个能分类unseen classes的分类器`        
-- 现有的基于分类器的方法通常采用一种one-versus-rest(一对多)的解决方案来学习多类zero-shot分类器。对于每个unseen class，都学习一个binary one-versus-rest(二元一对多)分类器$f_{i}^{u}(\cdot) : \mathbb{R}^{D} \rightarrow\{0,1\}$。 最终得到zero-shot分类器由$N_u$个binary one-versus-rest分类器组成$\left\{f_{i}^{u}(\cdot) \mid i=1, \ldots, N_{u}\right\}$
+- 现有的基于分类器的方法通常采用一种one-versus-rest(一对多)的解决方案来学习多类zero-shot分类器。对于每个unseen class，都学习一个binary one-versus-rest(二元一对多)分类器$f_{i}^{u}(\cdot) : \mathbb{R}^{D} \rightarrow\{0,1\}$。 最终得到zero-shot分类器由$N_u$个binary one-versus-rest分类器组成
+  
+  $$\left\{f_{i}^{u}(\cdot) \mid i=1, \ldots, N_{u}\right\}$$
+  
   - **correspondence methods**：通过对unseen每个类binary one-versus-rest分类器与对应类原型的相对关系来构造unseen classes分类器
     
     - 在语义空间中，每个类只有一个对应的原型，可以将原型看作这个类的表示；同时在特征空间中，对于每个类都有对应的binary one-versus-rest分类器，也可以看作是这个类的表示。
     - Aim：学习这两种表示形式之间的对应函数（correspondence function）
-    - General procedure：
+  - General procedure：
       - step1：利用可用数据（根据不同的学习设置，可用数据是不同的），学习对应函数    
       - step2：对于每个unseen class，根据对应类原型和学习得到的对应函数，构建该类的binary one-versus-rest分类器
-  - step3：；利用得到的这些二元分类器$\left\{f_{i}^{u}(\cdot)\right\}_{i=1}^{N_{u}}$，实现对测试实例的分类       
+    - step3：利用得到的这些二元分类器$\left\{f_{i}^{u}(\cdot)\right\}_{i=1}^{N_{u}}$，实现对测试实例的分类       
+      
+      
     
   - **relationship methods**：根据类之间的关系构造unseen classes分类器     
     
@@ -191,14 +195,32 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
     
   - **combination methods**：通过对“用于构成类的基本元素”的分类器进行组合，为unseen classes构造分类器   
     - 在特征空间，认为有一组<u>基本元素</u>用于组成类，每个seen class和unseen class都是这些基本元素的组合。对应的映射到语义空间，每个维度代表一个基本元素，每个类原型代表对应类的这些基本元素的组合。 因此该方法主要使用于语义空间，其中类原型中的每个维度取1或0，表示类是否具有相应的元素。
-    - 由于该方法目前是基于二元属性空间（binary attribute spaces）发展的，因此基本元素在该空间中称为属性(attribute)。在binary attribute spaces中，seen classes 和unseen classes的类原型由属性组成，每个维度都是一个属性。因此对于类$c_i$对应的类原型$t_i$，使用$a_i$表示类原型由属性组成。将seen classes对应的类原型集表示为$A^{s}=\left\{\mathbf{a}_{i}^{s}\right\}_{i=1}^{\dot{N}_{s}}$，将unseen classes对应的类原型集表示为$A^{u}=\left\{\mathbf{a}_{i}^{u}\right\}_{i=1}^{N_{u}}$              
+    
+    - 由于该方法目前是基于二元属性空间（binary attribute spaces）发展的，因此基本元素在该空间中称为属性(attribute)。在binary attribute spaces中，seen classes 和unseen classes的类原型由属性组成，每个维度都是一个属性。因此对于类$c_i$对应的类原型$t_i$，使用$a_i$表示类原型由属性组成。
+    
+      > 将seen classes对应的类原型集表示为$A^{s}=\left\{\mathbf{a}_{i}^{s}\right\}_{i=1}^{\dot{N}_{s}}$
+      >
+      > 将unseen classes对应的类原型集表示为$A^{u}=\left\{\mathbf{a}_{i}^{u}\right\}_{i=1}^{N_{u}}$              
+    
     - General procedure：
-      - step1：利用可用数据（根据不同的学习设置，可用数据是不同的），首先学习属性(attributes)的分类器$\left\{f_{i}^{a}(\cdot)\right\}_{i=1}^{M}$        
-      - step2：根据学习得到的属性分类器，通过一些推理模型（inference model）得到unseen classes的分类器$f^{u}(\cdot)=\left\{f_{i}^{u}(\cdot)\right\}_{i=1}^{N_{u}}$        
+      - step1：利用可用数据（根据不同的学习设置，可用数据是不同的），首先学习属性(attributes)的分类器
+      
+        > $$
+        > \left\{f_{i}^{a}(\cdot)\right\}_{i=1}^{M}
+        > $$
+      
+      - step2：根据学习得到的属性分类器，通过一些推理模型（inference model）得到unseen classes的分类器
+      
+        > $$
+        > f^{u}(\cdot)=\left\{f_{i}^{u}(\cdot)\right\}_{i=1}^{N_{u}}
+        > $$
   
+
+
 
 **II. Instance-Based Methods**    
 `focus:获取属于unseen类的标签实例并将其用于分类器学习`       
+
 - 基于实例的方法的目标是首先为unseen classes获取带标签的实例，然后用这些实例学习zero-shot 分类器
   - **projection methods**：通过将特征空间实例和语义空间类原型映射到公共空间，为unseen classes获取带标签的实例。从而在公共空间实现分类。
     - 在特征空间中，有标签的训练实例属于seen classes。同时在语义空间，seen classes和unseen classes的类原型都存在。
@@ -206,14 +228,14 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
     - 对于每个unseen class，在特征空间没有带标签的实例，它在语义空间的类原型是该类唯一的标签实例。因此对于每个unseen class，只有一个带标签的实例可用。
     - General procedure:
       - step1：通过映射函数$\theta(\cdot)$和$\xi(\cdot)$将在特征空间$\mathcal(X)$的实例$x_i$和在语义空间$\mathcal(T)$的类原型$t_j$映射到公共空间$\mathcal{P}$
-     
+    
        > $$
      > X \rightarrow \mathcal{P} : \mathbf{z}_{i}=\theta\left(\mathbf{x}_{i}\right)\\
        > \mathcal{T} \rightarrow \mathcal{P} : \mathbf{b}_{j}=\xi\left(\mathbf{t}_{j}\right)
        > $$
+    
        
-       
-       
+    
        - step2：由于unseen classes只有很少的标签实例，通常使用最邻近分类（1NN）或其他类似方法进行分类，1NN方法能够对只带一个标签的实例进行分类。最终得到在公共空间实现unseen classes分类的分类器。     
     
   - **instance-borrowing methods**：通过借用训练实例，为unseen classes获取带标签的实例，从而学习unseen classes分类器实现分类
