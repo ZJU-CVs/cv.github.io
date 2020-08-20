@@ -104,7 +104,7 @@ tags:
   >> Inception与VGG和ResNet相比，从宽度方面着手。其核心思想是使用多尺寸卷积核去观察输入数据，然后由计算机选择使用哪种尺寸或更加关注哪种尺寸。    
   >> - Inception V1吸纳了Network in Network的思想，使用1 $\times$ 1的卷积和来进行*降维和升维*，同时使用不同的卷积核（1 $\times$ 1、3 $\times$ 3、5 $\times$ 5卷积）来设置不同的感受野，让网络看到不同层面和大小的电脑关系，最后将所有看到的东西串联起来形成该层的输出。然后利用多个这样的结构，形成一个大的网络。       
   >> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/InceptionV1.png)   
-  >> - Inception V2使用小卷积核来替换大卷积核（使用两个3 $\times$ 3卷积代替5 $\times$ 5），使得卷积参数大大减少；同时提出了非对称卷积操作（将3 $\times$ 3卷积转换为1 $times$ 3和3 $\times$ 1两个卷积效果的叠加），使得参数进一步减小。另外还使用了Batch Normalization（BN）结构使得整个网络更容易训练。     
+  >> - Inception V2使用小卷积核来替换大卷积核（使用两个3 $\times$ 3卷积代替5 $\times$ 5），使得卷积参数大大减少；同时提出了非对称卷积操作（将3 $\times$ 3卷积转换为1 $\times$ 3和3 $\times$ 1两个卷积效果的叠加），使得参数进一步减小。另外还使用了Batch Normalization（BN）结构使得整个网络更容易训练。     
   >> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/InceptionV2.png)   
   >> - Inception V3对下采样过程中的特征提取作了组合，*常规的操作一般是卷积再池化或池化后再卷积，Inception V3则将这一步作了分支，使得网络变宽*  
   >>![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/InceptionV3.png)         
