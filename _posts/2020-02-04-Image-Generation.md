@@ -195,9 +195,11 @@ tags:
 > > >   >
 > > >   > 
 > > >   >
-> > >   > - 其实最大化$\tilde{\mathcal{V}}_D$问题的求解实际上是在求解$p_{data}$与$p_G$之间的**JS散度**，推导过程略
+> > >   > - 其实最大化$\tilde{\mathcal{V}}_D$问题的求解实际上是：
+> > >   >
+> > >   >   在求解$p_{data}$与$p_G$之间的**JS散度**，推导过程略
 > > > 
-> > > 
+> > >
 > > > 
 > > >- 第二部分是训练生成器（此时判别器已经确定），先从先验分布中抽样新的z，然后将z输入生成器中训练，使得目标函数$\tilde{\mathcal{V}}_G$最小。    
 > > > 
@@ -205,7 +207,7 @@ tags:
 > > > 
 > > >  > $$
 > > >   > \begin{equation}
-> > >  > \tilde{ V }_{G}=\min _{\theta_{g}}\left[E_{z \sim p_{(z)}} \log \left(1-D_{\theta_{d}}\left(G_{\theta_{g}}(z)\right)\right)\right]
+> > >   > \tilde{ V }_{G}=\min _{\theta_{g}}\left[E_{z \sim p_{(z)}} \log \left(1-D_{\theta_{d}}\left(G_{\theta_{g}}(z)\right)\right)\right]
 > > >   > \end{equation}
 > > >   > $$
 > > >   > - 这样循环交替，最终生成器产生的数据$\tilde{\mathcal{x}}$就会越来越接近真实数据$x$
@@ -214,7 +216,7 @@ tags:
 > > >   
 > > > - **生成过程：**  
 > > > 
-> > >   - 指定维度的噪声向量作为输入生成器网络,从训练分布中采样并将结果直接作为输出
+> > >  - 指定维度的噪声向量作为输入生成器网络,从训练分布中采样并将结果直接作为输出
 > > >   ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/gan7.png)  
 >
 > **优点：**
