@@ -21,8 +21,9 @@ tags:
   ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/attention2.png)
 - 本质上Attention机制是对Source中元素的Value值进行加权求和，而Query和Key用来计算对应Value的权重系数
 - 本质思想改写为如下公式：
-$Attention (Query, Source) =\sum_{i=1}^{L_{x}}Similarity (Query,Key_{i} )*Value_i$
-其中$L_x=||Source||$代表Source的长度
+  $Attention (Query, Source) =\sum_{i=1}^{L_{x}}Similarity (Query,Key_{i} )*Value_i$
+
+  > 其中$L_x=||Source||$代表Source的长度
 
 ##### (2). 具体实现过程
 
@@ -55,19 +56,25 @@ $Attention (Query, Source) =\sum_{i=1}^{L_{x}}Similarity (Query,Key_{i} )*Value_
    - 混合域(mixed domain)
    - 时间域(time domain)
    
-   (1) 空间域  
-   Spatial Transformer Networks(STN)   
-   ref: Spatial transformer networks
+   > (1) 空间域  
+   > Spatial Transformer Networks(STN)   
+   > ref: Spatial transformer networks
    
-   (2) 通道域   
-   SeNet  
-   ref: Squeeze-and-excitation networks
-
-![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/SEnet1.png)
-
-   	(3) 混合域   
-		Residual Attention Network   
-		ref:  Residual attentionnetwork for image classification
+   
+   
+   > (2) 通道域   
+   > SeNet  
+   > ref: Squeeze-and-excitation networks
+   >
+   > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/SEnet1.png)
+   
+   
+   
+   > 3) 混合域   
+   >
+   > Residual Attention Network   
+   >
+   > ref:  Residual attentionnetwork for image classification
 
 
 
