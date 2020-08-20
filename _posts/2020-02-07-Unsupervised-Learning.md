@@ -99,8 +99,8 @@ tags:
 > >           -  $\mathrm{A}=\{a_{i}\} \in R^{m}$：$a_i$表示第i个可见单元的偏置阈值
 > >           -  $\mathrm{B}=\{b_{j}\} \in R^{n}$: $b_j$表示第j个隐单元的偏置阈值
 > >       - 对于一组给定状态下的(v,h)值，假设可见层单元和隐藏层单元均服从伯努利分布，则RBM的能量公式为： $\mathrm{E}(\mathrm{v}, \mathrm{h} \mid \theta)=-\sum_{i=1}^{n} a_{i} v_{i}-\sum_{j=1}^{m} b_{j} h_{j}-\sum_{i=1}^{n} \sum_{j=1}^{m} v_{i} W_{i j} h_{j} h_{j}$     
-> >       - 对该能量函数指数化和正则化后可以得到可见层节点集合和隐藏层节点集合分别处于某一种状态下(v,h)联合概率分布公式：$\mathrm{P}(\mathrm{v}, \mathrm{h} \mid \theta)=\frac{e^{-E(v, h | \theta)}}{Z(\theta)}$，其中$Z({\theta})$为归一化因子或分配函数（partition function），表示对可见层和隐藏层节点集合的所有可能状态的（能量指数）求和:$\mathrm{Z}(\theta)=\sum_{v, h} e^{-E(v, h \mid \theta)}$
-> >       - 对于参数的求解往往采用似然函数求导的方法，已知联合概率分布$\mathrm{P}(\mathrm{v}, \mathrm{h} | \theta)$，通过对隐藏层节点集合的所有状态求和，可以得到可见层节点集合的边缘分布(边缘分布表示的是可见层节点集合处于某一种状态分布下的概率)：$\mathrm{P}(\mathrm{v} \mid \theta)=\frac{1}{Z(\theta)} \sum_{h} e^{-E(v, h \mid \theta)}$
+> >       - 对该能量函数指数化和正则化后可以得到可见层节点集合和隐藏层节点集合分别处于某一种状态下(v,h)联合概率分布公式：$\mathrm{P}(\mathrm{v}, \mathrm{h} \mid \theta)=\frac{e^{-E(v, h \mid \theta)}}{Z(\theta)}$，其中$Z({\theta})$为归一化因子或分配函数（partition function），表示对可见层和隐藏层节点集合的所有可能状态的（能量指数）求和:$\mathrm{Z}(\theta)=\sum_{v, h} e^{-E(v, h \mid \theta)}$
+> >       - 对于参数的求解往往采用似然函数求导的方法，已知联合概率分布$\mathrm{P}(\mathrm{v}, \mathrm{h} \mid \theta)$，通过对隐藏层节点集合的所有状态求和，可以得到可见层节点集合的边缘分布(边缘分布表示的是可见层节点集合处于某一种状态分布下的概率)：$\mathrm{P}(\mathrm{v} \mid \theta)=\frac{1}{Z(\theta)} \sum_{h} e^{-E(v, h \mid \theta)}$
 > >     
 > >   - 由于RBM模型特殊的层间连接、层内无连接的结构，在给定可见单元的状态时，各隐藏层单元的激活状态之间是条件独立的，此时第j个隐单元的激活概率为：$\mathrm{P}\left(h_{j}=1 \mid \mathrm{v}\right)=\sigma\left(b_{j}+\sum_{i} v_{i} W_{i j}\right)$;相应的，当给定隐单元的状态时，可见单元的激活概率同样是条件独立的：$\mathrm{P}\left(v_{i}=1 \mid \mathrm{h}\right)=\sigma\left(a_{i}+\sum_{j} W_{i j} h_{j}\right)$，其中$\sigma(x)$是sigmoid函数。有了激活函数，可以从可见层和参数推导出隐藏层神经元的取值概率，也可以从隐藏层和参数推导出可见层神经元的取值概率。  
 > >
