@@ -209,6 +209,8 @@ Anomaly Detection for Skin Disease Images Using Variational Autoencoder (2018-07
 ```
 
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/AD8.png" alt="img" style="zoom:50%;" />
+>
+> 异常分数：
 > $$
 > \begin{equation}
 > \text { Anomaly score }=s_{i w a e}^{k l}(x)+s_{i w a e}^{r e c o n s t}(x)
@@ -216,16 +218,16 @@ Anomaly Detection for Skin Disease Images Using Variational Autoencoder (2018-07
 > $$
 > 
 >
-> 包括隐空间分布损失和重构损失：
+> - 包括隐空间分布损失和重构损失：
 >
-> 
+>
 > $$
 > \begin{aligned}
 > &s_{i w a e}^{k l}(x)=-\log \left(\frac{1}{L} \sum_{i=1}^{L} \frac{p\left(z_{i}\right)}{q\left(z_{i} | x\right)}\right)\\
 > &s_{i w a e}^{r e c o n s t}(x)=-\log \left(\frac{1}{L} \sum_{i=1}^{L} p\left(x | z_{i}\right)\right)
 > \end{aligned}
 > $$
-> 
+>
 
 
 
