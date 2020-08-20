@@ -106,7 +106,7 @@ tags:
 >> U-Net包括两个部分，第一部分为特征提取，类似于VGG；第二部分为上采样部分。
 >> - 特征提取部分：每经过一个池化层就为一个尺度，包括原图尺度一共有5个尺度
 >> - 上采样部分：每上采样一次，就和特征提取部分对应的通道数相同尺度融合，*但融合前要将其crop* 
-![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/unet.png)
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/unet.png" alt="img" style="zoom:50%;" />
 
 ---
 >> *(3) SegNet*               
@@ -194,9 +194,9 @@ tags:
 >>          - 经过一些$3{\times}3$的卷积以精炼特征
 >>          - 再双线性插值上采样4倍
 >>      - 在ASPP和解码模块使用depthwise separate convolution，提高编码器-解码器网络的运行速率和健壮性。
->> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/deeplabv3.png)
+>> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/deeplabv3.png" alt="img" style="zoom:67%;" />
 >> - 采用**Xception**模型，并对Xception进行了改进，Entry flow保持不变，添加了更多的Middle flow。所有的max pooling被depthwise separable convolution代替。在每个$3{\times}3$depthwise convolution之外，添加了BN和ReLU。
->> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/deeplab3_1.png)
+>> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/deeplab3_1.png" alt="img" style="zoom:70%;" />
 ---
 ---
 
@@ -206,39 +206,48 @@ tags:
 
 > - 实例分割将同种类但属于不同个体的物体都区分来开。实例分割主要会预测物体的类别标签并使用像素级实例Mask来定位图像中不同数量的实例。(实例分割同时对位置信息和类别信息进行判定)
 > - 目前深度学习在实例分割方面的应用主要包括Mask RCNN、FCIS、MaskLab、PANet
->> *(1) FCIS*                               
->> [《Fully Convolutional Instance-aware Semantic Segmentation》](https://arxiv.org/pdf/1611.07709.pdf)      
->> - **FCN**在实例分割上的缺点：由于卷积的平移不变性使得同一像素在图像不同区域会获得相同的相应（分类分数），即对位置不敏感，<u>只有类别输出，没有单个对象输出</u>。但实例分割则需要在不同区域操作（位置信息），使得同一像素在不同区域可能会代表不同的语义信息。——**FCN输出的是类别的概率，而没有单个实例对应的输出**
->> - **Instance FCN**在实例分割上的缺点：空间金字塔扫描非常耗时，<u>只有单个输出，无语义信息</u>，需要单独的网络检测类别信息，没有做到端对端学习。
->> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/FCIS.jpg)    
->> - **FCIS特点**：
->>      - **Position-sensitive Score Map Parameterization**：     
->>     采用InstanceFCN中提出的positive-sensitive score map，每个score表示一个像素在某个相对位置上属于某个物体实例的似然得分。并在此基础上对物体实例区分inside/outside, inside提取关于物体的特征进行分割，outside提取物体外的特征，然后对每个像素取最大值进行平均投票，进行类别判断。           
->>      - **Joint Mask Prediction and Classification**：      
->>     使用了RPN网络代替滑窗操作，RPN会产生ROI。RPN与FCIS共享卷积，RPN产生的ROI会作用在score maps上，同时产生分类和分割预测。 
->>     FCIS使用ResNet模型，去除最后一层全连接层，仅训练卷积层，使用RPN生成ROIs，从Conv5层，生成$2k^2{\times}(C+1)$个得分图，计算分割概率图和分割得分。     
->> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/FCIS-1.jpg)   
+>
+> *(1) FCIS*                               
+> [《Fully Convolutional Instance-aware Semantic Segmentation》](https://arxiv.org/pdf/1611.07709.pdf)      
+>
+> > - **FCN**在实例分割上的缺点：由于卷积的平移不变性使得同一像素在图像不同区域会获得相同的相应（分类分数），即对位置不敏感，<u>只有类别输出，没有单个对象输出</u>。但实例分割则需要在不同区域操作（位置信息），使得同一像素在不同区域可能会代表不同的语义信息。——**FCN输出的是类别的概率，而没有单个实例对应的输出**
+> > - **Instance FCN**在实例分割上的缺点：空间金字塔扫描非常耗时，<u>只有单个输出，无语义信息</u>，需要单独的网络检测类别信息，没有做到端对端学习。
+> > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/FCIS.jpg)    
+> > - **FCIS特点**：
+> >      - **Position-sensitive Score Map Parameterization**：     
+> >     采用InstanceFCN中提出的positive-sensitive score map，每个score表示一个像素在某个相对位置上属于某个物体实例的似然得分。并在此基础上对物体实例区分inside/outside, inside提取关于物体的特征进行分割，outside提取物体外的特征，然后对每个像素取最大值进行平均投票，进行类别判断。           
+> >      - **Joint Mask Prediction and Classification**：      
+> >     使用了RPN网络代替滑窗操作，RPN会产生ROI。RPN与FCIS共享卷积，RPN产生的ROI会作用在score maps上，同时产生分类和分割预测。 
+> >     FCIS使用ResNet模型，去除最后一层全连接层，仅训练卷积层，使用RPN生成ROIs，从Conv5层，生成$2k^2{\times}(C+1)$个得分图，计算分割概率图和分割得分。     
+> > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/FCIS-1.jpg)   
 ---
->> *(2) Mask R-CNN*          
->> [《Mask R-CNN》](https://arxiv.org/pdf/1703.06870.pdf)
+>*(2) Mask R-CNN*          
+>[《Mask R-CNN》](https://arxiv.org/pdf/1703.06870.pdf)
+>
 >> - **Mask R-CNN**将[Faster R-CNN](https://github.com/jyniki/Learn2019/blob/master/research/Object-Detection-and-Recognition.md#3-deep-learning-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0)与[FCN](#语义分割)结合起来，在ROI上进行分割。       
->> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/maskrcnn.png) 
+>>   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/maskrcnn.png" alt="img" style="zoom:80%;" /> 
+>>
+>>   
+>>
 >> - 网络的输入为一张图片，输出为<u>类别、Bbox和Mask</u>，其中使用并行的FCN网络层获得Mask。每个ROI Align会对应$K{\times}m^2$维度的Mask输出（$K$为类别个数，$m$对应池化分辨率），每个Class对应一个Mask，避免了类内竞争，使分割结果不会有重叠的现象，
+>>
 >> - 针对尺度同变性、像素到像素的平移同变性等情况，Mask R-CNN将Faster R-CNN中的ROI Pooling进行改良，提出了ROI Align，主要使用了双线性插值，而原始的ROI Pooling操作会破坏像素到像素的平移同变性（池化后的特征图谱与ROI中的信息不能很好的对齐）。
 >> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ROIAlign.png)   
 ---
->> *(3) MaskLab*                     
->> [《MaskLab: Instance Segmentation by Refining Object Detection with Semantic and Direction Features》](https://arxiv.org/pdf/1712.04837.pdf)
+>*(3) MaskLab*                     
+>[《MaskLab: Instance Segmentation by Refining Object Detection with Semantic and Direction Features》](https://arxiv.org/pdf/1712.04837.pdf)
+>
 >> - MaskLab基于Faster R-CNN检测网络，对检测出的ROI中进行<u>语义分割和方向预测</u>，从而实现前景和背景的分割。
 >> - MaskLab使用ResNet-101作为特征提取器，包括BBox与分类、语义分割（不同类别）和方向预测（不同实例）三个组件，构建于Faster R-CNN之上。
 >>      - 使用Faster R-CNN检测到回归框后，语义分割回归根据回归框预测的类别选取对应的语义通道对该区域裁剪，同时，方向预测将对应每个方向的方向信息进行继承，再使用$1{\times}1$卷积对语义输出和朝向输出的融合结果进行操作，得到粗分割Mask。
 >> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/masklab.png)
 >> - 采用hypercolumn feature对得到的粗分割Mask进行细化（Mask refinement）：仅用方向和语义回归的到的粗分割Mask与ResNet-101中的低层次特征进行并联，在经过一个小型的卷积网络（3层），便可以得到细化后的Mask。
 ---
->> *(4) PANet*              
->> [《Path Aggregation Network for Instance Segmentation》](https://arxiv.org/abs/1803.01534)
+>*(4) PANet*              
+>[《Path Aggregation Network for Instance Segmentation》](https://arxiv.org/abs/1803.01534)
+>
 >> - 底层特征在识别边缘线条和纹理等基础特征方面很有优势，有助于识别大型目标，但底层到高层路径太长，信息流动不够充分。PANet在Mask R-CNN的基础上进一步融合了高层和底层特征，采用了**自底向上**的路径增广方法，提升了基于候选区域的实例分割的信息流传播。      
 >> - 使用了自适应特征池化来融合（逐像素相加或取最大）各个层次特征，使得能够更加充分地利用各个层次的信息。
 >> - 在最后添加了一个补充的小全连接层来提升Mask预测结果
->> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/PANet.png)
+>> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/PANet.png" alt="img" style="zoom:67%;" />
 
