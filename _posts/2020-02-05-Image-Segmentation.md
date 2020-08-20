@@ -88,29 +88,43 @@ tags:
 
 > - 语义分割主要是在像素级别进行分类，同类别的分为一类。它比目标检测算法预测的边框更加精细。——`是从像素级别理解和识别图片的内容，其输入为图片，输出是与输入图片同尺寸的分割标记，每个像素会被识别为一个类别`   
 > - 深度学习在语义分割的应用主要有FCN、SegNet、DeepLab、Refine和NetPSPNet等。
->> *(1) FCN*                         
->> [《Fully Convolutional Networks for Semantic Segmentation》](https://arxiv.org/pdf/1411.4038.pdf) 
->> - **卷积化（convolutionalization）:**对于一般的分类CNN网络，都会在网络的最会加入一些全连接层，通过softmax后就可以获得类别概率信息，但这个概率信息是1维的，**只能标识整个图片的类别，不能标识每个像素点的类别**，因此这种全连接方法不适用于图像分割。而FCN**将后面几个全连接层换成卷积**，这样就获得一张2维的feature map，后接softmax层获得每个像素点的分类信息，从而实现分割问题。      
-![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/FCN1.jpg)     
->> - **上采样（upsampling）:**与CNN在卷积层之后使用全连接层得到**固定长度的特征向量**进行分类（全连接层+softmax输出）不同，FCN可以**接受任意尺寸的输入图像**，采用反卷积层对最后一个卷积层的feature map进行**上采样**，使其恢复到输入图像相同的尺寸，从而可以对每个像素都产生一个预测，同时保留原始输入图像的空间信息，最后在上采样的特征图上进行逐像素分类。  
->> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/FCN.jpg)
->> - **跳跃结构（skip architecture）:** 直接将全卷积后的结果进行上采样后得到的结果通常是很粗糙的，需要跳跃结构用来优化最终结果。其思路是将不同池化层的结果进行上采样，然后结合这些结果来优化输出(fusion)。
->> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/skip.jpg)
->> - FCN优点：进行像素级别端对端的训练    
->> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/FCN2.jpg)            
->> - FCN缺点：对细节处理不够好，没有充分考虑像素间的空间相关性；忽略了空间规整（spatial regularization）步骤，缺乏空间一致性。
+>
+> *(1) FCN*                         
+> [《Fully Convolutional Networks for Semantic Segmentation》](https://arxiv.org/pdf/1411.4038.pdf) 
+>
+> > - **卷积化（convolutionalization）:**对于一般的分类CNN网络，都会在网络的最会加入一些全连接层，通过softmax后就可以获得类别概率信息，但这个概率信息是1维的，**只能标识整个图片的类别，不能标识每个像素点的类别**，因此这种全连接方法不适用于图像分割。而FCN**将后面几个全连接层换成卷积**，这样就获得一张2维的feature map，后接softmax层获得每个像素点的分类信息，从而实现分割问题。      
+> >   ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/FCN1.jpg)     
+> >
+> > - **上采样（upsampling）:**与CNN在卷积层之后使用全连接层得到**固定长度的特征向量**进行分类（全连接层+softmax输出）不同，FCN可以**接受任意尺寸的输入图像**，采用反卷积层对最后一个卷积层的feature map进行**上采样**，使其恢复到输入图像相同的尺寸，从而可以对每个像素都产生一个预测，同时保留原始输入图像的空间信息，最后在上采样的特征图上进行逐像素分类。  
+> >   ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/FCN.jpg)
+> >
+> > - **跳跃结构（skip architecture）:** 直接将全卷积后的结果进行上采样后得到的结果通常是很粗糙的，需要跳跃结构用来优化最终结果。其思路是将不同池化层的结果进行上采样，然后结合这些结果来优化输出(fusion)。
+> >   ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/skip.jpg)
+> >
+> > - FCN优点：进行像素级别端对端的训练    
+> >   ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/FCN2.jpg)            
+> >
+> >   
+> >
+> > - FCN缺点：对细节处理不够好，没有充分考虑像素间的空间相关性；忽略了空间规整（spatial regularization）步骤，缺乏空间一致性。
 ---
->> *(2) UNet*  
->>[https://arxiv.org/pdf/1505.04597v1.pdf](https://arxiv.org/pdf/1505.04597v1.pdf)     
->> U-Net整体的流程是编码和解码（encoder-decoder）
->> U-Net包括两个部分，第一部分为特征提取，类似于VGG；第二部分为上采样部分。
+
+
+>*(2) UNet*  
+>[https://arxiv.org/pdf/1505.04597v1.pdf](https://arxiv.org/pdf/1505.04597v1.pdf)     
+>U-Net整体的流程是编码和解码（encoder-decoder）
+>U-Net包括两个部分，第一部分为特征提取，类似于VGG；第二部分为上采样部分。
+>
 >> - 特征提取部分：每经过一个池化层就为一个尺度，包括原图尺度一共有5个尺度
->> - 上采样部分：每上采样一次，就和特征提取部分对应的通道数相同尺度融合，*但融合前要将其crop* 
-<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/unet.png" alt="img" style="zoom:50%;" />
+>>- 上采样部分：每上采样一次，就和特征提取部分对应的通道数相同尺度融合，*但融合前要将其crop* 
+>> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/unet.png" alt="img" style="zoom:50%;" />
 
 ---
->> *(3) SegNet*               
->> [《A Deep Convolutional Encoder-Decoder Architecture for Image Segmentation》](https://arxiv.org/abs/1511.00561)
+
+
+>*(3) SegNet*               
+>[《A Deep Convolutional Encoder-Decoder Architecture for Image Segmentation》](https://arxiv.org/abs/1511.00561)
+>
 >> - **编码-解码器架构：** SegNet具有编码器网络和相应的解码器网络，接着是按最终像素的分类层。
 >>   - Encoder 编码器       
 >>     - 在编码器处，执行卷积和最大池化。    
@@ -125,8 +139,11 @@ tags:
 >>   - 最后使用softmax分类器来预测每个像素的类别      
 >>     ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/SegNet.png)
 ---
->> *(4) PSPNet*                         
->> [《Pyramid Scene Parsing Network》](https://arxiv.org/pdf/1612.01105.pdf)
+
+
+>*(4) PSPNet*                         
+>[《Pyramid Scene Parsing Network》](https://arxiv.org/pdf/1612.01105.pdf)
+>
 >> ##### **主要贡献：**
 >> - 考虑更多的上下文信息以及不同的全局信息，提出了一个金字塔场景分析网络。使用了多尺度Pooling得到不同尺度的特征图，Concat起来得到多尺度特征。
 >> - 对基于深度监督损失函数的ResNet(残差网络)提出了一种有效的优化策略
@@ -143,7 +160,10 @@ tags:
 >> - 对于ResNet残差网络，除了使用softmax loss（图中loss1），还引入了res4b22残差块，构造另一个辅助分类器（图中loss2），并引入一个权重参数来控制loss2的权重，辅助分类器能够优化学习过程。
 >> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ResNet101.png)
 ---
->> *(5) DeepLab系列*
+
+
+>*(5) DeepLab系列*
+>
 >> - DeepLab中主要使用的技术包括<u>多尺度特征融合、残差块、膨胀卷积以及膨胀空间金字塔池化</u>。
 >>      - 其主要特征提取网络采用了ResNet方式
 >>      - 膨胀卷积（空洞卷积 Atrous Convolution）有一个拓张因子（rate），它将决定卷积的感受野大小，将输入的Feature Map隔rate-1进行采样，然后再将采样后的结果进行卷积操作（使用0填充卷积之间的缝隙，缝隙大小为拓张因子减1，变相扩大了卷积的视野。）
