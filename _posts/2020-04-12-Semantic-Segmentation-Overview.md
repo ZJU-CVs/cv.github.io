@@ -330,7 +330,9 @@ LADDERNET: Multi-Path Networks Based on U-Net for Medical Image Segmentation [[p
 
 
 
-## ---
+---
+
+
 
 ## Losses
 

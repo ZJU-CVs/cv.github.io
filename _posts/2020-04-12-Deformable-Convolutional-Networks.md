@@ -36,21 +36,22 @@ tags:
   >   > **$3\times3$卷积核为例，对于每个输出$y(p_0)$，都要从x上采样9个位置，这九个位置在中心位置$x(p_0)$向四周扩散得到的grid形状上，$\mathcal{R}=\{(-1,-1),(-1,0), \ldots,(0,1),(1,1)\}$**
   >
   > $$
-	> \mathbf{y}\left(\mathbf{p}_{0}\right)=\sum_{\mathbf{p}_{n} \in \mathcal{R}} \mathbf{w}\left(\mathbf{p}_{n}\right) \cdot \mathbf{x}\left(\mathbf{p}_{0}+\mathbf{p}_{n}\right)
+  > \mathbf{y}\left(\mathbf{p}_{0}\right)=\sum_{\mathbf{p}_{n} \in \mathcal{R}} \mathbf{w}\left(\mathbf{p}_{n}\right) \cdot \mathbf{x}\left(\mathbf{p}_{0}+\mathbf{p}_{n}\right)
   > $$
   >
   > - 全新的可变形卷积在上述公式的基础上，给每个点增加了一个偏移量$\Delta p_{n}$，这个新的偏移量是由另一个卷积的出的，一般是**小数**。
-  >   $$
-  >   \mathbf{y}\left(\mathbf{p}_{0}\right)=\sum_{\mathbf{p}_{n} \in \mathcal{R}} \mathbf{w}\left(\mathbf{p}_{n}\right) \cdot \mathbf{x}\left(\mathbf{p}_{0}+\mathbf{p}_{n}+\Delta p_{n}\right)
-  >   $$
-  >   
-  >
-  >   - **由于**$\Delta p_{n}$很有可能是小数，而feature map x上都是整数位置，需要**双线性插值**。
+  >   > $$
+  >   > \mathbf{y}\left(\mathbf{p}_{0}\right)=\sum_{\mathbf{p}_{n} \in \mathcal{R}} \mathbf{w}\left(\mathbf{p}_{n}\right) \cdot \mathbf{x}\left(\mathbf{p}_{0}+\mathbf{p}_{n}+\Delta p_{n}\right)
+  >   > $$
+  >   >
+  >   > 
+  >   >
+  >   > 由于$\Delta p_{n}$很有可能是小数，而feature map x上都是整数位置，需要**双线性插值**。
   >
   > ---
   >
   > > 双线性插值：
-  > > x的浮点坐标为(i+u,j+v),其中i，j为浮点坐标的整数部分，u，v为浮点坐标的小数部分，这个点的可由x(q1):(i,j)、x(q2):(i+1,j)、x(q3):(i,j+1)、x(q4):(i+1,j+1)四个点表示
+  > > x的浮点坐标为(i+u,j+v),其中i，j为浮点坐标的整数部分，u，v为浮点坐标的小数部分，这个点的可由$x(q_1):(i,j)$、$x(q_2):(i+1,j)$、$x(q_3):(i,j+1)$、$x(q_4):(i+1,j+1)$四个点表示
   >
   > ---
   >
@@ -64,29 +65,40 @@ tags:
   > - 完整的可变形卷积的结构如下图所示，上方的卷积用于输出偏移量，该输出的长宽和输入特征图的长宽一致，维度是输入的两倍（因为同时输出 x方向和 y方向的偏移量，用两个维度分开存储）
   >
   > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/DCN1.png" alt="img" style="zoom:50%;" />
-  
+
 - 可变形的ROI Pooling
 
   > - 传统的ROI Pooling可以定义为以下公式，整个ROI被分为$k*k$个bin，每个bin左上角的坐标是$p_0$，p是bin中每个点相对于$p_0$的坐标偏移量，$n_{ij}$是第ij个bin中的点数。
+  >
+  >   
   > $$
   > \mathbf{y}(i, j)=\sum_{\mathbf{p} \in \operatorname{bin}(i, j)} \mathbf{x}\left(\mathbf{p}_{0}+\mathbf{p}\right) / n_{i j}
   > $$
-  > 
-  >---
-  > 
-  >> ROI Pooling:
-  > >
-  > > 是池化的一种方式，其目的是将不同大小的ROI（Regions of Interest）调整到固定的尺寸
-  > 
-  >---
-  > 
   >
   > 
-  >- 可形变的卷积可以定义为以下公式，其中$\Delta p_{n_{ij}}$是每个bin的偏移量，这个偏移量是针对整个bin的，一个bin中的每一个点该值都相同
+  >
+  > ---
+  >
+  > > ROI Pooling:
+  > >
+  > > 是池化的一种方式，其目的是将不同大小的ROI（Regions of Interest）调整到固定的尺寸
+  >
+  > ---
+  >
+  > 
+  >
+  > - 可形变的卷积可以定义为以下公式，其中$\Delta p_{n_{ij}}$是每个bin的偏移量，这个偏移量是针对整个bin的，一个bin中的每一个点该值都相同
+  >
+  >   
   > $$
   > \mathbf{y}(i, j)=\sum_{\mathbf{p} \in \operatorname{bin}(i, j)} \mathbf{x}\left(\mathbf{p}_{0}+\mathbf{p}+\Delta p_{n_{ij}}\right) / n_{i j}
   > $$
-  > - 需要做ROI Pooling处理的区域首先完成没有偏移下的pooling过程，输出$k*k*channel$个数据，再用一个全连接层 full connect layer输出$k*k*channel*2$个点表示在 x和 y方向上的偏移$\Delta{\hat{p}_{ij}}$，再按$\Delta \mathbf{p}_{i j}=\gamma \cdot \Delta \widehat{\mathbf{p}}_{i j} \circ(w, h)$获得真正的偏移量$\Delta \mathbf{p}_{i j}$，其中 $\gamma$是一个增益，与(w,h)进行点乘是**为了让偏移量的调整幅度能适配 ROI的尺寸**。（$\Delta{\hat{p}_{ij}}$也是一个小数，需要通过双线性插值来得到真正的值）
+  > - 需要做ROI Pooling处理的区域首先完成没有偏移下的pooling过程，输出$k\times k \times channel$个数据，再用一个全连接层 full connect layer输出$k\times k\times channel\times 2$个点表示在 x和 y方向上的偏移$\Delta{\hat{p}_{ij}}$，再按$\Delta \mathbf{p}_{i j}=\gamma \cdot \Delta \widehat{\mathbf{p}}_{i j} \circ(w, h)$获得真正的偏移量$\Delta \mathbf{p}_{i j}$
+  >   
+  >   > 其中 $\gamma$是一个增益，与(w,h)进行点乘是**为了让偏移量的调整幅度能适配 ROI的尺寸**。（$\Delta{\hat{p}_{ij}}$也是一个小数，需要通过双线性插值来得到真正的值）
+  >   
+  >   
+  >   
   >   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/DCN2.png" alt="img" style="zoom:67%;" />
   
 - Position-Sensitive(PS) ROI Pooling 
