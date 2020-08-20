@@ -93,7 +93,9 @@ tags:
 > >   - 每个可见层节点和隐藏层节点都有两种状态：激活状态1和未激活状态0。节点的激活概率由可见层和隐藏层节点的分布函数计算。 
 > >
 > >   - 在一个RBM中，v表示所有可见单元，h表示所有隐单元，若想确定该RBM模型，只要能够得到三个参数$\theta=\{\mathrm{W}, \mathrm{A}, \mathrm{B}\}$,分布表示权重矩阵W，可见层的单元偏置A，隐藏层单元偏置B。       
-> >   ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/RBM.jpg)             
+> >
+> >     ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/RBM.jpg)           
+> >     
 > >       - 假设一个RBM有n个可见单元和m个隐单元，用$v_i$表示第i个可见单元，$h_j$表示第j个隐单元，其参数形式为：
 > >           -  $\mathrm{W}=\{w_{i, j}\} \in R^{n \times m}$：$w_{i, j}$表示第i个可见单元和第j个隐单元之间的权值。     
 > >           -  $\mathrm{A}=\{a_{i}\} \in R^{m}$：$a_i$表示第i个可见单元的偏置阈值
@@ -109,14 +111,13 @@ tags:
 > >       - 其次，求解三个参数$\theta=\{\mathrm{W_{ij}}, \mathrm{a_i}, \mathrm{b_j}\}$
 > >          - 最大化似然对数：$L(W, a, b)=\sum_{i=1}^{m} \ln \left(P\left(v\mid{\theta}\right)\right)$，$m$为训练样本数目。最大化常常采用梯度上升法，通过迭代求出$\mathrm{W}, \mathrm{a}, \mathrm{b}$。但该方法由于涉及到归一化因子$Z$，计算复杂度高，因此需要采用近似方法来评估。
 > >       
-> >   - Gibbs采样：
+> >   - Gibbs采样：             
 > >     
 > >   - Gibbs采用可以从一个复杂的概率分布下生成数据，因此只要知道每一个分量相对其他分量的条件概率，即可对其进行采样。利用RBM中的条件概率公式，通过输入训练样本（$v_0$）可以计算得到隐含层的条件概率h，进行一次Gibbs采样得到$h_{0} \sim P\left(h \mid v_{0}\right)$。
 > >     - 同理，根据得到的$h_0$,得到$v_{1} \sim P\left(v \mid h_{0}\right)$，迭代足够多次后，就可以得到满足联合概率分布$P(v,h)$下的样本$(v,h)$，其中样本v可以近似认为是$P(v)$下的样本，从而求出梯度$\left(\frac{\partial L_{S}}{\partial w_{i j}}, \frac{\partial L_{S}}{\partial a_{i}}, \frac{\partial L_{S}}{\partial b_{i}}\right)$，实现参数更新
-> >   - **由于通常需要多步采样才可以采集到符合真实分布的样本，因此训练速度非常慢。** 
-> >            
+> >   - **由于通常需要多步采样才可以采集到符合真实分布的样本，因此训练速度非常慢。**      
 > >     
-> >     ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/Gibbs.png)   
+> >     ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/Gibbs.png)
 > >     
 > >   - CD-K算法：使用训练样本（$v_0$），执行$k$步（一般$k=1$）Gibbs采样。利用$k$步Gibbs采样后得到的$v_k$来近似估计梯度，实现参数更新：
 > >
