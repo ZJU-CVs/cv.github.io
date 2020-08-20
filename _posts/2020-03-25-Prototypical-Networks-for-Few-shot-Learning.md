@@ -21,7 +21,7 @@ tags:
 
 ##### (1) Notation
 
-> 在few-shot分类任务中，$$S=\left\{\left(\mathbf{x}_{1}, y_{1}\right), \dots,\left(\mathbf{x}_{N}, y_{N}\right)\right\}$$为一组小规模的N标签的训练数据集
+> 在few-shot分类任务中，$S=\left\{\left(\mathbf{x}_{1}, y_{1}\right), \dots,\left(\mathbf{x}_{N}, y_{N}\right)\right\}$为一组小规模的N标签的训练数据集
 >
 > （x是D维的原始数据的向量化表示，y为其对应的类别，$S_k$代表类别为k的数据集合）
 
