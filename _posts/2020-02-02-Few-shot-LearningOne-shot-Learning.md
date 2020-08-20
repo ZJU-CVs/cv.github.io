@@ -203,9 +203,9 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
 **I. Classifier-Based Methods**       
 `focus:直接学习一个能分类unseen classes的分类器`        
 - 现有的基于分类器的方法通常采用一种one-versus-rest(一对多)的解决方案来学习多类zero-shot分类器。对于每个unseen class，都学习一个binary one-versus-rest(二元一对多)分类器$f_{i}^{u}(\cdot) : \mathbb{R}^{D} \rightarrow\{0,1\}$。 最终得到zero-shot分类器由$N_u$个binary one-versus-rest分类器组成
-  
+
   $$\left\{f_{i}^{u}(\cdot) \mid i=1, \ldots, N_{u}\right\}$$
-  
+
   - **correspondence methods**：通过对unseen每个类binary one-versus-rest分类器与对应类原型的相对关系来构造unseen classes分类器
     
     - 在语义空间中，每个类只有一个对应的原型，可以将原型看作这个类的表示；同时在特征空间中，对于每个类都有对应的binary one-versus-rest分类器，也可以看作是这个类的表示。
@@ -224,9 +224,15 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
       
     
   - **relationship methods**：根据类之间的关系构造unseen classes分类器     
-    
-    - 在特征空间中，可以利用可用数据（根据不同的学习设置，可用数据是不同的）学习seen classes的binary one-versus-rest分类器$\left\{f_{i}^{s}(\cdot)\right\}_{i=1}^{N_{s}}$；同时通过计算相应原型之间的关系或通过其他方法获得seen classes和unseen classes之间的关系
+
+    > 在特征空间中，可以利用可用数据（根据不同的学习设置，可用数据是不同的）学习seen classes的binary one-versus-rest分类器，表示为：
+    >
+    > $$\left\{f_{i}^{s}(\cdot)\right\}_{i=1}^{N_{s}}$$	
+    >
+    > 同时通过计算相应原型之间的关系或通过其他方法获得seen classes和unseen classes之间的关系
+
     - Aim：学习seen classes这些binary one-versus-rest分类器和这些类的关系   
+
     - General procedure：
       - step1：利用可用数据学习seen classes的这些二元分类器
         > $$
@@ -246,7 +252,7 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
         > $$f^{u}(\cdot)=\left\{f_{i}^{u}(\cdot)\right\}_{i=1}^{N_{u}}$$  
       
       
-    
+
   - **combination methods**：通过对“用于构成类的基本元素”的分类器进行组合，为unseen classes构造分类器   
     - 在特征空间，认为有一组<u>基本元素</u>用于组成类，每个seen class和unseen class都是这些基本元素的组合。对应的映射到语义空间，每个维度代表一个基本元素，每个类原型代表对应类的这些基本元素的组合。 因此该方法主要使用于语义空间，其中类原型中的每个维度取1或0，表示类是否具有相应的元素。
     
@@ -272,7 +278,7 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
         > $$
         > f^{u}(\cdot)=\left\{f_{i}^{u}(\cdot)\right\}_{i=1}^{N_{u}}
         > $$
-  
+
 
 
 
