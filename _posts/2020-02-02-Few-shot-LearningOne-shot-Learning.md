@@ -217,7 +217,15 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
       
       - step2：通过计算相应原型之间的关系或通过其他方法获得seen classes和unseen classes之间的关系$\delta$
       
-      - step3：利用得到的seen classes分类器$\left\{f_{i}^{s}(\cdot)\right\}_{i=1}^{N_{s}}$和关系$\delta$，构建unseen classes的分类器$f^{u}(\cdot)=\left\{f_{i}^{u}(\cdot)\right\}_{i=1}^{N_{u}}$，实现对测试实例的分类  
+      - step3：
+      
+        > 利用得到关系$\delta$和seen classes分类器
+        >
+        > $$\left\{f_{i}^{s}(\cdot)\right\}_{i=1}^{N_{s}}$$
+        >
+        > 构建unseen classes的分类器，实现对测试实例的分类
+        >
+        > $$f^{u}(\cdot)=\left\{f_{i}^{u}(\cdot)\right\}_{i=1}^{N_{u}}$$  
       
       
     
