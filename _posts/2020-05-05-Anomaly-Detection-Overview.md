@@ -145,6 +145,8 @@ Adversarially Learned One-Class Classifier for Novelty Detection (2018-05)
 > 
 >
 > 损失函数：
+>
+> 
 > $$
 > \mathcal{L}=\mathcal{L}_{\mathcal{R}+\mathcal{D}}+\lambda \mathcal{L}_{\mathcal{R}}
 > $$
