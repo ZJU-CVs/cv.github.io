@@ -106,8 +106,12 @@ Ref: [A Survey of Zero-Shot Learning: Settings, Methods, and Applications](https
     
       
     
-    - 用$X^{t e}=\left\{\mathbf{x}_{i}^{t e} \in X\right\}_{i=1}^{N_{te}}$表示测试实例集合，每个$\mathbf{x}_{i}^{t e}$是特征空间中的测试例，用$Y^{t e}=\left\{y_{i}^{t e} \in \mathcal{U}\right\}_{i=1}^{N{t e}}$表示需要被预测的$X^{t e}$对应的类标签。
-    ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS2.png)   
+    - 用$X^{t e}=\left\{\mathbf{x}_{i}^{t e} \in X\right\}_{i=1}^{N_{te}}$表示测试实例集合，每个$\mathbf{x}_{i}^{t e}$是特征空间中的测试例
+    
+    - 用$Y^{t e}=\left\{y_{i}^{t e} \in \mathcal{U}\right\}_{i=1}^{N{t e}}$表示需要被预测的$X^{t e}$对应的类标签         
+    ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/ZS2.png)
+    
+    
   - **Definition 1.1**：对于给定所属类别在seen classes集合$S$中的训练标签实例$D^{t r}$，zero-shot learning的目标是学习一个分类器$f^{u}(\cdot) : X \rightarrow \mathcal{U}$，能够对所述类别在unseen classes集合$\mathcal{U}$的测试实例$X^{t e}$进行分类。
     - 从Definition 1.1可以看出，zero-shot learning的一般思想是将训练实$D^{t r}$中包含的知识转移到测试实例的分类任务中。
     - zero-shot learning中，有相同的特征空间，但由于训练和测试实例所涵盖标签空间是不相交的，因此zero-shot learning其本质属于transfer learnin中的heterogeneous(异构) transfer learning。（迁移学习相关内容详见[Transfer-Learning.md](https://github.com/jyniki/Learn2019/blobmaster/research/Transfer-Learning.md)）     
