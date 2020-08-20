@@ -136,19 +136,22 @@ tags:
 
 #### 4. Transfer Learning Methods 迁移学习方法
 > `分类方式：基于学习方法进行分类` 
->  
-(1). 基于样本迁移(Instance based Transfer Learning)
+>
+> (1). 基于样本迁移(Instance based Transfer Learning)
 > - 根据一定的权重生成规则，对数据样本进行重用，来进行迁移学习。   
 > - 如下图：源域中存在不同种类的动物，如狗、鸟、猫等，目标域只有狗这一种类别。在迁移时，为了最大限度地和目标域相似，可以人为地提高源域中属于狗这个类别的样本权重。
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/Instance-based.jpg)
 > - 根据特征的同构和异构性，又可以分为<u>同构和异构</u>迁移学习。
-> 
-(2). 基于特征迁移(Feature based Transfer Learning) 
+>
+> (2). 基于特征迁移(Feature based Transfer Learning) 
 > - 通过特征变换的方式互相迁移，来减少源领和目标域之间的差距；或者将源域和目标域的> 数据特征变换到统一特征空间中，然后利用传统的机器学习方法进行分类识别。
 > - 可以分为<u>有监督和无监督</u>两种情况：
->   - 有监督特征构造的基本思想是学习一个低维的特征表示，使得特征可以在相关的国歌> 任务中共享，同时也要使分类回归的误差最小。
->   - 无监督特征构造的基本思想：第一步通过在源域上学习一个基向量；第二步在目标域> 上基于基向量学习更高维特征；最后在目标域上，将判别算法应用于具有相应标签的更高> 维特征，以训练分类和回归模型应用到目标域。
-> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/Feature-based.jpg)
+>   - 有监督特征构造的基本思想是学习一个低维的特征表示，使得特征可以在相关的多个任务中共享，同时也要使分类回归的误差最小。
+>   - 无监督特征构造的基本思想：
+>   - 第一步通过在源域上学习一个基向量；
+>     - 第二步在目标域数据上基于基向量学习更高维特征；
+>     - 最后在目标域上，将判别算法应用于具有相应标签的更高> 维特征，以训练分类和回归模型应用到目标域。
+>     ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/Feature-based.jpg)
 
 (3). 基于参数/模型迁移(Parameter/Model based Transfer Learning)
 > - 从源域和目标域中找到两者之间共享的参数信息。
