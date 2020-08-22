@@ -1,25 +1,18 @@
 ---
 layout:     post
-title:      Revisiting Pose-Normalization for Fine-Grained Few-Shot Recognition
+title:      Learning Attentive Pairwise Interation for Fine-Grained Classificatio
 subtitle:   
-date:       2020-08-11
+date:       2020-08-21
 author:     JY
 header-img: img/post-bg.jpg
 catalog: true
 tags:
     - paper
-    - FSL
     - Fine-grained
+
 ---
 
 
 
 ### 1. Introduction
 
-
-
-### 2. Method
-
-
-
-### 3. Experiments

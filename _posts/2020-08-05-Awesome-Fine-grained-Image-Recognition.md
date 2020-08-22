@@ -304,6 +304,10 @@ tags:
 
 - [Channel Interaction Networks for Fine-Grained Image Categorization](https://arxiv.org/pdf/2003.05235.pdf)
 
+  > [Details](https://zju-cvs.github.io/2020/08/11/Channel-Interaction-Networks-for-Fine-Grained-Image-Categorization/)
+  >
+  > 
+  >
   > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/FGIA/9.png" alt="img" style="zoom: 50%;" />
 
 
