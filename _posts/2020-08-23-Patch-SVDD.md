@@ -164,7 +164,7 @@ tags:
 > \mathcal{M}_{multi}\doteq  \mathcal{M}_{small} \odot \mathcal{M}_{big}
 > $$
 >
-> > 其中$\mathcal{M}_{small},\mathcal{M}_{big}$分别是使用$f_{small},f_{big}$生成的异常图
+> > 其中$\mathcal{M}_{small}$是使用$f_{small}$生成的异常图
 >
 > 
 >
