@@ -65,9 +65,13 @@ tags:
 >   
 > - 这种细粒度的检测提高了整体检测的性能
 >   
->   - 由下图可见，对于相对简单的图像，使用$\mathcal{L}_{SVDD}/\mathcal{L}_{Patch \ SVDD}$训练的编码器都能很好地定位缺陷；       
+>   - 由下图可见
 >   
->     然而对于较复杂的图像，$\mathcal{L}_{SVDD}$无法定位
+>     > 对于相对简单的图像，使用$\mathcal{L}_{SVDD}$和$\mathcal{L}_{Patch \ SVDD}$训练的编码器都能很好地定位缺陷；       
+>     >
+>     > 然而对于较复杂的图像，$\mathcal{L}_{SVDD}$无法定位
+>   
+>     
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/7.png" alt="img" style="zoom:40%;" />
 >
@@ -160,7 +164,7 @@ tags:
 > \mathcal{M}_{multi}\doteq  \mathcal{M}_{small} \odot \mathcal{M}_{big}
 > $$
 >
-> > 其中$\mathcal{M}_{small}$
+> > 其中$\mathcal{M}_{small},\mathcal{M}_{big}$分别是使用$f_{small},f_{big}$生成的异常图
 >
 > 
 >
