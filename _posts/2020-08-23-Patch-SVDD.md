@@ -9,7 +9,6 @@ catalog: true
 tags:
     - Paper
     - Anomaly Detection
-    - FSL
 ---
 
 
