@@ -67,7 +67,7 @@ tags:
 >   
 >   - 由下图可见
 >   
->     > 对于相对简单的图像，使用$\mathcal{L}_{SVDD}$和$\mathcal{L}_{Patch \ SVDD}$训练的编码器都能很好地定位缺陷；       
+>     > 对于相对简单的图像，使用$\mathcal{L}_{Patch \ SVDD}$训练的编码器都能很好地定位缺陷；       
 >     >
 >     > 然而对于较复杂的图像，$\mathcal{L}_{SVDD}$无法定位
 >   
@@ -164,7 +164,9 @@ tags:
 > \mathcal{M}_{multi}\doteq  \mathcal{M}_{small} \odot \mathcal{M}_{big}
 > $$
 >
-> > 其中$\mathcal{M}_{small}$是使用$f_{small}$生成的异常图
+> > $\mathcal{M}_{small}$是使用$f_{small}$生成的异常图
+> >
+> > $\mathcal{M}_{big}$是使用$f_{big}$生成的异常图
 >
 > 
 >
