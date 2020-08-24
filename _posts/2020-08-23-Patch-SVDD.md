@@ -67,7 +67,9 @@ tags:
 >   
 >   - 由下图可见
 >   
->     > 对于相对简单的图像，使用$\mathcal{L}_{Patch \ SVDD}$训练的编码器和使用$\mathcal{L}_{Patch}$训练的编码器都能很好地定位缺陷；       
+>     > 对于相对简单的图像，使用$\mathcal{L}_{Patch \ SVDD}$训练的编码器
+>     >
+>     > 和使用$\mathcal{L}_{Patch}$训练的编码器都能很好地定位缺陷；       
 >     >
 >     > 然而对于较复杂的图像，$\mathcal{L}_{SVDD}$无法定位
 >   
