@@ -38,6 +38,8 @@ tags:
 
 
 **HSC objective:**
+
+
 $$
 \min _{\mathcal{W}} \frac{1}{n} \sum_{i=1}^{n}\left(1-y_{i}\right) h\left(\phi\left(X_{i} ; \mathcal{W}\right)-\mathbf{c}\right)-y_{i} \log \left(1-\exp \left(-h\left(\phi\left(X_{i} ; \mathcal{W}\right)-\mathbf{c}\right)\right)\right)
 $$
@@ -69,10 +71,14 @@ HSC loss鼓励$\phi$映射正常样本到中心 $c$ 附近而使异常样本远�
 FCDD使用标记为正常或异常的样本进行训练，经过FCN: $\phi:\mathbb{R}^{c\times h \times w }\rightarrow \mathbb{R}^{u\times v} $得到输出矩阵$\phi(X;\mathcal{W})$
 
 利用输出矩阵得到pseudo-Huber loss：
+
+
 $$
 A(X)=\sqrt{\phi(X;\mathcal{W})^2+1}-1
 $$
 FCDD的目标函数定义为：
+
+
 $$
 \min _{\mathcal{W}} \frac{1}{n} \sum_{i=1}^{n}\left(1-y_{i}\right) \frac{1}{u \cdot v}\left\|A\left(X_{i}\right)\right\|_{1}-y_{i} \log \left(1-\exp \left(-\frac{1}{u \cdot v}\left\|A\left(X_{i}\right)\right\|_{1}\right)\right)
 $$
@@ -96,7 +102,9 @@ $$
 
 > 与基于重构的方法相比，FCDD的一个主要优点是可以很容易地用于半监督异常检测的设置中 (**Semi-Supervised FCDD**)
 >
-> 在训练集中加入少量异常样本数据，利用ground truth标注，训练一个像素级的模型，目标函数如下：0
+> 在训练集中加入少量异常样本数据，利用ground truth标注，训练一个像素级的模型，目标函数如下：
+>
+> 
 > $$
 > \min _{\mathcal{W}} \frac{1}{n} \sum_{i=1}^{n}\left(\frac{1}{m} \sum_{j=1}^{m}\left(1-\left(Y_{i}\right)_{j}\right) A^{\prime}\left(X_{i}\right)_{j}\right)-\log \left(1-\exp \left(-\frac{1}{m} \sum_{j=1}^{m}\left(Y_{i}\right)_{j} A^{\prime}\left(X_{i}\right)_{j}\right)\right)
 > $$
