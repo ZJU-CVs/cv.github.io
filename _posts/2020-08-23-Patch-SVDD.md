@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      Few-Shot Scene-Adaptive Anomaly Detection
-subtitle:   
+title:      Patch SVDD
+subtitle:   Patch-level SVDD for Anomaly Detection and Segmentation
 date:       2020-08-23
 author:     JY
 header-img: img/post-bg.jpg
@@ -10,7 +10,6 @@ tags:
     - Paper
     - Anomaly Detection
     - FSL
-
 ---
 
 
