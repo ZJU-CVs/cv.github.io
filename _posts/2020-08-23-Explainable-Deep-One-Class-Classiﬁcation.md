@@ -94,4 +94,13 @@ $$
 
 
 
-> 与基于重构的方法相比，FCDD的一个主要优点是可以很容易地用于半监督异常检测的设置中
+> 与基于重构的方法相比，FCDD的一个主要优点是可以很容易地用于半监督异常检测的设置中 (**Semi-Supervised FCDD**)
+>
+> 在训练集中加入少量异常样本数据，利用ground truth标注，训练一个像素级的模型，目标函数如下：0
+> $$
+> \min _{\mathcal{W}} \frac{1}{n} \sum_{i=1}^{n}\left(\frac{1}{m} \sum_{j=1}^{m}\left(1-\left(Y_{i}\right)_{j}\right) A^{\prime}\left(X_{i}\right)_{j}\right)-\log \left(1-\exp \left(-\frac{1}{m} \sum_{j=1}^{m}\left(Y_{i}\right)_{j} A^{\prime}\left(X_{i}\right)_{j}\right)\right)
+> $$
+>
+> > $m=h\cdot w$
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/4.png" alt="img" style="zoom:50%;" />
