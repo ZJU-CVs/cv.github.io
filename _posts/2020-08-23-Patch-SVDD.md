@@ -63,9 +63,12 @@ tags:
 >
 > - Patch-wise inspection具有以下优点：
 >   - 可以在每个位置获得检测结果，从而定位缺陷位置
->   - 这种细粒度的检测提高了整体检测的性能
->
->   - 由下图可见，对于相对简单的图像，使用$\mathcal{L}_{SVDD}$和$\mathcal{L}_{Patch \ SVDD}$训练的编码器都能很好地定位缺陷；然而对于较复杂的图像，$\mathcal{L}_{SVDD}$无法定位
+>   
+> - 这种细粒度的检测提高了整体检测的性能
+>   
+>   - 由下图可见，对于相对简单的图像，使用$\mathcal{L}_{SVDD}$和$\mathcal{L}_{Patch \ SVDD}$训练的编码器都能很好地定位缺陷；       
+>   
+>     然而对于较复杂的图像，$\mathcal{L}_{SVDD}$无法定位
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/7.png" alt="img" style="zoom:40%;" />
 >
@@ -89,6 +92,8 @@ tags:
 > 如果将真实的相对位置设置为$y\in \{0,1,\cdots,7\}$，则训练分类器$C_{\phi}$以正确预测$y=C_{\phi}(f_{\theta}(p_1),f_{\theta}(p_2))$
 >
 > 自监督学习的损失函数为：
+>
+> 
 > $$
 > \mathcal{L}_{SSL}={Cross-entropy}(y,C_{\phi}(f_{\theta}(p_1),f_{\theta}(p_2)))
 > $$
@@ -96,7 +101,11 @@ tags:
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/8.png" alt="img" style="zoom:40%;" />
 >
+> 
+>
 > 因此训练编码器的最终损失函数为：
+>
+> 
 > $$
 > \mathcal{L}_{Patch \ SVDD}=\lambda \mathcal{L}_{SVDD'}+\mathcal{L}_{SSL}
 > $$
@@ -109,6 +118,8 @@ tags:
 > 由于异常的大小不同，因此部署具有不同接受范围的多个编码器有助于应对大小变化
 >
 > 因此采用一个hierarchical encoder，定义为：
+>
+> 
 > $$
 > f_{big}(p)=g_{big}(f_{small}(p))
 > $$
@@ -131,15 +142,19 @@ tags:
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/10.png" alt="img" style="zoom:40%;" />
 
-> 首先，计算并存储每个正常训练patch的表示$\{f_{\theta}(p_{normal})\mid p_{normal}\}$
+> 首先，计算并存储每个正常训练patch的表示{$f_{\theta}(p_{normal})\mid p_{normal}$}
 >
 > 给定一个查询图像，根据$stride=S$划分得到大小为$K$的patch，并使用经过训练的编码器提取特征。计算特征空间中与其最接近的正常patch的$L_2$距离作为异常分数
+>
+> 
 > $$
 > \mathcal{A}_{\theta}^{\text {patch }}(\mathbf{p}) \doteq \min _{\mathbf{p}_{\text {normal }}}\left\|f_{\theta}(\mathbf{p})-f_{\theta}\left(\mathbf{p}_{\text {normal }}\right)\right\|_{2}
 > $$
 > 然后将逐块计算的异常分数分配给像素，生成异常图$\mathcal{M}$
 >
 > 考虑multiple编码器构成了多个特征空间，从而产生多个异常图，通过element-wise multiplication 聚合多个异常图，得到最终的$\mathcal{M}_{multi}$
+>
+> 
 > $$
 > \mathcal{M}_{multi}\doteq  \mathcal{M}_{small} \odot \mathcal{M}_{big}
 > $$
@@ -151,6 +166,8 @@ tags:
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/11.png" alt="img" style="zoom:40%;" />
 >
 > $\mathcal{M}_{multi}$像素中最大的异常分数即为该检测图像的**异常分数**$\mathcal{A}$
+>
+> 
 > $$
 > \mathcal{A}^{image}_{\theta}(x) \doteq \max_{i,j} \mathcal{M}_{multi}(x)_{ij}
 > $$
