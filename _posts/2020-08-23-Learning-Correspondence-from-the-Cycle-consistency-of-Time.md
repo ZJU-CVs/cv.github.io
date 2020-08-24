@@ -8,9 +8,7 @@ header-img: img/post-bg.jpg
 catalog: true
 tags:
     - paper
-    - Fine-grained
-
-
+    - Video Analysis
 ---
 
 
