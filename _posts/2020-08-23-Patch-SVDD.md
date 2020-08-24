@@ -163,9 +163,7 @@ tags:
 >
 > 
 >
-> - 考虑multiple编码器($f_{small},f_{big}$)构成了多个特征空间，
->
->   从而产生多个异常图($\mathcal{M}_{small},\mathcal{M}_{big}$)，
+> - 考虑multiple编码器($f_{small},f_{big}$)构成了多个特征空间，从而产生多个异常图，
 >
 >   通过element-wise multiplication 聚合多个异常图，得到最终的$\mathcal{M}_{multi}$
 >
