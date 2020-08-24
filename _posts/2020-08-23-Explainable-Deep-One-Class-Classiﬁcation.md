@@ -76,6 +76,8 @@ FCDD使用标记为正常或异常的样本进行训练，经过FCN: $\phi:\math
 $$
 A(X)=\sqrt{\phi(X;\mathcal{W})^2+1}-1
 $$
+
+
 FCDD的目标函数定义为：
 
 
