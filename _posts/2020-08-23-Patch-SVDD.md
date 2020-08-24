@@ -89,7 +89,7 @@ tags:
 
 > 对于随机采样的patch $p_1$，在$3\times 3$网格中从其八个邻域之一采样另一个补丁$p_2$。
 >
-> 如果将真实的相对位置设置为$y\in \{0,1,\cdots,7\}$，则训练分类器$C_{\phi}$以正确预测$y=C_{\phi}(f_{\theta}(p_1),f_{\theta}(p_2))$
+> 如果将真实的相对位置设置为$y\in$ {$0,1,\cdots,7$}，则训练分类器$C_{\phi}$以正确预测$y=C_{\phi}(f_{\theta}(p_1),f_{\theta}(p_2))$
 >
 > 自监督学习的损失函数为：
 >
@@ -150,6 +150,8 @@ tags:
 > $$
 > \mathcal{A}_{\theta}^{\text {patch }}(\mathbf{p}) \doteq \min _{\mathbf{p}_{\text {normal }}}\left\|f_{\theta}(\mathbf{p})-f_{\theta}\left(\mathbf{p}_{\text {normal }}\right)\right\|_{2}
 > $$
+> 
+>
 > 然后将逐块计算的异常分数分配给像素，生成异常图$\mathcal{M}$
 >
 > 考虑multiple编码器构成了多个特征空间，从而产生多个异常图，通过element-wise multiplication 聚合多个异常图，得到最终的$\mathcal{M}_{multi}$
@@ -159,7 +161,9 @@ tags:
 > \mathcal{M}_{multi}\doteq  \mathcal{M}_{small} \odot \mathcal{M}_{big}
 > $$
 >
-> > 其中$\mathcal{M}_{small}$和$\mathcal{M}_{big}$分别是使用$f_{small}$和$f_{big}$生成的异常图
+> > 其中$\mathcal{M}_{small},\mathcal{M}_{big}$分别是使用$f_{small},f_{big}$生成的异常图
+>
+> 
 >
 > $\mathcal{M}_{multi}$中异常分数高的像素被认为包含缺陷，结合来自多个编码器的多尺度结果能提高检测性能
 >
