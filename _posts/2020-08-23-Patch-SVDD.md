@@ -145,9 +145,9 @@ tags:
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/10.png" alt="img" style="zoom:40%;" />
 
-> 首先，计算并存储每个正常训练patch的表示{$f_{\theta}(p_{normal})\mid p_{normal}$}
+> - 首先，计算并存储每个正常训练patch的表示{$f_{\theta}(p_{normal})\mid p_{normal}$}
 >
-> 给定一个查询图像，根据$stride=S$划分得到大小为$K$的patch，并使用经过训练的编码器提取特征。计算特征空间中与其最接近的正常patch的$L_2$距离作为异常分数
+> - 给定一个查询图像，根据$stride=S$划分得到大小为$K$的patch，并使用经过训练的编码器提取特征。计算特征空间中与其最接近的正常patch的$L_2$距离作为异常分数
 >
 > 
 > $$
@@ -155,26 +155,22 @@ tags:
 > $$
 > 
 >
-> 然后将逐块计算的异常分数分配给像素，生成异常图$\mathcal{M}$
+> - 然后将逐块计算的异常分数分配给像素，生成异常图$\mathcal{M}$
 >
-> 考虑multiple编码器构成了多个特征空间，从而产生多个异常图，通过element-wise multiplication 聚合多个异常图，得到最终的$\mathcal{M}_{multi}$
+> 
+>
+> - 考虑multiple编码器($f_{small},f_{big}$)构成了多个特征空间，从而产生多个异常图($\mathcal{M}_{small},\mathcal{M}_{big}$)，通过element-wise multiplication 聚合多个异常图，得到最终的$\mathcal{M}_{multi}$
 >
 > 
 > $$
 > \mathcal{M}_{multi}\doteq  \mathcal{M}_{small} \odot \mathcal{M}_{big}
 > $$
 >
-> > $\mathcal{M}_{small}$是使用$f_{small}$生成的异常图
-> >
-> > $\mathcal{M}_{big}$是使用$f_{big}$生成的异常图
->
-> 
->
-> $\mathcal{M}_{multi}$中异常分数高的像素被认为包含缺陷，结合来自多个编码器的多尺度结果能提高检测性能
+> - $\mathcal{M}_{multi}$中异常分数高的像素被认为包含缺陷，结合来自多个编码器的多尺度结果能提高检测性能
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/11.png" alt="img" style="zoom:40%;" />
 >
-> $\mathcal{M}_{multi}$像素中最大的异常分数即为该检测图像的**异常分数**$\mathcal{A}$
+> - $\mathcal{M}_{multi}$像素中最大的异常分数即为该检测图像的**异常分数**$\mathcal{A}$
 >
 > 
 > $$
