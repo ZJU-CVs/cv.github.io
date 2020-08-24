@@ -62,6 +62,8 @@ HSC loss鼓励$\phi$映射正常样本到中心 $c$ 附近而使异常样本远�
 
 ##### Fully Convolutional Data Description
 
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/3.png" alt="img" style="zoom:50%;" />
+
 > 结合FCNs和HSC，提出了FCDD
 
 FCDD使用标记为正常或异常的样本进行训练，经过FCN: $\phi:\mathbb{R}^{c\times h \times w }\rightarrow \mathbb{R}^{u\times v} $得到输出矩阵$\phi(X;\mathcal{W})$
@@ -78,4 +80,18 @@ $$
 
 ##### Heatmap Upsampling
 
-> $A(X)\in\mathbb{R}^{u\times v}$的空间维度比原始的输入图片维度$h\times w$ 小，因此为了得到全分辨率的热图，引入了一种基于感受域的上采样方案
+> $A(X)\in\mathbb{R}^{u\times v}$的空间维度比原始的输入图片维度$h\times w$ 小，因此为了得到全分辨率的热图，引入了一种基于感受域的上采样方案：
+>
+> 即使用固定高斯核的跨步反卷积进行上采样
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/2.png" alt="img" style="zoom:50%;" />
+
+
+
+#### 3. Experiment
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/1.png" alt="img" style="zoom:50%;" />
+
+
+
+> 与基于重构的方法相比，FCDD的一个主要优点是可以很容易地用于半监督异常检测的设置中
