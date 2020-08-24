@@ -66,7 +66,7 @@ tags:
 >   
 > - 这种细粒度的检测提高了整体检测的性能
 >   
->   - 由下图可见，对于相对简单的图像，使用$\mathcal{L}_{SVDD}$和$\mathcal{L}_{Patch \ SVDD}$训练的编码器都能很好地定位缺陷；       
+>   - 由下图可见，对于相对简单的图像，使用$\mathcal{L}_{SVDD}/\mathcal{L}_{Patch \ SVDD}$训练的编码器都能很好地定位缺陷；       
 >   
 >     然而对于较复杂的图像，$\mathcal{L}_{SVDD}$无法定位
 >
