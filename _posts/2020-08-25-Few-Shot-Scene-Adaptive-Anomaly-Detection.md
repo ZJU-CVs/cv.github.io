@@ -115,8 +115,18 @@ $$
 
 ##### Meta-Testing
 
-- 对于一个
+- 对于一个新的目标场景，基于$S_{new}$中的$K$个实例，使用$Eq.1$获得自适应模型参数$\theta'$，然后用其余帧衡量模型性能
+
+  即使用$S_{new}$中的一个视频的前几帧进行场景自适应，然后使用其余帧进行测试
+
+
 
 ##### Backbone Architecture
+
+- 本文所提的场景自适应异常检测框架是通用的，从理论上讲，可以使用任何异常检测网络作为主干架构
+
+- 本文采用《Future frame prediction for anomaly detectiona new baseline》中所提的异常检测模型作为backbne
+
+  
 
 #### 3. Experiment
