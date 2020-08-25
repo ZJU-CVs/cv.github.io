@@ -73,11 +73,13 @@ $$
 
 ##### Meta-Training
 
-对于一个预训练参数为$\theta$的异常检测模型$f_{\theta}:x\rightarrow y$，
+- 对于一个预训练参数为$\theta$的异常检测模型$f_{\theta}:x\rightarrow y$，
 
-按照MAML，通过在该任务训练集$\mathcal{D}_i^{tr}$上定义的损失函数和一个梯度更新将参数从$\theta$调整为$\theta'_{i}$，以适应任务$\mathcal{T}_i$
+- 按照MAML，通过在该任务训练集$\mathcal{D}_i^{tr}$上定义的损失函数和一个梯度更新将参数从$\theta$调整为$\theta'_{i}$，以适应任务$\mathcal{T}_i$
+
 $$
 \begin{array}{l}
+Eq.1: \\
 \theta_{i}^{\prime}=\theta-\alpha \nabla_{\theta} \mathcal{L}_{\mathcal{T}_{i}}\left(f_{\theta} ; \mathcal{D}_{i}^{t r}\right),\\ where \ \mathcal{L}_{\mathcal{T}_{i}}\left(f_{\theta} ; \mathcal{D}_{i}^{t r}\right)=\sum_{\left(x_{j}, y_{j}\right) \in \mathcal{D}_{i}^{t r}} L\left(f_{\theta}\left(x_{j}\right), y_{j}\right)
 \end{array}
 $$
@@ -91,9 +93,29 @@ $$
 
 
 
+- 更新后的参数$\theta'_i$适应任务$\mathcal{T}_i$，通过在$\mathcal{D}_i^{val}$进行性能验证。元训练的目的是学习初始化模型参数$\theta$，以通过任务自适应得到$\theta'$，使对应任务的损失函数最小：
+
+$$
+\begin{array}{l}Eq.3:\\
+\mathcal{L}_{\mathcal{T}_{i}}\left(f_{\theta^{\prime}} ; \mathcal{D}_{i}^{v a l}\right)=\sum_{\left(x_{j}, y_{j}\right) \in \mathcal{D}_{i}^{v a l}} L\left(f_{\theta^{\prime}}\left(x_{j}\right), y_{j}\right)
+\end{array}
+$$
+
+- 最终元学习的目标函数为所有任务损失的总和：
+
+$$
+\min_{\theta}\sum _{i=1}^M \mathcal{L}_{\mathcal{T}_{i}}(f_{\theta^{\prime}};\mathcal{D}^{val}_i)
+$$
+
+- 在实际训练时，每一次迭代从任务中采样mini-batch。算法步骤如下所示：
+
+  <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/23.png" alt="img" style="zoom:50%;" />
+
 
 
 ##### Meta-Testing
+
+
 
 ##### Backbone Architecture
 
