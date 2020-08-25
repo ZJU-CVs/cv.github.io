@@ -47,7 +47,7 @@ tags:
 
 ##### Tasks in Meta-Learning
 
-构建元训练任务如下：
+以基于预测的异常检测模型为例，构建元训练任务如下：
 
 - 利用$t$时刻前观测到的帧{$I_1,\cdots,I_{t}$}预测第$t+1$时刻的帧$\hat{I}_{t+1}$           
 
@@ -63,15 +63,21 @@ $$
   >
   > 
   >
-  > 对于每个分段(segment) $(I_1,I_2,\cdots,I_t,I_{t+1})$，$x=(I_1,I_2,\cdots,I_t)$，$y=I_{t+1}$，因此可以得到一个输入/输出对$(x,y)$
+  > 对于每个分段 $(I_1,I_2,\cdots,I_t,I_{t+1})$，$x=(I_1,I_2,\cdots,I_t)$，$y=I_{t+1}$，因此可以得到一个输入/输出对$(x,y)$
   >
   > 
   >
-  > 在训练集$\mathcal{D}_{i}^{tr}$中，随机从$\mathcal{T_i}$采样$K$个输入/输出对，以学习未来帧的预测模型，即$\mathcal{D_i}^{tr}$={$(x_1,y_1),(x_2,y_2),\cdots,(x_K,y_K)$}；同时，随机采样$K$个输入/输出对 (不包括$\mathcal{D_i}^{tr}$中的)构成$\mathcal{D_i}^{val}$
+  > 在训练集$\mathcal{D}_{i}^{tr}$中，随机从$\mathcal{T_i}$采样$K$个输入/输出对，以学习未来帧的预测模型，即
+  >
+  > $\mathcal{D_i}^{tr}$={$(x_1,y_1),(x_2,y_2),\cdots,(x_K,y_K)$}；
+  >
+  > 同时，随机采样$K$个输入/输出对 (不包括$\mathcal{D_i}^{tr}$中的)构成$\mathcal{D_i}^{val}$
 
   
 
 ##### Meta-Training
+
+> 对于一个预训练参数为$\theta$的异常检测模型$f_{\theta}:x\rightarrow y$
 
 ##### Meta-Testing
 
