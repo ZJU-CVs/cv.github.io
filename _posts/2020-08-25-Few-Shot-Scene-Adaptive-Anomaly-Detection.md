@@ -125,11 +125,54 @@ $$
 
 - 本文所提的场景自适应异常检测框架是通用的，从理论上讲，可以使用任何异常检测网络作为主干架构
 
-- 本文参考`《Future frame prediction for anomaly detectiona new baseline》`中所提的异常检测模型和`《Convolutional lstm network: A machine learning approach for precipitation nowcasting》`中所提的ConvLSTM模块，提出了r-GAN作为backbone
+- 本文参考`《Future frame prediction for anomaly detection — a new baseline》`中所提的异常检测模型和`《Convolutional lstm network: A machine learning approach for precipitation nowcasting》`中所提的ConvLSTM模块，提出了r-GAN作为backbone
+
+- 具体而言，使用ConvLSTM和对抗训练来构建模型，以捕获视频的时空信息
 
   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/24.png" alt="img" style="zoom:50%;" />
 
-  > 首先应用U-net来预测未来的帧，并将预测结果传递给ConvLSTM模块
+  <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/25.png" alt="img" style="zoom:50%;" />
+
+  > 省略了光流约束的part
+  >
+  > 首先应用U-net来预测未来的帧，并将预测结果传递给ConvLSTM模块以保留先前步骤的信息
+  >
+  > 生成器和判别器进行对抗训练
+
+
+
+注：ConvLSTM简单介绍
+
+> d
+
+
 
 #### 3. Experiment
 
+##### Datasets
+
+> Shanghai Tech
+>
+> UCF crime
+>
+> UCSD Pedestrian 1
+>
+> UR fall
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/19.png" alt="img" style="zoom:50%;" />
+
+> 第一行显示了数据集正常帧的实例；第二行显示了异常帧的实例
+>
+> 训练的视频数据仅包含正常帧，异常帧仅用于测试
+
+
+
+##### Baseline
+
+> Pre-trained:
+>
+> Fine-tuned：
+
+
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/22.png" alt="img" style="zoom:50%;" />
