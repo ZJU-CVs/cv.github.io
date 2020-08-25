@@ -59,25 +59,39 @@ $$
 
 - 在元训练时有$M$个场景，表示为{$S_1,S_2,\cdots,S_M$}，对于给定的场景$S_i$，可以构造一个对应的任务$\mathcal{T}_i=(\mathcal{D_i}^{tr},\mathcal{D_i}^{val})$
 
-  > 首先将从$S_i$获得的视频拆分为许多长度为$t+1$的重叠连续段（overlapping consecutive segments）
+  > - 首先将从$S_i$获得的视频拆分为许多长度为$t+1$的重叠连续段（overlapping consecutive segments）
   >
   > 
   >
-  > 对于每个分段 $(I_1,I_2,\cdots,I_t,I_{t+1})$，$x=(I_1,I_2,\cdots,I_t)$，$y=I_{t+1}$，因此可以得到一个输入/输出对$(x,y)$
+  > - 对于每个分段 $(I_1,I_2,\cdots,I_t,I_{t+1})$，$x=(I_1,I_2,\cdots,I_t)$，$y=I_{t+1}$，因此可以得到一个输入/输出对$(x,y)$
   >
   > 
   >
-  > 在训练集$\mathcal{D}_{i}^{tr}$中，随机从$\mathcal{T_i}$采样$K$个输入/输出对，以学习未来帧的预测模型，即
-  >
-  > $\mathcal{D_i}^{tr}$={$(x_1,y_1),(x_2,y_2),\cdots,(x_K,y_K)$}；
-  >
-  > 同时，随机采样$K$个输入/输出对 (不包括$\mathcal{D_i}^{tr}$中的)构成$\mathcal{D_i}^{val}$
+  > - 在训练集$\mathcal{D}_{i}^{tr}$中，随机从$\mathcal{T_i}$采样$K$个输入/输出对，以学习未来帧的预测模型，即$\mathcal{D_i}^{tr}$={$(x_1,y_1),(x_2,y_2),\cdots,(x_K,y_K)$}；同时，随机采样$K$个输入/输出对 (不包括$\mathcal{D_i}^{tr}$中的对) 构成$\mathcal{D_i}^{val}$
 
   
 
 ##### Meta-Training
 
-> 对于一个预训练参数为$\theta$的异常检测模型$f_{\theta}:x\rightarrow y$
+对于一个预训练参数为$\theta$的异常检测模型$f_{\theta}:x\rightarrow y$，
+
+按照MAML，通过在该任务训练集$\mathcal{D}_i^{tr}$上定义的损失函数和一个梯度更新将参数从$\theta$调整为$\theta'_{i}$，以适应任务$\mathcal{T}_i$
+$$
+\begin{array}{l}
+\theta_{i}^{\prime}=\theta-\alpha \nabla_{\theta} \mathcal{L}_{\mathcal{T}_{i}}\left(f_{\theta} ; \mathcal{D}_{i}^{t r}\right),\\ where \ \mathcal{L}_{\mathcal{T}_{i}}\left(f_{\theta} ; \mathcal{D}_{i}^{t r}\right)=\sum_{\left(x_{j}, y_{j}\right) \in \mathcal{D}_{i}^{t r}} L\left(f_{\theta}\left(x_{j}\right), y_{j}\right)
+\end{array}
+$$
+
+> 其中$\alpha$为步长
+>
+> $L(f_\theta(x_j),y_j)$用于衡量预测帧$f_\theta(x_j)$与实际帧$y_j$之间的差异，$L(\cdot)$的定义为：
+> $$
+> L(f_\theta(x_j),y_j)=\lambda_1 L_1(f_\theta(x_j),y_j)+\lambda_2 L_{ssm}(f_\theta(x_j),y_j)+\lambda_3 L_{gdl}(f_\theta(x_j),y_j)
+> $$
+
+
+
+
 
 ##### Meta-Testing
 
