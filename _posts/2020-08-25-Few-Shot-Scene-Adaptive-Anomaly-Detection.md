@@ -125,8 +125,11 @@ $$
 
 - 本文所提的场景自适应异常检测框架是通用的，从理论上讲，可以使用任何异常检测网络作为主干架构
 
-- 本文采用《Future frame prediction for anomaly detectiona new baseline》中所提的异常检测模型作为backbne
+- 本文参考`《Future frame prediction for anomaly detectiona new baseline》`中所提的异常检测模型和`《Convolutional lstm network: A machine learning approach for precipitation nowcasting》`中所提的ConvLSTM模块，提出了r-GAN作为backbone
 
-  
+  <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/24.png" alt="img" style="zoom:50%;" />
+
+  > 首先应用U-net来预测未来的帧，并将预测结果传递给ConvLSTM模块
 
 #### 3. Experiment
+
