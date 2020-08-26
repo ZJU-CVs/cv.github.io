@@ -1,0 +1,40 @@
+
+
+### SinGAN: Learning a Generative Model from a Single Natural Image
+
+[code](https://github.com/tamarott/SinGAN)
+
+#### 1、Introduction
+
+介绍了 SinGAN，这是一种无条件的生成模型，可以从单个自然图像中学习。我们的模型经过训练，可以捕获图像内斑块的内部分布，生成高质量、多样化的样本，并承载与图像相同的视觉内容。SinGAN 包含一个完全卷积的 GAN 金字塔，每个 GAN 负责学习图像不同比例的 patch 分布，可以生成任意大小和纵横比的新样本，这些样本具有明显的可变性，同时又可以保持训练图像的整体结构和精细纹理。 与以前的单图像 GAN 方案相比，本文提出的方法不仅限于纹理图像，而且并非有条件的（比如该方法可以从噪声中生成样本）。研究表明，生成的样本通常可达到与真实图像真假难辨的程度
+
+#### 2、Model 
+
+<img src="picture/SinGAN.png" alt="img" style="zoom:50%;" />
+
+> 假设有 N个尺度，最下面的第 N个尺度是最粗糙的，最上面的尺度是最精细的
+
+<img src="picture/SinGAN1.png" alt="img" style="zoom:50%;" />
+
+Loss function：
+
+总损失函数：
+
+$Loss=\min _{G_{n}} \max _{D_{n}} \mathcal{L}_{\mathrm{adv}}\left(G_{n}, D_{n}\right)+\alpha \mathcal{L}_{\mathrm{rec}}\left(G_{n}\right)$
+
+- 对抗损失 :
+
+  > 
+
+- 重构损失 : 
+
+  > for $n<N$, $\mathcal{L}_{\mathrm{rec}}=\left\|G_{n}\left(0,\left(\tilde{x}_{n+1}^{\mathrm{rec}}\right) \uparrow^{r}\right)-x_{n}\right\|^{2}$
+  >
+  > for $n=N$, $\mathcal{L}_{\mathrm{rec}}=\left\|G_{N}\left(z^{*}\right)-x_{N}\right\|^{2}$
+
+
+
+#### 3、Innovation
+
+- 使用统一的结构，仅依赖一张图片，能够解决完全不一样的视觉任务：绘制，编辑， 融合， 超分辨， 动画化（paint-to-image, editing, harmonization, superresolution, and animation）
+- 所有的生成器G和判别器D结构相同，网络简单
