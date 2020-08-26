@@ -9,6 +9,7 @@ catalog: true
 tags:
     - Paper
     - Segmentation
+    - Attention Mechanism
 ---
 
 
