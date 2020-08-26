@@ -1,13 +1,13 @@
 ---
 layout:     post
-title:      Lightweight Models
+title:      Awesome-ßLightweight Models
 subtitle:   轻量化模型总结
 date:       2020-04-24
 author:     JY
 header-img: img/post-bg.jpg
 catalog: true
 tags:
-    - Overview
+    - Record
     - Backbone
 ---
 
