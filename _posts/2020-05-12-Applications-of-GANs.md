@@ -47,7 +47,17 @@ CycleGAN builds 2 networks **G** and **F** to construct images from one domain t
 
 Domain A ➝ Domain B:
 
+![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/8.png)
+
 We repeat the process in the reverse direction Domain B➝ Domain A
+
+
+
+[StarGAN](http://openaccess.thecvf.com/content_cvpr_2018/papers/Choi_StarGAN_Unified_Generative_CVPR_2018_paper.pdf)
+
+StarGAN is an image-to-image translation for one domain to another. 
+
+In (b), the generator generates a fake image based on an input image and a target domain label (say angry). In (c), given this fake image and the original domain of the image (say happy), it reconstructs the image using the generator. In (d), we feed real and fake images to the discriminator to label it as real or not as well as its domain classification. The cost function will involve reconstruction errors as well as the discriminator cost in identifying the images and their labels.
 
 
 
@@ -57,7 +67,7 @@ Suggesting merchandise based on celebrity pictures has been popular for fashion 
 
 [PixelDTGAN](https://arxiv.org/pdf/1603.07442.pdf)
 
-[Source](https://github.com/fxia22/PixelDTGAN)
+[code](https://github.com/fxia22/PixelDTGAN)
 
 
 
@@ -73,7 +83,7 @@ Similar to many GAN designs, it composes of many layers of convolutional layer, 
 
 ### **6. Progressive growing of GANs**
 
-Progressive GAN is probably one of the first GAN showing commercial-like image quality. Below is 1024 × 1024 celebrity look images created by GAN.
+Progressive GAN is probably one of the first GAN showing commercial-like image quality.  
 
 [Progressive growing of GANs](https://arxiv.org/pdf/1710.10196.pdf)
 
@@ -85,9 +95,13 @@ In 9 phases, a 1024 × 1024 image is generated.
 
 ### **7. High-resolution image synthesis**
 
-This is not image segmentation! It is the reverse, generating images from a semantic map. Collecting samples are very expensive. We have trying to supplement training dataset with generated data to lower development cost. It will be handy to generate videos in training autonomous cars rather than see them cruising in your neighborhood.
+Generating images from a semantic map. 
+
+Collecting samples are very expensive. We have trying to supplement training dataset with generated data to lower development cost. It will be handy to generate videos in training autonomous cars rather than see them cruising in your neighborhood.
 
 [pix2pixHD](https://tcwang0509.github.io/pix2pixHD/)
+
+[GauGAN](http://nvidia-research-mingyuliu.com/gaugan) synthesizes photorealistic images given an input semantic layout.
 
 
 
@@ -97,7 +111,7 @@ Text to image is one of the earlier application of domain-transfer GAN. We input
 
 [StackGAN](https://arxiv.org/pdf/1612.03242v1.pdf)
 
-[Source](https://github.com/hanzhanggit/StackGAN)
+[Code](https://github.com/hanzhanggit/StackGAN)
 
 
 
@@ -139,19 +153,17 @@ It is expensive to create GANs with different combinations of facial characters 
 
 DiscoGAN provides matching style: many potential applications. DiscoGAN learns cross domain relationship without labels or pairing. For example, it successfully transfers style (or patterns) from one domain (handbag) to another (shoe).
 
-DiscoGAN and CycleGAN are very similar in the network design.
-
 
 
 
 
 ### **13. Pix2Pix**
 
-https://arxiv.org/pdf/1611.07004.pdf
+[Pix2Pix](https://arxiv.org/pdf/1611.07004.pdf)
 
 [code](https://github.com/phillipi/pix2pix)
 
-Pix2Pix is an image-to-image translation that get quoted in cross-domain GAN’s paper frequently. For example, it converts a satellite image into a map (the bottom left).
+Pix2Pix is an image-to-image translation that get quoted in cross-domain GAN’s paper frequently. 
 
 
 
@@ -183,11 +195,9 @@ Reconstruct or edit images with specific attributes.
 
 ### **17. Neural Photo Editor**
 
-https://github.com/ajbrock/Neural-Photo-Editor
+[Neural Photo Editor](https://github.com/ajbrock/Neural-Photo-Editor): Content based image editing.
 
-Content based image editing: for example, extend the hairband.
-
-**[Neural Photo Editor](https://github.com/ajbrock/Neural-Photo-Editor)**
+[DeblurGAN](https://arxiv.org/pdf/1711.07064.pdf) performs motion deblurring.
 
 
 
