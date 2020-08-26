@@ -7,7 +7,7 @@ author:     JY
 header-img: img/post-bg.jpg
 catalog: true
 tags:
-    - Paper
+    - paper
     - Video Analysis
 ---
 
@@ -54,11 +54,13 @@ $$
 
 
 
-#### 3、Compare
+### 3、Compare
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/video-analysis/7.png" alt="img" style="zoom:50%;" />
 
-#### 4、Prediction
+
+
+### 4、Prediction
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/video-analysis/8.png" alt="img" style="zoom:50%;" />
 

@@ -7,7 +7,7 @@ author:     JY
 header-img: img/post-bg.jpg
 catalog: true
 tags:
-    - Paper
+    - paper
     - Anomaly Detection
 ---
 
@@ -61,6 +61,7 @@ tags:
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/6.png" alt="img" style="zoom:40%;" />
 >
 > - Patch-wise inspection具有以下优点：
+>   
 >   - 可以在每个位置获得检测结果，从而定位缺陷位置
 >   
 > - 这种细粒度的检测提高了整体检测的性能
