@@ -46,7 +46,7 @@ tags:
 - single-head attention
   
 
-  - 以$3*3$为例，经过6个filter得到$3*3*6$的input
+  - 以$3\times 3$为例，经过6个filter得到$3\times 3 \times 6$的input
 
   - 以单个head attention为例（蓝色部分），attention map中包括query map、key map和value map
 
@@ -64,11 +64,15 @@ tags:
   
   - 得到的a single head attention可以用以下公式表示：
   
-- $$
+    
+  
+  $$
   O_{h}=\operatorname{Softmax}\left(\frac{\left(X W_{q}\right)\left(X W_{k}\right)^{T}}{\sqrt{d_{k}^{h}}}\right)\left(X W_{v}\right)
   $$
-
-  ​		where $W_q,W_k \in \mathbb{R}^{F_{i n} \times d_{k}^{h}}，W_v \in \mathbb{R}^{F_{i n} \times d_{v}^{h}}$
+  
+  
+  
+  > where $W_q,W_k \in \mathbb{R}^{F_{i n} \times d_{k}^{h}}，W_v \in \mathbb{R}^{F_{i n} \times d_{v}^{h}}$
   
   
 
@@ -76,16 +80,24 @@ tags:
 
 ---
 
+
+
 - multi-head 融合公式：
+
+  
 
 $$
 \mathrm{MHA}(X)=\text { Concat }\left[O_{1}, \ldots, O_{N h}\right] W^{O}
 $$
-​		where $W^O \in \mathbb{R}^{d_{v} \times d_{v}}$,最终得到$(H,W,d_v)$的tensor
+> where $W^O \in \mathbb{R}^{d_{v} \times d_{v}}$,最终得到$(H,W,d_v)$的tensor
 
 ---
 
+
+
 - 增加了位置信息
+  
+  
   $$
   l_{i, j}=\frac{q_{i}^{T}}{\sqrt{d_{k}^{h}}}\left(k_{j}+r_{j_{x}-i_{x}}^{W}+r_{j_{y}-i_{y}}^{H}\right)
   $$
@@ -100,6 +112,8 @@ $$
 ---
 
 - 但是直接使用self-attention会导致破坏了平移性，因此可以将self-attention与CNN结合使用
+
+  
 $$
 \operatorname{AAConv}(X)=\text { Concat }[\operatorname{Conv}(X), \operatorname{MHA}(X)]
 $$
