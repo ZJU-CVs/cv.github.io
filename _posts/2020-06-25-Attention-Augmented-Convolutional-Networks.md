@@ -89,6 +89,8 @@ tags:
 $$
 \mathrm{MHA}(X)=\text { Concat }\left[O_{1}, \ldots, O_{N h}\right] W^{O}
 $$
+
+
 > where $W^O \in \mathbb{R}^{d_{v} \times d_{v}}$,最终得到$(H,W,d_v)$的tensor
 
 ---
