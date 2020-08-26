@@ -1,6 +1,6 @@
 ### Facial Expression Recognition by De-expression Residue Learning
 
-1、简介
+#### 1. Introduction
 
 核心思想：一个人的人脸表情是由表情和中性脸组成。
 
@@ -8,7 +8,9 @@
 
 方法：通过*De-expression Residue Learning*，提取面部表情组成部分的信息。
 
-2、DeRL模型
+
+
+#### 2. DeRL Model
 
 - 首先通过cGAN训练一个生成模型，来学习用expression的图像生成中立图像
 
@@ -18,7 +20,7 @@
 
 ![image-20190902210251943](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/image-20190902210251943.png)
 
-3、算法细节
+#### 3. Details
 
 - CGAN：
 
