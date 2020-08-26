@@ -13,6 +13,8 @@ tags:
 
 ref: https://medium.com/@jonathan_hui/gan-some-cool-applications-of-gans-4c9ecca35900
 
+
+
 ### **1. Create Anime characters**
 
 Game development and animation production are expensive and hire many production artists for relatively routine tasks. GAN can auto-generate and colorize Anime characters.
@@ -31,7 +33,7 @@ With an additional input of the pose, we can transform an image into different p
 
 [Pose Guided Person Image Generation](https://papers.nips.cc/paper/6644-pose-guided-person-image-generation.pdf)
 
-
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/7.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -47,9 +49,11 @@ CycleGAN builds 2 networks **G** and **F** to construct images from one domain t
 
 Domain A ➝ Domain B:
 
-![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/8.png)
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/8.png" alt="img" style="zoom:50%;" />
 
 We repeat the process in the reverse direction Domain B➝ Domain A
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/9.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -58,6 +62,10 @@ We repeat the process in the reverse direction Domain B➝ Domain A
 StarGAN is an image-to-image translation for one domain to another. 
 
 In (b), the generator generates a fake image based on an input image and a target domain label (say angry). In (c), given this fake image and the original domain of the image (say happy), it reconstructs the image using the generator. In (d), we feed real and fake images to the discriminator to label it as real or not as well as its domain classification. The cost function will involve reconstruction errors as well as the discriminator cost in identifying the images and their labels.
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/10.png" alt="img" style="zoom:50%;" />
+
+
 
 
 
@@ -89,7 +97,11 @@ Progressive GAN is probably one of the first GAN showing commercial-like image q
 
 It applies the strategy of divide-and-conquer to make training much feasible. Layers of convolution layers are trained once at a time to build images of 2× resolution.
 
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/11.png" alt="img" style="zoom:40%;" />
+
 In 9 phases, a 1024 × 1024 image is generated.
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/12.png" alt="img" style="zoom:40%;" />
 
 
 
@@ -112,8 +124,6 @@ Text to image is one of the earlier application of domain-transfer GAN. We input
 [StackGAN](https://arxiv.org/pdf/1612.03242v1.pdf)
 
 [Code](https://github.com/hanzhanggit/StackGAN)
-
-
 
 
 
@@ -155,8 +165,6 @@ DiscoGAN provides matching style: many potential applications. DiscoGAN learns c
 
 
 
-
-
 ### **13. Pix2Pix**
 
 [Pix2Pix](https://arxiv.org/pdf/1611.07004.pdf)
@@ -177,6 +185,8 @@ Creating Emoji from pictures.
 
 [MGAN](https://arxiv.org/pdf/1604.04382.pdf)
 
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/14.png" alt="img" style="zoom:50%;" />
+
 
 
 ### **15. Image editing**
@@ -184,6 +194,8 @@ Creating Emoji from pictures.
 Reconstruct or edit images with specific attributes.
 
 [IcGAN](https://github.com/Guim3/IcGAN)
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/15.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -203,7 +215,9 @@ Reconstruct or edit images with specific attributes.
 
 ### **18. Refine image**
 
-![img](https://miro.medium.com/max/4000/1*WKhrzO1QgZ8nuu35-gy5Yw.png)
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/16.png" alt="img" style="zoom:50%;" />
+
+
 
 
 
@@ -212,6 +226,8 @@ Reconstruct or edit images with specific attributes.
 This is one application in enhancing an existing solution with GAN.
 
 [Perceptual GAN](https://arxiv.org/pdf/1706.05274v2.pdf)
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/17.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -237,6 +253,8 @@ This is one often quoted paper in creating 3D objects with GAN.
 
 [3DGAN](http://papers.nips.cc/paper/6096-learning-a-probabilistic-latent-space-of-object-shapes-via-3d-generative-adversarial-modeling.pdf)
 
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/19.png" alt="img" style="zoom:40%;" />
+
 
 
 ### **23. Music generation**
@@ -245,7 +263,7 @@ GAN can be applied to non-image domain, like composing music.
 
 [MidiNet](https://arxiv.org/pdf/1703.10847.pdf)
 
-
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/20.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -254,4 +272,6 @@ GAN can be applied to non-image domain, like composing music.
 GAN can also extend to other industry, for example medical in tumor detection.
 
 [AnoGAN](https://arxiv.org/pdf/1703.05921.pdf)
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/gan/21.png" alt="img" style="zoom:50%;" />
 
