@@ -2,12 +2,12 @@
 layout:     post
 title:      Attention-Gated Networks for Improving Ultrasound Scan Plane Detection
 subtitle:   
-date:       2020-04-25
+date:       2020-04-20
 author:     JY
 header-img: img/post-bg.jpg
 catalog: true
 tags:
-    - Paper
+    - paper
     - Segmentation
     - Attention Mechanism
 
