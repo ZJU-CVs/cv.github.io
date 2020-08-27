@@ -60,6 +60,7 @@ https://blog.csdn.net/u010429424/article/details/72171476
 
 #### 开源数据集整理
 
+- [Image Classification](# Image Classification[)
 - [Images Analysis](#Images Analysis)
 - [Image Motion & Tracking](#Image Motion & Tracking)
 - [Video Analysis & Scene Understanding](#Video Analysis & Scene Understanding)
@@ -70,6 +71,10 @@ https://blog.csdn.net/u010429424/article/details/72171476
 - [Text](#Text)
 
 
+
+##### Image Classification
+
+<img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/dataset.jpg" alt="img" style="zoom:50%;" />
 
 ##### Images Analysis
 
