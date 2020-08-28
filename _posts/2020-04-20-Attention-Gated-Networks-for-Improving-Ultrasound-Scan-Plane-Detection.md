@@ -13,8 +13,6 @@ tags:
 
 ---
 
-
-
 [code](https://github.com/ozan-oktay/Attention-Gated-Networks)
 
 

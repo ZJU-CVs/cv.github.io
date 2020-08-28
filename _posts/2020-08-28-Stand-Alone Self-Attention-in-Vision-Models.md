@@ -59,10 +59,12 @@ tags:
     
   - 但是上述公式没有包含位置信息，因此对于一个query，其邻域的位置关系无法体现出来。因此通过嵌入向量表示相对位置，把位置信息添加到自注意力运算，**有位置的自注意力**公式如下：
     
-    
-    $$
-    y_{i j}=\sum_{a, b \in \mathcal{N}_{k}(i, j)} \operatorname{softmax}_{a b}\left(q_{i j}^{\top} k_{a b}+q_{i j}^{\top} r_{a-i, b-j}\right) v_{a b}
-    $$
+    > $$
+    > y_{i j}=\sum_{a, b \in \mathcal{N}_{k}(i, j)} \operatorname{softmax}_{a b}\left(q_{i j}^{\top} k_{a b}+q_{i j}^{\top} r_{a-i, b-j}\right) v_{a b}
+    > $$
+    >
+    > 
+    >
     > 其中$r_{a-i，b-j}$为位置嵌入,如下图矩阵
     
     <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/SASA6.png" alt="img" style="zoom:50%;" />
@@ -84,26 +86,18 @@ tags:
   - 提出了空间感知(spatially aware)自注意力层来<u>解决标准的自注意力层无法包含空间信息的问题</u>
 
   - 空间感知自注意力层的定义如下：
-    
+
     
     $$
     \begin{aligned} q_{i j} &=W_{Q} x_{i j} \\ k_{i j} &=W_{K} x_{i j} \\ v_{i j} &=W_{V} x_{i j} \\ y_{i j} &=\sum_{a, b \in \mathcal{N}_{k}(i, j)} \operatorname{softmax}_{a b}\left(q_{i j}^{\top} k_{a b}\right) v_{a b} \end{aligned}
     $$
-    
-    
-其中$v_{ij}$的定义与标准的自注意力层不同，定义为：
-    
-    
-    $$
-v_{a b}=\left(\sum_{m} p(a, b, m) W_{V}^{m}\right) x_{a b}
-    $$
-    
-    $$
-    p(a, b, m)=\operatorname{softmax}_{m}\left(\left(\operatorname{emb}_{r o w}(a)+\mathrm{emb}_{c o l}(b)\right)^{\top} \nu^{m}\right)
-    $$
-    
-    > 表示在一个窗口中每个位置的$v_{ij}$都通过$x_{ab}$与不同的$W_V$相乘得到。
+    > 其中$v_{ij}$的定义与标准的自注意力层不同，定义为：
+    > $$
+    > v_{a b}=\left(\sum_{m} p(a, b, m) W_{V}^{m}\right) x_{a b}\\
+    > p(a, b, m)=\operatorname{softmax}_{m}\left(\left(\operatorname{emb}_{r o w}(a)+\mathrm{emb}_{c o l}(b)\right)^{\top} \nu^{m}\right)
+    > $$
+    > 
     >
-    > 其中$v_{ij}$是多值的m维矩阵，$p(a,b,m)$是向量的m维元素，为标量，a和b是相对于窗口的行和列位置。
-    
+    > - 表示在一个窗口中每个位置的$v_{ij}$都通过$x_{ab}$与不同的$W_V$相乘得到。其中$v_{ij}$是多值的m维矩阵，$p(a,b,m)$是向量的m维元素，为标量，a和b是相对于窗口的行和列位置。
+
     
