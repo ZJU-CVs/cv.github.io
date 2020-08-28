@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      GAN Compression: Efﬁcient Architectures for Interactive Conditional GANs
-subtitle:   
+title:      GAN Compression
+subtitle:   Efﬁcient Architectures for Interactive Conditional GANs
 date:       2020-05-30
 author:     JY
 header-img: img/post-bg.jpg
@@ -14,7 +14,9 @@ tags:
 
 #### 1. Introduction
 
-> 本文提出了一种通用的条件生成GAN模型的压缩算法，在pix2pix, Cyclegan, GauGAN
+> 本文提出了一种通用的条件生成GAN模型的压缩算法，在pix2pix, Cyclegan, GauGAN等常见的condition GAN上进行应用，计算量减少了9～21倍
+
+
 
 #### 2. Methods
 
@@ -30,11 +32,13 @@ tags:
 
 
 
-##### Training Objective —— 蒸馏过程
+##### Training Objective 
+
+`蒸馏过程`
 
 - Unifying unpaired and paired learning.
 
-  > 生成器G‘ -> G的蒸馏
+  > 生成器$G^{\prime} \rightarrow G$的蒸馏
 
   $$
   \mathcal{L}_{\text {recon }}=\left\{\begin{array}{ll}
@@ -47,7 +51,7 @@ tags:
 
 - Inheriting the teacher discriminator.
 
-  > 判别器D' ->D 的蒸馏
+  > 判别器$D^{\prime} \rightarrow D$ 的蒸馏
 
   student D采用与teacher D'相同的模型架构，使用teacher D中的pre-train weights，并与G 一起作为compressed model进行 fine-tune
   $$
@@ -68,7 +72,7 @@ $$
 \mathcal{L}_{\text {distill }}=\sum_{t=1}^{T}\left\|G_{t}(\mathbf{x})-f_{t}\left(G_{t}^{\prime}(\mathbf{x})\right)\right\|_{2}
 $$
 
-​		*其中$G_t(x)$和$G'_t(x)$是student和teacher model中第t个选定层的中间特征激活，$T$表示层数, $f_t$表示$1\times1$可学习卷积层，将学生模型的特征映射到教师模型的特征中相同数量的通道*
+​		*其中 $G_t(x)$ 和 $G'_t(x)$ 是student和teacher model中第t个选定层的中间特征激活，$T$表示层数, $f_t$表示$1\times1$可学习卷积层，将学生模型的特征映射到教师模型的特征中相同数量的通道*
 
 ​		共同优化$G_t$和$f_t$，以使蒸馏损失$L_{distill}$最小化
 
@@ -109,7 +113,7 @@ Automated channel reduction with NAS
 
 
 
-**Decouple Training and Search**
+##### **Decouple Training and Search**
 
 采用one-shot NAS方法，将模型训练与架构搜索分离[1]
 
