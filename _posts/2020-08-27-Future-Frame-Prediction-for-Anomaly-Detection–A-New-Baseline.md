@@ -10,6 +10,7 @@ tags:
     - paper
     - Anomaly Detection
     - Video Analysis
+    - Update 
 ---
 
 
