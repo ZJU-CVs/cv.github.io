@@ -1,4 +1,16 @@
-### GAN Compression: Efﬁcient Architectures for Interactive Conditional GANs
+---
+layout:     post
+title:      GAN Compression: Efﬁcient Architectures for Interactive Conditional GANs
+subtitle:   
+date:       2020-05-30
+author:     JY
+header-img: img/post-bg.jpg
+catalog: true
+tags:
+    - paper
+    - Model Compression
+
+---
 
 #### 1. Introduction
 
