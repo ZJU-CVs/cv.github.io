@@ -35,18 +35,16 @@ tags:
 - 把增强层和特征层排成一行，将它们视为一体，网络就成了由 **A**（特征层+增强层）到 **Y** 的线性变换了，线性变换对应的权重矩阵 **W** 就是*输入层* 加增强层到*输出层* 之间的线性连接
 
   > - 当给定特征Z，直接计算增强层H，将特征层和增强层合并成$A=[Z\mid H]$，$\mid$表示合并成一行
-  >
-  > - 固定输入层到增强层之间的权重，那么对整个网络的训练就是求出 A 到 Y 之间的变换 W，$W=A^{-1} Y$。
-  >
+  >- 固定输入层到增强层之间的权重，那么对整个网络的训练就是求出 A 到 Y 之间的变换 W，$W=A^{-1} Y$。
   > - 实际计算时，使用岭回归来求解权值矩阵(其中取$\sigma_{1}=\sigma_{2}=u=v=2$)
   >
-  > $$
-  > \underset{\mathbf{W}}{\arg \min } :\|A W-Y\|_{p}^{\sigma_{1}}+\lambda\|W\|_{u}^{\sigma_{2}}
-  > $$
-  > $$
+  > 
+  >$$
+  > \underset{\mathbf{W}}{\arg \min } :\|A W-Y\|_{p}^{\sigma_{1}}+\lambda\|W\|_{u}^{\sigma_{2}}\\
   > \boldsymbol{W}=\left(\lambda \boldsymbol{I}+\boldsymbol{A} \boldsymbol{A}^{T}\right)^{-1} \boldsymbol{A}^{T} \boldsymbol{Y}
   > $$
-  >
+  > 
+  > 
   > `当数据固定，模型结构固定，可以直接找到最优的参数W`
 
 ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/BLS1.png)
