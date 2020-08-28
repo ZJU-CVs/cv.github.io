@@ -45,14 +45,39 @@ tags:
 
   - 使用下采样层同层的特征图和上采样层上一层的特征图进行一个pixel权重图的构建，然后再把这个权重图对下采样同层的特征图进行处理，得到进行权重加权的特征图。
 
-    - 下采样同层的特征图$g_{i}\left(F_{g} \times H_{g} \times W_{g} \times D_{g}\right)$，进行1$\times$1$\times$1卷积运算得到$W_{g}^{T} g_{i}$
+    - 下采样同层的特征图$g_{i}\left(F_{g} \times H_{g} \times W_{g} \times D_{g}\right)$，
 
-    - 上采样同层的特征图$x_{i}^l\left(F_{l} \times H_{x} \times W_{x} \times D_{x}\right)$，进行1$\times$1$\times$1卷积运算得到$W_{x}^{T} x_{i}^{l}$
+      进行1$\times$1$\times$1卷积运算得到$W_{g}^{T} g_{i}$
 
-    - 将上两步得到的特征图$W_{g}^{T} g_{i}$和$W_{x}^{T} x_{i}^{l}$进行相加后，在进行ReLU得到$\sigma_{1}\left(W_{x}^{T} x_{i}^{l}+W_{g}^{T} g_{i}+b_{g}\right)\left(F_{i n t }\times H_{g} W_{g} D_{g}\right)$，$\sigma_1$为ReLU激活函数
+    
 
-    - 随后在使用1$\times$1$\times$1卷积运算得到$q_{a t t}^{l}=\psi^{T}\left(\sigma_{1}\left(W_{x}^{T} x_{i}^{l}+W_{g}^{T} g_{i}+b_{g}\right)\right)+b_{\psi}$
+    - 上采样同层的特征图$x_{i}^l\left(F_{l} \times H_{x} \times W_{x} \times D_{x}\right)$，
 
+      进行1$\times$1$\times$1卷积运算得到$W_{x}^{T} x_{i}^{l}$
+
+    
+    
+    - 将上两步得到的特征图$W_{g}^{T} g_{i}$和$W_{x}^{T} x_{i}^{l}$进行相加后，在进行ReLU得到：
+    
+    $$
+    \sigma_{1}\left(W_{x}^{T} x_{i}^{l}+W_{g}^{T} g_{i}+b_{g}\right)\left(F_{i n t }\times H_{g} W_{g} D_{g}\right)
+    $$
+    
+    > $\sigma_1$为ReLU激活函数
+    
+    
+    
+    - 随后在使用1$\times$1$\times$1卷积运算得到
+    
+      
+    
+    $$
+    q_{a t t}^{l}=\psi^{T}\left(\sigma_{1}\left(W_{x}^{T} x_{i}^{l}+W_{g}^{T} g_{i}+b_{g}\right)\right)+b_{\psi}
+    $$
+    
+    
+    
     - 最后对$q_{a t t}$进行sigmoid激活函数得到最终的attention coefficient ($\alpha_i^l$)
-
+    
      
+

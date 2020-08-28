@@ -24,7 +24,7 @@ tags:
 
 #### 2. Method
 
-##### Preliminaries：
+##### Preliminaries
 
 > 通过Convnet将原始图像映射到固定维度的向量空间
 >
@@ -37,7 +37,7 @@ tags:
 > \min _{\theta, W} \frac{1}{N} \sum_{n=1}^{N} \ell\left(g_{W}\left(f_{\theta}\left(x_{n}\right)\right), y_{n}\right)....(1)
 > $$
 >
-> (其中$\ell$是多项逻辑损失，即`negative log-softmax`函数，使用mini-batch随机梯度下降和反向传播来计算梯度，最大限度的降低cost function)
+> > 其中$\ell$是多项逻辑损失，即`negative log-softmax`函数，使用mini-batch随机梯度下降和反向传播来计算梯度，最大限度的降低cost function
 
 
 
@@ -88,9 +88,9 @@ tags:
 
 3、实现细节
 
-```
-结构：VGG16+BN
-训练数据：ImageNet；数据使用了一个基于Sobel算子进行处理去除了颜色的信息
-优化：聚类的时候使用center crop的样本特征，训练模型时使用数据增强（左右翻转、随机大小和长宽比的裁剪）；同时聚类时使用了PCA降维
-```
+> 结构：VGG16+BN
+>
+> 训练数据：ImageNet；数据使用了一个基于Sobel算子进行处理去除了颜色的信息
+>
+> 优化：聚类的时候使用center crop的样本特征，训练模型时使用数据增强（左右翻转、随机大小和长宽比的裁剪）；同时聚类时使用了PCA降维
 
