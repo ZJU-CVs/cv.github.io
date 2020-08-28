@@ -87,17 +87,21 @@ tags:
 
   - 空间感知自注意力层的定义如下：
 
-    
-    $$
-    \begin{aligned} q_{i j} &=W_{Q} x_{i j} \\ k_{i j} &=W_{K} x_{i j} \\ v_{i j} &=W_{V} x_{i j} \\ y_{i j} &=\sum_{a, b \in \mathcal{N}_{k}(i, j)} \operatorname{softmax}_{a b}\left(q_{i j}^{\top} k_{a b}\right) v_{a b} \end{aligned}
-    $$
-    > 其中$v_{ij}$的定义与标准的自注意力层不同，定义为：
-    > $$
-    > v_{a b}=\left(\sum_{m} p(a, b, m) W_{V}^{m}\right) x_{a b}\\
-    > p(a, b, m)=\operatorname{softmax}_{m}\left(\left(\operatorname{emb}_{r o w}(a)+\mathrm{emb}_{c o l}(b)\right)^{\top} \nu^{m}\right)
-    > $$
-    > 
-    >
-    > - 表示在一个窗口中每个位置的$v_{ij}$都通过$x_{ab}$与不同的$W_V$相乘得到。其中$v_{ij}$是多值的m维矩阵，$p(a,b,m)$是向量的m维元素，为标量，a和b是相对于窗口的行和列位置。
+  $$
+  \begin{aligned} q_{i j} &=W_{Q} x_{i j} \\ k_{i j} &=W_{K} x_{i j} \\ v_{i j} &=W_{V} x_{i j} \\ y_{i j} &=\sum_{a, b \in \mathcal{N}_{k}(i, j)} \operatorname{softmax}_{a b}\left(q_{i j}^{\top} k_{a b}\right) v_{a b} \end{aligned}
+  $$
 
-    
+  
+
+  > 其中$v_{ij}$的定义与标准的自注意力层不同，定义为：
+  >
+  > 
+  > $$
+  > v_{a b}=\left(\sum_{m} p(a, b, m) W_{V}^{m}\right) x_{a b}\\
+  > p(a, b, m)=\operatorname{softmax}_{m}\left(\left(\operatorname{emb}_{r o w}(a)+\mathrm{emb}_{c o l}(b)\right)^{\top} \nu^{m}\right)
+  > $$
+  > 
+  >
+  > - 表示在一个窗口中每个位置的$v_{ij}$都通过$x_{ab}$与不同的$W_V$相乘得到。其中$v_{ij}$是多值的m维矩阵，$p(a,b,m)$是向量的m维元素，为标量，a和b是相对于窗口的行和列位置。
+
+  
