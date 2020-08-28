@@ -9,7 +9,6 @@ catalog: true
 tags:
     - paper
     - Attention Mechanism
-
 ---
 
 
@@ -54,9 +53,9 @@ tags:
     > ​			$v_{ij}=W_Vx_{ij}$, 
     >
     > ​			$W_Q$,$W_K$和$W_V\in \mathbb{R}^{d_{o u t} \times d_{i n}}$  为学习到的参数
-    
-    
-    
+
+
+​    
   - 但是上述公式没有包含位置信息，因此对于一个query，其邻域的位置关系无法体现出来。因此通过嵌入向量表示相对位置，把位置信息添加到自注意力运算，**有位置的自注意力**公式如下：
     
     > $$
