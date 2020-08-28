@@ -35,7 +35,9 @@ tags:
 
 - 生成器中各个中间层保留了表情中的expressive component特征，因此可以用来训练分类器classifier，从而对人脸表情进行分类 
 
-![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/)
+![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/34.png)
+
+
 
 #### 3. Details
 
