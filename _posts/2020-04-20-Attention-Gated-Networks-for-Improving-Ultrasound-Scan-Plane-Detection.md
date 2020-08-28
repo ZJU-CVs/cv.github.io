@@ -84,15 +84,18 @@ tags:
   
 
 - 提出了一个更为通用的attention mechanism：
-  $$
-  c_{i}^{s}=\boldsymbol{\Psi} \sigma_{1}\left(\mathbf{W}_{f} \mathbf{f}_{i}^{s}+\mathbf{W}_{g} \mathbf{g}+\mathbf{b}_{g}\right)+\mathbf{b}_{\psi}
-  $$
 
+  > $$
+  > c_{i}^{s}=\boldsymbol{\Psi} \sigma_{1}\left(\mathbf{W}_{f} \mathbf{f}_{i}^{s}+\mathbf{W}_{g} \mathbf{g}+\mathbf{b}_{g}\right)+\mathbf{b}_{\psi}
+  > $$
+  >
+  > 
+  >
   > - 引入注意机制，特征$\mathcal{F}^s$分支到两个路径：一个用于提取全局特征向量，另一个用于通过门控进行预测。 
   > - 首先，推测引入$W_f$允许精细尺度层更少关注于生成与g兼容的信号，这有助于其专注于学习判别特征。 
   > - 其次，通过引入$W_f$，$W_g$和$σ_1$，允许网络学习向量之间的非线性关系(因为图像本质上是有噪声的，并且感兴趣的区域通常是高度不均匀的。 因此，线性兼容性功能可能对这种波动过于敏感) 
-  > - $\{W_f\}$和$\{Ψ，b_ψ\}$为1×1卷积层，$\{W_g，b_g\}$是全连接层。
-  
+  > - {$W_f$}和{$Ψ，b_ψ$}为1×1卷积层，{$W_g，b_g$}是全连接层。
+
   
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/4.png" alt="img" style="zoom:80%;" />
