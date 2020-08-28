@@ -31,8 +31,11 @@ tags:
 > - 用$f_\theta$表示convnet映射，其中$\theta$是相应的参数的集合，通过将该映射应用于图像作为特征或表示(feature or representation)而获得向量
 > - 在给定$N$个图像的训练集$X={x_1,x_2,...x_N}$，找到参数$\theta^*$，使映射$f_{\theta^*}$得到良好的通用(general-purpose)特征
 > - 传统做法:
->   - 这些参数通过监督学习得到，即每个图像$x_n$与$\{0,1\}^k$中的标签$y_n$相关联。此标签表示图像为$K$个预定义类之一
+>   - 这些参数通过监督学习得到，即每个图像$x_n$与{$0,1^k$}中的标签$y_n$相关联。此标签表示图像为$K$个预定义类之一
+>   
 >   - 参数分类器$g_W$可预测$f_\theta(x_n)$特征之上的正确标签。分类器参数$W$和映射参数$\theta$通过优化**网络损失**进行共同学习
+>   
+>     
 > $$
 > \min _{\theta, W} \frac{1}{N} \sum_{n=1}^{N} \ell\left(g_{W}\left(f_{\theta}\left(x_{n}\right)\right), y_{n}\right)....(1)
 > $$
@@ -47,13 +50,17 @@ tags:
 >
 > - 随机网络的良好性能与它们的卷积结构密切相关，先对特征进行聚类。
 >
->   > 将convnet产生的特征$f_{\theta}(x_n)$作为输入，使用标准聚类算法K-means将它们聚类成k个不同的组（通过联合学习$d{\times}k$质心矩阵C和每个图像$n$的聚类分配$y_{n}$来优化**聚类损失**）
+>   > 将convnet产生的特征$f_{\theta}(x_n)$作为输入，使用标准聚类算法K-means将它们聚类成k个不同的组
+>   >
+>   > （通过联合学习$d{\times}k$质心矩阵C和每个图像$n$的聚类分配$y_{n}$来优化**聚类损失**）
 >
 >   $$
->    \min _{C \in \mathbb{R}^{d \times k}} \frac{1}{N} \sum_{n=1}^{N} \min _{y_{n} \in\{0,1\}^{k}}\left\|f_{\theta}\left(x_{n}\right)-C y_{n}\right\|_{2}^{2} \quad \text { such that } \quad y_{n}^{\top} 1_{k}=1  {....(2)}
+>   \min _{C \in \mathbb{R}^{d \times k}} \frac{1}{N} \sum_{n=1}^{N} \min _{y_{n} \in\{0,1\}^{k}}\left\|f_{\theta}\left(x_{n}\right)-C y_{n}\right\|_{2}^{2} \quad ,\text { such that } \quad y_{n}^{\top} 1_{k}=1  {....(2)}
 >   $$
 >
-> - 学习后得到最优分配$\left(y_{n}^{*}\right)_{n \leq N}$和质心矩阵$C^*$，将此分配结果作为伪标签（先验），通过优化`Eq(1)`来更新convnet的参数
+> - 学习后得到最优分配$\left(y_{n}^{\star}\right)_{n \leq N}$和质心矩阵$C^{\star}$，
+>
+>   将此分配结果作为伪标签（先验），通过优化`Eq(1)`来更新convnet的参数
 >
 > **Overall：** 
 >
