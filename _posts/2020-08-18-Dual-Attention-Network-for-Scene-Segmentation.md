@@ -32,8 +32,10 @@ tags:
 
 > - 特征图**A**(C×H×W)首先分别通过3个卷积层得到3个特征图**B,C,D,**然后将**B,C,D** 都 reshape为C×N，其中N=H×W
 > - 之后将 reshape后的**B**的转置(NxC)与reshape后的C(CxN)相乘，再通过softmax得到spatial attention map **S**(N×N)
-> - 接着在reshape后的**D**(CxN)和 **S**的转置(NxN)之间执行矩阵乘法，再乘以尺度系数α，再reshape为原来形状，<u>最后与**A**相加得到最后的输出**E</u>**
-> - 其中α初始化为0，并逐渐的学习得到更大的权重
+> - 接着在reshape后的**D**(CxN)和 **S**的转置(NxN)之间执行矩阵乘法，再乘以尺度系数α，再reshape为原来形状
+> - 最后与**A**相加得到最后的输出**E**，其中α初始化为0，并逐渐的学习得到更大的权重
+
+
 
 ##### 2.2 Channel Attention Module
 
