@@ -16,6 +16,8 @@ tags:
 #### 1. Introduction
 
 > 核心思想：一个人的人脸表情是由表情和中性脸组成
+>
+> 
 > $$
 > Expression = Neutral+ Expressive
 > $$
@@ -35,7 +37,7 @@ tags:
 
 - 生成器中各个中间层保留了表情中的expressive component特征，因此可以用来训练分类器classifier，从而对人脸表情进行分类 
 
-![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/34.png)
+![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/facial.png)
 
 
 
