@@ -95,21 +95,25 @@ $$
 
 
 
-Convolution decomposition and layer sensitivity
+> Convolution decomposition and layer sensitivity
+>
+> - 现有的生成器通常采用vanilla convolutions来设计CNN分类和分割，广泛采用卷积的分解形式（depthwise+pointwise）
+>
+> - 因此使用decomposed convolution进行生成器设计，然而将Decomposition直接应用于所有卷积层会大大降低图像质量。Decomposition一些层会立刻损害性能，而其他层则更健壮（灵敏度不同）
+>
+>   > Example: ResBlock层消耗了大部分模型参数和计算成本，而几乎不受分解的影响；而上采样层的参数要少得多，但对模型压缩相当敏感
 
-- 现有的生成器通常采用vanilla convolutions来设计CNN分类和分割，广泛采用卷积的分解形式（depthwise+pointwise）
 
-- 因此使用decomposed convolution进行生成器设计，然而将Decomposition直接应用于所有卷积层会大大降低图像质量。Decomposition一些层会立刻损害性能，而其他层则更健壮（灵敏度不同）
 
-  > Example: ResBlock层消耗了大部分模型参数和计算成本，而几乎不受分解的影响；而上采样层的参数要少得多，但对模型压缩相当敏感
-
-  
-
-Automated channel reduction with NAS
-
-- 为了进一步提高压缩率，使用通道修建（channel pruning）在生成器自动选择通道宽度，以消除冗余，从而减少二次计算量
-
-  > 给定可能的通道配置${c_1,c_2,...,c_K}$，其中K是要修剪的层数，使用神经网络架构搜索来找到最佳的通道配置$\{c_1^*,c_2^*,...,c_K^*\}=argmin_{\{c_1,c_2,...,c_K\}}L, s.t.MACs<F_t$
+> Automated channel reduction with NAS
+>
+> - 为了进一步提高压缩率，使用通道修建（channel pruning）在生成器自动选择通道宽度，以消除冗余，从而减少二次计算量
+>
+>   > 给定可能的通道配置${c_1,c_2,...,c_K}$，其中K是要修剪的层数，使用神经网络架构搜索来找到最佳的通道配置
+>   > $$
+>   > \{c_1^*,c_2^*,...,c_K^*\}=argmin_{\{c_1,c_2,...,c_K\}}L, s.t.MACs
+>   > $$
+>   > 
 
 
 
