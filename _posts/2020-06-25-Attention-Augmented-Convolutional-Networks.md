@@ -27,7 +27,7 @@ tags:
 
 （1）引入**two-dimensional relative self-attention mechanism**，并通过实验证明了可行性
 
-**（2）模型细节**
+（2）模型细节
 
 > $H$: height 
 >

@@ -33,25 +33,28 @@ tags:
 - 网络训练只用到了分类信息，在正向传播时每个卷积层输入记作$U$，输出记作$V$，坐标$(i,j)$下的值就记作$V_{i,j}$
 
 - 定义反传公式：
-  $$
-  P\left(U_{i j}\right)=\sum_{p=i-\frac{k H}{2}}^{i+\frac{k H}{2}} \sum_{q=j-\frac{k W}{2}}^{j+\frac{k W}{2}} P\left(U_{i j} | V_{p q}\right) \times P\left(V_{p q}\right)
-  $$
 
 $$
+P\left(U_{i j}\right)=\sum_{p=i-\frac{k H}{2}}^{i+\frac{k H}{2}} \sum_{q=j-\frac{k W}{2}}^{j+\frac{k W}{2}} P\left(U_{i j} | V_{p q}\right) \times P\left(V_{p q}\right)\\
 P\left(U_{i j} | V_{p q}\right)=Z_{p q} \times \hat{U}_{i j} W_{(i-p)(j-q)}^{+}
 $$
 
-​		其中$\hat{U}_{ij}$是反向激化函数，$W^+=RELU(W)$，Z是归一化因子使得$\sum_{p,q}P(U_ij|Vpq)=1$   
+
+
+> 其中$\hat{U}_{ij}$是反向激化函数，$W^+=RELU(W)$，Z是归一化因子使得$\sum_{p,q}P(U_ij \mid Vpq)=1$   
+
+
 
 ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/9.png)
 
-- 反传得到相应图peak response map(PRM)，记作$R$，由形态梯度方法计算proposal区域对应的mask proposal，计算$Score$，选取最高得分作为Segmentation Mask结果。
+- 反传得到相应图peak response map(PRM)，记作$R$，由形态梯度方法计算proposal区域对应的mask proposal，计算$Score$，选取最高得分作为Segmentation Mask结果
+
 
 $$
 \text {Score}=\underbrace{\alpha * R * S}_{\text {instance-aware }}+\underbrace{R * \hat{S}}_{\text {boundary-aware }}-\underbrace{\beta * Q * S}_{\text {class-aware }}
 $$
 
-​		其中$S$表示mask proposal，$\hat{S}$表示由形态计算学计算所得$S$的梯度，$Q$表示类响应图(Class Response Map)获得的背景掩模。
+> 其中$S$表示mask proposal，$\hat{S}$表示由形态计算学计算所得$S$的梯度，$Q$表示类响应图(Class Response Map)获得的背景掩模。
 
 ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/PRM.png)
 
