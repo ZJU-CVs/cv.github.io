@@ -41,7 +41,11 @@ $$
 
 
 
-> 其中$\hat{U}_{ij}$是反向激化函数，$W^+=RELU(W)$，Z是归一化因子使得$\sum_{p,q}P(U_ij \mid Vpq)=1$   
+> 其中$\hat{U}_{ij}$是反向激化函数
+>
+> $W^+=RELU(W)$
+>
+> Z是归一化因子使得$\sum_{p,q}P(U_ij \mid Vpq)=1$   
 
 
 
