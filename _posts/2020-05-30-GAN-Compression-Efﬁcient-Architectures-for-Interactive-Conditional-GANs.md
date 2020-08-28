@@ -54,6 +54,8 @@ tags:
   > 判别器$D^{\prime} \rightarrow D$ 的蒸馏
 
   student D采用与teacher D'相同的模型架构，使用teacher D中的pre-train weights，并与G 一起作为compressed model进行 fine-tune
+  
+  
   $$
   \mathcal{L}_{\mathrm{cGAN}}=\mathbb{E}_{\mathbf{x}, \mathbf{y}}[\log D(\mathbf{x}, \mathbf{y})]+\mathbb{E}_{\mathbf{x}}[\log (1-D(\mathbf{x}, G(\mathbf{x})))
   $$
@@ -81,6 +83,8 @@ $$
 - Full objective
 
   最终目标：
+  
+  
   $$
   \mathcal{L}=\mathcal{L}_{\mathrm{cGAN}}+\lambda_{\mathrm{recon}} \mathcal{L}_{\mathrm{recon}}+\lambda_{\mathrm{distill}} \mathcal{L}_{\mathrm{distill}}
   $$
@@ -110,8 +114,10 @@ $$
 > - 为了进一步提高压缩率，使用通道修建（channel pruning）在生成器自动选择通道宽度，以消除冗余，从而减少二次计算量
 >
 >   > 给定可能的通道配置${c_1,c_2,...,c_K}$，其中K是要修剪的层数，使用神经网络架构搜索来找到最佳的通道配置
+>   >
+>   > 
 >   > $$
->   > \{c_1^*,c_2^*,...,c_K^*\}=argmin_{\{c_1,c_2,...,c_K\}}L, s.t.MACs
+>   > \{c_1^*,c_2^*,...,c_K^*\}=argmin_{c_1,c_2,...,c_K}\mathcal{L},\ s.t.MACs<F_t
 >   > $$
 >   > 
 
