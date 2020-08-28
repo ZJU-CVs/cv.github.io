@@ -24,24 +24,22 @@ tags:
 
 #### 2. Method
 
-##### 模型框架：
+##### Preliminaries：
 
-- Preliminaries：
+> 通过Convnet将原始图像映射到固定维度的向量空间
+>
+> - 用$f_\theta$表示convnet映射，其中$\theta$是相应的参数的集合，通过将该映射应用于图像作为特征或表示(feature or representation)而获得向量
+> - 在给定$N$个图像的训练集$X={x_1,x_2,...x_N}$，找到参数$\theta^*$，使映射$f_{\theta^*}$得到良好的通用(general-purpose)特征
+> - 传统做法:
+>   - 这些参数通过监督学习得到，即每个图像$x_n$与$\{0,1\}^k$中的标签$y_n$相关联。此标签表示图像为$K$个预定义类之一
+>   - 参数分类器$g_W$可预测$f_\theta(x_n)$特征之上的正确标签。分类器参数$W$和映射参数$\theta$通过优化**网络损失**进行共同学习
+> $$
+> \min _{\theta, W} \frac{1}{N} \sum_{n=1}^{N} \ell\left(g_{W}\left(f_{\theta}\left(x_{n}\right)\right), y_{n}\right)....(1)
+> $$
+>
+> (其中$\ell$是多项逻辑损失，即`negative log-softmax`函数，使用mini-batch随机梯度下降和反向传播来计算梯度，最大限度的降低cost function)
 
-  > 通过Convnet将原始图像映射到固定维度的向量空间
-  >
-  > - 用$f_\theta$表示convnet映射，其中$\theta$是相应的参数的集合，通过将该映射应用于图像作为特征或表示(feature or representation)而获得向量
-  > - 在给定$N$个图像的训练集$X={x_1,x_2,...x_N}$，找到参数$\theta^*$，使映射$f_{\theta^*}$得到良好的通用(general-purpose)特征
-  > - 传统做法:
-  >   - 这些参数通过监督学习得到，即每个图像$x_n$与$\{0,1\}^k$中的标签$y_n$相关联。此标签表示图像为$K$个预定义类之一
-  >   - 参数分类器$g_W$可预测$f_\theta(x_n)$特征之上的正确标签。分类器参数$W$和映射参数$\theta$通过优化**网络损失**进行共同学习
-  > $$
-  > \min _{\theta, W} \frac{1}{N} \sum_{n=1}^{N} \ell\left(g_{W}\left(f_{\theta}\left(x_{n}\right)\right), y_{n}\right)....(1)
-  > $$
-  >
-  > (其中$\ell$是多项逻辑损失，即`negative log-softmax`函数，使用mini-batch随机梯度下降和反向传播来计算梯度，最大限度的降低cost function)
-  
-  
+
 
 ##### Unsupervised learning by clustering
 
