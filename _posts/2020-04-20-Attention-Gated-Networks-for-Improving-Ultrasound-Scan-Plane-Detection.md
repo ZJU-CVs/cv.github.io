@@ -57,8 +57,10 @@ tags:
   > 
   >
   > - 设$\mathbf{g} \in \mathbb{R}^{C_{g}}$是在标准CNN分类器最后softmax前提取的全局特征向量(global feature vector)，在这种情况下，g编码的ROI是全局的、有区别的相关信息
+  >
   > - 其思想是：考虑每一个$f^s_i$和g的关联，来处理与每个尺度$s$相关的特征，这些特征由与$g$表示的粗尺度特征(如ojbect型)相关。为此，定义了兼容性得分$\mathcal{C}(\mathcal{F}^s,g)=\{c^s_i\}^n_{i=1}$，由additive 注意力模型给出
-  > - 
+  >
+  >   
   >
   > $$
   > c_{i}^{s}=\left\langle\Psi, \mathbf{f}_{i}^{s}+\mathbf{g}\right\rangle
@@ -69,9 +71,11 @@ tags:
   >
   > - 文中$\mathbf{f}_{i}^{s}$和$\mathbf{g}$有不同的维度
   >
-  >   > 权重$W_g \in \mathbb{R}^{C_{s} \times \C_{g}}$用于匹配$\mathbf{f}_{i}^{s}$和$g$的维度
+  >   > 权重$W_g \in \mathbb{R}^{C_{s} \times C_{g}}$用于匹配 $\mathbf{f}_{i}^{s}$ 和$g$的维度
   >   >
   >   > 一旦计算得到兼容分数，它们通过softmax来获得归一化的注意力系数：
+  >   >
+  >   > 
   >   > $$
   >   > a_i^l=e^{c_i^l}/\sum_i e^{c_i^l}
   >   > $$
@@ -84,6 +88,8 @@ tags:
   
 
 - 提出了一个更为通用的attention mechanism：
+
+  
 
   > $$
   > c_{i}^{s}=\boldsymbol{\Psi} \sigma_{1}\left(\mathbf{W}_{f} \mathbf{f}_{i}^{s}+\mathbf{W}_{g} \mathbf{g}+\mathbf{b}_{g}\right)+\mathbf{b}_{\psi}
