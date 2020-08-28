@@ -128,7 +128,7 @@ $$
 采用one-shot NAS方法，将模型训练与架构搜索分离[1]
 
 ```
-[1]《Single path one-shot neural architecture search with uniform sampling》
+[1] Single path one-shot neural architecture search with uniform sampling
 ```
 
 
