@@ -46,19 +46,39 @@ tags:
 
 - 参考《LEARN TO PAY ATTENTION》中的attention mechanism
 
-  > - 设所选的$\mathcal{F}^{s}=\left\{\mathbf{f}_{i}^{s}\right\}_{i=1}^{n}$是所选层$s \in\{1, \ldots, S\}$的激活图(activation map)，其中每个$f^s_i$表示长度为$C_s$(通道数)的pixel-wise的特征向量。
+  > - 所选层$s \in\{1, \ldots, S\}$的激活图(activation map)为：
+  >
+  > $$
+  > \mathcal{F}^{s}=\left\{\mathbf{f}_{i}^{s}\right\}_{i=1}^{n}
+  > $$
+  >
+  > > 其中每个$f^s_i$表示长度为$C_s$(通道数)的pixel-wise的特征向量。
+  >
+  > 
   >
   > - 设$\mathbf{g} \in \mathbb{R}^{C_{g}}$是在标准CNN分类器最后softmax前提取的全局特征向量(global feature vector)，在这种情况下，g编码的ROI是全局的、有区别的相关信息
-  >
   > - 其思想是：考虑每一个$f^s_i$和g的关联，来处理与每个尺度$s$相关的特征，这些特征由与$g$表示的粗尺度特征(如ojbect型)相关。为此，定义了兼容性得分$\mathcal{C}(\mathcal{F}^s,g)=\{c^s_i\}^n_{i=1}$，由additive 注意力模型给出
+  > - 
   >
   > $$
   > c_{i}^{s}=\left\langle\Psi, \mathbf{f}_{i}^{s}+\mathbf{g}\right\rangle
   > $$
-  > 其中$<·,·>$是点积，$\Psi \in \mathbb{R}^{C_{s}}$是可学习的参数。
+  > 
   >
-  > - 文中$\mathbf{f}_{i}^{s}$和$\mathbf{g}$有不同的维度，权重$W_g \in \mathbb{R}^{C_{s} \times \C_{g}}$用于匹配$\mathbf{f}_{i}^{s}$和$g$的维度。一旦计算得到兼容分数，它们通过softmax来获得归一化的注意力系数：$a_i^l=e^{c_i^l}/\sum_i e^{c_i^l}$
-  > - 对于每个尺度$s$，计算得到加权和$g^s=\sum^n_{i=1}a^s_if_i^s$，然后通过拟合全连接层$\{g^1...g^S\}$得到最终预测。通过约束从加权和进行的预测，网络被迫学习对该类有贡献的最显着特征。
+  > > 其中$<·,·>$是点积，$\Psi \in \mathbb{R}^{C_{s}}$是可学习的参数
+  >
+  > - 文中$\mathbf{f}_{i}^{s}$和$\mathbf{g}$有不同的维度
+  >
+  >   > 权重$W_g \in \mathbb{R}^{C_{s} \times \C_{g}}$用于匹配$\mathbf{f}_{i}^{s}$和$g$的维度
+  >   >
+  >   > 一旦计算得到兼容分数，它们通过softmax来获得归一化的注意力系数：
+  >   > $$
+  >   > a_i^l=e^{c_i^l}/\sum_i e^{c_i^l}
+  >   > $$
+  >   > 
+  >
+  > - 对于每个尺度$s$，计算得到加权和$g^s=\sum^n_{i=1}a^s_if_i^s$，然后通过拟合全连接层{$g^1...g^S$}得到最终预测。通过约束从加权和进行的预测，网络被迫学习对该类有贡献的最显着特征。
+  >
   > - 因此注意力系数${\alpha^l_i}$识别显著的图像区域，放大它们的影响，并抑制背景区域中的无关信息。
 
   
