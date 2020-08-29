@@ -1,6 +1,16 @@
-### MMDetection: Open MMLab Detection Toolbox and Benchmark
+---
+layout:     post
+title:      MMDetection
+subtitle:   Open MMLab Detection Toolbox and Benchmark
+date:       2020-05-21
+author:     JY
+header-img: img/post-bg.jpg
+catalog: true
+tags:
+    - paper
+    - Tools
 
-[MMDetection: Open MMLab Detection Toolbox and Benchmark](ref/MMDetection Open MMLab Detection Toolbox and Benchmark.pdf)
+---
 
 
 
