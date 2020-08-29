@@ -7,8 +7,7 @@ author:     JY
 header-img: img/post-bg.jpg
 catalog: true
 tags:
-    - 架构
-    - Update
+    - 架构 
 ---
 
 http://docs.kubernetes.org.cn/227.html
