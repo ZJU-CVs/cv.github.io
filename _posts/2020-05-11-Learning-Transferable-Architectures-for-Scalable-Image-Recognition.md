@@ -1,4 +1,18 @@
-### Learning Transferable Architectures for Scalable Image Recognition
+---
+layout:     post
+title:      Learning Transferable Architectures for Scalable Image Recognition
+subtitle:   
+date:       2020-05-11
+author:     JY
+header-img: img/post-bg.jpg
+catalog: true
+tags:
+    - paper
+    - NAS
+
+---
+
+
 
 #### 1.  Introduction
 
@@ -45,7 +59,7 @@ RNN用于生成Cell结构：
 
 ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/picture/Nas13.png)
 
-```
+```tex
 第(3)和(4)步的operation有：
   • identity
 	• 1x7 then 7x1 convolution
