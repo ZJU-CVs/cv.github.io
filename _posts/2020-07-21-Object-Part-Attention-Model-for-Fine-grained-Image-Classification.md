@@ -1,14 +1,30 @@
-### Object-Part Attention Model for Fine-grained Image Classification
+---
+layout:     post
+title:      Object-Part Attention Model for Fine-grained Image Classification
+subtitle:   
+date:       2020-07-21
+author:     JY
+header-img: img/post-bg.jpg
+catalog: true
+tags:
+    - paper
+    - Fine-grained
 
-1、简介
+---
+
+
+
+#### 1. Introduction
 
 - 解决问题：细粒度图像分类(Fine-grained Image Classification)
 - 特点：类内差异大，类间差异小
 - 现有方法：首先定位对象或部分(locate the objects or parts)，然后区分图像属于那个子类别。但是有两个局限：
   - 依赖大量人工标注数据
   - 忽略对象与其他各部分之间以及这些部分之间的空间关系
+  
+  
 
-2、模型介绍
+#### 2. Method
 
 - 弱监督细粒度图像分类的对象注意模型（OPAM）
 
