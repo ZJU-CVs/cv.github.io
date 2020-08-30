@@ -111,6 +111,8 @@ tags:
 > > $$
 > > \mathcal{L}_{c e}=-\sum_{i \in\{1,2\}} \sum_{j \in\{\text {self,other}\}} \mathbf{y}_{i}^{\top} \log \left(\mathbf{p}_{i}^{j}\right)
 > > $$
+> > 
+> >
 > > 在标签$y_i$的监督下，识别出所有的attentie features $x_i^j$
 >
 > 
@@ -121,6 +123,8 @@ tags:
 > > $$
 > > \mathcal{L}_{r k}=\sum_{i \in\{1,2\}} \max \left(0, \mathbf{p}_{i}^{\text {other}}\left(c_{i}\right)-\mathbf{p}_{i}^{\text {self}}\left(c_{i}\right)+\epsilon\right)
 > > $$
+> > 
+> >
 > > $p^j_i(c_i)$是预测的向量$p^j_i$中获得的分数，$c_i$为对应的真实标签
 > >
 > > 与$x_i^{other}$相比，$x_i^{self}$对于识别相应的图像应更有判别能力，因此利用分数差异$p^{self}_i(c_i)-p^{other}_i(c_i)$应该大于margin $\epsilon$ 
