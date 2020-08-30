@@ -75,7 +75,9 @@ $$
 
 - 对于一个预训练参数为$\theta$的异常检测模型$f_{\theta}:x\rightarrow y$，
 
-- 按照MAML，通过在该任务训练集$\mathcal{D}_i^{tr}$上定义的损失函数和一个梯度更新将参数从$\theta$调整为$\theta'_{i}$，以适应任务$\mathcal{T}_i$
+- 按照MAML，通过在该任务训练集$\mathcal{D}_i^{tr}$上
+
+  定义的损失函数和一个梯度更新将参数从$\theta$调整为$\theta'_{i}$，以适应任务$\mathcal{T}_i$
 
 $$
 \begin{array}{l}
@@ -87,6 +89,8 @@ $$
 > 其中$\alpha$为步长
 >
 > $L(f_\theta(x_j),y_j)$用于衡量预测帧$f_\theta(x_j)$与实际帧$y_j$之间的差异，$L(\cdot)$的定义为：
+>
+> 
 > $$
 > L(f_\theta(x_j),y_j)=\lambda_1 L_1(f_\theta(x_j),y_j)+\lambda_2 L_{ssm}(f_\theta(x_j),y_j)+\lambda_3 L_{gdl}(f_\theta(x_j),y_j)
 > $$
