@@ -43,10 +43,12 @@ tags:
 `互向量学习`
 
 > 输入是一对细粒度图像(具有较高的相似性)，通过CNN分别生成两个特征向量$x_1$和$x_2$，之后通过concat层将两个特征向量进行拼接，再通过MLP生成一个互向量$x_m$ (Mutual Vector)
+>
+> 
 > $$
 > x_m=f_m(\mid x_1,x_2 \mid)
 > $$
-> 
+>
 
 
 
@@ -55,6 +57,8 @@ tags:
 `门向量生成`
 
 > $x_m$分别对$x_1$和$x_2$作通道积(channel-wise)，利用$x_m$作为指导来发现单个$x_i$的哪些通道可能包含**对比信息**，然后经过sigmoid函数生成对应门向量$g_1$和$g_2$
+>
+> 
 > $$
 > g_i=\operatorname{sigmoid}\left(x_{m} \odot x_{i}\right) ,i \in\{1,2\}
 > $$
@@ -68,6 +72,8 @@ tags:
 `成对交互`
 
 > 为了捕获一对细粒度图像中的细微差异，不仅要检查每个图像的突出部分，还要检查彼此不同的部分。因此通过残差注意力引入一种交互机制
+>
+> 
 > $$
 > x_1^{self}=x_1+x_1 \odot g_1 \\
 > x_2^{self}=x_2+x_2 \odot g_2 \\
@@ -82,6 +88,8 @@ tags:
 ##### Training
 
 > API模块最后输入4个attentive feature $x_i^j, \ where \ i \in \{1,2\},j\in\{ self,other\}$，然后将其输入到softmax classifer中
+>
+> 
 > $$
 > p^j_i = softmax(Wx^j_i+b)
 > $$
@@ -91,11 +99,15 @@ tags:
 
 
 > **Loss function**:
+>
+> 
 > $$
 > \mathcal{L}=\mathcal{L}_{ce}+\lambda \mathcal{L}_{rk}
 > $$
 >
 > > (1) Cross Entropy Loss
+> >
+> > 
 > > $$
 > > \mathcal{L}_{c e}=-\sum_{i \in\{1,2\}} \sum_{j \in\{\text {self,other}\}} \mathbf{y}_{i}^{\top} \log \left(\mathbf{p}_{i}^{j}\right)
 > > $$
@@ -104,6 +116,8 @@ tags:
 > 
 >
 > > (2) Score Ranking Regularization
+> >
+> > 
 > > $$
 > > \mathcal{L}_{r k}=\sum_{i \in\{1,2\}} \max \left(0, \mathbf{p}_{i}^{\text {other}}\left(c_{i}\right)-\mathbf{p}_{i}^{\text {self}}\left(c_{i}\right)+\epsilon\right)
 > > $$
