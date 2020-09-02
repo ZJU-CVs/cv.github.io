@@ -1,13 +1,15 @@
 ---
 layout:     post
-title:      Latent Space Autoregression for Novelty Detection
+title:      Learning Memory-guided Normality for Anomaly Detection
 subtitle:   
-date:       2020-08-31
+date:       2020-09-02
 author:     JY
 header-img: img/post-bg.jpg
 catalog: true
 tags:
+    - paper
     - Anomaly Detection
+
 ---
 
 
@@ -21,4 +23,6 @@ tags:
 
 
 #### 3. Experiments
+
+
 
