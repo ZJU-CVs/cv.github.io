@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Explainable Deep One-Class Classiﬁcation
+title:      Explainable Deep One-Class Classification
 subtitle:  
 date:       2020-08-23
 author:     JY
