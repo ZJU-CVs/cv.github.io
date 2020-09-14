@@ -317,24 +317,32 @@ Localization
 > \mathcal{L}_{a d v, d}=-\mathbb{E}_{r_{c}, c}\left[\left(D_{c}\left(r_{c}\right)\right)\right]+\mathbb{E}_{r_{c}, \bar{c}}\left[D_{\bar{c}}\left(G_{\bar{c}}\left(r_{c}\right)\right]+\lambda_{g p} \mathbb{E}_{\hat{x}, c}\left[\left(\left\|\nabla_{\hat{x}} D_{c}\left(\hat{x}_{c}\right)\right\|_{2}-1\right)^{2}\right]\right.\\
 > \mathcal{L}_{a d v, g}=-\mathbb{E}_{r_{c}, \bar{c}}\left[D_{\bar{c}}\left(G_{\bar{c}}\left(r_{c}\right)\right]\right.
 > $$
+> 
+>
 > **Identity Loss:**
 >
 > 
 > $$
 > \mathcal{L}_{i d}=\mathbb{E}_{r_{c}, c}\left[\left\|r_{c}-G_{c}\left(r_{c}\right)\right\|_{2}\right]
 > $$
+> 
+>
 > **Classification Loss:**
 >
 > 
 > $$
 > \mathcal{L}_{c l s, d}=\mathbb{E}_{r_{c}, c}\left[-\log D_{c l s}^{c}\left(r_{c}\right)\right]
 > $$
+> 
+>
 > **Reconstruction Loss:** 
 >
 > 
 > $$
 > \mathcal{L}_{r e c}=\mathbb{E}_{r_{c}, c}\left[\left\|r_{c}-G_{c}\left(G_{\bar{c}}\left(r_{c}\right)\right)\right\|_{2}\right]
 > $$
+> 
+>
 > **Total Loss Objective:**
 > $$
 > \mathcal{L}_{g}=\lambda_{a d v, g} \mathcal{L}_{a d v, g}+\lambda_{r e c} \mathcal{L}_{r e c}+\lambda_{i d} \mathcal{L}_{i d}+\lambda_{c l s, g} \mathcal{L}_{c l s, g}\\
