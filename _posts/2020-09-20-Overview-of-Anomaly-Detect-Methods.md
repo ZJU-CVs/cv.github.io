@@ -354,7 +354,7 @@ Localization
 
 #### Patch SVDD
 
-详见 https://zju-cvs.github.io/2020/08/23/Patch-SVDD/
+详见[link](https://zju-cvs.github.io/2020/08/23/Patch-SVDD/)
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/6.png" alt="img" style="zoom:50%;" />
 
@@ -362,6 +362,6 @@ Localization
 
 #### FCDD
 
-详见 https://zju-cvs.github.io/2020/08/23/Explainable-Deep-One-Class-Classification/
+详见[link](https://zju-cvs.github.io/2020/08/23/Explainable-Deep-One-Class-Classification/)
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/3.png" alt="img" style="zoom:50%;" />
