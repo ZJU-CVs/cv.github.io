@@ -183,12 +183,18 @@ Architecture:
 > y_{\text {out }, 1}=y_{\text {in }, 1} \odot e^{s_{2}\left(y_{\text {out }, 2}\right)}+t_{2}\left(y_{\text {out }, 2}\right)
 > \end{array}
 > $$
-> 内部函数$s$和$t$可以是任何可微函数
+> 
 >
-> 为了保持模型的稳定性，实现更好的收敛性，对$s$的值进行soft-clamping，即对$s$的最后一层使用激活函数，将$s(y)$限制在$(-\alpha,\alpha)$来防止较大的缩放比例分量
+> - 内部函数$s$和$t$可以是任何可微函数
+>
+> - 为了保持模型的稳定性，实现更好的收敛性，对$s$的值进行soft-clamping，即对$s$的最后一层使用激活函数，将$s(y)$限制在$(-\alpha,\alpha)$来防止较大的缩放比例分量
+>
+>   
+>
 > $$
 > \sigma_{\alpha}(h)=\frac{2 \alpha}{\pi} \arctan \frac{h}{\alpha}
 > $$
+>
 > 
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/32.png" alt="img" style="zoom:50%;" />
@@ -200,16 +206,21 @@ Training:
 > 训练过程中的目标是找到$f_{NF}$参数，以使得提取的特征$y\in Y$的可能性最大化
 >
 > 这些特征在潜在空间$Z$中是可量化的。通过$z=f_{NF}(y)$及变量变化公式，将问题转化为最大化对数似然性：
+>
+> 
 > $$
 > p_Y(y)=p_Z(z)\left|\operatorname{det} \frac{\partial z}{\partial y}\right|
 > $$
 > 本文使用负对数似然损失$\mathcal{L}(y)$转化为最小化问题：
+>
+> 
 > $$
 > \begin{array}{c}
 > \log p_{Y}(y)=\log p_{Z}(z)+\log \left|\operatorname{det} \frac{\partial z}{\partial y}\right| \\
 > \mathcal{L}(y)=\frac{\|z\|_{2}^{2}}{2}-\log \left|\operatorname{det} \frac{\partial z}{\partial y}\right|
 > \end{array}
 > $$
+> 
 >
 > - 直观地讲，希望$f_{NF}$讲所有$y$映射到尽可能接近$z=0$的位置，同时用接近于$zero^2$的缩放系数来惩罚平凡解
 
@@ -220,6 +231,8 @@ Scoring Function
 > 使用计算的似然值作为样本分类异常或正常的标准
 >
 > 为了获得鲁棒的异常分数$\tau(x)$，使用图像$x$的多次变换$T(i)$对负对数似然进行平均：
+>
+> 
 > $$
 > \tau(x)=\mathbb{E}_{T_{i} \in \mathcal{T}}\left[-\log p_{Z}\left(f_{\mathrm{NF}}\left(f_{\mathrm{ex}}\left(T_{i}(x)\right)\right)\right)\right]
 > $$
@@ -227,6 +240,8 @@ Scoring Function
 > - $T$可以选择旋转和改变亮度及对比度
 >
 > 如果异常分数$\tau(x)$高于阈值$\theta$，则将图像分类为异常
+>
+> 
 > $$
 > \mathcal{A}(x)=\left\{\begin{array}{ll}
 > 1 & \text { for } \tau(x) \geq \theta \\
@@ -242,6 +257,8 @@ Localization
 > 可以将负对数似然度$\mathcal{L}$回传到输入图像$x$，每个输入通道$x_c$对应梯度$\nabla x_{c}$值，该值指示多少像素影响与异常有关的误差
 >
 > 为了获得更好的可视化效果，使用高斯核$G$对这些梯度进行模糊化处理，并根据以下等式得到梯度图$g_x$。将获得的map旋转回去后，对单个图像多次旋转的maps进行平均可以得到鲁棒的定位
+>
+> 
 > $$
 > g_x=\sum_{c\in C}\vert G\star \nabla x_{c}\vert
 > $$
@@ -268,7 +285,7 @@ Localization
 > - $\mathcal{F}=${$x\vert x:\mathbb{R}^2 \rightarrow \mathbb{R}$}是一组来自相同成像方式的医学图像，这些图像显示相同的解剖结构，其中$\mathcal{P} \subset \mathcal{F}$是受特定疾病影响的的患者图像集，$\mathcal{H} \subset \mathcal{F}$是健康对照组的图像集。对于给定的一个未知类的新图像，模型的目的是检测图像中与$\mathcal{P}$图像具有相同特征的区域并分配一个类别标签
 >
 > - 设$p$为$\mathcal{P}$中的图像类别，$h$为$\mathcal{H}$中的图像类别。$c,\bar{c}\in${$h,p$}且$c \neq \bar{c}$ (也就是说，$c$和$\bar{c}$一个为$p$，另一个为$h$)。本文的主要思想是转化一个标签类别为$c$的真实图像$r_c$为一个标签类别为$\bar{c}$的人造图像$a_{\bar{c}}$。**病理区域**定义为人造健康图像$a_h$和类别为$c$的真实图像$r_c$的差异$d:a_h-r_c$
-> - 因此，在unpaired的集合$\mathcal{P}$和$\mathcal{H}$之间进行image-to-image的转换。对于任何图像$r_c$，生成器都能生成相同类别$c$的人造图像$a_c$和类别为$\bar{c}$的人造图像$a_{\bar{c}}$。为了保证$r_c$和$a_h$仅在病理区域不同，采用identity loss $\mathcal{L}_{id}$和 reconstructtion loss $\mathcal{L}_{rec}$获得周期一致性(cycle consistency)
+> - 因此，在unpaired的集合$\mathcal{P}$和$\mathcal{H}$之间进行image-to-image的转换。对于任何图像$r_c$，生成器都能生成相同类别$c$的人造图像$a_c$和类别为$\bar{c}$的人造图像$a_{\bar{c}}$。为了保证$r_c$和$a_h$仅在病理区域不同，采用identity loss 和 reconstructtion loss 获得周期一致性(cycle consistency)
 
 ##### Details
 
@@ -293,24 +310,32 @@ Localization
 
 ##### Loss functions
 
-> Adversarial Loss:
+> **Adversarial Loss:**
+>
+> 
 > $$
 > \mathcal{L}_{a d v, d}=-\mathbb{E}_{r_{c}, c}\left[\left(D_{c}\left(r_{c}\right)\right)\right]+\mathbb{E}_{r_{c}, \bar{c}}\left[D_{\bar{c}}\left(G_{\bar{c}}\left(r_{c}\right)\right]+\lambda_{g p} \mathbb{E}_{\hat{x}, c}\left[\left(\left\|\nabla_{\hat{x}} D_{c}\left(\hat{x}_{c}\right)\right\|_{2}-1\right)^{2}\right]\right.\\
 > \mathcal{L}_{a d v, g}=-\mathbb{E}_{r_{c}, \bar{c}}\left[D_{\bar{c}}\left(G_{\bar{c}}\left(r_{c}\right)\right]\right.
 > $$
-> Identity Loss:
+> **Identity Loss:**
+>
+> 
 > $$
 > \mathcal{L}_{i d}=\mathbb{E}_{r_{c}, c}\left[\left\|r_{c}-G_{c}\left(r_{c}\right)\right\|_{2}\right]
 > $$
-> Classification Loss:
+> **Classification Loss:**
+>
+> 
 > $$
 > \mathcal{L}_{c l s, d}=\mathbb{E}_{r_{c}, c}\left[-\log D_{c l s}^{c}\left(r_{c}\right)\right]
 > $$
-> Reconstruction Loss: 
+> **Reconstruction Loss:** 
+>
+> 
 > $$
 > \mathcal{L}_{r e c}=\mathbb{E}_{r_{c}, c}\left[\left\|r_{c}-G_{c}\left(G_{\bar{c}}\left(r_{c}\right)\right)\right\|_{2}\right]
 > $$
-> Total Loss Objective:
+> **Total Loss Objective:**
 > $$
 > \mathcal{L}_{g}=\lambda_{a d v, g} \mathcal{L}_{a d v, g}+\lambda_{r e c} \mathcal{L}_{r e c}+\lambda_{i d} \mathcal{L}_{i d}+\lambda_{c l s, g} \mathcal{L}_{c l s, g}\\
 > \mathcal{L}_{d}=\lambda_{a d v, d} \mathcal{L}_{a d v, d}+\lambda_{c l s, d} \mathcal{L}_{c l s, d}
