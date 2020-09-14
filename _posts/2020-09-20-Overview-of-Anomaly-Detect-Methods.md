@@ -344,6 +344,8 @@ Localization
 > 
 >
 > **Total Loss Objective:**
+>
+> 
 > $$
 > \mathcal{L}_{g}=\lambda_{a d v, g} \mathcal{L}_{a d v, g}+\lambda_{r e c} \mathcal{L}_{r e c}+\lambda_{i d} \mathcal{L}_{i d}+\lambda_{c l s, g} \mathcal{L}_{c l s, g}\\
 > \mathcal{L}_{d}=\lambda_{a d v, d} \mathcal{L}_{a d v, d}+\lambda_{c l s, d} \mathcal{L}_{c l s, d}
