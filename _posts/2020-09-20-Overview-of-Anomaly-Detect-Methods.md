@@ -257,11 +257,17 @@ Localization
 
 《DeScarGAN: Disease-Speciﬁc Anomaly Detection with Weak Supervision》
 
+> 提出了一种弱监督和细节保留的方法，能够检测图像的结构变化
+>
+> 与标准的异常检测方法相比，本文的方法从一组相同患有病理的图像和一组健康图像中提取有关疾病特征的信息
+
+
+
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/33.png" alt="img" style="zoom:50%;" />
 
 > - $\mathcal{F}=${$x\vert x:\mathbb{R}^2 \rightarrow \mathbb{R}$}是一组来自相同成像方式的医学图像，这些图像显示相同的解剖结构，其中$\mathcal{P} \subset \mathcal{F}$是受特定疾病影响的的患者图像集，$\mathcal{H} \subset \mathcal{F}$是健康对照组的图像集。对于给定的一个未知类的新图像，模型的目的是检测图像中与$\mathcal{P}$图像具有相同特征的区域并分配一个类别标签
 >
-> - 设$p$为$\mathcal{P}$中的图像类别，$h$为$\mathcal{H}$中的图像类别。$c,\bar{c}\in${$h,p$}且$c \neq \bar{c}$。本文的主要思想是转化一个标签类别为$c$的真实图像$r_c$为一个标签类别为$\bar{c}$的人造图像$a_{\bar{c}}$。**病理区域**定义为人造健康图像$a_h$和类别为$c$的真实图像$r_c$的差异$d:a_h-r_c$
+> - 设$p$为$\mathcal{P}$中的图像类别，$h$为$\mathcal{H}$中的图像类别。$c,\bar{c}\in${$h,p$}且$c \neq \bar{c}$ (也就是说，$c$和$\bar{c}$一个为$p$，另一个为$h$)。本文的主要思想是转化一个标签类别为$c$的真实图像$r_c$为一个标签类别为$\bar{c}$的人造图像$a_{\bar{c}}$。**病理区域**定义为人造健康图像$a_h$和类别为$c$的真实图像$r_c$的差异$d:a_h-r_c$
 > - 因此，在unpaired的集合$\mathcal{P}$和$\mathcal{H}$之间进行image-to-image的转换。对于任何图像$r_c$，生成器都能生成相同类别$c$的人造图像$a_c$和类别为$\bar{c}$的人造图像$a_{\bar{c}}$。为了保证$r_c$和$a_h$仅在病理区域不同，采用identity loss $\mathcal{L}_{id}$和 reconstructtion loss $\mathcal{L}_{rec}$获得周期一致性(cycle consistency)
 
 ##### Details
@@ -275,13 +281,41 @@ Localization
 >
 >   > `注:`由于最上层的skip connection省略，使生成器能够执行结构的更改
 >
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/35.png" alt="img" style="zoom:50%;" />
+>
 > - 判别器的任务包括：
+>   - 分类图像是健康的还是有病理的，$D_{cls} :\mathcal{F}\rightarrow \mathbb{R}$用于二分类。
+>   - 判别是真实图像还是人工图像，$D_p:\mathcal{P}\rightarrow \mathbb{R}$用于区分$p$类的图像是人造图还是真实图，$D_h:\mathcal{H}\rightarrow \mathbb{R}$用于区分$h$类的图像是人造图还是真实图
 >
->   - 分类图像是健康的还是有病理的
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/36.png" alt="img" style="zoom:50%;" />
 >
->   - 判别是真实图像还是人工图像
->
->     
+> > `注：`$D_c$可以互换为$D_p$或$D_h$
+
+##### Loss functions
+
+> Adversarial Loss:
+> $$
+> \mathcal{L}_{a d v, d}=-\mathbb{E}_{r_{c}, c}\left[\left(D_{c}\left(r_{c}\right)\right)\right]+\mathbb{E}_{r_{c}, \bar{c}}\left[D_{\bar{c}}\left(G_{\bar{c}}\left(r_{c}\right)\right]+\lambda_{g p} \mathbb{E}_{\hat{x}, c}\left[\left(\left\|\nabla_{\hat{x}} D_{c}\left(\hat{x}_{c}\right)\right\|_{2}-1\right)^{2}\right]\right.\\
+> \mathcal{L}_{a d v, g}=-\mathbb{E}_{r_{c}, \bar{c}}\left[D_{\bar{c}}\left(G_{\bar{c}}\left(r_{c}\right)\right]\right.
+> $$
+> Identity Loss:
+> $$
+> \mathcal{L}_{i d}=\mathbb{E}_{r_{c}, c}\left[\left\|r_{c}-G_{c}\left(r_{c}\right)\right\|_{2}\right]
+> $$
+> Classification Loss:
+> $$
+> \mathcal{L}_{c l s, d}=\mathbb{E}_{r_{c}, c}\left[-\log D_{c l s}^{c}\left(r_{c}\right)\right]
+> $$
+> Reconstruction Loss: 
+> $$
+> \mathcal{L}_{r e c}=\mathbb{E}_{r_{c}, c}\left[\left\|r_{c}-G_{c}\left(G_{\bar{c}}\left(r_{c}\right)\right)\right\|_{2}\right]
+> $$
+> Total Loss Objective:
+> $$
+> \mathcal{L}_{g}=\lambda_{a d v, g} \mathcal{L}_{a d v, g}+\lambda_{r e c} \mathcal{L}_{r e c}+\lambda_{i d} \mathcal{L}_{i d}+\lambda_{c l s, g} \mathcal{L}_{c l s, g}\\
+> \mathcal{L}_{d}=\lambda_{a d v, d} \mathcal{L}_{a d v, d}+\lambda_{c l s, d} \mathcal{L}_{c l s, d}
+> $$
+> 
 
 
 
