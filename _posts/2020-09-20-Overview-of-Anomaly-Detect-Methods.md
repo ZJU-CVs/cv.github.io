@@ -367,3 +367,9 @@ Localization
 详见[link](https://zju-cvs.github.io/2020/08/23/Explainable-Deep-One-Class-Classification/)
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/3.png" alt="img" style="zoom:50%;" />
+
+#### Puzzle-AE
+
+《Puzzle-AE: Novelty Detection in Images through Solving Puzzles》
+
+> 
