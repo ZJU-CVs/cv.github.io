@@ -368,8 +368,21 @@ Localization
 
 <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/3.png" alt="img" style="zoom:50%;" />
 
+
+
 #### Puzzle-AE
 
 《Puzzle-AE: Novelty Detection in Images through Solving Puzzles》
 
+> 引入自监督学习的思想：
+>
+> - 自监督学习方法能够提取语义上有意义和通用的特征
+>
+>   （感觉不太靠谱，破坏了结构信息）
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/Anomaly-Detection/37.png" alt="img" style="zoom:50%;" />
+>
 > 
+>
+> 
+
