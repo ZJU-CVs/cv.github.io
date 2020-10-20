@@ -133,7 +133,7 @@ tags:
 >
 > ref: 《SELF-SUPERVISED LEARNING FOR FEW-SHOT IMAGE CLASSIFICATION》
 >
-> 
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/self-supervised/15.png" alt="img" style="zoom: 25%;" />
 
 
 
@@ -162,6 +162,20 @@ tags:
 >
 > **Representation extraction:**
 >
+> - 基于$H_{i,j}$特征向量预测$H_{i+k,j}$，$H=f_\theta(v),\ where\ v\sim A(x)\ and \  H\in \mathbb{R}^{c\times h \times w}$
+>
+> - 预测任务首先通过一个上下文编码器$g_{\psi}$将masked卷积应用于$H$，生成$C=g_\psi(H),\ where \ C\in \mathbb{R}^{c\times h \times w}$。每个$c_{i,j}$总结每个$H_{i,j}$周围的上下文
+>
+> - 对于每个$c_{i,j}$，通过预测矩阵$W_k$预测$\hat{H}_{i+k, j}=W_{k} c_{i, j}$
+>
+>   > anchor representation: $r^{a}=\hat{H}_{i+k, j}$
+>   >
+>   > positive representation: $r^{+}={H}_{i+k, j}$
+>   >
+>   > negative representations: 所有其他的${H}_{i, j}$为$r^{-}$
+>
+> 
+>
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/self-supervised/7.gif)
 >
 > **Similarity measure:** 
@@ -174,12 +188,15 @@ tags:
 > $$
 > \mathcal{L}_{\theta}\left(r^{a}, r^{+}, R^{-}\right)=-\log \frac{\exp \left(\Phi\left(r^{a}, r_{i}^{+}\right)\right)}{\exp \left(\Phi\left(r^{a}, r_{i}^{+}\right)\right)+\sum_{r_{i}^{-} \in R^{-}} \exp \left(\Phi\left(r^{a}, r_{i}^{-}\right)\right)}
 > $$
-> 
+>
+> - 可以看作是从正确的$H_{i+k,j}$和干扰因子
 
 
 
 ##### Special Case 3: SimCLR
 
+> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/self-supervised/simclr_arch.png)
+>
 > **Data augmentation pipeline**:
 >
 > - 在AMDIM的数据增强变换方法基础上，加入了高斯模糊 (Gaussian Blur)
@@ -188,52 +205,118 @@ tags:
 >
 > **Encoder:**
 >
-> - SimCLR中的编码器$f_θ$是一个宽度和深度可变的ResNet。SimCLR中的resnet使用batch normalization。
+> - SimCLR中的编码器$f_θ$是一个宽度和深度可变的ResNet。S
+> - imCLR中的resnet使用batch normalization。
 >
 > 
 >
 > **Representation extraction:**
 >
-> 
+> - 编码器的输出$r=f_\theta(v), \ where \ r\in \mathbb{R}^{c\times h \times w}$
+>
+> - reshaping: $r: \mathbb{R}^{c\times h \times w} \rightarrow \mathbb{R}^{c\cdot h \cdot w}$
+>
+>   > anchor representation: $r^{a}=f_\theta(v^a)$
+>   >
+>   > positive representation: $r^{+}=f_\theta(v^+)$
+>   >
+>   > negative representations: 所有从其他样本$x'$生成的$r^{-}$
+>
+>   
 >
 > **Similarity measure:** 
 >
-> - SimCLR使用投影头z=fφ将表示向量从编码器映射到另一个向量空间，即fφ：rc→rc。用（zi，zj）对之间的余弦相似性作为相似性得分。投影和余弦相似度的合成可以看作是一种参数化的相似性度量。
+> - SimCLR使用$z=f_\phi$将表示向量从编码器映射到另一个向量空间，即$f_\phi：\mathbb{R}^c \rightarrow \mathbb{R}^c$
+> - 用$(z_i，z_j）$对之间的余弦相似性作为相似性得分。
+> - 映射和余弦相似度的合成可以看作是一种参数化的相似性度量。
+>
+> 
 >
 > **Loss Function:**
 > $$
 > \mathcal{L}_{\theta}\left(z^{a}, z^{+}, Z^{-}\right)=-\log \frac{\exp \left(\Phi\left(z^{a}, z^{+}\right) / \tau\right)}{\sum_{z_{i}^{-} \in Z^{-}} \exp \left(\Phi\left(z^{a}, z_{i}^{-}\right) / \tau\right)}
 > $$
-> 
+>
+> - 加入$\tau \in \mathbb{R}$ 调节 the similarity scores
 
 
 
 
 
-##### Others (BYOL & Swav):
+##### Others (MoCo, BYOL, Swav)
+
+- **Moco (v2)**
+
+  ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/self-supervised/simclr_arch.png)
+
+  ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/self-supervised/moco_v2_arch.png)
+
+  > - 修改了SimCLR的projection head $g_\theta(x)$和数据增强的pipeline，减小了批次大小（从4096减少到256）并提高了性能
+  >
+  > - MoCo将单个网络拆分为参数化的在线网络（顶层）和参数化的动量网络（底层）
+  >   -  在线网络通过随机梯度下降进行更新
+  >   - 动量网络根据在线网络权重的指数移动平均值进行更新
+  >   - 动量网络使MoCo可以**有效地使用过去的预测存储库作为对比损失的负面示例**。 此存储库可实现小得多的批处理大小
+
+  
 
 - **BYOL**
 
-  ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/self-supervised/12.png)
+  ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/self-supervised/byol_arch.png)
 
-  > 1）BYOL 用到了两个编码器。第二个编码器实际上完全是第一个编码器的副本，但是它不会在每一轮更新权重，而是使用一种滚动均值（rolling average）更新它们。
+  > - BYOL建立在MoCo的动量网络概念的基础上，并添加了一个MLP以根据z预测z’ (prediction)
+  > - BYOL而不是使用对比损失，而是使用归一化预测p和目标z'之间的L2误差，因为此损失函数不需要负示例
+
+  
+
+  > 1）BYOL 用到了两个编码器。第二个编码器实际上完全是第一个编码器的副本，但是它不会在每一轮更新权重，而是使用一种滚动均值（rolling average）进行更新。
   >
   > 2）BYOL 并没有用到负样本，而是依靠滚动权值更新作为一种为训练提供对比信号的方式
   >
-  > https://untitled-ai.github.io/understanding-self-supervised-contrastive-learning.html
+  > 3) 批量标准化对于培训BYOL至关重要 (ref: https://untitled-ai.github.io/understanding-self-supervised-contrastive-learning.html)
 
   
 
 - **Swav**
 
-> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/self-supervised/6.gif)
->
-> SwAV使用了一个code去表达feature进而来保持一致性，可以看到训练主要包括两部分
->
-> - z(feature)如何通过c(prototype)映射得到Q(code)
-> - Q如何通过Swapped Prediction完成loss计算
->
-> https://zhuanlan.zhihu.com/p/162707381
+  > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/self-supervised/6.gif)
+  >
+  > - 通过应用从图像变换集合$T$采样的变换$t$，将每个图像$x_n$变换为增强视图$x_{nt}$
+  >
+  > - 通过将非线性映射$f_\theta$应用于$x_{nt}$，将扩充后的视图映射到矢量表示，然后将特征映射到单位球面，即
+  >   $$
+  >   z_{nt}=f_{\theta}\left(\mathbf{x}_{n t}\right) /\left\|f_{\theta}\left(\mathbf{x}_{n t}\right)\right\|_{2}
+  >   $$
+  >
+  > - 通过将$z_{nt}$映射到一组K个可训练的原型向量$\{c_1,...,c_k\}$,
+  >
+  > 
+  >
+  > SwAV和contrastive instance learning方法的异同主要是在feature对比上：
+  >
+  > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/self-supervised/14.png)
+  >
+  > 
+  >
+  > SwAV使用了一个code来表达feature进而来保持一致性，可以看到训练主要包括两部分
+  >
+  > - z(feature)通过c(prototype)映射得到Q(code)
+  >
+  >   > $$
+  >   > \ell\left(\mathbf{z}_{t}, \mathbf{q}_{s}\right)=-\sum_{k} \mathbf{q}_{s}^{(k)} \log \mathbf{p}_{t}^{(k)}, \quad \text { where } \quad \mathbf{p}_{t}^{(k)}=\frac{\exp \left(\frac{1}{\tau} \mathbf{z}_{t}^{\top} \mathbf{c}_{k}\right)}{\sum_{k^{\prime}} \exp \left(\frac{1}{\tau} \mathbf{z}_{t}^{\top} \mathbf{c}_{k^{\prime}}\right)}
+  >   > $$
+  >   >
+  >   > 
+  >
+  > - Q通过Swapped Prediction完成loss计算
+  >
+  >   > $$
+  >   > L\left(\mathbf{z}_{t}, \mathbf{z}_{s}\right)=\ell\left(\mathbf{z}_{t}, \mathbf{q}_{s}\right)+\ell\left(\mathbf{z}_{s}, \mathbf{q}_{t}\right)
+  >   > $$
+  >   >
+  >   > 函数$\ell(z,q)$用于衡量特征z和code Q之间的拟合，而对比学习中直接比较特征
+  >
+  > 
 
 
 
@@ -248,10 +331,24 @@ tags:
 
 #### 4. YADIM 
 
-> (1) Data Augmentation Pipeline We deﬁne a data augmentation pipeline for YADIM as the union of the CPC and AMDIM pipelines. This new pipeline applies all six transforms sequentially to an input twice to generate two version of the same input v a ∼ A(x), v + ∼ A(x). The same pipeline generates the negative sample from a different input v − ∼ A(x 0 ).
+> (1) Data Augmentation Pipeline:
 >
-> (2) Encoder We use the wide ResNet-34 from AMDIM, although the choice of any other encoder would not have a signiﬁcant impact the ﬁnal performance.
+> - We deﬁne a data augmentation pipeline for YADIM as the union of the CPC and AMDIM pipelines. This new pipeline applies all six transforms sequentially to an input twice to generate two version of the same input $v^a\sim A(x)$, $v^ + \sim A(x)$. The same pipeline generates the negative sample from a different input $v^ − \sim A(x')$.
 >
-> (3) Representation Extraction YADIM compares the triplets from the last feature maps generated a + by the encoder (r −1 , r −1 , R −1 − ), unlike AMDIM.
+> (2) Encoder:
 >
-> (4) Similarity measure unlike CPC.
+> - We use the wide ResNet-34 from AMDIM, although the choice of any other encoder would not have a signiﬁcant impact the ﬁnal performance.
+>
+> (3) Representation Extraction:
+>
+> - YADIM compares the triplets from the last feature maps generated a + by the encoder $(r^a_{−1},R^+ _{−1}, R^-_{−1})$
+>
+> (4) Similarity measure:
+>
+> - 使用点积$\Phi(a,b)=a\cdot b$
+>
+> (5) Loss Function:
+> $$
+> \mathcal{N}_{\theta}\left(r^{a}, R^{+}, R^{-}\right)=-\log \frac{\sum_{r_{i}^{+} \in R^{+}} \exp \left(\Phi\left(r^{a}, r_{i}^{+}\right)\right)}{\sum_{r_{i}^{-} \in R^{-}} \exp \left(\Phi\left(r^{a}, r_{i}^{-}\right)\right)}
+> $$
+> 
