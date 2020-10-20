@@ -111,7 +111,8 @@ tags:
 >
 > **Representation extraction:**
 >
-> - 考虑Multiscale，训练的目标是**源图像各层级的输出特征应该和同源的特征相关度最大，和其他图片的各级特征相关度最小**
+> - 考虑Multiscale
+> - 训练的目标是**源图像各层级的输出特征应该和同源的特征相关度最大，和其他图片的各级特征相关度最小**
 >
 > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/self-supervised/8.gif" alt="img" style="zoom: 67%;" />
 >
@@ -129,6 +130,8 @@ tags:
 > $$
 > \mathcal{L}_{\mathrm{AMDIM}}=-\frac{1}{3}\left[\mathcal{N}_{\theta}\left(r_{j}^{a}, R_{k-1}^{+}, R_{k-1}^{-}\right)+\mathcal{N}_{\theta}\left(r_{j}^{a}, R_{k-2}^{+}, R_{k-2}^{-}\right)+\mathcal{N}_{\theta}\left(r_{j-1}^{a}, R_{k-1}^{+}, R_{k-1}^{-}\right)\right]
 > $$
+>
+> ref: 《SELF-SUPERVISED LEARNING FOR FEW-SHOT IMAGE CLASSIFICATION》
 >
 > 
 
@@ -209,19 +212,30 @@ tags:
 
 ##### Others (BYOL & Swav):
 
-- BYOL
+- **BYOL**
 
   ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/self-supervised/12.png)
 
-  1）BYOL 用到了两个编码器。第二个编码器实际上完全是第一个编码器的副本，但是它不会在每一轮更新权重，而是使用一种滚动均值（rolling average）更新它们。
-
-  2）BYOL 并没有用到负样本，而是依靠滚动权值更新作为一种为训练提供对比信号的方式
+  > 1）BYOL 用到了两个编码器。第二个编码器实际上完全是第一个编码器的副本，但是它不会在每一轮更新权重，而是使用一种滚动均值（rolling average）更新它们。
+  >
+  > 2）BYOL 并没有用到负样本，而是依靠滚动权值更新作为一种为训练提供对比信号的方式
+  >
+  > https://untitled-ai.github.io/understanding-self-supervised-contrastive-learning.html
 
   
 
-- Swav
+- **Swav**
 
-![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/self-supervised/6.gif)
+> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/self-supervised/6.gif)
+>
+> SwAV使用了一个code去表达feature进而来保持一致性，可以看到训练主要包括两部分
+>
+> - z(feature)如何通过c(prototype)映射得到Q(code)
+> - Q如何通过Swapped Prediction完成loss计算
+>
+> https://zhuanlan.zhihu.com/p/162707381
+
+
 
 ##### Experiments
 
