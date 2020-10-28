@@ -117,3 +117,12 @@ sudo dpkg -i xl2tpd_1.1.12-zju2_amd64.deb
 ### 使用方式
 
 连接：`sudo vpn-connect #必须要以root身份运行` 断开：`sudo vpn-connect -d #同上`
+
+
+
+#### 账号查看
+
+```
+cat /etc/xl2tpd/xl2tpd.conf
+```
+
