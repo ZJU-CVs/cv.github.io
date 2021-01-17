@@ -34,7 +34,7 @@ https://blog.csdn.net/WZZ18191171661/article/details/88369667
 >
 >   > (两个输入的网络权重不共享)
 >   >
->   > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/object-tracking/1.png)
+>   > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/object-tracking/1.png" alt="img" style="zoom:33%;" />
 >
 > 
 >
@@ -51,7 +51,10 @@ https://blog.csdn.net/WZZ18191171661/article/details/88369667
 >     > L\left(W, Y, \vec{X}_{1}, \vec{X}_{2}\right)= (1-Y) \frac{1}{2}\left(D_{W}\right)^{2}+(Y) \frac{1}{2}\left\{\max \left(0, m-D_{W}\right)\right\}^{2}
 >     > \end{array}
 >     > $$
->     > 
+>     >
+>     > - $D_W$是$X_1$和$X_2$在隐空间的欧式距离
+>     > - Y为成对标签，若$X_1$和$X_2$为一类则$Y=0$；否则$Y=1$
+>     > - 当两个不同类的$X_1$和$X_2$在隐空间中的距离大于m，则不再做优化
 >
 >   - Triplet Loss
 >
