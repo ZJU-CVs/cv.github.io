@@ -75,16 +75,53 @@ https://blog.csdn.net/WZZ18191171661/article/details/88369667
 
 #### Siam-FC
 
+> 主要构成部分：
+>
+> - 特征提取网络AlexNet
+> - 互相关运算网络
+>
+> 
+>
 > 引入FC (fully-convolutional)的优势：候选图像的尺寸可以大小不同
-
-
+>
+> 
+>
+> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/object-tracking/siam-FC.png)
+>
+> > - 输入为**模板图像z**（大小为127x127x3) + **搜索图像x** (大小为255x255x3)
+> > - 经过特征提取网络 ，论文中采用了较为简单的**AlexNet**，输出为 $\varphi(z)$以及 $\varphi(x)$
+> > - 互相关运算 ![[公式]](https://www.zhihu.com/equation?tex=%2A) （论文中的cross-correlation)，实质上是以$\varphi(x)$为**特征图**，以 $\varphi(z)$ 为**卷积核**进行的**卷积互运算**
+> >   - 输出 score map ，大小为（17x17x1)，score map反映了$\varphi(z)$与$\varphi(x)$中每个对应关系的相似度，相似度越大越有可能是同一个物体
 
 #### Siam-RPN
 
-> 创新1-将RPN的思路应用到跟踪领域中，在提速的同时提升了精度；
-> 创新2-引入1x1卷积层来对网络的通道进行升维处理；
+> Siam-FC存在的问题：
+>
+> - *没有边界框回归，因此需要进行多尺度测试*
+> - *性能（精度和鲁棒性）不及最新的**相关滤波器方法***
+>
+> Siam-RPN的创新：
+>
+> - 将RPN的思路应用到目标跟踪领域中，在提速的同时提升了精度；
+> - 引入1x1卷积层对网络的通道进行升维处理；
+>
+> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/object-tracking/siam-RPN.png)
+>
+> - 特征图会通过一个卷积层进入到两个分支中
+>
+>   - 在Classification Branch中
+>
+>     > `17*17*2k`做的是区分目标和背景，其会被分为k个groups，每个group会有一层正例，一层负例。最后会用`softmax + cross-entropy loss`进行损失计算。
+>
+>   - 在Regression Branch中
+>
+>     > `17*17*4k`同样会被分为k groups，每个group有四层，分别用于预测`dx,dy,dw,dh`
 
-
+​				 `注：k为生成的anchors的数目`
 
 #### Siam-RPN++
+
+> 创新点：**提出了一种打破平移不变性限制的采样策略**
+>
+> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/object-tracking/siam-RPN-pp.png)
 
