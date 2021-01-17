@@ -11,10 +11,6 @@ tags:
     - Overview
 ---
 
-https://blog.csdn.net/WZZ18191171661/article/details/88369667
-
-
-
 ### 1. Background
 
 #### Object Tracking
@@ -59,8 +55,36 @@ https://blog.csdn.net/WZZ18191171661/article/details/88369667
 >   - Triplet Loss
 >
 >     > 《FaceNet: A Unified Embedding for Face Recognition and Clustering》
+>     >
+>     > <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/object-tracking/2.png" alt="img" style="zoom:67%;" />
+>     > $$
+>     > L = \sum_{i}^{N}\left[\left\|f\left(x_{i}^{a}\right)-f\left(x_{i}^{p}\right)\right\|_{2}^{2}-\left\|f\left(x_{i}^{a}\right)-f\left(x_{i}^{n}\right)\right\|_{2}^{2}+\alpha\right]_{+}
+>     > $$
+>     >
+>     > - 最小化锚点和具有相同身份的正样本之间的距离，最大化锚点和具有不同身份的负样本之间的距离
+
+
 
 ### 2. Methods
 
+- 目标跟踪问题
+
+
+
+https://blog.csdn.net/WZZ18191171661/article/details/88369667
+
 #### Siam-FC
+
+> 引入FC (fully-convolutional)的优势：候选图像的尺寸可以大小不同
+
+
+
+#### Siam-RPN
+
+> 创新1-将RPN的思路应用到跟踪领域中，在提速的同时提升了精度；
+> 创新2-引入1x1卷积层来对网络的通道进行升维处理；
+
+
+
+#### Siam-RPN++
 
