@@ -24,6 +24,8 @@ https://blog.csdn.net/WZZ18191171661/article/details/88369667
 #### Siamese Network
 
 > 孪生网络是一种基于度量学习(metric learning)的方法
+>
+> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/object-tracking/siamese-network.png)
 
 ### 2. Methods
 
