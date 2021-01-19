@@ -92,6 +92,13 @@ https://blog.csdn.net/WZZ18191171661/article/details/88369667
 > > - 经过特征提取网络 ，论文中采用了较为简单的**AlexNet**，输出为 $\varphi(z)$以及 $\varphi(x)$
 > > - 互相关运算 ![[公式]](https://www.zhihu.com/equation?tex=%2A) （论文中的cross-correlation)，实质上是以$\varphi(x)$为**特征图**，以 $\varphi(z)$ 为**卷积核**进行的**卷积互运算**
 > >   - 输出 score map ，大小为（17x17x1)，score map反映了$\varphi(z)$与$\varphi(x)$中每个对应关系的相似度，相似度越大越有可能是同一个物体
+>
+> 缺点：
+>
+> - 跟踪对象的外观不是一成不变的，可能会有放大，缩小，变形等等，但是bbox却是一直不变的，这就让跟踪效果不理想
+> - 只把首帧的一个框作为GT，供提取特征的数据过于单一，很容易误检，比如跟踪人时，当多个人出现在画面中时，很容易跟丢
+
+
 
 #### Siam-RPN
 
@@ -115,9 +122,19 @@ https://blog.csdn.net/WZZ18191171661/article/details/88369667
 >
 >   - 在Regression Branch中
 >
->     > `17*17*4k`同样会被分为k groups，每个group有四层，分别用于预测`dx,dy,dw,dh`
-
-​				 `注：k为生成的anchors的数目`
+>     > `17*17*4k`同样会被分为k groups，每个group有四层，分别用于预测`dx,dy,dw,dh`			
+>   
+>    `注：k为生成的anchors的数目`
+>
+> - Training的一些细节
+>
+>   - 在anchor选择上，相比目标检测任务，跟踪任务可以选择少一点的anchor。因为同一个物体在两帧里的形变不大。因此文中选择了一种尺寸的anchor，并设置4种长宽比[0.33, 0.5, 1, 2, 3]
+>
+>   - 正负样本选择：通过设置阈值，比较anchor与GT的IOU，如果超过阈值，判别为正样本，反之为负样本（为了防止正负样本失衡，将正负样本的比例设置为1:3）
+>
+> - Testing
+>
+>   - 
 
 #### Siam-RPN++
 
