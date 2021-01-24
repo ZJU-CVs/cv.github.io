@@ -67,13 +67,11 @@ tags:
 
 ### 2. Methods
 
-- 目标跟踪问题
-
-
+#### Single Object Tracking（SOT）
 
 https://blog.csdn.net/WZZ18191171661/article/details/88369667
 
-#### Siam-FC
+##### Siam-FC
 
 > 主要构成部分：
 >
@@ -91,7 +89,22 @@ https://blog.csdn.net/WZZ18191171661/article/details/88369667
 > > - 输入为**模板图像z**（大小为127x127x3) + **搜索图像x** (大小为255x255x3)
 > > - 经过特征提取网络 ，论文中采用了较为简单的**AlexNet**，输出为 $\varphi(z)$以及 $\varphi(x)$
 > > - 互相关运算 ![[公式]](https://www.zhihu.com/equation?tex=%2A) （论文中的cross-correlation)，实质上是以$\varphi(x)$为**特征图**，以 $\varphi(z)$ 为**卷积核**进行的**卷积互运算**
-> >   - 输出 score map ，大小为（17x17x1)，score map反映了$\varphi(z)$与$\varphi(x)$中每个对应关系的相似度，相似度越大越有可能是同一个物体
+> >   
+> > - 输出 score map ，大小为（17x17x1)，score map反映了$\varphi(z)$与$\varphi(x)$中每个对应关系的相似度，相似度越大越有可能是同一个物体
+> >   
+> > - 损失函数细节：
+> >   $$
+> >   \begin{array}{l}
+> >   \ell(y, v)=\log (1+\exp (-y v)) \\
+> >   L(y, v)=\frac{1}{|\mathcal{D}|} \sum_{u \in \mathcal{D}} \ell(y[u], v[u]) \\
+> >   y[u]=\left\{\begin{array}{ll}
+> >   +1 & \text { if } k\|u-c\| \leq R \\
+> >   -1 & \text { otherwise }
+> >   \end{array}\right.
+> >   \end{array}
+> >   $$
+> >
+> >   - R表示只要在正确的一个半径内，都算预测正确
 >
 > 缺点：
 >
@@ -100,7 +113,7 @@ https://blog.csdn.net/WZZ18191171661/article/details/88369667
 
 
 
-#### Siam-RPN
+##### Siam-RPN
 
 > Siam-FC存在的问题：
 >
@@ -109,6 +122,7 @@ https://blog.csdn.net/WZZ18191171661/article/details/88369667
 >
 > Siam-RPN的创新：
 >
+> - Siam-FC把输出直接用来进行相关滤波（xorr），而Siam-RPN接入的是一个RPN（分类和回归）
 > - 将RPN的思路应用到目标跟踪领域中，在提速的同时提升了精度；
 > - 引入1x1卷积层对网络的通道进行升维处理；
 >
@@ -122,7 +136,7 @@ https://blog.csdn.net/WZZ18191171661/article/details/88369667
 >
 >   - 在Regression Branch中
 >
->     > `17*17*4k`同样会被分为k groups，每个group有四层，分别用于预测`dx,dy,dw,dh`			
+>     > `17*17*4k`同样会被分为k groups，每个group有四层，分别用于预测`dx,dy,dw,dh`（偏移量）			
 >   
 >    `注：k为生成的anchors的数目`
 >
@@ -134,11 +148,32 @@ https://blog.csdn.net/WZZ18191171661/article/details/88369667
 >
 > - Testing
 >
->   - 
+>   > 测试阶段，模版分支的第一帧特征图计算好保存起来，作为RPN中的分类和回归卷积核（视频每次都是对第一帧中的目标框进行跟踪）
+>   >
+>   > - 此时的检测分支变成了一个简单的检测网络，在经过特征提取网络后，分别经过两个卷积层，可以得到网络预测出的所有框及其对应分数。
+>   > - 从中选出分数最高的对应的框，作为最终网络预测的目标位置。
+>
+>   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/object-tracking/3.png" alt="img" style="zoom:67%;" />
+>
+>   **one-shot的体现：**在detection任务重，所有的类别在训练中都出现过多次；但对于跟踪任务，所跟踪的目标在训练集中可能没有见过，只有在推理时才第一次见。
 
-#### Siam-RPN++
+
+
+##### Siam-RPN++
 
 > 创新点：**提出了一种打破平移不变性限制的采样策略**
 >
 > ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/object-tracking/siam-RPN-pp.png)
 
+
+
+#### Multiple Object Tracking（MOT）
+
+- 在单目标跟踪中，目标的出现是预先知道的，而在多目标跟踪中，需要一个检测步骤来识别出进入或离开场景的目标。同时跟踪多个目标的主要困难来自于各种各样的遮挡以及物体之间的相互重叠，有时物体间也会有相似的外观。因此，仅仅使用SOT模型直接解决MOT问题，往往会导致目标漂移和大量的ID切换错误，因为此类模型往往难以区分外观相似的类内物体
+- 单目标跟踪的主流做法基本上是在一个局部小区域上操作，而多目标跟踪是全图操作
+
+- 绝大多数MOT算法主要包括四个步骤：**①检测 ②特征提取、运动预测 ③相似度计算 ④数据关联**
+
+
+
+https://www.bilibili.com/read/cv6731832/
