@@ -44,8 +44,12 @@ tags:
 ##### 目标跟踪算法
 
 > - 经典跟踪算法：光流法、粒子滤波...
+>
 > - 基于核相关滤波的算法
+>
 > - **基于深度学习的算法**
+>
+>   <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/object-tracking/method.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -229,4 +233,28 @@ tags:
 
 #### Methods
 
+(1) 算法一般可以分为四部分构成：
+
+> - Detection stage：检测当前帧中的物体以给出检测对象的bounding boxes。一般可采用Faster R-CNN、SSD、YOLO等检测端。
+> - Feature extraction/motion prediction stage：根据检测端给出的定位框提取特征。
+> - Affinity stage：计算前后帧之间各定位框所框对象之间的相似度。
+> - Association stage：根据相似度矩阵给出当前帧各检测框所对应的ID。
+
+(2) 在计算MOT算法的benchmark时，需要考虑以下信息：
+
+> - 最多跟踪路径（Mostly Tracked）：number of ground-truth trajectories that are correctly tracked in at least 80% of the frames
+> - 最多丢失路径（Mostly Lost）：number of ground-truth trajectories that are correctly tracked in less than 20% of the frames
+> - Fragments：trajectory hypotheses which cover at most 80% of a ground-truth trajectory
+> - False trajectories
+> - ID switches：当对象被正确跟踪，但相应的ID与其他对象错误交换的总次数
+
+(3) benchmark datasets
+
+- **MOT challenge** :行人检测
+- **KITTY** : 行人和车辆检测，moving camera，通过在城市里开车收集
+- **UA-DETRAC**：车辆检测数据集
+
+
+
+**ref：**https://zhuanlan.zhihu.com/p/108670114
 
