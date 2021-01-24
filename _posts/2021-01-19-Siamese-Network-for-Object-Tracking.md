@@ -31,6 +31,8 @@ tags:
 >
 > - **在线跟踪** - 在线跟踪需要实时处理任务，通过过去和现在帧来跟踪未来帧中物体的位置。
 > - **离线跟踪** - 离线跟踪是离线处理任务，可以通过过去、现在和未来的帧来推断物体的位置，因此准确率会在线跟踪高
+>
+> <img src="https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/object-tracking/overview.png" alt="img" style="zoom:33%;" />
 
 ##### 目标跟踪难点
 
@@ -47,7 +49,7 @@ tags:
 
 
 
-#### Siamese Network
+#### Siamese Neural Network (SNN)
 
 > 孪生网络是一种基于度量学习(metric learning)的方法
 >
