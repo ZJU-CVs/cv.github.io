@@ -239,6 +239,8 @@ tags:
 > - Feature extraction/motion prediction stage：根据检测端给出的定位框提取特征。
 > - Affinity stage：计算前后帧之间各定位框所框对象之间的相似度。
 > - Association stage：根据相似度矩阵给出当前帧各检测框所对应的ID。
+>
+> ![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/object-tracking/MOT-pipeline.png)
 
 (2) 在计算MOT算法的benchmark时，需要考虑以下信息：
 
