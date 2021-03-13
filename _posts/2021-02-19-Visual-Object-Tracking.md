@@ -11,3 +11,5 @@ tags:
     - Overview
 ---
 
+![img](https://github.com/ZJU-CVs/zju-cvs.github.io/raw/master/img/object-tracking/VOT.pdf)
+
